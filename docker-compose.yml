@@ -26,7 +26,7 @@ services:
   erpweb:
     build:
       context: ./erpweb
-      dockerfile: Dockerfile
+      dockerfile: ${APP_DOCKERFILE}
     volumes:
       - erpweb_data:/app
       - ./erpweb:/app
