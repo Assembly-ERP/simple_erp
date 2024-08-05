@@ -1,0 +1,6 @@
+<p>Hello,</p>
+<p>You have been invited to join our platform. Click the link below to sign up:</p>
+<p>
+  <%= link_to 'Accept Invitation', new_user_registration_url(invite_token: @invitation.token, email: @invitation.email) %>
+</p>
+<p>Thank you!</p>

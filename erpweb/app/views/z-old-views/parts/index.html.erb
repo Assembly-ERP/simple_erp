@@ -1,0 +1,22 @@
+<h1>Products</h1>
+<%= form_with url: products_path, method: :get, local: true do %>
+  <%= search_field_tag :query, params[:query], placeholder: 'Search Products' %>
+  <%= submit_tag 'Search' %>
+<% end %>
+
+<h1>Parts</h1>
+<ul>
+  <% @parts.each do |part| %>
+    <li>
+      <%= link_to part.name, part_path(part) %>
+      <% if user_signed_in? %>
+        <p>Price: <%= part.price %></p>
+        <% if current_user.customer? && current_user.customer.discount.present? %>
+          <p>Discounted Price: <%= part.price * (1 - current_user.customer.discount / 100.0) %></p>
+        <% end %>
+      <% else %>
+        <p>Login to see prices</p>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

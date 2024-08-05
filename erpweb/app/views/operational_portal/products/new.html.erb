@@ -1,0 +1,145 @@
+<!-- app/views/operational_portal/products/new.html.erb -->
+<div class="container">
+<h1>New Product</h1>
+<%= form_with(model: @product, local: true, url: operational_portal_products_path) do |form| %>
+    <% if @product.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@product.errors.count, "error") %> prohibited this product from being saved:</h2>
+        <ul>
+          <% @product.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+  
+    <div class="field">
+      <%= form.label :name %> <span class="required">*</span>
+      <%= form.text_field :name, required: true %>
+    </div>
+  
+    <div class="field">
+      <%= form.label :description %> <span class="required">*</span>
+      <%= form.text_area :description, required: true %>
+    </div>
+  
+    <div class="field">
+      <%= form.label :parts %>
+      <input type="text" id="part_search" placeholder="Search parts...">
+      <ul id="part_results"></ul>
+      <div class="selected-parts">
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Weight</th>
+              <th>Quantity</th>
+              <th>Description</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="selected_parts_list">
+          </tbody>
+        </table>
+      </div>
+    </div>
+  
+    <div class="field">
+      <%= form.label :price %>
+      <%= number_to_currency(@product.price || 0.00) %>
+    </div>
+  
+    <div>
+    <%= form.submit "Save Product", class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+
+  <%= link_to 'Back', operational_portal_catalog_path, class: 'btn btn-secondary' %>
+  
+
+</div>
+  
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const partSearch = document.getElementById('part_search');
+    const partResults = document.getElementById('part_results');
+    const selectedPartsList = document.getElementById('selected_parts_list');
+    const form = document.querySelector('form');
+    let totalPrice = 0;
+
+    partSearch.addEventListener('input', () => {
+      const query = partSearch.value.toLowerCase();
+
+      fetch(`/operational_portal/products/search_parts?q=${query}`)
+        .then(response => response.json())
+        .then(parts => {
+          partResults.innerHTML = '';
+          parts.forEach(part => {
+            const li = document.createElement('li');
+            li.textContent = `${part.name} - $${part.price}`;
+            li.dataset.id = part.id;
+            li.dataset.price = part.price;
+            li.addEventListener('click', () => {
+              // Add selected part to the form
+              const hiddenField = document.createElement('input');
+              hiddenField.type = 'hidden';
+              hiddenField.name = `product[part_quantities][${part.id}]`;
+              hiddenField.value = 1;
+              form.appendChild(hiddenField);
+
+              const tr = document.createElement('tr');
+              tr.innerHTML = `
+                <td>${part.name}</td>
+                <td>${part.weight}</td>
+                <td><input type="number" name="product[part_quantities][${part.id}]" value="1" min="1" required class="part-quantity" data-price="${part.price}" /></td>
+                <td>${part.description}</td>
+                <td><button type="button" class="remove-part">Remove</button></td>
+              `;
+              selectedPartsList.appendChild(tr);
+
+              // Update the total price
+              totalPrice += parseFloat(part.price);
+              document.querySelector('[name="product[price]"]').value = totalPrice.toFixed(2);
+
+              partResults.innerHTML = '';
+              partSearch.value = '';
+            });
+            partResults.appendChild(li);
+          });
+        });
+    });
+
+    selectedPartsList.addEventListener('input', (event) => {
+      if (event.target.classList.contains('part-quantity')) {
+        const pricePerUnit = parseFloat(event.target.dataset.price);
+        const quantity = parseInt(event.target.value, 10);
+
+        if (quantity < 1) {
+          event.target.setCustomValidity('Must add 1 or remove');
+          
+        } else {
+          event.target.setCustomValidity('');
+        }
+        totalPrice = Array.from(document.querySelectorAll('.part-quantity')).reduce((sum, input) => {
+          return sum + (parseFloat(input.dataset.price) * parseInt(input.value, 10));
+        }, 0);
+        document.querySelector('[name="product[price]"]').value = totalPrice.toFixed(2);
+      }
+    });
+
+    selectedPartsList.addEventListener('click', (event) => {
+      if (event.target.classList.contains('remove-part')) {
+        const tr = event.target.closest('tr');
+        const pricePerUnit = parseFloat(tr.querySelector('.part-quantity').dataset.price);
+        const quantity = parseInt(tr.querySelector('.part-quantity').value, 10);
+        totalPrice -= (pricePerUnit * quantity);
+        document.querySelector('[name="product[price]"]').value = totalPrice.toFixed(2);
+        tr.remove();
+      }
+    });
+  });
+</script>
+
+
+
+

@@ -1,0 +1,356 @@
+/* app/assets/stylesheets/custom.scss */
+
+/* Basic reset */
+body, h1, h2, h3, p, ul, li, form {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f9f9f9;
+  color: #333;
+}
+
+.container {
+  width: 80%;
+  margin: 0 auto;
+  padding: 10px;
+  text-align: center;
+}
+
+.container_wide {
+  width: 90%;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333;
+  color: white;
+  padding: 10px;
+}
+
+header nav .nav-left {
+  display: flex;
+  align-items: center;
+}
+
+header nav a {
+  color: white;
+  text-decoration: none;
+  margin-right: 10px;
+}
+
+header nav a:hover {
+  text-decoration: underline;
+}
+
+header form {
+  display: flex;
+}
+
+header form input[type="search"] {
+  padding: 5px;
+  margin-right: 5px;
+}
+
+// header form input[type="submit"] {
+//   // padding: 5px 10px;
+// }
+
+h1, h2 {
+  margin-bottom: 10px;
+}
+
+ul.list-group {
+  padding: 0;
+}
+
+ul.list-group li {
+  padding: 10px;
+  border: 1px solid #ddd;
+  margin-bottom: 5px;
+  background-color: white;
+}
+
+ul.list-group li a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+ul.list-group li a:hover {
+  text-decoration: underline;
+}
+
+button, input[type="submit"] {
+  // padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+button:hover, input[type="submit"]:hover {
+  background-color: #0056b3;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background-color: #333;
+  color: white;
+  padding: 10px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: #555;
+}
+
+#customer-list {
+  position: absolute;
+  background: white;
+  border: 1px solid #ccc;
+  width: 100%;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 1000;
+  list-style-type: none;
+  padding: 0;
+}
+
+#customer-list li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+#customer-list li:hover {
+  background-color: #f0f0f0;
+}
+
+.actions {
+  text-align: right;
+  margin-bottom: 20px;
+  .btn + .btn {
+    margin-left: 10px;
+  }
+}
+
+.btn {
+  display: inline-block;
+  font-weight: 400;
+  color: #212529;
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: transparent;
+  //border: 1px solid transparent;
+  border-color: #6c757d;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.btn-primary {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.btn-primary:hover {
+  color: #fff;
+  background-color: #0056b3;
+  border-color: #004085;
+}
+
+.btn-primary:focus, .btn-primary.focus {
+  outline: 0;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.5);
+}
+
+.btn-primary.disabled, .btn-primary:disabled {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+}
+
+.btn-secondary {
+  color: #6c757d;
+  background-color: #fff;
+  border-color: #6c757d;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+
+.btn-secondary:hover {
+  color: #fff;
+  background-color: #6c757d;
+  border-color: #6c757d;
+ }
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px; /* Adds spacing between rows */
+  background-color: #f5f5f5; /* Slightly darker background for the table */
+}
+
+.order-row {
+  background-color: #ffffff; /* White background for rows */
+  border: 1px solid #ddd;
+  border-radius: 5px; /* Adds rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adds subtle shadow for framing */
+}
+
+.order-row td {
+  padding: 15px;
+  border-right: 1px solid #ddd; /* Adds border between columns */
+}
+
+.order-row td:last-child {
+  border-right: none; /* Removes the border from the last column */
+}
+
+.order-row td:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.order-row td:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
+
+.order-row td.numeric {
+  text-align: right; /* Right-aligns numeric values */
+}
+
+.field {
+  margin-bottom: 15px;
+}
+
+#part_results {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  border: 1px solid #ddd;
+  max-height: 150px;
+  overflow-y: auto;
+}
+
+#part_results li {
+  padding: 10px;
+  cursor: pointer;
+}
+
+#part_results li:hover {
+  background-color: #f0f0f0;
+}
+
+.selected-parts div {
+  display: block;
+  padding: 5px;
+  background-color: #007bff;
+  color: white;
+  border-radius: 5px;
+  margin: 5px 0;
+}
+
+.toggle-label {
+  margin-right: 10px; /* Add space between the text label and the toggle */
+  display: inline-block;
+  position: relative;
+}
+
+.toggle-checkbox {
+  display: none;
+}
+
+.toggle-checkbox + .toggle-switch {
+  display: inline-block;
+  position: relative;
+  width: 45px;
+  height: 20px;
+  background-color: #ccc;
+  border-radius: 30px;
+  cursor: pointer;
+  margin-left: 10px; /* Adjust this value to move the toggle switch to the right */
+}
+
+.toggle-checkbox + .toggle-switch:before {
+  content: '';
+  position: absolute;
+  top: 3px;
+  left: 5px;
+  width: 15px;
+  height: 15px;
+  background-color: white; 
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.toggle-checkbox:checked + .toggle-switch {
+  background-color: #007bff;
+}
+
+.toggle-checkbox:checked + .toggle-switch:before {
+  transform: translateX(20px);
+}
+
+.manual-edit-field {
+  display: none;
+}
+
+.toggle-checkbox:checked ~ .swap-fields .readonly-field {
+  display: none;
+}
+
+.toggle-checkbox:checked ~ .swap-fields .manual-edit-field {
+  display: block;
+}
+
+input[readonly] {
+  cursor: not-allowed; /* Not allowed cursor */
+}

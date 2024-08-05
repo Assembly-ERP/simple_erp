@@ -1,0 +1,65 @@
+<div class="container">
+  <h1>Customer Dashboard</h1>
+  <p>Welcome, <%= current_user.name %>!</p>
+
+  <h2>Your Orders</h2>
+  <ul id="orders-list">
+    <!-- Orders will be populated here by the script -->
+  </ul>
+
+  <h2>Your Support Tickets</h2>
+  <ul id="tickets-list">
+    <!-- Support tickets will be populated here by the script -->
+  </ul>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const jwsToken = '<%= @jws_token %>';
+
+    // Fetch Orders
+    axios.get('/api/v1/orders', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwsToken}`
+      }
+    })
+    .then(response => {
+      const ordersList = document.getElementById('orders-list');
+      const data = response.data;
+      if (data.length > 0) {
+        data.forEach(order => {
+          const li = document.createElement('li');
+          li.innerHTML = `Order #${order.id} - ${order.status}`;
+          ordersList.appendChild(li);
+        });
+      } else {
+        ordersList.innerHTML = '<li>No orders found</li>';
+      }
+    })
+    .catch(error => console.error('Error fetching orders:', error));
+
+    // Fetch Support Tickets
+    axios.get('/api/v1/support_tickets', {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${jwsToken}`
+      }
+    })
+    .then(response => {
+      const ticketsList = document.getElementById('tickets-list');
+      const data = response.data;
+      if (data.length > 0) {
+        data.forEach(ticket => {
+          const li = document.createElement('li');
+          li.innerHTML = `Ticket: ${ticket.title} - ${ticket.status}`;
+          ticketsList.appendChild(li);
+        });
+      } else {
+        ticketsList.innerHTML = '<li>No support tickets found</li>';
+      }
+    })
+    .catch(error => console.error('Error fetching support tickets:', error));
+  });
+</script>

@@ -1,0 +1,13 @@
+<!-- app/views/webhooks/show.html.erb -->
+<h1>Webhook Details</h1>
+<p>
+  <strong>URL:</strong>
+  <%= @webhook.url %>
+</p>
+<p>
+  <strong>Customer:</strong>
+  <%= @webhook.customer.name %>
+</p>
+
+<%= link_to 'Edit', edit_webhook_path(@webhook) %> |
+<%= link_to 'Back to List', webhooks_path %>

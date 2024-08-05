@@ -1,0 +1,21 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>URL</th>
+      <th>Customer</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @webhooks.each do |webhook| %>
+      <tr>
+        <td><%= webhook.url %></td>
+        <td><%= webhook.customer.name %></td>
+        <td>
+          <%= link_to 'Edit', edit_webhook_path(webhook), remote: true %>
+          <%= link_to 'Delete', webhook, method: :delete, data: { confirm: 'Are you sure?' }, remote: true %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

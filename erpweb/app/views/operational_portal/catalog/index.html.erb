@@ -1,0 +1,58 @@
+<!-- app/views/operational_portal/catalog/index.html.erb -->
+<div class="container">
+<h1>Catalog</h1>
+</div>
+<div class="container_wide">
+
+<h2 class="mt-4">Products</h2>
+<div class="actions">
+<%= link_to 'New Product', new_operational_portal_product_path, class: 'btn btn-primary' %>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @products.each do |product| %>
+      <tr>
+        <td><%= link_to product.name, operational_portal_product_path(product) %></td>
+        <td><%= number_to_currency(product.price, unit: "$", precision: 2) %></td>
+        <td><%= product.description %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<h2 class="mt-4">Parts</h2>
+<div class="actions">
+<%= link_to 'New Part', new_operational_portal_part_path, class: 'btn btn-primary' %>
+</div>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>In Stock</th>
+      <th>Description</th>
+      <th>Weight</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @parts.each do |part| %>
+      <tr>
+        <td><%= link_to part.name, operational_portal_part_path(part) %></td>
+        <td><%= number_to_currency(part.price, unit: "$", precision: 2) %></td>
+        <td>
+        <% if part.inventory %><%= part.in_stock %><% end %></td>
+        <td><%= part.description %></td>
+        <td><%= part.weight %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

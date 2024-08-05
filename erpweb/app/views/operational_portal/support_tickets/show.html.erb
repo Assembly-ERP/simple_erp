@@ -1,0 +1,81 @@
+<!-- app/views/operational_portal/support_tickets/show.html.erb -->
+<h1>Support Ticket Details</h1>
+
+<p><strong>Ticket ID:</strong> <%= @support_ticket.id %></p>
+<p><strong>Title:</strong> <%= @support_ticket.title %></p>
+<p><strong>Status:</strong> <%= @support_ticket.status %></p>
+<p><strong>Created At:</strong> <%= @support_ticket.created_at.strftime("%B %d, %Y %H:%M") %></p>
+
+<h2>Messages</h2>
+<ul>
+  <% if @support_ticket.support_ticket_messages.any? %>
+    <% @support_ticket.support_ticket_messages.each do |support_ticket_message| %>
+      <li style="margin-bottom: 10px; margin-top: 1em;">
+        <strong>Message Added:</strong> <%= support_ticket_message.created_at.strftime("%B %d, %Y %H:%M") %>
+        <div>
+          <strong>Message:</strong> <%= support_ticket_message.body %>
+        </div>
+        <% support_ticket_message.files.each do |file| %>
+          <div>
+          <li style="margin-top: 10px" >
+            <strong>File:</strong> <%= file.filename.to_s %>
+           <div> 
+            </li>
+          <% if file.content_type.start_with?('image') %>
+            <div class="image-preview">
+              <%= image_tag url_for(file.variant(resize_to_limit: [100, 100])), style: "width: 20vw; cursor: pointer;", onclick: "openModal('#{url_for(file)}')" %>
+            </div>
+            <% else %>
+               <li style="margin-bottom: 5px; display: flex; flex-direction: column; align-items: left;">
+                  <%= link_to "Preview", url_for(file), target: "_blank", onclick: "previewFile(event, '#{url_for(file)}', '#{file.content_type}')" %>
+                </li>
+              <% end %>
+        <%= link_to "Download", rails_blob_path(file, disposition: "attachment") %>
+        </div>
+       </div>
+        <% end %>
+      </li>
+    <% end %>
+  <% else %>
+    <li>No messages found.</li>
+  <% end %>
+</ul>
+
+<hr style="margin: 2em 0;">
+
+<% if current_user.role == 'admin' || current_user.role == 'manager' %>
+  <h3>Add a New Message</h3>
+  <%= form_with model: [@support_ticket, SupportTicketMessage.new], url: add_message_operational_portal_support_ticket_path(@support_ticket), local: true, html: { multipart: true } do |form| %>
+    <div class="field">
+      <%= form.label :body, "Message" %>
+      <%= form.text_area :body %>
+    </div>
+    <div class="field">
+      <%= form.label :files, "Files" %>
+      <%= form.file_field :files, multiple: true %>
+    </div>
+    <div>
+      <%= form.submit "Add Message", class: "btn btn-primary" %>
+    </div>
+  <% end %>
+<% end %>
+
+<%= link_to 'Back to Tickets', operational_portal_support_tickets_path, class: 'btn btn-secondary' %>
+
+
+<!-- Modal Structure for Images -->
+<div id="imageModal" class="modal">
+  <span class="close" onclick="closeModal()">&times;</span>
+ <div id="spinner" class="spinner"></div>
+  <img class="image-modal" id="modalImage">
+  <div id="caption"></div>
+</div> 
+ 
+<!-- Modal for file preview -->
+<div id="fileModal" class="modal">
+  <span class="close" onclick="closeFileModal()">&times;</span>
+ <div id="fileSpinner" class="spinner"></div>
+  <iframe class="preview-modal" id="modalFile"></iframe>
+  <div id="fileCaption"></div> 
+</div> 
+<%= javascript_include_tag 'preview' %>

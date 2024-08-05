@@ -1,0 +1,35 @@
+<!-- app/views/operational_portal/users/index.html.erb -->
+<div class="container">
+  <h1>Manage Users</h1>
+  <div class="actions">
+  <%= link_to 'New User', new_operational_portal_user_path, class: 'btn btn-primary' %>
+  </div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>User Email</th>
+      <th>Name</th>
+      <th>Action</th>
+      </tr>
+  </thead>
+  <tbody>
+    <% if @users.present? %>
+      <% @users.each do |user| %>
+        <tr class="order-row">
+          <td><%= link_to user.email, operational_portal_user_path(user) %></td>
+          <td><%= user.name %></td>
+          <td>
+          <%= link_to 'Edit', edit_operational_portal_user_path(user) %>
+          <%= link_to 'Delete', operational_portal_user_path(user), method: :delete, data: { confirm: 'Are you sure?' } %>
+          </td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="5">No Users found</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

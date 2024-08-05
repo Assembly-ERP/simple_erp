@@ -1,0 +1,2 @@
+module OperationalUsers::RegistrationsHelper
+end

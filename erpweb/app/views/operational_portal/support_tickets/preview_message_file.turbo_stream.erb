@@ -1,0 +1,6 @@
+<!-- app/views/operational_portal/support_tickets/preview_message_file.turbo_stream.erb -->
+<%= turbo_stream.replace "preview-frame" do %>
+  <div class="file-preview">
+    <%= render partial: "preview_file", locals: { file: @file } %>
+  </div>
+<% end %>

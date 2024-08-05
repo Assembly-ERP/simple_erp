@@ -1,0 +1,80 @@
+<!-- app/views/operational_portal/support_tickets/new.html.erb -->
+<div class="container">
+<h1>New Support Ticket</h1>
+
+<%= form_with(model: @support_ticket, local: true, url: operational_portal_support_tickets_path) do |form| %>
+  <% if @support_ticket.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@support_ticket.errors.count, "error") %> prohibited this support ticket from being saved:</h2>
+      <ul>
+        <% @support_ticket.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= form.label :issue_description %>
+    <%= form.text_area :issue_description %>
+  </div>
+
+  <div class="field">
+    <%= form.label :status %>
+    <%= form.select :status, SupportTicket.statuses.keys.map { |status| [status.titleize, status] } %>
+  </div>
+
+  <div class="field">
+      <%= form.label :customer_id, "Customer" %>
+      <%= form.collection_select :customer_id, @customers, :id, :name, {}, { onchange: "fetchCustomerUsers()" } %>
+    </div>
+
+    <div class="field">
+      <%= form.label :user_id, "Assign to Customer User" %>
+      <%= form.collection_select :user_id, [], :id, :name, include_blank: "None" %>
+      <div id="user-loading-indicator" style="display: none;">Loading...</div>
+    </div>
+
+    <div>
+      <%= form.submit "New Ticket", class: "btn btn-primary" %>
+      <%= link_to 'Back', operational_portal_support_tickets_path, class: "btn btn-secondary" %>
+    </div>
+  <% end %>
+</div>
+
+<script>
+  function fetchCustomerUsers() {
+    const customerId = document.querySelector('[name="support_ticket[customer_id]"]').value;
+    const userSelect = document.querySelector('[name="support_ticket[user_id]"]');
+    const loadingIndicator = document.getElementById('user-loading-indicator');
+
+    // Clear existing options and show loading indicator
+    userSelect.innerHTML = '<option value="">None</option>';
+    loadingIndicator.style.display = 'block';
+
+    fetch(`/operational_portal/support_tickets/customer_users?customer_id=${customerId}`)
+      .then(response => response.json())
+      .then(data => {
+        // Hide loading indicator
+        loadingIndicator.style.display = 'none';
+
+        // Populate the user select options
+        data.forEach(user => {
+          const option = document.createElement('option');
+          option.value = user.id;
+          option.textContent = user.name;
+          userSelect.appendChild(option);
+        });
+      })
+      .catch(error => {
+        // Hide loading indicator and log error
+        loadingIndicator.style.display = 'none';
+        console.error('Error fetching customer users:', error);
+      });
+  }
+</script>

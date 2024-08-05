@@ -1,0 +1,18 @@
+<!-- app/views/customer_portal/orders/show.html.erb -->
+<h1>Order Details</h1>
+
+<p><strong>Order ID:</strong> <%= @order.id %></p>
+<p><strong>Status:</strong> <%= @order.status %></p>
+<p><strong>Order Date:</strong> <%= @order.created_at.to_s(:long) %></p>
+
+<h2>Items</h2>
+<ul>
+  <% @order.order_items.each do |item| %>
+    <li>
+      <strong>Item:</strong> <%= item.product ? item.product.name : item.part.name %>
+      <strong>Quantity:</strong> <%= item.quantity %>
+    </li>
+  <% end %>
+</ul>
+
+<%= link_to 'Back to Orders', customer_portal_orders_path %>

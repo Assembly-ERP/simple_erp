@@ -1,0 +1,236 @@
++---erpweb
+ª   ª   .dockerignore
+ª   ª   .gitattributes
+ª   ª   .gitignore
+ª   ª   .rspec
+ª   ª   .ruby-version
+ª   ª   config.ru
+ª   ª   Dockerfile
+ª   ª   encrypt_credentials.rb
+ª   ª   entrypoint.sh
+ª   ª   favicon.ico
+ª   ª   Gemfile
+ª   ª   Gemfile.lock
+ª   ª   Rakefile
+ª   ª   README.md
+ª   ª   start
+ª   ª   
+ª   +---app
+ª   ª   +---assets
+ª   ª   ª   +---config
+ª   ª   ª   ª       manifest.js
+ª   ª   ª   ª       
+ª   ª   ª   +---images
+ª   ª   ª   ª       .keep
+ª   ª   ª   ª       favicon.ico
+ª   ª   ª   ª       
+ª   ª   ª   +---stylesheets
+ª   ª   ª           app-styles.scss
+ª   ª   ª           custom.scss
+ª   ª   ª           logout_confirmation.scss
+ª   ª   ª           order_show.scss
+ª   ª   ª           preview-styles.scss
+ª   ª   ª           
+ª   ª   +---javascript
+ª   ª   ª   ª   apiConfig.js
+ª   ª   ª   ª   application.js
+ª   ª   ª   ª   axiosHelper.js
+ª   ª   ª   ª   axiosLocal.js
+ª   ª   ª   ª   customer_search.js
+ª   ª   ª   ª   customer_user_form.js
+ª   ª   ª   ª   exampleAxiosRequest.js
+ª   ª   ª   ª   local_time.js
+ª   ª   ª   ª   orders.js
+ª   ª   ª   ª   preview.js
+ª   ª   ª   ª   
+ª   ª   ª   +---channels
+ª   ª   ª   ª       consumer.js
+ª   ª   ª   ª       customer_channel.js
+ª   ª   ª   ª       index.js
+ª   ª   ª   ª       
+ª   ª   ª   +---controllers
+ª   ª   ª           hello_controller.js
+ª   ª   ª           index.js
+ª   ª   ª           modal_controller.js
+ª   ª   ª           order_status_controller.js
+ª   ª   ª           
+ª   ª   +---views
+ª   ª       +---1operational_users
+ª   ª       ª   +---registrations
+ª   ª       +---carts
+ª   ª       ª       show.html.erb
+ª   ª       ª       
+ª   ª       +---customer_portal
+ª   ª       ª   +---dashboard
+ª   ª       ª   ª       index.html.erb
+ª   ª       ª   ª       
+ª   ª       ª   +---orders
+ª   ª       ª   ª       index.html.erb
+ª   ª       ª   ª       new.html.erb
+ª   ª       ª   ª       show.html.erb
+ª   ª       ª   ª       
+ª   ª       ª   +---profiles
+ª   ª       ª   ª       edit.html.erb
+ª   ª       ª   ª       show.html.erb
+ª   ª       ª   ª       
+ª   ª       ª   +---support_tickets
+ª   ª       ª           edit.html.erb
+ª   ª       ª           index.html.erb
+ª   ª       ª           new.html.erb
+ª   ª       ª           show.html.erb
+ª   ª       ª           
+ª   ª       +---customer_users
+ª   ª       ª   +---registrations
+ª   ª       ª       
+ª   ª       +---devise
+ª   ª       ª   +---confirmations
+ª   ª       ª   ª       new.html.erb
+ª   ª       ª   ª       
+ª   ª       ª   +---mailer
+ª   ª       ª   ª       confirmation_instructions.html.erb
+ª   ª       ª   ª       email_changed.html.erb
+ª   ª       ª   ª       password_change.html.erb
+ª   ª       ª   ª       reset_password_instructions.html.erb
+ª   ª       ª   ª       unlock_instructions.html.erb
+ª   ª       ª   ª       
+ª   ª       ª   +---passwords
+ª   ª       ª   ª       edit.html.erb
+ª   ª       ª   ª       new.html.erb
+ª   ª       ª   ª       
+ª   ª       ª   +---registrations
+ª   ª       ª   ª       edit.html.erb
+ª   ª       ª   ª       edit.html.erb.erb
+ª   ª       ª   ª       new.html.erb
+ª   ª       ª   ª       new.html.erb.erb
+ª   ª       ª   ª       
+ª   ª       ª   +---sessions
+ª   ª       ª   ª       new.html.erb
+ª   ª       ª   ª       
+ª   ª       ª   +---shared
+ª   ª       ª   ª       _error_messages.html.erb
+ª   ª       ª   ª       _links.html.erb
+ª   ª       ª   ª       
+ª   ª       ª   +---unlocks
+ª   ª       ª           new.html.erb
+ª   ª       ª           
+ª   ª       +---home
+ª   ª       ª       index.html.erb
+ª   ª       ª       
+ª   ª       +---invitations
+ª   ª       ª       create.html.erb
+ª   ª       ª       new.html.erb
+ª   ª       ª       
+ª   ª       +---invitation_mailer
+ª   ª       ª       invite_user.html.erb.erb
+ª   ª       ª       
+ª   ª       +---layouts
+ª   ª       ª   ª   application.html.erb
+ª   ª       ª   ª   mailer.html.erb
+ª   ª       ª   ª   mailer.text.erb
+ª   ª       ª   ª   
+ª   ª       ª   +---turbo_rails
+ª   ª       ª           frame.html.erb
+ª   ª       ª           
+ª   ª       +---operational_portal
+ª   ª       ª   +---catalog
+ª   ª       ª   ª       index.html.erb
+ª   ª       ª   ª       
+ª   ª       ª   +---customers
+ª   ª       ª   ª       edit.html.erb
+ª   ª       ª   ª       index.html.erb
+ª   ª       ª   ª       new.html.erb
+ª   ª       ª   ª       show.html.erb
+ª   ª       ª   ª       
+ª   ª       ª   +---dashboard
+ª   ª       ª   ª       index.html.erb
+ª   ª       ª   ª       
+ª   ª       ª   +---orders
+ª   ª       ª   ª       edit.html.erb
+ª   ª       ª   ª       index.html.erb
+ª   ª       ª   ª       new.html.erb
+ª   ª       ª   ª       show.html.erb
+ª   ª       ª   ª       
+ª   ª       ª   +---parts
+ª   ª       ª   ª       edit.html.erb
+ª   ª       ª   ª       new.html.erb
+ª   ª       ª   ª       show.html.erb
+ª   ª       ª   ª       
+ª   ª       ª   +---products
+ª   ª       ª   ª       edit.html.erb
+ª   ª       ª   ª       new.html.erb
+ª   ª       ª   ª       show.html.erb
+ª   ª       ª   ª       
+ª   ª       ª   +---profiles
+ª   ª       ª   ª       edit.html.erb
+ª   ª       ª   ª       show.html.erb
+ª   ª       ª   ª       
+ª   ª       ª   +---settings
+ª   ª       ª   ª       edit.html.erb
+ª   ª       ª   ª       index.html.erb
+ª   ª       ª   ª       
+ª   ª       ª   +---support_tickets
+ª   ª       ª   ª       edit.html.erb
+ª   ª       ª   ª       index.html.erb
+ª   ª       ª   ª       new.html.erb
+ª   ª       ª   ª       preview_message_file.html.erb
+ª   ª       ª   ª       preview_message_file.turbo_stream.erb
+ª   ª       ª   ª       show.html.erb
+ª   ª       ª   ª       _preview_file.html.erb
+ª   ª       ª   ª       _turbo-frame-bad_show.html.erb
+ª   ª       ª   ª       
+ª   ª       ª   +---users
+ª   ª       ª           edit.html.erb
+ª   ª       ª           index.html.erb
+ª   ª       ª           new.html.erb
+ª   ª       ª           show.html.erb
+ª   ª       ª           
+ª   ª       +---profiles
+ª   ª       ª       edit.html.erb
+ª   ª       ª       show.html.erb
+ª   ª       ª       
+ª   ª       ª       
+ª   ª       +---webhooks
+ª   ª               create.js.erb.erb
+ª   ª               destroy.js.erb.erb
+ª   ª               edit.html.erb.erb
+ª   ª               index.html.erb
+ª   ª               index.html.erb.erb
+ª   ª               new.html.erb.erb
+ª   ª               show.html.erb.erb
+ª   ª               update.js.erb.erb
+ª   ª               _form.html.erb.erb
+ª   ª               _webhook.html.erb.erb
+ª   ª               _webhook_list_html.erb.erb
+ª   ª               
+ª   +---config
+ª   ª   ª   application.rb
+ª   ª   ª   boot.rb
+ª   ª   ª   cable.yml
+ª   ª   ª   credentials.yml
+ª   ª   ª   database.yml
+ª   ª   ª   development.sphinx.conf.bak
+ª   ª   ª   environment.rb
+ª   ª   ª   importmap.rb
+ª   ª   ª   master.key.bak
+ª   ª   ª   puma.rb
+ª   ª   ª   routes.rb
+ª   ª   ª   storage.yml
+ª   ª   ª   
+ª   ª   +---environments
+ª   ª   ª       development.rb
+ª   ª   ª       production.rb
+ª   ª   ª       test.rb
+ª   ª   ª       
+ª   ª   +---initializers
+ª   ª   ª       assets.rb
+ª   ª   ª       content_security_policy.rb
+ª   ª   ª       devise.rb
+ª   ª   ª       filter_parameter_logging.rb
+ª   ª   ª       inflections.rb
+ª   ª   ª       permissions_policy.rb
+ª   ª   ª       secure_headers.rb
+ª   ª   ª       
+ª   ª   +---locales
+ª   ª           devise.en.yml
+ª   ª           en.yml
+ª   ª           

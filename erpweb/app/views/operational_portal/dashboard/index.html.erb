@@ -1,0 +1,63 @@
+<!-- app/views/operational_portal/dashboard/index.html.erb -->
+<h1>Operational Dashboard</h1>
+
+<p>Welcome, <%= current_user.name %>!</p>
+
+<h2 class="mt-4">All Orders</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Customer Name</th>
+      <th>Status</th>
+      <th class="numeric">Total Amount</th>
+      <th>Created Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @orders.present? %>
+      <% @orders.each do |order| %>
+        <tr class="order-row">
+          <td><%= link_to "Order ##{order.id}", operational_portal_order_path(order) %></td>
+          <td><%= order.customer.name %></td>
+          <td><%= order.status %></td>
+          <td class="numeric"><%= order.total_amount %></td>
+          <td class="local-time" data-time="<%= order.created_at %>"><%= order.created_at %></td>
+       </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="6">No orders found</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<h2 class="mt-4">Support Tickets</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th>Ticket Title</th>
+      <th>Customer Name</th>
+      <th>Status</th>
+      <th>Created Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% if @support_tickets.present? %>
+      <% @support_tickets.each do |ticket| %>
+        <tr class="order-row">
+          <td><%= link_to ticket.title, operational_portal_support_ticket_path(ticket) %></td>
+          <td><%= ticket.customer.name %></td>
+          <td><%= ticket.status %></td>
+          <td class="local-time" data-time="<%= ticket.created_at %>"><%= ticket.created_at %></td>
+        </tr>
+      <% end %>
+    <% else %>
+      <tr>
+        <td colspan="5">No Support Tickets found</td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
