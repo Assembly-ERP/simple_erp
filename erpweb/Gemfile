@@ -25,6 +25,9 @@ gem 'sass-rails', '>= 6'
 # Use JavaScript with ESM import maps [https://github.com/rails/importmap-rails]
 gem 'importmap-rails'
 
+# Use Tailwind CSS [https://github.com/rails/tailwindcss-rails]
+gem 'tailwindcss-rails'
+
 # draper
 gem 'draper'
 
@@ -148,5 +151,3 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
-
-gem "tailwindcss-rails", "~> 2.6"
