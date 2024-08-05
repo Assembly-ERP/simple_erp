@@ -6,13 +6,12 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <%# <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag "app-styles", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <%= favicon_link_tag 'favicon.ico' %>
-    
 </head>
 <body>
-
   <header>
     <nav>
       <div class="nav-left">
@@ -52,11 +51,9 @@
       </div>
     </nav>
   </header>
-
   <main>
-  <%= turbo_frame_tag "nav_warning" %>
-  <%= yield %>
+    <%= turbo_frame_tag "nav_warning" %>
+    <%= yield %>
   </main>
-
 </body>
 </html>

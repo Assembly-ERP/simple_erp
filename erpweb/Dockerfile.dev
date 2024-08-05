@@ -44,7 +44,6 @@ RUN bundle install
 # Precompile assets
 RUN bundle exec rails assets:precompile
 
-
 # Copy the rest of the application code
 COPY . /app
 
@@ -57,4 +56,6 @@ RUN chmod +x /usr/bin/entrypoint.sh
 
 # Start the Rails server
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]
-CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
+CMD ["bin/dev]
+
+
