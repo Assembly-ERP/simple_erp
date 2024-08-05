@@ -26,7 +26,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
   }
 
-  
   const closeButtons = document.querySelectorAll('.close');
   closeButtons.forEach(button => {
     button.addEventListener('click', function() {
@@ -69,7 +68,7 @@ export function closeModal() {
   }
 }
 
-export function previewFile(event, fileUrl, contentType) {
+export function previewFile(event, fileUrl, _contentType) {
   event.preventDefault();
   const modal = document.getElementById("fileModal");
   const modalFile = document.getElementById("modalFile");
@@ -85,13 +84,6 @@ export function previewFile(event, fileUrl, contentType) {
   };
 
   modalFile.src = fileUrl;
-}
-
-export function closeModal() {
-  const modal = document.getElementById("imageModal");
-  if (modal) {
-    modal.style.display = "none";
-  }
 }
 
 export function closeFileModal() {
