@@ -10,6 +10,15 @@
     = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload"
     = javascript_importmap_tags
     = favicon_link_tag 'favicon.ico'
+    :css
+      :root {
+        --primary: #214290;
+        --primary-text: #fff;
+        --secondary: #747474;
+        --secondary-text: #fff;
+        --tertiary: #589245;
+        --tertiary-text: #fff;
+      }
   %body.flex.flex-col
     = turbo_frame_tag "nav_warning"
     = render "layouts/navbar"

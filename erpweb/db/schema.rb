@@ -113,8 +113,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_03_235631) do
     t.integer "in_stock"
     t.decimal "weight", precision: 10, scale: 2
     t.json "json_attributes"
-    t.boolean "manual_price", default: false
-    t.boolean "inventory", default: false
+    t.boolean "manual_price", default: false, null: false
+    t.boolean "inventory", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

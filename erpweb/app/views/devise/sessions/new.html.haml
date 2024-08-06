@@ -1,19 +1,20 @@
-.grid.place-items-center
-  .w-96.grid.gap-2
-    %h2.font-semibold.text-2xl Log in
-    = form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "grid gap-2"}) do |f|
+.grid.place-items-center.py-5
+  .grid.gap-3.px-6.py-7.bg-white.shadow-lg.border.rounded-md{class: "w-[350px]"}
+    %h2.font-semibold.text-2xl.underline.underline-offset-8.mb-2{class: "decoration-[color:var(--primary)] decoration-[3px]"}
+      Log in
+    = form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "grid gap-3"}) do |f|
       .field
         = f.label :email
-        %br/
-        = f.email_field :email, autofocus: true, autocomplete: "email"
+        = f.email_field :email, autocomplete: "email", class: "input-primary"
       .field
         = f.label :password
-        %br/
-        = f.password_field :password, autocomplete: "current-password"
+        = f.password_field :password, autocomplete: "current-password", class: "input-primary"
       - if devise_mapping.rememberable?
-        .field
+        .flex.items-center.gap-2
           = f.check_box :remember_me
           = f.label :remember_me
       .actions
-        = f.submit "Log in", class: ""
-    = render "devise/shared/links"
+        = f.submit "Log in", class: "btn-md w-full bg-primary"
+    .flex.gap-3.justify-between.text-gray-600{class: "mt-0.5"}
+      = render "devise/shared/forget_password"
+      = render "devise/shared/signup"
