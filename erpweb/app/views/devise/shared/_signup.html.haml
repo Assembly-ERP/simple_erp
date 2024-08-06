@@ -1,2 +1,4 @@
 - if devise_mapping.registerable? && controller_name != 'registrations'
-  = link_to "Sign up", new_registration_path(resource_name)
+  %span
+    Doesn't have an account?
+    = link_to "Sign up", new_registration_path(resource_name), class: "text-secondary hover:underline font-medium"
