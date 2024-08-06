@@ -1,3 +1,28 @@
-%footer.border-t
-  .margin-max-screen.py-8
-    footer
+%footer.bg-white.border-t
+  .margin-max-screen.py-16
+    .md:flex.md:justify-between
+      .mb-6.md:mb-0
+        .flex.items-center
+          %span.self-center.text-2xl.font-semibold.whitespace-nowrap.text-primary Company
+      .grid.grid-cols-2.gap-8.sm:gap-6.sm:grid-cols-3
+        %div
+          %h2.mb-6.text-sm.font-semibold.uppercase.text-secondary Resources
+          %ul.font-medium
+            %li.mb-4
+              %a.hover:underline{href: "https://flowbite.com/"} Flowbite
+            %li
+              %a.hover:underline{href: "https://tailwindcss.com/"} Tailwind CSS
+        %div
+          %h2.mb-6.text-sm.font-semibold.uppercase.text-secondary Follow us
+          %ul.font-medium
+            %li.mb-4
+              %a.hover:underline{href: "https://github.com/themesberg/flowbite"} Github
+            %li
+              %a.hover:underline{href: "https://discord.gg/4eeurUVvTy"} Discord
+        %div
+          %h2.mb-6.text-sm.font-semibold.uppercase.text-secondary Legal
+          %ul.font-medium
+            %li.mb-4
+              %a.hover:underline{href: "#"} Privacy Policy
+            %li
+              %a.hover:underline{href: "#"} Terms &amp; Conditions

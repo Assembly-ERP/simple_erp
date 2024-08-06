@@ -12,7 +12,9 @@ module.exports = {
       fontFamily: {
         sans: ['Inter var', ...defaultTheme.fontFamily.sans],
       },
-      colors: {},
+      colors: {
+        foreground: "#F7FAFD",
+      },
       maxWidth: {
         margin: "1350px",
       },

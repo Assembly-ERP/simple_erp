@@ -1,2 +1,4 @@
 - if controller_name != 'sessions'
-  = link_to "Log in", new_session_path(resource_name)
+  %span
+    Alrready have an account?
+    = link_to "Login", new_session_path(resource_name), class: "text-secondary hover:underline font-medium"

@@ -166,6 +166,8 @@ GEM
     erubi (1.13.0)
     erubis (2.7.0)
     ffi (1.17.0-x86_64-linux-gnu)
+    font-awesome-sass (6.4.2)
+      sassc (~> 2.0)
     friendly_id (5.5.1)
       activerecord (>= 4.0.0)
     globalid (1.2.1)
@@ -470,6 +472,7 @@ DEPENDENCIES
   dotenv-rails (~> 3.1)
   draper
   enumerize
+  font-awesome-sass (~> 6.4.0)
   friendly_id
   haml-rails (~> 2.1)
   hotwire-rails
