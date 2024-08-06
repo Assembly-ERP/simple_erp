@@ -26,7 +26,7 @@ services:
   erpweb:
     build:
       context: ./erpweb
-      dockerfile: ${APP_DOCKERFILE}
+      dockerfile: Dockerfile
     volumes:
       - erpweb_data:/app
       - ./erpweb:/app
@@ -60,7 +60,7 @@ services:
       dockerfile: Dockerfile
     volumes:
       - pgadmin_data:/var/lib/pgadmin
- #     - /etc/letsencrypt/live/pgadmin.db.ngnair.com:/certs:ro
+      # - /etc/letsencrypt/live/pgadmin.db.ngnair.com:/certs:ro
     image: pgadmin4
     container_name: pgadmin
     environment:
@@ -72,7 +72,6 @@ services:
     ports:
       - "3100:80"
     
-
   # typesense:
   #   image: typesense/typesense:0.24.0
   #   ports:
@@ -89,7 +88,7 @@ volumes:
   postgres_data:
   erpweb_data:
   pgadmin_data:
- # typesense-data:
+  # typesense-data:
 
 networks:
   erpweb_network:
