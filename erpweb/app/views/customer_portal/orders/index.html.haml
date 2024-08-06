@@ -1,0 +1,11 @@
+/ app/views/customer_portal/orders/index.html.erb
+%h1 Your Orders
+= link_to 'New Order', new_customer_portal_order_path
+%ul
+  - @orders.each do |order|
+    %li
+      = link_to "Order ##{order.id}", customer_portal_order_path(order)
+      \- #{order.status}
+      - if current_user.role == 'customer_user_admin' || order.user == current_user
+        = link_to 'Edit', edit_customer_portal_order_path(order)
+        = link_to 'Cancel', customer_portal_order_path(order), method: :delete, data: { confirm: 'Are you sure?' }

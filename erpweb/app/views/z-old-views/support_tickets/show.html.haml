@@ -1,0 +1,5 @@
+%h1= @support_ticket.title
+%p= @support_ticket.description
+%p
+  Status: #{@support_ticket.status}
+= link_to 'Edit', edit_support_ticket_path(@support_ticket)

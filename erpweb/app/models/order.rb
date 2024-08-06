@@ -1,4 +1,6 @@
-#app/models/order.rb
+# frozen_string_literal: true
+
+# app/models/order.rb
 class Order < ApplicationRecord
   belongs_to :customer
   has_many :order_details, dependent: :destroy
@@ -8,7 +10,6 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :order_details, allow_destroy: true
 
   validates :status, presence: true
-  validates :customer, presence: true
   validates :total_amount, numericality: { greater_than_or_equal_to: 0 }
   validate :at_least_one_item, on: :create
 
@@ -26,9 +27,9 @@ class Order < ApplicationRecord
   private
 
   def at_least_one_item
-    if order_details.empty?
-      errors.add(:base, "Order must have at least one item")
-    end
+    return unless order_details.empty?
+
+    errors.add(:base, 'Order must have at least one item')
   end
 
   def calculate_total_amount

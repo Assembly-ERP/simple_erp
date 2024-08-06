@@ -1,0 +1,23 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html,
+  body {
+    @apply min-h-screen;
+  }
+
+  .margin-max-screen {
+    @apply mx-auto max-w-margin px-4 md:px-8 w-full;
+  }
+}
+
+/*
+@layer components {
+  .btn-primary {
+    @apply py-2 px-4 bg-blue-200;
+  }
+}
+*/
+

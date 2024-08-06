@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/controllers/customer_users/registrations_controller.rb
 class CustomerUsers::RegistrationsController < Devise::RegistrationsController
   before_action :configure_sign_up_params, only: [:create]
@@ -28,6 +30,6 @@ class CustomerUsers::RegistrationsController < Devise::RegistrationsController
   protected
 
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:email, :password, :password_confirmation, :role])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[email password password_confirmation role])
   end
 end

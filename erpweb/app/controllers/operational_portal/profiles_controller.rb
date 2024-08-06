@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OperationalPortal
   class ProfilesController < ApplicationController
     before_action :authenticate_user!
@@ -27,7 +29,7 @@ module OperationalPortal
     end
 
     def user_update_params
-      params.require(:user).permit(:email, :name, :phone, :password, :password_confirmation).delete_if { |key, value| value.blank? }
+      params.require(:user).permit(:email, :name, :phone, :password, :password_confirmation).compact_blank!
     end
   end
 end

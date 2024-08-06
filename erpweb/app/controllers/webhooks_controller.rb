@@ -1,7 +1,9 @@
+# frozen_string_literal: true
+
 # app/controllers/webhooks_controller.rb
 class WebhooksController < ApplicationController
-  before_action :set_webhook, only: [:show, :edit, :update, :destroy, :receive]
-  before_action :check_admin, only: [:new, :create, :edit, :update, :destroy]
+  before_action :set_webhook, only: %i[show edit update destroy]
+  before_action :check_admin, only: %i[new create edit update destroy]
 
   # GET /webhooks
   def index
@@ -9,8 +11,7 @@ class WebhooksController < ApplicationController
   end
 
   # GET /webhooks/1
-  def show
-  end
+  def show; end
 
   # GET /webhooks/new
   def new
@@ -18,8 +19,7 @@ class WebhooksController < ApplicationController
   end
 
   # GET /webhooks/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /webhooks
   def create
@@ -27,10 +27,10 @@ class WebhooksController < ApplicationController
     respond_to do |format|
       if @webhook.save
         format.html { redirect_to webhooks_path, notice: 'Webhook was successfully created.' }
-        format.js   # This will look for a `create.js.erb` or `update.js.erb` in `views/webhooks/`
+        format.js # This will look for a `create.js.erb` or `update.js.erb` in `views/webhooks/`
       else
         format.html { render :new }
-        format.js { render action: 'error' }  # Handle errors appropriately
+        format.js { render action: 'error' } # Handle errors appropriately
       end
     end
   end
@@ -41,10 +41,10 @@ class WebhooksController < ApplicationController
     respond_to do |format|
       if @webhook.update(webhook_params)
         format.html { redirect_to webhooks_path, notice: 'Webhook was successfully updated.' }
-        format.js   # This will look for a `create.js.erb` or `update.js.erb` in `views/webhooks/`
+        format.js # This will look for a `create.js.erb` or `update.js.erb` in `views/webhooks/`
       else
         format.html { render :edit }
-        format.js { render action: 'error' }  # Handle errors appropriately
+        format.js { render action: 'error' } # Handle errors appropriately
       end
     end
   end
@@ -65,9 +65,9 @@ class WebhooksController < ApplicationController
   end
 
   def check_admin
-    unless current_user.type == 'OperationalUser' && current_user.admin?
-      redirect_to root_url, alert: 'You are not authorized to perform this action.'
-    end
+    return if current_user.type == 'OperationalUser' && current_user.admin?
+
+    redirect_to root_url, alert: 'You are not authorized to perform this action.'
   end
 
   def webhook_params

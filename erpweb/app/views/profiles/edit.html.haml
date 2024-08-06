@@ -1,0 +1,12 @@
+%h1 Edit Profile
+= form_for @user, url: profile_path do |f|
+  .field
+    = f.label :email
+    %br/
+    = f.email_field :email, autofocus: true
+  .field
+    = f.label :avatar
+    %br/
+    = f.file_field :avatar
+  .actions
+    = f.submit "Update Profile"

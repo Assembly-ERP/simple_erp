@@ -1,0 +1,16 @@
+/ app/views/customer_portal/profiles/show.html.erb
+.container
+  %h1 Your Profile
+  %p
+    %strong Name:
+    = @user.name
+  %p
+    %strong Email:
+    = @user.email
+  %p
+    %strong Phone:
+    = @user.phone
+  %p
+    %strong Customer:
+    = @user.customer.name
+  = link_to 'Edit Profile', edit_customer_portal_profile_path, class: "btn"

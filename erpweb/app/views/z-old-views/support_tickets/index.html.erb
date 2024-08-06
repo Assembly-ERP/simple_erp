@@ -1,8 +1,0 @@
-<h1>Your Support Tickets</h1>
-<ul>
-  <% @support_tickets.each do |ticket| %>
-    <li>
-      <%= link_to ticket.title, support_ticket_path(ticket) %> - <%= ticket.status %>
-    </li>
-  <% end %>
-</ul>

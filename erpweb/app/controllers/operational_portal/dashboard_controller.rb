@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/controllers/operational_portal/dashboard_controller.rb
 module OperationalPortal
   class DashboardController < ApplicationController
@@ -9,10 +11,10 @@ module OperationalPortal
       @support_tickets = SupportTicket.order(created_at: :desc).limit(10)
     end
 
-  private
+    private
 
-  def ensure_operational_user
-    redirect_to customer_root_path unless current_user.operational_user?
+    def ensure_operational_user
+      redirect_to customer_root_path unless current_user.operational_user?
+    end
   end
-end
 end

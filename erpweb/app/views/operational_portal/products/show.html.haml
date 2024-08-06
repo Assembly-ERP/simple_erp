@@ -1,0 +1,34 @@
+/ app/views/operational_portal/products/show.html.erb
+.container
+  %h1
+    Product: #{@product.name}
+  %p
+    %strong Price:
+    = number_to_currency(@product.price, unit: "$", precision: 2)
+  %p
+    %strong Description:
+    = @product.description
+  %p
+    %strong Weight:
+    = number_with_precision(@product.weight, precision: 2)
+    lbs
+  %h2 Parts
+  %table.table
+    %thead
+      %tr
+        %th Name
+        %th Price
+        %th Weight
+        %th Quantity
+        %th Description
+    %tbody
+      - @product.parts_products.each do |parts_product|
+        %tr
+          %td= parts_product.part.name
+          %td= number_to_currency(parts_product.part.price, unit: "$", precision: 2)
+          %td= number_with_precision(parts_product.part.weight, precision: 2)
+          %td= parts_product.quantity
+          %td= parts_product.part.description
+  = link_to 'Edit', edit_operational_portal_product_path(@product), class: 'btn btn-secondary'
+  |
+  \#{link_to 'Back', operational_portal_catalog_path, class: 'btn btn-primary'}

@@ -1,25 +1,28 @@
+# frozen_string_literal: true
+
 # app/controllers/customer_portal/orders_controller.rb
 module CustomerPortal
   class OrdersController < ApplicationController
     before_action :authenticate_user!
-    before_action :set_order, only: [:show, :edit, :update, :destroy]
-    before_action :authorize_modify, only: [:edit, :update, :destroy]
+    before_action :set_order, only: %i[show edit update destroy]
+    before_action :authorize_modify, only: %i[edit update destroy]
 
     def index
-      if current_user.customer_user?
-        @orders = current_user.customer.orders
-      else
-        @orders = [] # or fetch operational orders if needed
-      end
+      @orders = if current_user.customer_user?
+                  current_user.customer.orders
+                else
+                  [] # or fetch operational orders if needed
+                end
     end
 
-    def show
-    end
+    def show; end
 
     def new
       @order = current_user.orders.new
       @cart = current_user.is_a?(CustomerUser) ? current_user.cart : nil
     end
+
+    def edit; end
 
     def create
       @order = current_user.orders.new(order_params)
@@ -38,9 +41,6 @@ module CustomerPortal
       else
         render :new
       end
-    end
-
-    def edit
     end
 
     def update
@@ -63,9 +63,9 @@ module CustomerPortal
     end
 
     def authorize_modify
-      unless current_user.customer_user_admin? || @order.user == current_user
-        redirect_to customer_portal_order_path(@order), alert: "You do not have permission to modify this order."
-      end
+      return if current_user.customer_user_admin? || @order.user == current_user
+
+      redirect_to customer_portal_order_path(@order), alert: 'You do not have permission to modify this order.'
     end
 
     def order_params

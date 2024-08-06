@@ -1,0 +1,44 @@
+/ app/views/operational_portal/dashboard/index.html.erb
+%h1 Operational Dashboard
+%p
+  Welcome, #{current_user.name}!
+%h2.mt-4 All Orders
+%table.table
+  %thead
+    %tr
+      %th ID
+      %th Customer Name
+      %th Status
+      %th.numeric Total Amount
+      %th Created Date
+  %tbody
+    - if @orders.present?
+      - @orders.each do |order|
+        %tr.order-row
+          %td= link_to "Order ##{order.id}", operational_portal_order_path(order)
+          %td= order.customer.name
+          %td= order.status
+          %td.numeric= order.total_amount
+          %td.local-time{"data-time" => "#{order.created_at}"}= order.created_at
+    - else
+      %tr
+        %td{:colspan => "6"} No orders found
+%h2.mt-4 Support Tickets
+%table.table
+  %thead
+    %tr
+      %th Ticket Title
+      %th Customer Name
+      %th Status
+      %th Created Date
+  %tbody
+    - if @support_tickets.present?
+      - @support_tickets.each do |ticket|
+        %tr.order-row
+          %td= link_to ticket.title, operational_portal_support_ticket_path(ticket)
+          %td= ticket.customer.name
+          %td= ticket.status
+          %td.local-time{"data-time" => "#{ticket.created_at}"}= ticket.created_at
+    - else
+      %tr
+        %td{:colspan => "5"} No Support Tickets found

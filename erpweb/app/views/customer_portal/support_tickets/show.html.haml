@@ -1,0 +1,50 @@
+/ app/views/customer_portal/support_tickets/show.html.erb
+%h1 Support Ticket Details
+%p
+  %strong Ticket ID:
+  = @support_ticket.id
+%p
+  %strong Title:
+  = @support_ticket.title
+%p
+  %strong Status:
+  = @support_ticket.status
+%p
+  %strong Created At:
+  = @support_ticket.created_at.strftime("%B %d, %Y %H:%M")
+%h2 Messages
+%ul
+  - if @support_ticket.support_ticket_messages.any?
+    - @support_ticket.support_ticket_messages.each do |support_ticket_message|
+      %li{:style => "margin-bottom: 1em;"}
+        %strong Message Added:
+        = support_ticket_message.created_at.strftime("%B %d, %Y %H:%M")
+        %div
+          %strong Message:
+          = support_ticket_message.body
+        - if support_ticket_message.file.attached?
+          %div
+            %strong File:
+            = support_ticket_message.file.filename.to_s
+            %div
+              = link_to "Preview", "#", class: "preview-button", data: { url: rails_blob_path(support_ticket_message.file), content_type: support_ticket_message.file.content_type }
+              = link_to "Download", rails_blob_path(support_ticket_message.file, disposition: "attachment")
+  - else
+    %li No messages found.
+%hr{:style => "margin: 2em 0;"}/
+- if current_user.role == 'customer_user_admin' || (current_user.role == 'customer_user_regular' && @support_ticket.user == current_user)
+  %h3 Add a New Message
+  = form_with model: [@support_ticket, SupportTicketMessage.new], url: add_message_customer_portal_support_ticket_path(@support_ticket), local: true, html: { multipart: true } do |form|
+    .field
+      = form.label :body, "Message"
+      = form.text_area :body
+    .field
+      = form.label :file, "File"
+      = form.file_field :file
+    .actions
+      = form.submit "Add Message"
+= link_to 'Back to Tickets', customer_portal_support_tickets_path
+#preview-modal.preview-modal
+  .preview-modal-content
+    %span.close-button ×
+    #preview-content Here is Text

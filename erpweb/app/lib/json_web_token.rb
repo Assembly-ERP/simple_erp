@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'jwt'
 
 module JsonWebToken
@@ -10,8 +12,8 @@ module JsonWebToken
 
   def self.decode(token)
     body = JWT.decode(token, SECRET_KEY)[0]
-    HashWithIndifferentAccess.new body
-  rescue JWT::DecodeError => e
+    ActiveSupport::HashWithIndifferentAccess.new body
+  rescue JWT::DecodeError
     nil
   end
 end

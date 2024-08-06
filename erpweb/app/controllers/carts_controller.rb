@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CartsController < ApplicationController
   before_action :authenticate_user!
 
@@ -11,7 +13,7 @@ class CartsController < ApplicationController
     if @cart_item.save
       redirect_to cart_path, notice: 'Item added to cart.'
     else
-      redirect_to request.referrer, alert: 'Unable to add item to cart.'
+      redirect_to request.referer, alert: 'Unable to add item to cart.'
     end
   end
 

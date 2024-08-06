@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 # app/controllers/api/v1/parts_controller.rb
 module Api
   module V1
     class PartsController < BaseController
-      before_action :set_part, only: [:show, :update, :destroy]
+      before_action :set_part, only: %i[show update destroy]
 
       # GET /api/v1/parts
       def index

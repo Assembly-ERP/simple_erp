@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module CustomerPortal
   class ProfilesController < ApplicationController
     before_action :authenticate_user!
@@ -26,8 +28,8 @@ module CustomerPortal
       redirect_to root_path, alert: 'Access denied!' unless current_user.customer_user?
     end
 
-   def user_update_params
-      params.require(:user).permit(:email, :name, :phone, :password, :password_confirmation).delete_if { |key, value| value.blank? }
+    def user_update_params
+      params.require(:user).permit(:email, :name, :phone, :password, :password_confirmation).compact_blank!
     end
   end
 end
