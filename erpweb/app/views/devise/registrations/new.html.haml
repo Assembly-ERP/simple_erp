@@ -1,54 +1,48 @@
-/ app/views/devise/registrations/new.html.erb
-%h2 Sign up
-= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f|
-  = render "devise/shared/error_messages", resource: resource
-  .field
-    = f.label :email
-    %br/
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-  .field
-    = f.label :password
-    - if @minimum_password_length
-      %em
-        (#{@minimum_password_length} characters minimum)
-    %br/
-    = f.password_field :password, autocomplete: "new-password"
-  .field
-    = f.label :password_confirmation
-    %br/
-    = f.password_field :password_confirmation, autocomplete: "new-password"
-  .field
-    = f.label :name
-    %br/
-    = f.text_field :name, autofocus: true
-  .field
-    = f.label :customer_name, 'Customer Name'
-    %br/
-    = f.text_field :customer_name, placeholder: 'Use your name if you do not have a company'
-  .field
-    = f.label :customer_phone, 'Customer Phone'
-    %br/
-    = f.telephone_field :customer_phone
-  .field
-    = f.label :street, 'Street'
-    %br/
-    = f.text_field :street
-  .field
-    = f.label :city, 'City'
-    %br/
-    = f.text_field :city
-  .field
-    = f.label :state, 'State'
-    %br/
-    = f.text_field :state
-  .field
-    = f.label :postal_code, 'Postal Code'
-    %br/
-    = f.text_field :postal_code
-  .field
-    = f.label :discount, 'Discount'
-    %br/
-    = f.number_field :discount, step: 0.01
-  .actions
-    = f.submit "Sign up"
-= render "devise/shared/links"
+.grid.place-items-center.py-16
+  .grid.gap-3.p-7.bg-white.shadow-lg.border.rounded-md
+    %h2.font-semibold.text-2xl.underline.underline-offset-8.mb-4{class: "decoration-[color:var(--secondary)] decoration-[3px]"}
+      Sign Up
+    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "grid gap-2.5"}) do |f|
+      = render "devise/shared/error_messages", resource: resource
+      .grid.grid-cols-2.gap-x-4.gap-y-3
+        .field.col-span-2
+          = f.label :customer_name, 'Customer Name'
+          = f.text_field :customer_name, placeholder: 'Use your name if you do not have a company', class: "input-primary"
+        .field
+          = f.label :email
+          = f.email_field :email, autocomplete: "email", class: "input-primary", placeholder: "Enter your email"
+        .field
+          = f.label :name
+          = f.text_field :name, class: "input-primary", placeholder: "Enter your name"
+        .field
+          = f.label :customer_phone, 'Customer Phone'
+          = f.telephone_field :customer_phone, class: "input-primary", placeholder: "xxx-xxx-xxxx"
+        .field
+          = f.label :street, 'Street'
+          = f.text_field :street, class: "input-primary", placeholder: "Enter street"
+        .field
+          = f.label :city, 'City'
+          = f.text_field :city, class: "input-primary", placeholder: "Enter city" 
+        .field
+          = f.label :state, 'State'
+          = f.text_field :state, class: "input-primary", placeholder: "Enter state"
+        .field
+          = f.label :postal_code, 'Postal Code'
+          = f.text_field :postal_code, class: "input-primary", placeholder: "Enter postal code"
+        .field
+          = f.label :discount, 'Discount'
+          = f.number_field :discount, step: 0.01, class: "input-primary", placeholder: "Enter discount"
+        .field
+          .flex.gap-1
+            = f.label :password
+            - if @minimum_password_length
+              %em
+                (#{@minimum_password_length} characters minimum)
+          = f.password_field :password, autocomplete: "new-password", class: "input-primary", placeholder: "Enter password"
+        .field
+          = f.label :password_confirmation
+          = f.password_field :password_confirmation, autocomplete: "new-password", class: "input-primary", placeholder: "Enter password"
+      .mt-6.grid.gap-4.items-center.grid-cols-2
+        .text-center
+          = render "devise/shared/login"
+        = f.submit "Sign up", class: "btn-md bg-primary px-20"

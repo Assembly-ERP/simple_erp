@@ -45,6 +45,10 @@ class User < ApplicationRecord
     super(only: %i[id name])
   end
 
+  def remember_me
+    super.nil? ? true : super
+  end
+
   attr_accessor :customer_name, :customer_phone, :street, :city, :state, :postal_code, :discount
 
   private

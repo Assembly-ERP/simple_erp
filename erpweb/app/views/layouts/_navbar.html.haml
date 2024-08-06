@@ -1,11 +1,11 @@
 %body
-  %header.w-full.shadow.bg-white.sticky.top-0
+  %header.w-full.bg-white.sticky.top-0.border-b
     .flex.justify-between.margin-max-screen.py-5
-      .flex.items-center.gap-5.font-medium{class: "text-[18px]"}
-        .text-3xl.mr-5.text-primary.font-bold
+      .flex.items-center.gap-5{class: "text-[17px]"}
+        .text-3xl.mr-6.text-primary.font-bold
           Company
         - if user_signed_in?
-          .flex.gap-5.items-center.text-gray-700
+          .flex.gap-5.items-center.font-medium.mt-1
             = link_to 'Home', root_path
             - if current_user.operational_user?
               = link_to 'Dashboard', operational_root_path
@@ -23,10 +23,10 @@
               = link_to 'Profile', customer_portal_profile_path
             = link_to 'Logout', destroy_user_session_path, data: { turbo_method: :delete }, id: 'logout-link'
         - else
-          .flex.items-center.gap-5.text-gray-700
+          .flex.items-center.gap-5.font-medium.mt-1
             = link_to 'Login', new_user_session_path
             = link_to 'Sign Up', new_user_registration_path
       .nav-right
-        = form_with url: search_path, method: :get, local: true do
-          = search_field_tag :query, params[:query], placeholder: 'Search Products and Parts'
-          = submit_tag 'Search'
+        %button.px-4.border.border-gray-500.gap-3.flex.items-center.py-2.rounded-md.text-gray-500
+          = icon("fa-solid", "magnifying-glass", class: "text-lg")
+          %span{class: "text-[16px]"} Search Products and Parts
