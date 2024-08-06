@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/controllers/customer_portal/dashboard_controller.rb
 module CustomerPortal
   class DashboardController < ApplicationController

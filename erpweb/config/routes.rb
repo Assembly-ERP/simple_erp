@@ -30,11 +30,11 @@ Rails.application.routes.draw do
     registrations: 'customer_users/registrations'
   }
 
-  authenticated :user, ->(u) { u.operational_user? } do
+  authenticated :user, ->(u) { u&.operational_user? } do
     get '/operational_portal', to: 'operational_portal/dashboard#index', as: :operational_root
   end
 
-  authenticated :user, ->(u) { u.customer_user? } do
+  authenticated :user, ->(u) { u&.customer_user? } do
     get '/customer', to: 'customer_portal/dashboard#index', as: :customer_root
   end
 

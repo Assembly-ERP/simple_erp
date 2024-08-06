@@ -1,45 +1,47 @@
+# frozen_string_literal: true
+
 # app/controllers/customer_portal/support_tickets_controller.rb
 module CustomerPortal
   class SupportTicketsController < ApplicationController
     before_action :authenticate_user!
-    before_action :set_ticket, only: [:show, :edit, :update, :destroy, :add_message]
-    before_action :authorize_access, only: [:show, :edit, :update, :destroy, :add_message]
+    before_action :set_ticket, only: %i[show edit update destroy add_message]
+    before_action :authorize_access, only: %i[show edit update destroy add_message]
 
     def index
       @support_tickets = if current_user.role == 'customer_user_admin'
-        SupportTicket.where(customer_id: current_user.customer_id)
-      else
-        SupportTicket.where(customer_id: current_user.customer_id, user_id: current_user.id)
-      end
+                           SupportTicket.where(customer_id: current_user.customer_id)
+                         else
+                           SupportTicket.where(customer_id: current_user.customer_id, user_id: current_user.id)
+                         end
     end
 
     def show
       @support_ticket = SupportTicket.includes(support_ticket_messages: { files_attachments: :blob }).find(params[:id])
       @new_message = SupportTicketMessage.new
     end
-    
 
     def new
       @support_ticket = SupportTicket.new
     end
 
+    def edit; end
+
     def create
       @support_ticket = SupportTicket.new(support_ticket_params)
       @support_ticket.customer = current_user.customer
-      @support_ticket.user = current_user 
+      @support_ticket.user = current_user
       if @support_ticket.save
-        redirect_to customer_portal_support_ticket_path(@support_ticket), notice: 'Support ticket was successfully created.'
+        redirect_to customer_portal_support_ticket_path(@support_ticket),
+                    notice: 'Support ticket was successfully created.'
       else
         render :new
       end
     end
 
-    def edit
-    end
-
     def update
       if @support_ticket.update(support_ticket_params)
-        redirect_to customer_portal_support_ticket_path(@support_ticket), notice: 'Support ticket was successfully updated.'
+        redirect_to customer_portal_support_ticket_path(@support_ticket),
+                    notice: 'Support ticket was successfully updated.'
       else
         render :edit
       end
@@ -66,18 +68,22 @@ module CustomerPortal
     def set_ticket
       @support_ticket = SupportTicket.find_by(id: params[:id])
       if @support_ticket.nil?
-        redirect_to customer_portal_support_tickets_path, alert: "Support ticket not found."
+        redirect_to customer_portal_support_tickets_path, alert: 'Support ticket not found.'
       else
-        Rails.logger.debug "Found SupportTicket: #{@support_ticket.inspect}"
+        Rails.logger.debug { "Found SupportTicket: #{@support_ticket.inspect}" }
       end
     end
 
     def authorize_access
       if current_user.role == 'customer_user_regular' && @support_ticket.user != current_user
-        redirect_to customer_portal_support_tickets_path, alert: "You do not have permission to view or modify this ticket."
-      elsif current_user.role == 'customer_user_admin' && @support_ticket.customer != current_user.customer
-        redirect_to customer_portal_support_tickets_path, alert: "You do not have permission to view or modify this ticket."
+        redirect_to customer_portal_support_tickets_path,
+                    alert: 'You do not have permission to view or modify this ticket.'
       end
+
+      return unless current_user.role == 'customer_user_admin' && @support_ticket.customer != current_user.customer
+
+      redirect_to customer_portal_support_tickets_path,
+                  alert: 'You do not have permission to view or modify this ticket.'
     end
 
     def support_ticket_params

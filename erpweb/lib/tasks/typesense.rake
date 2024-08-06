@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # lib/tasks/typesense.rake
 
 namespace :typesense do

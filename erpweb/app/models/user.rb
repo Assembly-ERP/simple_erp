@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/models/user.rb
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
@@ -8,8 +10,9 @@ class User < ApplicationRecord
   belongs_to :customer, optional: true
 
   # Associations for customer-related data
-  has_many :orders, foreign_key: 'customer_id', primary_key: 'customer_id'
-  has_many :support_tickets, foreign_key: 'customer_id', primary_key: 'customer_id'
+  has_many :orders, foreign_key: 'customer_id', primary_key: 'customer_id', inverse_of: :customer, dependent: :destroy
+  has_many :support_tickets, foreign_key: 'customer_id', primary_key: 'customer_id', inverse_of: :customer,
+                             dependent: :destroy
 
   # Define roles as constants or methods
   ROLES = %w[regular manager admin customer_user_admin customer_user_regular].freeze

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class InvitationsController < ApplicationController
   before_action :authenticate_user!
-  before_action :ensure_admin_or_manager, only: [:new, :create]
+  before_action :ensure_admin_or_manager, only: %i[new create]
 
   def new
     @invitation = Invitation.new
@@ -25,8 +27,8 @@ class InvitationsController < ApplicationController
   end
 
   def ensure_admin_or_manager
-    unless current_user.admin? || current_user.manager?
-      redirect_to root_path, alert: 'You are not authorized to send invitations.'
-    end
+    return if current_user.admin? || current_user.manager?
+
+    redirect_to root_path, alert: 'You are not authorized to send invitations.'
   end
 end

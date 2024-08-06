@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 class ConsolidatedUsersMigration < ActiveRecord::Migration[7.1]
   def change
     create_table :users do |t|
       ## Devise fields
-      t.string :email,              null: false, default: ""
-      t.string :encrypted_password, null: false, default: ""
+      t.string :email,              null: false, default: ''
+      t.string :encrypted_password, null: false, default: ''
 
       ## Additional fields
       t.references :customer, foreign_key: true, null: true
@@ -32,6 +34,5 @@ class ConsolidatedUsersMigration < ActiveRecord::Migration[7.1]
     ## Optional: Additional indexes
     # add_index :users, :confirmation_token, unique: true
     # add_index :users, :unlock_token, unique: true
-
-   end
+  end
 end

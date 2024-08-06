@@ -1,15 +1,17 @@
+# frozen_string_literal: true
+
 # app/controllers/operational_portal/orders_controller.rb
 module OperationalPortal
   class OrdersController < ApplicationController
     before_action :authenticate_user!
-    before_action :set_order, only: [:show, :edit, :update, :destroy]
+    before_action :set_order, only: %i[show edit update destroy]
 
     def index
       @orders = Order.includes(:customer).all
     end
 
     def show
-      @order = Order.includes(:customer, order_details: [:product, :part]).find(params[:id])
+      @order = Order.includes(:customer, order_details: %i[product part]).find(params[:id])
     end
 
     def fetch_parts
@@ -29,34 +31,34 @@ module OperationalPortal
       @products = Product.all
     end
 
-    def create
-      @order = Order.new(order_params)
-      @order.status = 'pre-order'
-
-      Rails.logger.debug "Order params: #{order_params.inspect}"
-      Rails.logger.debug "Customer ID: #{@order.customer_id}"
-
-      # Calculate total amount
-      # total = @order.order_details.sum { |od| od.quantity * od.price }
-      # @order.total_amount = total
-      
-      if @order.save
-        redirect_to operational_portal_order_path(@order), notice: 'Order created successfully.'
-      else
-        Rails.logger.debug "Order errors: #{@order.errors.full_messages}"
-        flash.now[:alert] = @order.errors.full_messages.join(", ")
-        @customers = Customer.all
-        @parts = Part.all
-        @products = Product.all
-        render :new
-      end
-    end
-
     def edit
       @order = Order.find(params[:id])
       @customers = Customer.all
       @parts = Part.all
       @products = Product.all
+    end
+
+    def create
+      @order = Order.new(order_params)
+      @order.status = 'pre-order'
+
+      Rails.logger.debug { "Order params: #{order_params.inspect}" }
+      Rails.logger.debug { "Customer ID: #{@order.customer_id}" }
+
+      # Calculate total amount
+      # total = @order.order_details.sum { |od| od.quantity * od.price }
+      # @order.total_amount = total
+
+      if @order.save
+        redirect_to operational_portal_order_path(@order), notice: 'Order created successfully.'
+      else
+        Rails.logger.debug { "Order errors: #{@order.errors.full_messages}" }
+        flash.now[:alert] = @order.errors.full_messages.join(', ')
+        @customers = Customer.all
+        @parts = Part.all
+        @products = Product.all
+        render :new
+      end
     end
 
     def update
@@ -76,9 +78,13 @@ module OperationalPortal
 
     def search_items
       query = params[:query]
-      parts = Part.where("name ILIKE ?", "%#{query}%").map { |p| p.attributes.merge(type: 'part', in_stock: p.in_stock) }
-      products = Product.where("name ILIKE ?", "%#{query}%").map { |p| p.attributes.merge(type: 'product', in_stock: nil) }
-      
+      parts = Part.where('name ILIKE ?', "%#{query}%").map do |p|
+        p.attributes.merge(type: 'part', in_stock: p.in_stock)
+      end
+      products = Product.where('name ILIKE ?', "%#{query}%").map do |p|
+        p.attributes.merge(type: 'product', in_stock: nil)
+      end
+
       render json: (parts + products)
     end
 
@@ -89,7 +95,8 @@ module OperationalPortal
     end
 
     def order_params
-      params.require(:order).permit(:status, :customer_id, order_details_attributes: [:id, :product_id, :part_id, :quantity, :price, :_destroy])
+      params.require(:order).permit(:status, :customer_id,
+                                    order_details_attributes: %i[id product_id part_id quantity price _destroy])
     end
   end
 

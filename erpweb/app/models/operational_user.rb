@@ -1,8 +1,10 @@
-#app/models/operational_user.rb
+# frozen_string_literal: true
+
+# app/models/operational_user.rb
 class OperationalUser < User
- # belongs_to :customer
- has_many :support_tickets
- 
+  # belongs_to :customer
+  has_many :support_tickets, dependent: :destroy
+
   def admin?
     role == 'admin'
   end
@@ -16,10 +18,9 @@ class OperationalUser < User
   end
 end
 
+# validates :email, presence: true, uniqueness: true
+# Assumes you are using has_secure_password for password handling
+# has_secure_password
 
- # validates :email, presence: true, uniqueness: true
-  # Assumes you are using has_secure_password for password handling
- # has_secure_password
-
- # enum role: [:admin, :manager, :employee]  # Define roles as needed
-#end
+# enum role: [:admin, :manager, :employee]  # Define roles as needed
+# end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/controllers/users/sessions_controller.rb
 class Users::SessionsController < Devise::SessionsController
   before_action :configure_permitted_parameters, only: [:create]
@@ -8,10 +10,10 @@ class Users::SessionsController < Devise::SessionsController
     yield resource if block_given?
 
     token = JsonWebToken.encode(user_id: resource.id)
-    
+
     # Set HTTP-only cookie
     cookies.signed[:jwt] = { value: token, httponly: true, secure: Rails.env.production? }
-    
+
     redirect_to after_sign_in_path_for(resource)
   end
 
@@ -36,6 +38,6 @@ class Users::SessionsController < Devise::SessionsController
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_in, keys: [:email, :password])
+    devise_parameter_sanitizer.permit(:sign_in, keys: %i[email password])
   end
 end

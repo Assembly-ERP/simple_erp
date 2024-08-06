@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 # app/controllers/api/v1/orders_controller.rb
 module Api
   module V1
     class OrdersController < BaseController
-      before_action :set_order, only: [:show, :update, :destroy]
+      before_action :set_order, only: %i[show update destroy]
 
       def index
         @orders = current_user.customer.orders

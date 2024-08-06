@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 # app/models/customer.rb
 class Customer < ApplicationRecord
   has_many :orders, dependent: :destroy
   has_many :support_tickets, dependent: :destroy
-  has_many :users, class_name: 'CustomerUser'
+  has_many :users, class_name: 'CustomerUser', dependent: :destroy
 
   validates :name, presence: true
   validates :phone, presence: true
@@ -19,7 +21,7 @@ class Customer < ApplicationRecord
   #   upsert_document('customers', document)
   # end
 
- # private
+  # private
 
   # Remove Typesense-related methods
   # def customer_document(customer)

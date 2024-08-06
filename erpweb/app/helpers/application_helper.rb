@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def orders_path_for(user)
     if user.operational_user?

@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 # app/models/parts.rb
 class Part < ApplicationRecord
-  has_many :parts_products
+  has_many :parts_products, dependent: :destroy
   has_many :products, through: :parts_products
   has_many_attached :files
 
@@ -32,4 +34,3 @@ class Part < ApplicationRecord
     self.price ||= 0.00
   end
 end
-

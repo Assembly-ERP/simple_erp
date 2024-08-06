@@ -1,7 +1,8 @@
+# frozen_string_literal: true
+
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
-  protect_from_forgery with: :exception
 
   def ensure_operational_user
     return if current_user&.operational_user?
@@ -56,13 +57,4 @@ class ApplicationController < ActionController::Base
       discount: customer.discount.to_f
     }
   end
-
-  # def upsert_document(collection_name, document)
-  #   begin
-  #     TYPESENSE_CLIENT.collections[collection_name].documents[document[:id]].delete
-  #   rescue Typesense::Error::ObjectNotFound
-  #     # Ignore if the document doesn't exist
-  #   end
-  #   TYPESENSE_CLIENT.collections[collection_name].documents.create(document)
-  # end
 end

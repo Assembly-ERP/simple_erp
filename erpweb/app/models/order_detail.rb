@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OrderDetail < ApplicationRecord
   belongs_to :order
   belongs_to :product, optional: true
@@ -18,6 +20,6 @@ class OrderDetail < ApplicationRecord
   private
 
   def product_or_part_present
-    errors.add(:base, "Must have either a product or a part") unless product_id.present? ^ part_id.present?
+    errors.add(:base, 'Must have either a product or a part') unless product_id.present? ^ part_id.present?
   end
 end

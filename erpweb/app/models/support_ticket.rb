@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/models/support_ticket.rb
 class SupportTicket < ApplicationRecord
   belongs_to :customer

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/controllers/operational_portal/settings_controller.rb
 module OperationalPortal
   class SettingsController < ApplicationController
@@ -28,9 +30,9 @@ module OperationalPortal
     end
 
     def ensure_admin_user
-      unless admin_user?
-        redirect_to root_path, alert: 'You are not authorized to access this section.'
-      end
+      return if admin_user?
+
+      redirect_to root_path, alert: 'You are not authorized to access this section.'
     end
 
     def admin_user?

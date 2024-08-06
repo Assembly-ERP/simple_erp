@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # app/controllers/operational_portal/parts_controller.rb
 module OperationalPortal
   class PartsController < ApplicationController
@@ -15,6 +17,8 @@ module OperationalPortal
       @part = Part.new
     end
 
+    def edit; end
+
     def create
       @part = Part.new(part_params.except(:files))
       Rails.logger.info "Part Params: #{part_params.inspect}"
@@ -27,8 +31,6 @@ module OperationalPortal
         render :new
       end
     end
-
-    def edit; end
 
     def update
       respond_to do |format|
@@ -45,7 +47,7 @@ module OperationalPortal
 
     def destroy
       @part = Part.find(params[:id])
-      @part.destroy
+      @part.destroy!
       redirect_to operational_portal_catalog_path, notice: 'Part was successfully deleted.'
     end
 
@@ -74,7 +76,7 @@ module OperationalPortal
     def attach_files(part, files)
       return unless files
 
-      files.reject(&:blank?).each do |file|
+      files.compact_blank.each do |file|
         next unless file.is_a?(ActionDispatch::Http::UploadedFile)
 
         Rails.logger.info "Processing file: #{file.original_filename} for part: #{part.name}"
