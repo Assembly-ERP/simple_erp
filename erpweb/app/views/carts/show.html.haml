@@ -1,0 +1,10 @@
+%h1 Your Cart
+%ul
+  - @cart.cart_items.each do |item|
+    %li
+      - if item.product
+        = link_to item.product.name, product_path(item.product)
+      - elsif item.part
+        = link_to item.part.name, part_path(item.part)
+      \- Quantity: #{item.quantity}
+= link_to 'Checkout', new_order_path

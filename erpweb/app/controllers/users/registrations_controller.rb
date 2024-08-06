@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_permitted_parameters, only: [:create]
 
@@ -16,7 +18,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
             postal_code: user.postal_code,
             discount: user.discount.to_f
           )
-          user.update!(customer: customer, role: 'customer_user_admin')
+          user.update!(customer:, role: 'customer_user_admin')
         end
       end
     end
@@ -24,7 +26,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   # Remove the ability to destroy an account
   def destroy
-    redirect_to root_path, alert: "Account cancellation is not allowed."
+    redirect_to root_path, alert: 'Account cancellation is not allowed.'
   end
 
   protected
@@ -75,9 +77,9 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def configure_permitted_parameters
-    devise_parameter_sanitizer.permit(:sign_up, keys: [
-      :invite_token, :name, :role, :customer_name, :customer_phone, :customer_tax_id,
-      :email, :street, :city, :state, :postal_code, :discount
-    ])
+    devise_parameter_sanitizer.permit(:sign_up, keys: %i[
+                                        invite_token name role customer_name customer_phone customer_tax_id
+                                        email street city state postal_code discount
+                                      ])
   end
 end

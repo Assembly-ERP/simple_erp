@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 # app/controllers/api/v1/support_tickets_controller.rb
 module Api
   module V1
     class SupportTicketsController < BaseController
-      before_action :set_support_ticket, only: [:show, :update, :destroy]
+      before_action :set_support_ticket, only: %i[show update destroy]
 
       def index
         @support_tickets = SupportTicket.all

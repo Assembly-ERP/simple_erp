@@ -1,12 +1,15 @@
+# frozen_string_literal: true
+
 module OperationalPortal
   class SupportTicketsController < ApplicationController
     before_action :authenticate_user!
-    before_action :set_ticket, only: [:show, :edit, :update, :destroy, :add_message, :preview_message_file]
+    before_action :set_ticket, only: %i[show edit update destroy add_message preview_message_file]
     before_action :ensure_operational_user
 
     def index
-      # @support_tickets = SupportTicketQuery.new.all_tickets_with_associations || SupportTicket.includes(:customer, support_ticket_messages: { files_attachments: :blob }).all
-      @support_tickets = SupportTicket.includes(:customer, support_ticket_messages: { files_attachments: :blob }).all || SupportTicketQuery.new.all_tickets_with_associations
+      @support_tickets = SupportTicket.includes(:customer,
+                                                support_ticket_messages: { files_attachments: :blob }).all ||
+                         SupportTicketQuery.new.all_tickets_with_associations
     end
 
     def show
@@ -28,7 +31,8 @@ module OperationalPortal
     def create
       @support_ticket = SupportTicket.new(support_ticket_params)
       if @support_ticket.save
-        redirect_to operational_portal_support_ticket_path(@support_ticket), notice: 'Support ticket was successfully created.'
+        redirect_to operational_portal_support_ticket_path(@support_ticket),
+                    notice: 'Support ticket was successfully created.'
       else
         @customers = Customer.all
         @customer_users = CustomerUser.all
@@ -38,7 +42,8 @@ module OperationalPortal
 
     def update
       if @support_ticket.update(support_ticket_params)
-        redirect_to operational_portal_support_ticket_path(@support_ticket), notice: 'Support ticket was successfully updated.'
+        redirect_to operational_portal_support_ticket_path(@support_ticket),
+                    notice: 'Support ticket was successfully updated.'
       else
         @customers = Customer.all
         @customer_users = CustomerUser.all
@@ -47,7 +52,7 @@ module OperationalPortal
     end
 
     def destroy
-      @support_ticket.destroy
+      @support_ticket.destroy!
       redirect_to operational_portal_support_tickets_path, notice: 'Support ticket was successfully deleted.'
     end
 
@@ -85,9 +90,9 @@ module OperationalPortal
     end
 
     def authorize_access
-      unless current_user.role == 'admin' || current_user.role == 'manager'
-        redirect_to root_path, alert: "You do not have permission to view or modify support tickets."
-      end
+      return if current_user.role == 'admin' || current_user.role == 'manager'
+
+      redirect_to root_path, alert: 'You do not have permission to view or modify support tickets.'
     end
 
     def support_ticket_params

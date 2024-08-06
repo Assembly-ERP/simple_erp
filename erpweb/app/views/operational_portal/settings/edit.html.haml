@@ -1,0 +1,19 @@
+/ app/views/operational_portal/settings/edit.html.erb
+.container
+  %h1
+    Edit #{@setting.key}
+  = form_with(model: @setting, url: operational_portal_setting_path, local: true) do |form|
+    - if @setting.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@setting.errors.count, "error")
+          prohibited this setting from being saved:
+        %ul
+          - @setting.errors.full_messages.each do |message|
+            %li= message
+    .field
+      = form.label :key, "Price Per lbs $"
+      = form.text_field :value, value: format('%.2f', @setting.value.to_f), step: :any
+    .actions
+      = form.submit "Save Changes", class: 'btn btn-primary'
+  = link_to 'Back', operational_portal_settings_path, class: 'btn btn-secondary'

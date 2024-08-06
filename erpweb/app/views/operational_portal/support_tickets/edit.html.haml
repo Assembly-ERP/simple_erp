@@ -1,0 +1,29 @@
+/ app/views/operational_portal/support_tickets/edit.html.erb
+%h1 New Support Ticket
+= form_with(model: @support_ticket, local: true, url: customer_portal_support_tickets_path) do |form|
+  - if @support_ticket.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@support_ticket.errors.count, "error")
+        prohibited this support ticket from being saved:
+      %ul
+        - @support_ticket.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = form.label :title
+    = form.text_field :title
+  .field
+    = form.label :issue_description
+    = form.text_area :issue_description
+  .field
+    = form.label :status
+    = form.select :status, SupportTicket.statuses.keys.map { |status| [status.titleize, status] }
+  .field
+    = form.label :customer_id, "Customer"
+    = form.collection_select :customer_id, @customers, :id, :name
+  .field
+    = form.label :user_id, "Assign to Customer User"
+    = form.collection_select :user_id, @customer_users, :id, :name, include_blank: "None"
+  .actions
+    = form.submit "Update Support Ticket"
+= link_to 'Back', operational_portal_support_tickets_path

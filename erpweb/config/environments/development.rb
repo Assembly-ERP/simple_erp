@@ -1,6 +1,6 @@
 # config/environments/development.rb
 
-require "active_support/core_ext/integer/time"
+require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
@@ -16,7 +16,7 @@ Rails.application.configure do
   # Do not cache classes, reload them on every request
   config.cache_classes = false
 
-    # Show full error reports.
+  # Show full error reports.
   config.consider_all_requests_local = true
 
   # Enable server timing
@@ -24,7 +24,7 @@ Rails.application.configure do
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
-  if Rails.root.join("tmp/caching-dev.txt").exist?
+  if Rails.root.join('tmp/caching-dev.txt').exist?
     config.action_controller.perform_caching = true
     config.action_controller.enable_fragment_cache_logging = true
 
@@ -86,8 +86,8 @@ Rails.application.configure do
   # config.action_view.annotate_rendered_view_with_filenames = true
 
   # Uncomment if you wish to allow Action Cable access from any origin.
-  config.action_cable.url = "ws://localhost:3000/cable"
-  config.action_cable.allowed_request_origins = [ 'http://localhost:3000', /http:\/\/localhost.*/ ]
+  config.action_cable.url = 'ws://localhost:3000/cable'
+  config.action_cable.allowed_request_origins = ['http://localhost:3000', %r{http://localhost.*}]
   # config.action_cable.disable_request_forgery_protection = true
 
   # Raise error when a before_action's only/except options reference missing actions
@@ -101,7 +101,7 @@ Rails.application.configure do
 
   # Set HTTP headers to prevent browser caching
   config.public_file_server.headers = {
-    "Cache-Control" => "no-store, no-cache, must-revalidate, max-age=0",
-    "Pragma" => "no-cache"
+    'Cache-Control' => 'no-store, no-cache, must-revalidate, max-age=0',
+    'Pragma' => 'no-cache'
   }
 end

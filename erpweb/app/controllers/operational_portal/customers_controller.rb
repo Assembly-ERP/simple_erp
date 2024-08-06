@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 # app/controllers/operational_portal/customers_controller.rb
 module OperationalPortal
   class CustomersController < ApplicationController
     before_action :authenticate_user!
     before_action :ensure_operational_user
-    before_action :set_customer, only: [:show, :edit, :update, :destroy]
+    before_action :set_customer, only: %i[show edit update destroy]
 
     def index
       @customers = Customer.all
@@ -23,6 +25,10 @@ module OperationalPortal
       @customer = Customer.new
     end
 
+    def edit
+      @users = User.where(customer_id: @customer.id)
+    end
+
     def create
       @customer = Customer.new(customer_params)
       if @customer.save
@@ -30,10 +36,6 @@ module OperationalPortal
       else
         render :new
       end
-    end
-
-    def edit
-      @users = User.where(customer_id: @customer.id)
     end
 
     def update
@@ -50,11 +52,11 @@ module OperationalPortal
     end
 
     def search
-      if params[:query].present?
-        @customers = Customer.where('name LIKE ?', "%#{params[:query]}%")
-      else
-        @customers = Customer.all
-      end
+      @customers = if params[:query].present?
+                     Customer.where('name LIKE ?', "%#{params[:query]}%")
+                   else
+                     Customer.all
+                   end
 
       render json: @customers
     end

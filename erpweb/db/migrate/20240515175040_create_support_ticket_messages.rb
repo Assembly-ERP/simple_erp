@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateSupportTicketMessages < ActiveRecord::Migration[7.1]
   def change
     create_table :support_ticket_messages do |t|

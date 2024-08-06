@@ -1,0 +1,15 @@
+/ app/views/operational_portal/support_tickets/_preview_file.html.erb
+- if @file.image?
+  = image_tag url_for(@file)
+- elsif @file.video?
+  %video{:controls => ""}
+    %source{:src => "#{url_for(@file)}", :type => "#{@file.content_type}"}
+      Your browser does not support the video tag.
+- else
+  %p
+    %strong File Name:
+    = @file.filename
+  %p
+    %strong File Type:
+    = @file.content_type
+  = link_to "Download", rails_blob_path(@file, disposition: "attachment")

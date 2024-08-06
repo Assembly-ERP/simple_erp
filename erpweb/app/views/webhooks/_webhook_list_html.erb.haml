@@ -1,0 +1,14 @@
+%table.table
+  %thead
+    %tr
+      %th URL
+      %th Customer
+      %th Actions
+  %tbody
+    - @webhooks.each do |webhook|
+      %tr
+        %td= webhook.url
+        %td= webhook.customer.name
+        %td
+          = link_to 'Edit', edit_webhook_path(webhook), remote: true
+          = link_to 'Delete', webhook, method: :delete, data: { confirm: 'Are you sure?' }, remote: true

@@ -1,0 +1,23 @@
+/ app/views/operational_portal/users/index.html.erb
+.container
+  %h1 Manage Users
+  .actions
+    = link_to 'New User', new_operational_portal_user_path, class: 'btn btn-primary'
+  %table.table
+    %thead
+      %tr
+        %th User Email
+        %th Name
+        %th Action
+    %tbody
+      - if @users.present?
+        - @users.each do |user|
+          %tr.order-row
+            %td= link_to user.email, operational_portal_user_path(user)
+            %td= user.name
+            %td
+              = link_to 'Edit', edit_operational_portal_user_path(user)
+              = link_to 'Delete', operational_portal_user_path(user), method: :delete, data: { confirm: 'Are you sure?' }
+      - else
+        %tr
+          %td{:colspan => "5"} No Users found

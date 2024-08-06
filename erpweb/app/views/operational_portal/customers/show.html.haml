@@ -1,0 +1,23 @@
+/ app/views/operational_portal/customers/show.html.erb
+.container
+  %h1 Customer Details
+  %p
+    %strong Name:
+    = @customer.name
+  %p
+    %strong Phone:
+    = format_phone_number(@customer.phone)
+  %p
+    %strong Street:
+    = @customer.street
+  %p
+    %strong City:
+    = @customer.city
+  %p
+    %strong State:
+    = @customer.state
+  %p
+    %strong Postal Code:
+    = @customer.postal_code
+  = link_to 'Edit', edit_operational_portal_customer_path(@customer), class: "btn"
+  = link_to 'Back', operational_portal_customers_path, class: "btn"

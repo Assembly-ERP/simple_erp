@@ -21,7 +21,7 @@ Rails.application.routes.draw do
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
-  
+
   devise_for :operational_users, controllers: {
     registrations: 'operational_users/registrations'
   }
@@ -30,11 +30,11 @@ Rails.application.routes.draw do
     registrations: 'customer_users/registrations'
   }
 
-  authenticated :user, ->(u) { u.operational_user? } do
+  authenticated :user, ->(u) { u&.operational_user? } do
     get '/operational_portal', to: 'operational_portal/dashboard#index', as: :operational_root
   end
 
-  authenticated :user, ->(u) { u.customer_user? } do
+  authenticated :user, ->(u) { u&.customer_user? } do
     get '/customer', to: 'customer_portal/dashboard#index', as: :customer_root
   end
 
@@ -45,10 +45,10 @@ Rails.application.routes.draw do
   # Define routes for JWT login and logout
   post 'login', to: 'users/sessions#create'
   delete 'logout', to: 'users/sessions#destroy'
-  
+
   # Operational portal namespace
   namespace :operational_portal do
- #   root to: 'operational_portal/dashboard#index'
+    #   root to: 'operational_portal/dashboard#index'
     resources :dashboard, only: [:index]
     get 'catalog', to: 'catalog#index'
     resources :catalog, only: [:index]
@@ -69,7 +69,6 @@ Rails.application.routes.draw do
         get 'fetch_parts'
         get 'fetch_products'
         get 'search_items'
-
       end
     end
     resources :support_tickets do
@@ -81,7 +80,7 @@ Rails.application.routes.draw do
         get 'customer_users'
       end
     end
-    resources :settings, only: [:index, :edit, :update]
+    resources :settings, only: %i[index edit update]
     resources :users
     resources :customers do
       collection do
@@ -91,13 +90,13 @@ Rails.application.routes.draw do
         get 'details', to: 'customers#details', as: :details
       end
     end
-    resources :invitations, only: [:new, :create]
-    resource :profile, only: [:show, :edit, :update]
+    resources :invitations, only: %i[new create]
+    resource :profile, only: %i[show edit update]
     resource :cart, only: [:show] do
       post 'add_item', on: :collection
     end
   end
-  
+
   # Customer portal namespace
   namespace :customer_portal do
     root to: 'customer_portal/dashboard#index'
@@ -107,21 +106,21 @@ Rails.application.routes.draw do
         post 'add_message', to: 'support_tickets#add_message'
       end
     end
-    resource :profile, only: [:show, :edit, :update]
+    resource :profile, only: %i[show edit update]
     resource :cart, only: [:show] do
       post 'add_item', on: :collection
     end
   end
-  
+
   # Resources accessible to all users
-  resources :products, only: [:index, :show]
-  resources :parts, only: [:index, :show]
- 
+  resources :products, only: %i[index show]
+  resources :parts, only: %i[index show]
+
   # Search route
   get 'search', to: 'search#index'
 
   # Health check route for application monitoring
-  get "up" => "rails/health#show", as: :rails_health_check
+  get 'up' => 'rails/health#show', as: :rails_health_check
 
   # Catch-all route to handle undefined routes
   # match '*path', to: 'application#routing_error', via: :all

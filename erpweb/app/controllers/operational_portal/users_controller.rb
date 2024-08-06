@@ -1,19 +1,24 @@
+# frozen_string_literal: true
+
 # app/controllers/operational_portal/users_controller.rb
 module OperationalPortal
   class UsersController < ApplicationController
     before_action :authenticate_user!
     before_action :ensure_operational_user
-    before_action :set_user, only: [:show, :edit, :update, :destroy]
+    before_action :set_user, only: %i[show edit update destroy]
 
     def index
       @users = User.all
     end
 
-    def show
-    end
+    def show; end
 
     def new
       @user = User.new
+      @customers = Customer.all
+    end
+
+    def edit
       @customers = Customer.all
     end
 
@@ -27,12 +32,12 @@ module OperationalPortal
       end
     end
 
-    def edit
-      @customers = Customer.all
-    end
-
     def update
-      key = params[:user] ? :user : (params[:customer_user] ? :customer_user : nil)
+      key = if params[:user]
+              :user
+            else
+              (params[:customer_user] ? :customer_user : nil)
+            end
       if key.nil?
         redirect_to edit_operational_portal_user_path(@user), alert: 'Invalid parameters.'
         return
@@ -45,18 +50,17 @@ module OperationalPortal
           @customers = Customer.all
           render :edit
         end
+      elsif @user.update(params.require(key).permit(:email, :name, :phone, :role, :password, :password_confirmation,
+                                                    :customer_id))
+        redirect_to operational_portal_user_path(@user), notice: 'User was successfully updated.'
       else
-        if @user.update(params.require(key).permit(:email, :name, :phone, :role, :password, :password_confirmation, :customer_id))
-          redirect_to operational_portal_user_path(@user), notice: 'User was successfully updated.'
-        else
-          @customers = Customer.all
-          render :edit
-        end
+        @customers = Customer.all
+        render :edit
       end
     end
 
     def destroy
-      @user.destroy
+      @user.destroy!
       redirect_to operational_portal_users_path, notice: 'User was successfully deleted.'
     end
 

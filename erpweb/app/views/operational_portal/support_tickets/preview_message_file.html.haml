@@ -1,0 +1,4 @@
+/ app/views/operational_portal/support_tickets/preview_message_file.html.erb
+= turbo_frame_tag "preview-frame" do
+  .file-preview
+    = render partial: "preview_file", locals: { file: @file }

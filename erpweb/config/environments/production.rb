@@ -5,7 +5,7 @@ Rails.application.configure do
 
   # Code is not reloaded between requests.
   config.enable_reloading = false
-  
+
   # Ensure JavaScript files are precompiled
   config.assets.js_compressor = :uglifier
   # config.assets.css_compressor = :sass
@@ -13,9 +13,9 @@ Rails.application.configure do
   config.assets.digest = true
 
   # Add the assets to be precompiled.
-  config.assets.precompile += %w( application.scss application.js custom.scss logout_confirmation.scss )
+  config.assets.precompile += %w[application.scss application.js custom.scss logout_confirmation.scss]
 
-    # Eager load code on boot. This eager loads most of Rails and
+  # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.
   # Rake tasks automatically ignore this option for performance.
@@ -61,12 +61,12 @@ Rails.application.configure do
   config.force_ssl = true
 
   # Log to STDOUT by default
-  config.logger = ActiveSupport::Logger.new(STDOUT)
-    .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
-    .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
+  config.logger = ActiveSupport::Logger.new($stdout)
+                                       .tap  { |logger| logger.formatter = Logger::Formatter.new }
+                                       .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
 
   # Prepend all log lines with the following tags.
-  config.log_tags = [ :request_id ]
+  config.log_tags = [:request_id]
 
   # "info" includes generic and useful information about system operation, but avoids logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII). If you
@@ -104,13 +104,12 @@ Rails.application.configure do
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
 
-  config.assets.logger = ActiveSupport::Logger.new(STDOUT)
+  config.assets.logger = ActiveSupport::Logger.new($stdout)
   config.assets.logger.level = Logger::DEBUG
-
 
   # Enable serving of assets
   config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
   config.public_file_server.headers = {
-    'Cache-Control' => 'public, max-age=31536000',
+    'Cache-Control' => 'public, max-age=31536000'
   }
 end

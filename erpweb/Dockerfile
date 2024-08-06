@@ -35,11 +35,11 @@ RUN gem install bundler -v 2.5.10
 RUN bundle install
 
 # This is only for initial container build for volume
-RUN bundle exec rails importmap:install
-RUN bundle exec rails stimulus:install
+# RUN bundle exec rails importmap:install
+# RUN bundle exec rails stimulus:install
 
 # Ensure Active Storage is set up
-RUN bundle exec rails active_storage:install
+# RUN bundle exec rails active_storage:install
 
 # Precompile assets
 RUN bundle exec rails assets:precompile
@@ -58,6 +58,3 @@ RUN chmod +x /usr/bin/entrypoint.sh
 # Start the Rails server
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]
 CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
-
-# Devise Init key
-# config.secret_key = 'a8af4f2179abf1730d8b16e8d26b12fb6f8d0d53cc53a97f67c1ad73ab16248cd8ed460a3a5fd22ebf227810e3f19e18d33b717562669496f405bcf828316392'
