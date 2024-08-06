@@ -1,4 +1,4 @@
-#app/models/user.rb
+# app/models/user.rb
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -6,8 +6,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   belongs_to :customer, optional: true
-  
-# Associations for customer-related data
+
+  # Associations for customer-related data
   has_many :orders, foreign_key: 'customer_id', primary_key: 'customer_id'
   has_many :support_tickets, foreign_key: 'customer_id', primary_key: 'customer_id'
 
@@ -22,12 +22,13 @@ class User < ApplicationRecord
     role == 'customer_user_admin' || role == 'customer_user_regular'
   end
 
-   # Validate presence of additional attributes
+  # Validate presence of additional attributes
   validates :name, presence: true
-  validates :email, presence: true, uniqueness: { message: "This email is already taken" }
+  validates :email, presence: true, uniqueness: { message: 'This email is already taken' }
 
-   # Conditional validation for passwords
-  validates :password, presence: true, length: { minimum: 8, message: "at least 8 characters" }, if: -> { new_record? || !password.nil? }
+  # Conditional validation for passwords
+  validates :password, presence: true, length: { minimum: 8, message: 'at least 8 characters' },
+                       if: -> { new_record? || !password.nil? }
   validates :password_confirmation, presence: true, if: -> { password.present? }
   validates :role, inclusion: { in: ROLES }
 
@@ -37,12 +38,12 @@ class User < ApplicationRecord
     validates :customer_phone, presence: true
   end
 
-  def as_json(options = {})
-    super(only: [:id, :name])
+  def as_json(_options = {})
+    super(only: %i[id name])
   end
 
   attr_accessor :customer_name, :customer_phone, :street, :city, :state, :postal_code, :discount
- 
+
   private
 
   def password_required?

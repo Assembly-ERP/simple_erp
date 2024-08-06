@@ -1,0 +1,6 @@
+%h1 Profile
+%p
+  Email: #{@user.email}
+%p
+  Avatar: #{image_tag @user.avatar.url if @user.avatar?}
+= link_to 'Edit Profile', edit_profile_path

@@ -1,0 +1,65 @@
+/ app/views/operational_portal/support_tickets/show.html.erb
+%h1 Support Ticket Details
+%p
+  %strong Ticket ID:
+  = @support_ticket.id
+%p
+  %strong Title:
+  = @support_ticket.title
+%p
+  %strong Status:
+  = @support_ticket.status
+%p
+  %strong Created At:
+  = @support_ticket.created_at.strftime("%B %d, %Y %H:%M")
+%h2 Messages
+%ul
+  - if @support_ticket.support_ticket_messages.any?
+    - @support_ticket.support_ticket_messages.each do |support_ticket_message|
+      %li{:style => "margin-bottom: 10px; margin-top: 1em;"}
+        %strong Message Added:
+        = support_ticket_message.created_at.strftime("%B %d, %Y %H:%M")
+        %div
+          %strong Message:
+          = support_ticket_message.body
+        - support_ticket_message.files.each do |file|
+          %div
+            %li{:style => "margin-top: 10px"}
+              %strong File:
+              = file.filename.to_s
+              %div
+                - if file.content_type.start_with?('image')
+                  .image-preview
+                    = image_tag url_for(file.variant(resize_to_limit: [100, 100])), style: "width: 20vw; cursor: pointer;", onclick: "openModal('#{url_for(file)}')"
+                - else
+                  %li{:style => "margin-bottom: 5px; display: flex; flex-direction: column; align-items: left;"}
+                    = link_to "Preview", url_for(file), target: "_blank", onclick: "previewFile(event, '#{url_for(file)}', '#{file.content_type}')"
+                = link_to "Download", rails_blob_path(file, disposition: "attachment")
+  - else
+    %li No messages found.
+%hr{:style => "margin: 2em 0;"}/
+- if current_user.role == 'admin' || current_user.role == 'manager'
+  %h3 Add a New Message
+  = form_with model: [@support_ticket, SupportTicketMessage.new], url: add_message_operational_portal_support_ticket_path(@support_ticket), local: true, html: { multipart: true } do |form|
+    .field
+      = form.label :body, "Message"
+      = form.text_area :body
+    .field
+      = form.label :files, "Files"
+      = form.file_field :files, multiple: true
+    %div
+      = form.submit "Add Message", class: "btn btn-primary"
+= link_to 'Back to Tickets', operational_portal_support_tickets_path, class: 'btn btn-secondary'
+/ Modal Structure for Images
+#imageModal.modal
+  %span.close{:onclick => "closeModal()"} ×
+  #spinner.spinner
+  %img#modalImage.image-modal/
+  #caption
+/ Modal for file preview
+#fileModal.modal
+  %span.close{:onclick => "closeFileModal()"} ×
+  #fileSpinner.spinner
+  %iframe#modalFile.preview-modal
+  #fileCaption
+= javascript_include_tag 'preview'

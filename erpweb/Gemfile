@@ -105,7 +105,11 @@ gem 'rails_best_practices'
 gem 'traceroute'
 
 # compress js
-gem 'uglifier'
+# gem 'uglifier'
+
+# Haml support
+gem 'haml-rails', '~> 2.1'
+gem 'html2haml', '~> 2.3'
 
 gem 'active_storage_validations'
 
@@ -138,6 +142,10 @@ group :development do
   # Bullet gem for detecting N+1 queries
   gem 'bullet'
 
+  # Linting
+  gem 'rubocop', require: false
+  gem 'rubocop-rails', require: false
+
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 
@@ -151,3 +159,6 @@ group :test do
   gem 'selenium-webdriver'
   gem 'webdrivers'
 end
+
+# .env Variables
+gem 'dotenv-rails', '~> 3.1'

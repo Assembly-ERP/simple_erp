@@ -2,12 +2,12 @@
 import "@hotwired/turbo-rails"
 import "controllers";
 
+// to be removed eventually
 import * as ActiveStorage from "@rails/activestorage";
 import axiosHelper from './axiosHelper';
 import "customer_search";
 import { openModal, closeModal, previewFile, closeFileModal } from './preview';
 
-// to be removed eventually
 ActiveStorage.start();
 
 window.openModal = openModal;

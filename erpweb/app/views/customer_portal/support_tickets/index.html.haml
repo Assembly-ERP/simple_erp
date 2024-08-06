@@ -1,0 +1,31 @@
+/ app/views/customer_portal/support_tickets/index.html.erb
+%h1 Your Support Tickets
+= link_to 'New Support Ticket', new_customer_portal_support_ticket_path
+%ul
+  - @support_tickets.each do |ticket|
+    %li.list-group-item
+      = link_to ticket.title, customer_portal_support_ticket_path(ticket)
+      - if current_user.role == 'customer_user_admin' || (current_user.role == 'customer_user_regular' && ticket.user == current_user)
+        = link_to 'Edit', edit_customer_portal_support_ticket_path(ticket)
+.container
+  %h1 Support Tickets
+  .actions
+    = link_to 'New Support Ticket', new_customer_portal_support_ticket_path, class: 'btn btn-primary'
+  %table.table
+    %thead
+      %tr
+        %th Ticket Title
+        %th Customer Name
+        %th Status
+        %th Created Date
+    %tbody
+      - if @support_tickets.present?
+        - @support_tickets.each do |ticket|
+          %tr.order-row
+            %td= link_to ticket.title, customer_portal_support_ticket_path(ticket)
+            %td= ticket.customer.name
+            %td= ticket.status
+            %td.local-time{"data-time" => "#{ticket.created_at}"}= ticket.created_at
+      - else
+        %tr
+          %td{:colspan => "5"} No Support Tickets found

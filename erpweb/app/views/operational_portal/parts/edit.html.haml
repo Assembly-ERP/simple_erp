@@ -1,0 +1,177 @@
+/ app/views/operational_portal/parts/edit.html.erb
+.container
+  %h1
+    Edit #{@part.name}
+  = form_with(model: @part, local: true, url: operational_portal_part_path(@part), method: :patch) do |form|
+    - if @part.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@part.errors.count, "error")
+          prohibited this part from being saved:
+        %ul
+          - @part.errors.full_messages.each do |message|
+            %li= message
+    .field
+      = form.label :name
+      = form.text_field :name
+    .field
+      = form.label :description
+      = form.text_area :description
+    .field
+      = form.label :weight
+      = form.number_field :weight, value: @part.weight || 0.00, step: :any
+    .field.toggle-field
+      = form.label :inventory, "Inventory", class: 'toggle-label'
+      = form.check_box :inventory, class: 'toggle-checkbox', id: 'inventory_toggle'
+      %label.toggle-switch{:for => "inventory_toggle"}
+      .swap-fields
+        .manual-edit-field
+          = form.label :in_stock, "In Stock"
+          = form.number_field :in_stock, value: @part.in_stock || 0
+    .field.toggle-field
+      = form.label :manual_price, "Override Price", class: 'toggle-label'
+      = form.check_box :manual_price, class: 'toggle-checkbox', id: 'manual_price_toggle'
+      %label.toggle-switch{:for => "manual_price_toggle"}
+      .swap-fields
+        .readonly-field
+          = form.label :price, "Price"
+          %span.price-display= number_to_currency(@part.price || 0.00)
+        .manual-edit-field
+          = form.label :price, "Price $"
+          = form.number_field :price, value: @part.price || 0.00, step: :any
+    %div
+      = form.submit "Save Part", class: "btn btn-primary"
+      = link_to 'Back', operational_portal_part_path(@part), class: 'btn btn-secondary'
+  %h3 Upload Files
+  = form_with(url: upload_file_operational_portal_part_path(@part), local: true, method: :post, multipart: true) do |form|
+    .field
+      = form.label :files
+      = form.file_field :files, multiple: true, id: 'file-upload', name: 'files[]'
+    #new-file-previews
+    / Preview container
+    %div
+      = form.submit "Upload Files", class: "btn btn-secondary"
+  .existing-files
+    %h3 Existing Files
+    - @part.files.each do |file|
+      %li{:style => "margin-bottom: 10px; display: flex; flex-direction: column; align-items: center;"}
+        - if file.content_type.start_with?('image')
+          = image_tag url_for(file.variant(resize_to_limit: [100, 100])), style: "max-width: 10vw; max-height: 10vh; cursor: pointer;", onclick: "openModal('#{url_for(file)}')"
+        - else
+          = link_to file.filename, url_for(file), target: "_blank"
+        = link_to 'Delete', delete_file_operational_portal_part_path(@part, file_id: file.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'delete-button', style: "margin-top: 5px;"
+/ Modal for image preview
+#imageModal.modal
+  %span.close{:onclick => "closeModal()"} ×
+  %img#modalImage.modal-content/
+  #caption
+:javascript
+  document.addEventListener("DOMContentLoaded", function() {
+    const fileInput = document.querySelector('input[type="file"]');
+    const previewContainer = document.getElementById('new-file-previews');
+  
+    if (fileInput) {
+      fileInput.addEventListener('change', function(event) {
+        previewContainer.innerHTML = ''; // Clear previous previews
+        Array.from(event.target.files).forEach(file => {
+          if (file.type.startsWith('image/')) { // Only preview image files
+            const reader = new FileReader();
+            reader.onload = function(e) {
+              const img = document.createElement('img');
+              img.src = e.target.result;
+              img.style.maxWidth = '10vw';
+              img.style.maxHeight = '10vh';
+              img.style.marginBottom = '10px';
+              previewContainer.appendChild(img);
+            };
+            reader.onerror = function(error) {
+              console.error("Error loading file preview: ", error);
+            };
+            reader.readAsDataURL(file);
+          }
+        });
+      });
+    }
+  });
+  
+    if (previewContainer) {
+      previewContainer.addEventListener('click', (event) => {
+        if (event.target.tagName === 'BUTTON') {
+          const li = event.target.closest('li');
+          const confirmDelete = confirm('Are you sure you want to delete this file?');
+          if (confirmDelete) {
+            li.remove();
+          }
+        }
+      });
+    }
+  });
+  
+  
+  function openModal(imageSrc) {
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("modalImage");
+    const captionText = document.getElementById("caption");
+  
+    if (modal && modalImg && captionText) {
+      modal.style.display = "block";
+      modalImg.src = imageSrc;
+      captionText.innerHTML = imageSrc.split('/').pop(); // Get the file name
+    }
+  }
+  
+  function closeModal() {
+    const modal = document.getElementById("imageModal");
+    if (modal) {
+      modal.style.display = "none";
+    }
+  }
+:css
+  /* Modal styles */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0,0.9);
+  }
+
+  .modal-content {
+    margin: auto;
+    display: block;
+    width: 80%;
+    max-width: 700px;
+  }
+
+  .modal-content {
+    animation-name: zoom;
+    animation-duration: 0.6s;
+  }
+
+  @keyframes zoom {
+    from {transform: scale(0)}
+    to {transform: scale(1)}
+  }
+
+  .close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+  }

@@ -1,0 +1,60 @@
+/ app/views/operational_portal/customers/edit.html.erb
+.container
+  %h1 Edit Customer
+  = form_with(model: @customer, url: operational_portal_customer_path(@customer), local: true) do |form|
+    - if @customer.errors.any?
+      #error_explanation
+        %h2
+          = pluralize(@customer.errors.count, "error")
+          prohibited this customer from being saved:
+        %ul
+          - @customer.errors.full_messages.each do |message|
+            %li= message
+    .field
+      = form.label :name
+      = form.text_field :name
+    .field
+      = form.label :phone
+      = form.telephone_field :phone, value: format_phone_number(@customer.phone)
+    .field
+      = form.label :street
+      = form.text_field :street
+    .field
+      = form.label :city
+      = form.text_field :city
+    .field
+      = form.label :state
+      = form.text_field :state
+    .field
+      = form.label :postal_code
+      = form.text_field :postal_code
+    .field
+      = form.label :discount
+      = form.number_field :discount, value: format('%.2f', @customer.discount.to_f), step: '0.01'
+    %div
+      = form.submit "Update Customer", class: "btn btn-primary"
+      = link_to 'Back', operational_portal_customers_path, class: 'btn btn-secondary'
+  %h2 Associated Users
+  %ul
+    - @users.each do |user|
+      %li= link_to user.name, edit_operational_portal_user_path(user)
+:javascript
+  document.addEventListener("DOMContentLoaded", () => {
+    const phoneInput = document.querySelector('input[type="tel"]');
+  
+    if (phoneInput) {
+      phoneInput.addEventListener("input", formatPhoneNumber);
+    }
+  });
+  
+  function formatPhoneNumber(event) {
+    const input = event.target;
+    let value = input.value.replace(/\D/g, '');
+  
+    if (value.length > 10) {
+      value = value.slice(0, 10);
+    }
+  
+    const formattedValue = value.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+    input.value = formattedValue;
+  }

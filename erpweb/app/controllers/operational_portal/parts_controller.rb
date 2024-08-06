@@ -3,14 +3,13 @@ module OperationalPortal
   class PartsController < ApplicationController
     before_action :authenticate_user!
     before_action :ensure_operational_user
-    before_action :set_part, only: [:show, :edit, :update, :destroy, :delete_file]
+    before_action :set_part, only: %i[show edit update destroy delete_file]
 
     def index
       @parts = Part.all
     end
 
-    def show
-    end
+    def show; end
 
     def new
       @part = Part.new
@@ -29,8 +28,7 @@ module OperationalPortal
       end
     end
 
-    def edit
-    end
+    def edit; end
 
     def update
       respond_to do |format|
@@ -44,14 +42,13 @@ module OperationalPortal
         end
       end
     end
-    
 
     def destroy
       @part = Part.find(params[:id])
       @part.destroy
       redirect_to operational_portal_catalog_path, notice: 'Part was successfully deleted.'
     end
-  
+
     def delete_file
       file = @part.files.find(params[:file_id])
       file.purge_later
@@ -59,7 +56,7 @@ module OperationalPortal
     rescue ActiveRecord::RecordNotFound
       redirect_to edit_operational_portal_part_path(@part), alert: 'File not found.'
     end
-  
+
     def upload_file
       @part = Part.find(params[:id])
       if @part
@@ -71,18 +68,17 @@ module OperationalPortal
         redirect_to edit_operational_portal_part_path(@part), alert: 'Part not found.'
       end
     end
-    
 
     private
 
     def attach_files(part, files)
       return unless files
-    
+
       files.reject(&:blank?).each do |file|
         next unless file.is_a?(ActionDispatch::Http::UploadedFile)
-    
+
         Rails.logger.info "Processing file: #{file.original_filename} for part: #{part.name}"
-    
+
         if file.content_type.start_with?('image')
           processed_image = ImageResizer.resize(file.tempfile.path)
           new_filename = generate_filename(part, file)
@@ -93,8 +89,7 @@ module OperationalPortal
         end
       end
     end
-    
-    
+
     def generate_filename(part, file)
       extension = File.extname(file.original_filename)
       part_name = part.name.parameterize
@@ -109,8 +104,7 @@ module OperationalPortal
                          end
       "#{part_name}_#{file_type_prefix}_#{count}#{extension}"
     end
-    
-    
+
     def file_type(content_type)
       case content_type
       when 'image/jpeg', 'image/png', 'image/gif'
@@ -127,7 +121,8 @@ module OperationalPortal
     end
 
     def part_params
-      params.require(:part).permit(:name, :description, :price, :in_stock, :weight, :manual_price, :inventory, files: [])
+      params.require(:part).permit(:name, :description, :price, :in_stock, :weight, :manual_price, :inventory,
+                                   files: [])
     end
 
     def calculate_price(part)

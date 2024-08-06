@@ -1,0 +1,20 @@
+/ app/views/customer_portal/orders/new.html.erb
+%h1 New Order
+= form_with(model: @order, local: true, url: customer_portal_orders_path) do |form|
+  - if @order.errors.any?
+    #error_explanation
+      %h2
+        = pluralize(@order.errors.count, "error")
+        prohibited this order from being saved:
+      %ul
+        - @order.errors.full_messages.each do |message|
+          %li= message
+  .field
+    = form.label :status
+    = form.text_field :status
+  .field
+    = form.label :total
+    = form.number_field :total
+  %div
+    = form.submit Create Order
+= link_to 'Back', customer_portal_orders_path

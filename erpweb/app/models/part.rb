@@ -13,17 +13,15 @@ class Part < ApplicationRecord
 
   before_save :set_price_value, unless: :manual_price?
 
-
-   def price
-    sprintf('%.2f', read_attribute(:price) || 0.00)
+  def price
+    format('%.2f', read_attribute(:price) || 0.00)
   end
 
   def calculate_price
     price_per_pound = Setting.price_per_pound
-    self.weight.to_f * price_per_pound
+    weight.to_f * price_per_pound
   end
 
-  
   private
 
   def set_price_value
@@ -34,3 +32,4 @@ class Part < ApplicationRecord
     self.price ||= 0.00
   end
 end
+

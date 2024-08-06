@@ -1,2 +1,0 @@
-// Assuming each webhook row has an ID in the format of `webhook_<id>`
-$("#webhook_<%= @webhook.id %>").replaceWith("<%= escape_javascript(render partial: 'webhook', locals: { webhook: @webhook }) %>");
