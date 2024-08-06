@@ -14,7 +14,7 @@ module.exports = {
       },
       colors: {},
       maxWidth: {
-        margin: "1240px",
+        margin: "1350px",
       },
     },
   },
