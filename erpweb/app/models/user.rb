@@ -31,14 +31,9 @@ class User < ApplicationRecord
   validates :role, inclusion: { in: ROLES }
 
   # These attributes are only relevant for customer user admins
-  with_options if: -> { role == 'customer_user_admin' } do
-    validates :customer_name, presence: true
-    validates :customer_phone, presence: true
-  end
-
-  def as_json(_options = {})
-    super(only: %i[id name])
-  end
+  # def as_json(_options = {})
+  #   super(only: %i[id name])
+  # end
 
   def remember_me
     super.nil? ? true : super
@@ -54,11 +49,11 @@ class User < ApplicationRecord
 
   # attr_accessor :customer_name, :customer_phone, :street, :city, :state, :postal_code, :discount
 
-  private
+  # private
 
-  def password_required?
-    new_record? || password.present?
-  end
+  # def password_required?
+  #   new_record? || password.present?
+  # end
 end
 
 # == Schema Information
@@ -66,6 +61,9 @@ end
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  confirmation_sent_at   :datetime
+#  confirmation_token     :string
+#  confirmed_at           :datetime
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
 #  firstName              :string
@@ -77,12 +75,14 @@ end
 #  reset_password_token   :string
 #  role                   :string
 #  type                   :string
+#  unconfirmed_email      :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null
 #  customer_id            :bigint
 #
 # Indexes
 #
+#  index_users_on_confirmation_token    (confirmation_token) UNIQUE
 #  index_users_on_customer_id           (customer_id)
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE

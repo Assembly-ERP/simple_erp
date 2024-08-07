@@ -1,5 +1,3 @@
-# config/initializers/devise.rb
-
 # frozen_string_literal: true
 
 # Assuming you have not yet modified this file, each configuration option below
@@ -16,22 +14,12 @@ Devise.setup do |config|
   # confirmation, reset password and unlock tokens in the database.
   # Devise will use the `secret_key_base` as its `secret_key`
   # by default. You can change it below and use your own secret key.
-  config.secret_key = ENV['SECRET_KEY_BASE'] || Rails.application.secrets.secret_key_base
+  # config.secret_key = '775a9986db617ea4ae797665520ccfcd83124f284dd4c9662be59afc04a5f931270a0b3e521096a8d9d1517bfa187b4f8e064190a607f5bb816d5c2042e217cf'
+  config.secret_key = Rails.application.secret_key_base
 
   # ==> Controller configuration
   # Configure the parent class to the devise controllers.
   # config.parent_controller = 'DeviseController'
-
-  config.jwt do |jwt|
-    jwt.secret = ENV.fetch('JWT_SECRET_KEY', nil)
-    jwt.dispatch_requests = [
-      ['POST', %r{^/login$}]
-    ]
-    jwt.revocation_requests = [
-      ['DELETE', %r{^/logout$}]
-    ]
-    jwt.expiration_time = 1.day.to_i
-  end
 
   # ==> Mailer Configuration
   # Configure the e-mail address which will be shown in Devise::Mailer,
@@ -40,10 +28,10 @@ Devise.setup do |config|
   config.mailer_sender = 'please-change-me-at-config-initializers-devise@example.com'
 
   # Configure the class responsible to send e-mails.
-  config.mailer = 'Devise::Mailer'
+  # config.mailer = 'Devise::Mailer'
 
   # Configure the parent class responsible to send e-mails.
-  config.parent_mailer = 'ActionMailer::Base'
+  # config.parent_mailer = 'ActionMailer::Base'
 
   # ==> ORM configuration
   # Load and configure the ORM. Supports :active_record (default) and
@@ -139,7 +127,7 @@ Devise.setup do |config|
   config.stretches = Rails.env.test? ? 1 : 12
 
   # Set up a pepper to generate the hashed password.
-  # config.pepper = 'fae731b25b213cfd6798fa7c02e648a820ef3895aeb630ad36417bca0644028e6d92e8f2530a4cd96a45ed764acb3411188bdc10f4d7a6d24d16d609ac5bdc2c'
+  # config.pepper = '082407b56e899f6ccf00f321c791a280ce3e31d6b7759872f6787592b5b6a4694c375fb496c25e90c4e701cb72da25616173a2b03dcec6320dbc7d967f2e0ef7'
 
   # Send a notification to the original email when the user's email is changed.
   # config.send_email_changed_notification = false
@@ -257,7 +245,7 @@ Devise.setup do |config|
   # Turn scoped views on. Before rendering "sessions/new", it will first check for
   # "users/sessions/new". It's turned off by default because it's slower if you
   # are using only default views.
-  # config.scoped_views = false
+  config.scoped_views = false
 
   # Configure the default scope given to Warden. By default it's the first
   # devise role declared in your routes (usually :user).
@@ -265,7 +253,7 @@ Devise.setup do |config|
 
   # Set this configuration to false if you want /users/sign_out to sign out
   # only the current scope. By default, Devise signs out all scopes.
-  # config.sign_out_all_scopes = false
+  # config.sign_out_all_scopes = true
 
   # ==> Navigation configuration
   # Lists the formats that should be treated as navigational. Formats like
@@ -285,6 +273,8 @@ Devise.setup do |config|
   # Add a new OmniAuth provider. Check the wiki for more information on setting
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', scope: 'user,public_repo'
+  # config.omniauth :google_oauth2, ENV.fetch('GOOGLE_OAUTH_CLIENT_ID', nil), ENV.fetch('GOOGLE_OAUTH_CLIENT_SECRET', nil)
+  # config.omniauth :facebook, ENV.fetch('FACEBOOK_OAUTH_CLIENT_ID', nil), ENV.fetch('FACEBOOK_OAUTH_CLIENT_SECRET', nil)
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

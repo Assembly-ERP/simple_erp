@@ -17,34 +17,28 @@ Rails.application.routes.draw do
     end
   end
 
-  devise_for :users, controllers: {
-    sessions: 'users/sessions',
-    registrations: 'users/registrations'
-  }
+  devise_for :users
 
-  devise_for :operational_users, controllers: {
-    registrations: 'operational_users/registrations'
-  }
+  # devise_for :users, controllers: {
+  #   sessions: 'users/sessions',
+  #   registrations: 'users/registrations'
+  # }
 
-  devise_for :customer_users, controllers: {
-    registrations: 'customer_users/registrations'
-  }
+  # devise_for :customer_users, controllers: {
+  #   registrations: 'customer_users/registrations'
+  # }
 
-  authenticated :user, ->(u) { u&.operational_user? } do
-    get '/operational_portal', to: 'operational_portal/dashboard#index', as: :operational_root
-  end
+  get '/operational_portal', to: 'operational_portal/dashboard#index', as: :operational_root
 
-  authenticated :user, ->(u) { u&.customer_user? } do
-    get '/customer', to: 'customer_portal/dashboard#index', as: :customer_root
-  end
+  get '/customer', to: 'customer_portal/dashboard#index', as: :customer_root
 
   unauthenticated do
     root 'home#index'
   end
 
   # Define routes for JWT login and logout
-  post 'login', to: 'users/sessions#create'
-  delete 'logout', to: 'users/sessions#destroy'
+  # post 'login', to: 'users/sessions#create'
+  # delete 'logout', to: 'users/sessions#destroy'
 
   # Operational portal namespace
   namespace :operational_portal do
@@ -181,65 +175,27 @@ end
 #                                                        PATCH  /api/v1/webhooks/:id(.:format)                                                                    api/v1/webhooks#update
 #                                                        PUT    /api/v1/webhooks/:id(.:format)                                                                    api/v1/webhooks#update
 #                                                        DELETE /api/v1/webhooks/:id(.:format)                                                                    api/v1/webhooks#destroy
-#                                       new_user_session GET    /users/sign_in(.:format)                                                                          users/sessions#new
-#                                           user_session POST   /users/sign_in(.:format)                                                                          users/sessions#create
-#                                   destroy_user_session DELETE /users/sign_out(.:format)                                                                         users/sessions#destroy
+#                                       new_user_session GET    /users/sign_in(.:format)                                                                          devise/sessions#new
+#                                           user_session POST   /users/sign_in(.:format)                                                                          devise/sessions#create
+#                                   destroy_user_session DELETE /users/sign_out(.:format)                                                                         devise/sessions#destroy
 #                                      new_user_password GET    /users/password/new(.:format)                                                                     devise/passwords#new
 #                                     edit_user_password GET    /users/password/edit(.:format)                                                                    devise/passwords#edit
 #                                          user_password PATCH  /users/password(.:format)                                                                         devise/passwords#update
 #                                                        PUT    /users/password(.:format)                                                                         devise/passwords#update
 #                                                        POST   /users/password(.:format)                                                                         devise/passwords#create
-#                               cancel_user_registration GET    /users/cancel(.:format)                                                                           users/registrations#cancel
-#                                  new_user_registration GET    /users/sign_up(.:format)                                                                          users/registrations#new
-#                                 edit_user_registration GET    /users/edit(.:format)                                                                             users/registrations#edit
-#                                      user_registration PATCH  /users(.:format)                                                                                  users/registrations#update
-#                                                        PUT    /users(.:format)                                                                                  users/registrations#update
-#                                                        DELETE /users(.:format)                                                                                  users/registrations#destroy
-#                                                        POST   /users(.:format)                                                                                  users/registrations#create
+#                               cancel_user_registration GET    /users/cancel(.:format)                                                                           devise/registrations#cancel
+#                                  new_user_registration GET    /users/sign_up(.:format)                                                                          devise/registrations#new
+#                                 edit_user_registration GET    /users/edit(.:format)                                                                             devise/registrations#edit
+#                                      user_registration PATCH  /users(.:format)                                                                                  devise/registrations#update
+#                                                        PUT    /users(.:format)                                                                                  devise/registrations#update
+#                                                        DELETE /users(.:format)                                                                                  devise/registrations#destroy
+#                                                        POST   /users(.:format)                                                                                  devise/registrations#create
 #                                  new_user_confirmation GET    /users/confirmation/new(.:format)                                                                 devise/confirmations#new
 #                                      user_confirmation GET    /users/confirmation(.:format)                                                                     devise/confirmations#show
 #                                                        POST   /users/confirmation(.:format)                                                                     devise/confirmations#create
-#                           new_operational_user_session GET    /operational_users/sign_in(.:format)                                                              devise/sessions#new
-#                               operational_user_session POST   /operational_users/sign_in(.:format)                                                              devise/sessions#create
-#                       destroy_operational_user_session DELETE /operational_users/sign_out(.:format)                                                             devise/sessions#destroy
-#                          new_operational_user_password GET    /operational_users/password/new(.:format)                                                         devise/passwords#new
-#                         edit_operational_user_password GET    /operational_users/password/edit(.:format)                                                        devise/passwords#edit
-#                              operational_user_password PATCH  /operational_users/password(.:format)                                                             devise/passwords#update
-#                                                        PUT    /operational_users/password(.:format)                                                             devise/passwords#update
-#                                                        POST   /operational_users/password(.:format)                                                             devise/passwords#create
-#                   cancel_operational_user_registration GET    /operational_users/cancel(.:format)                                                               operational_users/registrations#cancel
-#                      new_operational_user_registration GET    /operational_users/sign_up(.:format)                                                              operational_users/registrations#new
-#                     edit_operational_user_registration GET    /operational_users/edit(.:format)                                                                 operational_users/registrations#edit
-#                          operational_user_registration PATCH  /operational_users(.:format)                                                                      operational_users/registrations#update
-#                                                        PUT    /operational_users(.:format)                                                                      operational_users/registrations#update
-#                                                        DELETE /operational_users(.:format)                                                                      operational_users/registrations#destroy
-#                                                        POST   /operational_users(.:format)                                                                      operational_users/registrations#create
-#                      new_operational_user_confirmation GET    /operational_users/confirmation/new(.:format)                                                     devise/confirmations#new
-#                          operational_user_confirmation GET    /operational_users/confirmation(.:format)                                                         devise/confirmations#show
-#                                                        POST   /operational_users/confirmation(.:format)                                                         devise/confirmations#create
-#                              new_customer_user_session GET    /customer_users/sign_in(.:format)                                                                 devise/sessions#new
-#                                  customer_user_session POST   /customer_users/sign_in(.:format)                                                                 devise/sessions#create
-#                          destroy_customer_user_session DELETE /customer_users/sign_out(.:format)                                                                devise/sessions#destroy
-#                             new_customer_user_password GET    /customer_users/password/new(.:format)                                                            devise/passwords#new
-#                            edit_customer_user_password GET    /customer_users/password/edit(.:format)                                                           devise/passwords#edit
-#                                 customer_user_password PATCH  /customer_users/password(.:format)                                                                devise/passwords#update
-#                                                        PUT    /customer_users/password(.:format)                                                                devise/passwords#update
-#                                                        POST   /customer_users/password(.:format)                                                                devise/passwords#create
-#                      cancel_customer_user_registration GET    /customer_users/cancel(.:format)                                                                  customer_users/registrations#cancel
-#                         new_customer_user_registration GET    /customer_users/sign_up(.:format)                                                                 customer_users/registrations#new
-#                        edit_customer_user_registration GET    /customer_users/edit(.:format)                                                                    customer_users/registrations#edit
-#                             customer_user_registration PATCH  /customer_users(.:format)                                                                         customer_users/registrations#update
-#                                                        PUT    /customer_users(.:format)                                                                         customer_users/registrations#update
-#                                                        DELETE /customer_users(.:format)                                                                         customer_users/registrations#destroy
-#                                                        POST   /customer_users(.:format)                                                                         customer_users/registrations#create
-#                         new_customer_user_confirmation GET    /customer_users/confirmation/new(.:format)                                                        devise/confirmations#new
-#                             customer_user_confirmation GET    /customer_users/confirmation(.:format)                                                            devise/confirmations#show
-#                                                        POST   /customer_users/confirmation(.:format)                                                            devise/confirmations#create
 #                                       operational_root GET    /operational_portal(.:format)                                                                     operational_portal/dashboard#index
 #                                          customer_root GET    /customer(.:format)                                                                               customer_portal/dashboard#index
 #                                                   root GET    /                                                                                                 home#index
-#                                                  login POST   /login(.:format)                                                                                  users/sessions#create
-#                                                 logout DELETE /logout(.:format)                                                                                 users/sessions#destroy
 #                     operational_portal_dashboard_index GET    /operational_portal/dashboard(.:format)                                                           operational_portal/dashboard#index
 #                             operational_portal_catalog GET    /operational_portal/catalog(.:format)                                                             operational_portal/catalog#index
 #                       operational_portal_catalog_index GET    /operational_portal/catalog(.:format)                                                             operational_portal/catalog#index
