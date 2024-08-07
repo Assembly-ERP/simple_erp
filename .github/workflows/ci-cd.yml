@@ -1,0 +1,36 @@
+name: Server-side Docker Build and Deploy
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Deploy to server
+      uses: appleboy/ssh-action@master
+      with:
+        host: ${{ secrets.SERVER_HOST }}
+        username: ${{ secrets.SERVER_USERNAME }}
+        key: ${{ secrets.SERVER_SSH_KEY }}
+        script: |
+          # Navigate to the project directory
+          cd ~/simple_erp
+
+          # Pull the latest code
+          git pull origin develop
+
+          # Build the Docker image
+          docker build -t simple_erp:latest .
+
+          # Stop and remove the old container if it exists
+          docker stop simple_erp || true
+          docker rm simple_erp || true
+
+          # Run the new container
+          docker run -d --name simple_erp -p 8080:80 simple_erp:latest
