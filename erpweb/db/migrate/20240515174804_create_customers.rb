@@ -3,14 +3,13 @@
 class CreateCustomers < ActiveRecord::Migration[7.1]
   def change
     create_table :customers do |t|
-      t.string :name
-      t.string :address
-      t.string :phone
-      t.string :street    # Added street column
-      t.string :city      # Added city column
-      t.string :state     # Added state column
-      t.string :postal_code # Added postal_code column
-      t.decimal :discount, precision: 5, scale: 2, default: 0 # Added discount column
+      t.string :name, null: false
+      t.string :phone, null: false
+      t.string :street
+      t.string :city
+      t.string :state
+      t.string :postal_code
+      t.decimal :discount, precision: 5, scale: 2, default: 0
 
       t.timestamps
     end

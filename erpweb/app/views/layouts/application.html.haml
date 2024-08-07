@@ -19,7 +19,7 @@
         --secondary-text: #fff;
       }
   %body.flex.flex-col
-    = turbo_frame_tag "nav_warning"
+    = render FlashComponent.new
     = render "layouts/navbar"
     %main.flex-1.margin-max-screen.grid
       = yield

@@ -62,9 +62,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_03_235631) do
   end
 
   create_table "customers", force: :cascade do |t|
-    t.string "name"
-    t.string "address"
-    t.string "phone"
+    t.string "name", null: false
+    t.string "phone", null: false
     t.string "street"
     t.string "city"
     t.string "state"
@@ -179,17 +178,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_03_235631) do
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.bigint "customer_id"
-    t.string "role"
-    t.string "type"
-    t.string "name"
+    t.string "role", null: false
+    t.string "name", null: false
     t.string "phone"
-    t.string "firstName"
-    t.string "lastName"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "confirmation_token"
+    t.datetime "confirmed_at"
+    t.datetime "confirmation_sent_at"
+    t.string "unconfirmed_email"
+    t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["customer_id"], name: "index_users_on_customer_id"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

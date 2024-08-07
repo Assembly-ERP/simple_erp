@@ -42,3 +42,17 @@ class Product < ApplicationRecord
     throw :abort
   end
 end
+
+# == Schema Information
+#
+# Table name: products
+#
+#  id              :bigint           not null, primary key
+#  description     :text
+#  json_attributes :json
+#  name            :string
+#  price           :decimal(, )
+#  weight          :decimal(10, 2)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#

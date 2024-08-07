@@ -34,3 +34,20 @@ class Part < ApplicationRecord
     self.price ||= 0.00
   end
 end
+
+# == Schema Information
+#
+# Table name: parts
+#
+#  id              :bigint           not null, primary key
+#  description     :text
+#  in_stock        :integer
+#  inventory       :boolean          default(FALSE), not null
+#  json_attributes :json
+#  manual_price    :boolean          default(FALSE), not null
+#  name            :string
+#  price           :decimal(10, 2)
+#  weight          :decimal(10, 2)
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#
