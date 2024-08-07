@@ -93,3 +93,8 @@ gem 'font-awesome-sass', '~> 6.4.0'
 
 # Reusable components
 gem 'view_component', '~> 2.82'
+
+# Type Checker
+gem 'sorbet', group: :development
+gem 'sorbet-runtime'
+gem 'tapioca', require: false, group: %i[development test]
