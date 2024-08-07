@@ -2,11 +2,15 @@
 
 # app/models/user.rb
 class User < ApplicationRecord
+  # Define roles as constants or methods
+  ROLES = %w[regular manager admin customer_user_admin customer_user_regular].freeze
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :validatable
 
+  # Relationship
   belongs_to :customer, optional: true
 
   # Associations for customer-related data
@@ -14,16 +18,7 @@ class User < ApplicationRecord
   has_many :support_tickets, foreign_key: 'customer_id', primary_key: 'customer_id', inverse_of: :customer,
                              dependent: :destroy
 
-  # Define roles as constants or methods
-  ROLES = %w[regular manager admin customer_user_admin customer_user_regular].freeze
-
-  def operational_user?
-    role == 'admin' || role == 'manager' || role == 'regular'
-  end
-
-  def customer_user?
-    role == 'customer_user_admin' || role == 'customer_user_regular'
-  end
+  accepts_nested_attributes_for :customer
 
   # Validate presence of additional attributes
   validates :name, presence: true
@@ -49,7 +44,15 @@ class User < ApplicationRecord
     super.nil? ? true : super
   end
 
-  attr_accessor :customer_name, :customer_phone, :street, :city, :state, :postal_code, :discount
+  def operational_user?
+    role == 'admin' || role == 'manager' || role == 'regular'
+  end
+
+  def customer_user?
+    role == 'customer_user_admin' || role == 'customer_user_regular'
+  end
+
+  # attr_accessor :customer_name, :customer_phone, :street, :city, :state, :postal_code, :discount
 
   private
 
