@@ -2,17 +2,14 @@
 
 # app/controllers/operational_portal/orders_controller.rb
 module OperationalPortal
-  class OrdersController < ApplicationController
-    before_action :authenticate_user!
-    before_action :set_order, only: %i[show edit update destroy]
+  class OrdersController < OperationalPortal::BaseController
+    load_and_authorize_resource
 
     def index
-      @orders = Order.includes(:customer).all
+      @orders = Order.accessible_by(current_ability)
     end
 
-    def show
-      @order = Order.includes(:customer, order_details: %i[product part]).find(params[:id])
-    end
+    def show; end
 
     def fetch_parts
       @parts = Part.all
@@ -32,7 +29,6 @@ module OperationalPortal
     end
 
     def edit
-      @order = Order.find(params[:id])
       @customers = Customer.all
       @parts = Part.all
       @products = Product.all
@@ -62,7 +58,6 @@ module OperationalPortal
     end
 
     def update
-      @order = Order.find(params[:id])
       if @order.update(order_params)
         render json: { success: true }
       else
@@ -71,7 +66,6 @@ module OperationalPortal
     end
 
     def destroy
-      @order = Order.find(params[:id])
       @order.destroy
       redirect_to operational_portal_orders_path, notice: 'Order was successfully cancelled.'
     end
@@ -89,10 +83,6 @@ module OperationalPortal
     end
 
     private
-
-    def set_order
-      @order = Order.find(params[:id])
-    end
 
     def order_params
       params.require(:order).permit(:status, :customer_id,

@@ -35,8 +35,6 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def configure_permitted_parameters; end
-
   def customer_document(customer)
     {
       id: customer.id.to_s,
