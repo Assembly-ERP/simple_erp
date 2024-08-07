@@ -19,12 +19,7 @@
         --secondary-text: #fff;
       }
   %body.flex.flex-col
-    = turbo_frame_tag "nav_warning"
     = render "layouts/navbar"
     %main.flex-1.margin-max-screen.grid
-      %p
-        = notice
-      %p
-        = alert
       = yield
     = render "layouts/footer"
