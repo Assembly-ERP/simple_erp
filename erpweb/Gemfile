@@ -119,6 +119,9 @@ group :development, :test do
 end
 
 group :development do
+  # Create details to classes
+  gem 'annotate'
+
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'web-console'
 

@@ -46,3 +46,20 @@ class Customer < ApplicationRecord
   #   TYPESENSE_CLIENT.collections[collection_name].documents.create(document)
   # end
 end
+
+# == Schema Information
+#
+# Table name: customers
+#
+#  id          :bigint           not null, primary key
+#  address     :string
+#  city        :string
+#  discount    :decimal(5, 2)    default(0.0)
+#  name        :string
+#  phone       :string
+#  postal_code :string
+#  state       :string
+#  street      :string
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#

@@ -24,3 +24,27 @@ RSpec.describe SupportTicket, type: :model do
     expect(ticket).not_to be_valid
   end
 end
+
+# == Schema Information
+#
+# Table name: support_tickets
+#
+#  id                :bigint           not null, primary key
+#  issue_description :text
+#  status            :string
+#  title             :string
+#  created_at        :datetime         not null
+#  updated_at        :datetime         not null
+#  customer_id       :bigint
+#  user_id           :bigint           not null
+#
+# Indexes
+#
+#  index_support_tickets_on_customer_id  (customer_id)
+#  index_support_tickets_on_user_id      (user_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (customer_id => customers.id)
+#  fk_rails_...  (user_id => users.id)
+#
