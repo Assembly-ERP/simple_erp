@@ -35,9 +35,13 @@ class ApplicationController < ActionController::Base
 
   private
 
-  # def configure_permitted_parameters
-  #   devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, address_attributes: [:country, :state, :city, :area, :postal_code]])
-  # end
+  def configure_permitted_parameters
+    devise_parameter_sanitizer
+      .permit(:sign_up,
+              keys: [
+                { customer_attributes: %i[] }
+              ])
+  end
 
   def customer_document(customer)
     {
