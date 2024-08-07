@@ -20,7 +20,7 @@
         = f.fields_for :customer do |cf|
           .field
             = cf.label :phone, 'Customer Phone'
-            = cf.telephone_field :phone, class: "input-primary", placeholder: "xxx-xxx-xxxx", required: true
+            = cf.telephone_field :phone, class: "input-primary", placeholder: "xxx-xxx-xxxx"
           .field
             = cf.label :street, 'Street'
             = cf.text_field :street, class: "input-primary", placeholder: "Enter street"
