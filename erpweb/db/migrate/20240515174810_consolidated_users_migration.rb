@@ -9,12 +9,9 @@ class ConsolidatedUsersMigration < ActiveRecord::Migration[7.1]
 
       ## Additional fields
       t.references :customer, foreign_key: true, null: true
-      t.string :role
-      t.string :type
-      t.string :name
+      t.string :role, null: false
+      t.string :name, null: false
       t.string :phone
-      t.string :firstName
-      t.string :lastName
 
       ## Devise recoverable
       t.string   :reset_password_token

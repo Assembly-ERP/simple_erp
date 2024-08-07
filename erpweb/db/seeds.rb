@@ -12,8 +12,6 @@ if Rails.env.development?
     password: 'password',
     password_confirmation: 'password',
     role: 'admin',
-    firstName: 'Tim',
-    lastName: 'Smith',
     name: 'Tim Smith',
     confirmed_at: Time.now.utc
   )
@@ -21,7 +19,6 @@ if Rails.env.development?
   # Create customers
   customer1 = Customer.create(
     name: 'Big Shop',
-    address: '123 Main St',
     phone: '123-456-7890',
     street: '123 Main St',
     city: 'Cityville',
@@ -32,7 +29,6 @@ if Rails.env.development?
 
   customer2 = Customer.create(
     name: 'The Store',
-    address: '456 Elm St',
     phone: '987-654-3210',
     street: '456 Elm St',
     city: 'Townsville',

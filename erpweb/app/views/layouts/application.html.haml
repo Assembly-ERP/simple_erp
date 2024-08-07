@@ -19,6 +19,7 @@
         --secondary-text: #fff;
       }
   %body.flex.flex-col
+    = render FlashComponent.new
     = render "layouts/navbar"
     %main.flex-1.margin-max-screen.grid
       = yield

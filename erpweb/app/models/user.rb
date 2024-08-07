@@ -25,15 +25,13 @@ class User < ApplicationRecord
   validates :email, presence: true, uniqueness: { message: 'This email is already taken' }
 
   # Conditional validation for passwords
+  validates :password_confirmation, presence: true, if: -> { password.present? }
+  validates :role, inclusion: { in: ROLES, message: 'Invalid role' }
+  validates :customer, presence: true, if: -> { role == 'customer_user_admin' }
   validates :password, presence: true, length: { minimum: 8, message: 'at least 8 characters' },
                        if: -> { new_record? || !password.nil? }
-  validates :password_confirmation, presence: true, if: -> { password.present? }
-  validates :role, inclusion: { in: ROLES }
 
-  # These attributes are only relevant for customer user admins
-  # def as_json(_options = {})
-  #   super(only: %i[id name])
-  # end
+  before_validation :default, unless: :role
 
   def remember_me
     super.nil? ? true : super
@@ -47,13 +45,11 @@ class User < ApplicationRecord
     role == 'customer_user_admin' || role == 'customer_user_regular'
   end
 
-  # attr_accessor :customer_name, :customer_phone, :street, :city, :state, :postal_code, :discount
+  private
 
-  # private
-
-  # def password_required?
-  #   new_record? || password.present?
-  # end
+  def default_role
+    self.role ||= 'customer_user_admin'
+  end
 end
 
 # == Schema Information

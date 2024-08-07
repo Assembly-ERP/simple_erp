@@ -1,0 +1,7 @@
+%ul.errors
+  - if label.present? 
+    %li.font-medium
+      = "#{label}:"
+  - errors.each do |error|
+    %li
+      = "• #{error}"

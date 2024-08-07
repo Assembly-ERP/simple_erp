@@ -2,46 +2,50 @@
   .grid.gap-3.p-7.bg-white.shadow-lg.border.rounded-md
     %h2.font-semibold.text-2xl.underline.underline-offset-8.mb-4{class: "decoration-[color:var(--secondary)] decoration-[3px]"}
       Sign Up
+    - if resource.errors.any?
+      .mb-2
+        = render ErrorCardComponent.new errors: resource.errors.full_messages, label: ""
     = form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "grid gap-2.5"}) do |f|
-      = render "devise/shared/error_messages", resource: resource
       .grid.grid-cols-2.gap-x-4.gap-y-3
-        .field.col-span-2
-          = f.label :customer_name, 'Customer Name'
-          = f.text_field :customer_name, placeholder: 'Use your name if you do not have a company', class: "input-primary"
+        = f.fields_for :customer do |cf|
+          .field.col-span-2
+            = cf.label :name, 'Customer Name'
+            = cf.text_field :name, placeholder: 'Use your name if you do not have a company', required: true, class: "input-primary"
         .field
           = f.label :email
-          = f.email_field :email, autocomplete: "email", class: "input-primary", placeholder: "Enter your email"
+          = f.email_field :email, autocomplete: "email", class: "input-primary", placeholder: "Enter your email", required: true
         .field
           = f.label :name
-          = f.text_field :name, class: "input-primary", placeholder: "Enter your name"
-        .field
-          = f.label :customer_phone, 'Customer Phone'
-          = f.telephone_field :customer_phone, class: "input-primary", placeholder: "xxx-xxx-xxxx"
-        .field
-          = f.label :street, 'Street'
-          = f.text_field :street, class: "input-primary", placeholder: "Enter street"
-        .field
-          = f.label :city, 'City'
-          = f.text_field :city, class: "input-primary", placeholder: "Enter city" 
-        .field
-          = f.label :state, 'State'
-          = f.text_field :state, class: "input-primary", placeholder: "Enter state"
-        .field
-          = f.label :postal_code, 'Postal Code'
-          = f.text_field :postal_code, class: "input-primary", placeholder: "Enter postal code"
-        .field
-          = f.label :discount, 'Discount'
-          = f.number_field :discount, step: 0.01, class: "input-primary", placeholder: "Enter discount"
+          = f.text_field :name, class: "input-primary", placeholder: "Enter your name", required: true
+        = f.fields_for :customer do |cf|
+          .field
+            = cf.label :phone, 'Customer Phone'
+            = cf.telephone_field :phone, class: "input-primary", placeholder: "xxx-xxx-xxxx", required: true
+          .field
+            = cf.label :street, 'Street'
+            = cf.text_field :street, class: "input-primary", placeholder: "Enter street"
+          .field
+            = cf.label :city, 'City'
+            = cf.text_field :city, class: "input-primary", placeholder: "Enter city" 
+          .field
+            = cf.label :state, 'State'
+            = cf.text_field :state, class: "input-primary", placeholder: "Enter state"
+          .field
+            = cf.label :postal_code, 'Postal Code'
+            = cf.text_field :postal_code, class: "input-primary", placeholder: "Enter postal code"
+          .field
+            = cf.label :discount, 'Discount (%)'
+            = cf.number_field :discount, step: 0.01, class: "input-primary", placeholder: "Enter discount"
         .field
           .flex.gap-1
             = f.label :password
             - if @minimum_password_length
               %em
                 (#{@minimum_password_length} characters minimum)
-          = f.password_field :password, autocomplete: "new-password", class: "input-primary", placeholder: "Enter password"
+          = f.password_field :password, autocomplete: "new-password", class: "input-primary", placeholder: "Enter password", required: true
         .field
           = f.label :password_confirmation
-          = f.password_field :password_confirmation, autocomplete: "new-password", class: "input-primary", placeholder: "Enter password"
+          = f.password_field :password_confirmation, autocomplete: "new-password", class: "input-primary", placeholder: "Enter password", required: true
       .mt-6.grid.gap-4.items-center.grid-cols-2
         .text-center
           = render "devise/shared/login"
