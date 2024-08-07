@@ -1,9 +1,0 @@
-%h1 Your Orders
-- if @orders.any?
-  %ul
-    - @orders.each do |order|
-      %li
-        = link_to "Order ##{order.id}", order_path(order)
-        \- #{order.status}
-- else
-  %p You do not have any orders yet.

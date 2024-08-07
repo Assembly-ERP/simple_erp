@@ -23,3 +23,29 @@ class OrderDetail < ApplicationRecord
     errors.add(:base, 'Must have either a product or a part') unless product_id.present? ^ part_id.present?
   end
 end
+
+# == Schema Information
+#
+# Table name: order_details
+#
+#  id         :bigint           not null, primary key
+#  price      :decimal(10, 2)
+#  quantity   :integer
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  order_id   :bigint           not null
+#  part_id    :bigint
+#  product_id :bigint
+#
+# Indexes
+#
+#  index_order_details_on_order_id    (order_id)
+#  index_order_details_on_part_id     (part_id)
+#  index_order_details_on_product_id  (product_id)
+#
+# Foreign Keys
+#
+#  fk_rails_...  (order_id => orders.id)
+#  fk_rails_...  (part_id => parts.id)
+#  fk_rails_...  (product_id => products.id)
+#

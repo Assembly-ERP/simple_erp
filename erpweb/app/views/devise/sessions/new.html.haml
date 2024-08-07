@@ -2,19 +2,21 @@
   .grid.gap-3.p-7.bg-white.shadow-lg.border.rounded-md{class: "w-[360px]"}
     %h2.font-semibold.text-2xl.underline.underline-offset-8.mb-2{class: "decoration-[color:var(--secondary)] decoration-[3px]"}
       Log in
+    - if alert.present? 
+      = render ErrorCardComponent.new errors: [alert], label: ""
     = form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "grid gap-3"}) do |f|
       .field
         = f.label :email
-        = f.email_field :email, autocomplete: "email", class: "input-primary", placeholder: "Enter your email"
+        = f.email_field :email, autocomplete: "email", class: "input-primary", placeholder: "Enter your email", required: true
       .field
         = f.label :password
-        = f.password_field :password, autocomplete: "current-password", class: "input-primary", placeholder: "Enter your password"
+        = f.password_field :password, autocomplete: "current-password", class: "input-primary", placeholder: "Enter your password", required: true
       - if devise_mapping.rememberable?
         .flex.items-center.gap-2
           = f.check_box :remember_me, class: "checkbox-primary"
           = f.label :remember_me
       .mt-1
         = f.submit "Log in", class: "btn-md w-full bg-primary"
-    .grid.gap-1.mt-1
+    .grid.mt-1{class: "mt-0.5"}
       = render "devise/shared/signup"
       = render "devise/shared/forget_password"

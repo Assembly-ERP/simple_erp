@@ -22,7 +22,7 @@ module Erpweb
     # # config.assets.paths << Rails.root.join('app', 'assets', 'images')
     # config.assets.precompile += %w[*.png *.jpg *.jpeg *.gif]
 
-    config.middleware.delete Rack::Sendfile
+    # config.middleware.delete Rack::Sendfile
 
     config.generators do |g|
       g.template_engine = :haml

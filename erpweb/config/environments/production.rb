@@ -6,15 +6,6 @@ Rails.application.configure do
   # Code is not reloaded between requests.
   config.enable_reloading = false
 
-  # Ensure JavaScript files are precompiled
-  config.assets.js_compressor = :uglifier
-  # config.assets.css_compressor = :sass
-  config.assets.compile = false
-  config.assets.digest = true
-
-  # Add the assets to be precompiled.
-  config.assets.precompile += %w[application.scss application.js custom.scss logout_confirmation.scss]
-
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both threaded web servers
   # and those relying on copy on write to perform better.
@@ -78,7 +69,7 @@ Rails.application.configure do
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   # config.active_job.queue_adapter = :resque
-  # config.active_job.queue_name_prefix = "erpweb_production"
+  # config.active_job.queue_name_prefix = "erpweb1_production"
 
   config.action_mailer.perform_caching = false
 
@@ -103,13 +94,4 @@ Rails.application.configure do
   # ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
-
-  config.assets.logger = ActiveSupport::Logger.new($stdout)
-  config.assets.logger.level = Logger::DEBUG
-
-  # Enable serving of assets
-  config.public_file_server.enabled = ENV['RAILS_SERVE_STATIC_FILES'].present?
-  config.public_file_server.headers = {
-    'Cache-Control' => 'public, max-age=31536000'
-  }
 end
