@@ -1,6 +1,6 @@
 %body
   %header.w-full.bg-white.sticky.top-0.border-b
-    .flex.justify-between.margin-max-screen.py-5
+    .flex.justify-between.items-center.margin-max-screen.py-5
       .text-3xl.mr-6.font-bold{class: "text-[color:var(--primary)]"}
         Company
       - if user_signed_in?
@@ -27,4 +27,4 @@
       - else
         .flex.items-center.gap-5.font-medium.mt-1
           = link_to 'Login', new_user_session_path, class: "text-lg hover:underline hover:decoration-[color:var(--secondary)] decoration-2 underline-offset-4"
-          = link_to 'Sign Up', new_user_registration_path, class: "px-7 btn-md text-[color:var(--primary-text)] bg-[color:var(--primary)]"
+          = link_to 'Sign Up', new_user_registration_path, class: "px-7 py-2.5 btn-md text-[color:var(--primary-text)] bg-[color:var(--primary)]"
