@@ -1,27 +1,31 @@
 / app/views/operational_portal/support_tickets/index.html.erb
-.container
-  %h1 Support Tickets
-  .actions
-    = link_to 'New Support Ticket', new_operational_portal_support_ticket_path, class: 'btn btn-primary'
-  %table.table
-    %thead
-      %tr
-        %th Ticket Title
-        %th Customer Name
-        %th Status
-        %th Created Date
-        %th Actions
-    %tbody
-      - if @support_tickets.present?
-        - @support_tickets.each do |ticket|
-          %tr.order-row
-            %td= link_to ticket.title, operational_portal_support_ticket_path(ticket)
-            %td= ticket.customer.name
-            %td= ticket.status
-            %td.local-time{"data-time" => "#{ticket.created_at}"}= ticket.created_at
-            %td
-              = link_to 'Edit', edit_operational_portal_support_ticket_path(ticket)
-              = link_to 'Delete', operational_portal_support_ticket_path(ticket), method: :delete, data: { confirm: 'Are you sure?' }
-      - else
+.py-5.flex.flex-col.gap-5
+  .flex.justify-between.gap-2.items-center
+    %h1.font-semibold.text-2xl Support Tickets
+    .actions
+      = link_to new_operational_portal_support_ticket_path, class: "flex gap-3 items-center btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]" do
+        = icon("fa-solid", "plus")
+        New Support Ticket
+  .table-primary
+    %table
+      %thead
         %tr
-          %td{:colspan => "5"} No Support Tickets found
+          %th Ticket Title
+          %th Customer Name
+          %th Status
+          %th Created Date
+          %th Actions
+      %tbody
+        - if @support_tickets.present?
+          - @support_tickets.each do |ticket|
+            %tr.order-row
+              %td= link_to ticket.title, operational_portal_support_ticket_path(ticket)
+              %td= ticket.customer.name
+              %td= ticket.status
+              %td.local-time{"data-time" => "#{ticket.created_at}"}= ticket.created_at
+              %td
+                = link_to 'Edit', edit_operational_portal_support_ticket_path(ticket)
+                = link_to 'Delete', operational_portal_support_ticket_path(ticket), method: :delete, data: { confirm: 'Are you sure?' }
+        - else
+          %tr
+            %td{:colspan => "5"} No Support Tickets found

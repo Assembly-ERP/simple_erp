@@ -1,0 +1,29 @@
+name: Sorbet Type Checker CI
+
+on: [push, pull_request]
+jobs:
+  type-checker:
+    defaults:
+      run:
+        working-directory: erpweb
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Ruby 3.3.0
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.3.0
+      - name: Cache gems
+        uses: actions/cache@v3
+        with:
+          path: vendor/bundle
+          key: ${{ runner.os }}-sorbet-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-sorbet-
+      - name: Install gems
+        run: |
+          bundle config path vendor/bundle
+          bundle config set without 'default doc job cable storage ujs test db'
+          bundle install --jobs 4 --retry 3
+      - name: Run Sorbet Type Checking
+        run: bundle exec srb tc

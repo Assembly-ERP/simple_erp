@@ -20,7 +20,7 @@
         = f.fields_for :customer do |cf|
           .field
             = cf.label :phone, 'Customer Phone'
-            = cf.telephone_field :phone, class: "input-primary", placeholder: "xxx-xxx-xxxx", required: true
+            = cf.telephone_field :phone, class: "input-primary", placeholder: "xxx-xxx-xxxx"
           .field
             = cf.label :street, 'Street'
             = cf.text_field :street, class: "input-primary", placeholder: "Enter street"
@@ -49,4 +49,4 @@
       .mt-6.grid.gap-4.items-center.grid-cols-2
         .text-center
           = render "devise/shared/login"
-        = f.submit "Sign up", class: "btn-md bg-primary px-20"
+        = f.submit "Sign up", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)] px-20"
