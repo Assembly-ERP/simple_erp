@@ -2,7 +2,6 @@
   .grid.gap-3.p-7.bg-white.shadow-lg.border.rounded-md{class: "w-[360px]"}
     %h2.font-semibold.text-2xl.underline.underline-offset-8.mb-2{class: "decoration-[color:var(--secondary)] decoration-[3px]"}
       Log in
-    = session[:return_to]
     - if alert.present? 
       = render ErrorCardComponent.new errors: [alert], label: ""
     = form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "grid gap-3"}) do |f|
