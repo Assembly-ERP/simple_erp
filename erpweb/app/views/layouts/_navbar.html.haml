@@ -10,11 +10,11 @@
             = link_to 'Dashboard', operational_root_path
             = link_to 'Orders', operational_portal_orders_path
             = link_to 'Catalog', operational_portal_catalog_path
-            .relative{"data-controller" => "dropdown"}
-              %button{"data-action" => "dropdown#toggle click@window->dropdown#hide", type: "button"} 
+            .relative{"data-controller" => "nav-dropdown"}
+              %button{"data-action" => "nav-dropdown#toggle click@window->nav-dropdown#hide", type: "button"} 
                 Manage 
                 = icon("fa-solid", "angles-right") 
-              .hidden.transition.transform.origin-top-left.absolute.left-0{"data-dropdown-target" => "menu", "data-transition-enter-from" => "opacity-0 scale-95", "data-transition-enter-to" => "opacity-100 scale-100", "data-transition-leave-from" => "opacity-100 scale-100", "data-transition-leave-to" => "opacity-0 scale-95"}
+              .hidden.transition.transform.origin-top-left.absolute.left-0{"data-nav-dropdown-target" => "menu", "data-transition-enter-from" => "opacity-0 scale-95", "data-transition-enter-to" => "opacity-100 scale-100", "data-transition-leave-from" => "opacity-100 scale-100", "data-transition-leave-to" => "opacity-0 scale-95"}
                 .bg-white.border.grid.w-52.mt-2.divide-y.shadow
                   = link_to 'Support Tickets', operational_portal_support_tickets_path, class: "px-4 py-2 hover:text-[color:var(--primary-text)] hover:bg-[color:var(--primary)] transition-colors duration-100"
                   = link_to 'Manage Users', operational_portal_users_path, class: "px-4 py-2 hover:text-[color:var(--primary-text)] hover:bg-[color:var(--primary)] transition-colors duration-100"

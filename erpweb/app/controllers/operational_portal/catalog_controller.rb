@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 module OperationalPortal
-  class CatalogController < ApplicationController
-    before_action :authenticate_user!
-    before_action :ensure_operational_user
+  class CatalogController < OperationalPortal::BaseController
+    authorize_resource class: false
 
     def index
       @products = Product.all

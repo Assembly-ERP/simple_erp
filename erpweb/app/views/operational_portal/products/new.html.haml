@@ -1,119 +1,19 @@
 / app/views/operational_portal/products/new.html.erb
-.container
-  %h1 New Product
-  = form_with(model: @product, local: true, url: operational_portal_products_path) do |form|
-    - if @product.errors.any?
-      #error_explanation
-        %h2
-          = pluralize(@product.errors.count, "error")
-          prohibited this product from being saved:
-        %ul
-          - @product.errors.full_messages.each do |message|
-            %li= message
-    .field
-      = form.label :name
-      %span.required *
-      = form.text_field :name, required: true
-    .field
-      = form.label :description
-      %span.required *
-      = form.text_area :description, required: true
-    .field
-      = form.label :parts
-      %input#part_search{:placeholder => "Search parts...", :type => "text"}/
-      %ul#part_results
-      .selected-parts
-        %table
-          %thead
-            %tr
-              %th Name
-              %th Weight
-              %th Quantity
-              %th Description
-              %th Actions
-          %tbody#selected_parts_list
-    .field
-      = form.label :price
-      = number_to_currency(@product.price || 0.00)
-    %div
-      = form.submit "Save Product", class: 'btn btn-primary'
-  = link_to 'Back', operational_portal_catalog_path, class: 'btn btn-secondary'
-:javascript
-  document.addEventListener('DOMContentLoaded', () => {
-    const partSearch = document.getElementById('part_search');
-    const partResults = document.getElementById('part_results');
-    const selectedPartsList = document.getElementById('selected_parts_list');
-    const form = document.querySelector('form');
-    let totalPrice = 0;
-
-    partSearch.addEventListener('input', () => {
-      const query = partSearch.value.toLowerCase();
-
-      fetch(`/operational_portal/products/search_parts?q=${query}`)
-        .then(response => response.json())
-        .then(parts => {
-          partResults.innerHTML = '';
-          parts.forEach(part => {
-            const li = document.createElement('li');
-            li.textContent = `${part.name} - $${part.price}`;
-            li.dataset.id = part.id;
-            li.dataset.price = part.price;
-            li.addEventListener('click', () => {
-              // Add selected part to the form
-              const hiddenField = document.createElement('input');
-              hiddenField.type = 'hidden';
-              hiddenField.name = `product[part_quantities][${part.id}]`;
-              hiddenField.value = 1;
-              form.appendChild(hiddenField);
-
-              const tr = document.createElement('tr');
-              tr.innerHTML = `
-                <td>${part.name}</td>
-                <td>${part.weight}</td>
-                <td><input type="number" name="product[part_quantities][${part.id}]" value="1" min="1" required class="part-quantity" data-price="${part.price}" /></td>
-                <td>${part.description}</td>
-                <td><button type="button" class="remove-part">Remove</button></td>
-              `;
-              selectedPartsList.appendChild(tr);
-
-              // Update the total price
-              totalPrice += parseFloat(part.price);
-              document.querySelector('[name="product[price]"]').value = totalPrice.toFixed(2);
-
-              partResults.innerHTML = '';
-              partSearch.value = '';
-            });
-            partResults.appendChild(li);
-          });
-        });
-    });
-
-    selectedPartsList.addEventListener('input', (event) => {
-      if (event.target.classList.contains('part-quantity')) {
-        const pricePerUnit = parseFloat(event.target.dataset.price);
-        const quantity = parseInt(event.target.value, 10);
-
-        if (quantity < 1) {
-          event.target.setCustomValidity('Must add 1 or remove');
-          
-        } else {
-          event.target.setCustomValidity('');
-        }
-        totalPrice = Array.from(document.querySelectorAll('.part-quantity')).reduce((sum, input) => {
-          return sum + (parseFloat(input.dataset.price) * parseInt(input.value, 10));
-        }, 0);
-        document.querySelector('[name="product[price]"]').value = totalPrice.toFixed(2);
-      }
-    });
-
-    selectedPartsList.addEventListener('click', (event) => {
-      if (event.target.classList.contains('remove-part')) {
-        const tr = event.target.closest('tr');
-        const pricePerUnit = parseFloat(tr.querySelector('.part-quantity').dataset.price);
-        const quantity = parseInt(tr.querySelector('.part-quantity').value, 10);
-        totalPrice -= (pricePerUnit * quantity);
-        document.querySelector('[name="product[price]"]').value = totalPrice.toFixed(2);
-        tr.remove();
-      }
-    });
-  });
+.mx-auto.w-full{class: "max-w-[700px]"}
+  .py-6
+    %h1.text-2xl.font-medium.mb-4 New Product
+    = form_with(model: @product, url: operational_portal_products_path, html: {class: "grid gap-2"}) do |form|
+      - if @product.errors.any?
+        = render ErrorCardComponent.new errors: @product.errors.full_messages, label: "Validations"
+      .field
+        = form.label :name
+        = form.text_field :name, required: true, class: "input-primary"
+      .field
+        = form.label :description
+        = form.text_area :description, required: true, class: "input-primary"
+      .field
+        = form.label :price
+        = number_to_currency(@product.price || 0.00)
+      .mt-2
+        = form.submit "Save Product", class: 'btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]'
+    = link_to 'Back', operational_portal_catalog_path, class: 'btn btn-secondary'

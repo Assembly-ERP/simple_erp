@@ -20,4 +20,4 @@ pin 'customer_search', to: 'customer_search.js'
 pin 'preview', to: 'preview.js'
 pin "@stimulus-components/notification", to: "@stimulus-components--notification.js" # @3.0.0
 pin "stimulus-use" # @0.52.2
-pin "@stimulus-components/dropdown", to: "@stimulus-components--dropdown.js" # @3.0.0
+# pin "@stimulus-components/dropdown", to: "@stimulus-components--dropdown.js" # @3.0.0
