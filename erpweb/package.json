@@ -1,0 +1,9 @@
+{
+  "scripts": {
+    "format:js": "npx prettier --write ./app/javascript"
+  },
+  "devDependencies": {
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "prettier": "^3.2.5"
+  }
+}
