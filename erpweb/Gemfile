@@ -98,3 +98,6 @@ gem 'view_component', '~> 2.82'
 gem 'sorbet', group: :development
 gem 'sorbet-runtime'
 gem 'tapioca', require: false, group: %i[development test]
+
+# Role base authentication
+gem 'cancancan', '~> 3.5'

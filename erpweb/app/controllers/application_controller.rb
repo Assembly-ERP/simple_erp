@@ -20,6 +20,8 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
+    return session[:return_to] if session[:return_to].present?
+
     if resource.operational_user?
       operational_root_path
     elsif resource.customer_user?
@@ -30,12 +32,11 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_out_path_for(_resource_or_scope)
+    session[:return_to] = nil
     root_path
   end
 
   private
-
-  def configure_permitted_parameters; end
 
   def customer_document(customer)
     {
