@@ -2,7 +2,7 @@
 .mx-auto.w-full{class: "max-w-[700px]"}
   .py-6
     %h1.text-2xl.font-medium.mb-4 New Product
-    = form_with(model: @product, url: operational_portal_products_path, html: {class: "grid gap-2"}) do |form|
+    = form_with(model: @product, url: operational_portal_products_path, html: {class: "grid gap-3"}) do |form|
       - if @product.errors.any?
         = render ErrorCardComponent.new errors: @product.errors.full_messages, label: "Validations"
       .field
@@ -10,10 +10,38 @@
         = form.text_field :name, required: true, class: "input-primary"
       .field
         = form.label :description
-        = form.text_area :description, required: true, class: "input-primary"
-      .field
-        = form.label :price
+        = form.text_area :description, required: true, class: "input-primary", rows: 4
+      .grid.gap-3.mt-2
+        .flex.gap-4.items-center
+          -# %h1.text-lg.font-medium Parts
+          %div{"data-action" => "click->dialog#backdropClose", "data-controller" => "dialog"}
+            %dialog.bg-white.rounded{"data-dialog-target" => "dialog"}
+              .p-5{class: "w-[490px]"}
+                .grid{class: "h-[470px] min-h-[450px] overflow-y-auto"}
+                  .relative
+                    %input.w-full.rounded-full.border.h-fit.pr-4.pl-11.border-gray-300.focus:outline-0{autofocus: false, placeholder: "Search parts", class: "py-2.5"}
+                    = icon("fa-solid", "magnifying-glass", class: "text-lg absolute top-3.5 left-4")
+                .flex.justify-end.mt-1.gap-2
+                  %button.btn-md.bg-zinc-500.text-white.px-7{"data-action" => "dialog#close", type: "button"} Cancel
+                  %button.btn-md.px-8{class: "bg-[color:var(--primary)] text-[color:var(--primary-text)]"} Apply
+            %button{data: {action: "dialog#open"}, type: "button", type: "button", class: "text-sm bg-[color:var(--primary)] text-[color:var(--primary-text)] px-3.5 py-2 rounded"}
+              = icon("fa-solid", "plus", class: "text-sm mr-1")
+              Add parts
+        .table-primary
+          %table
+            %thead
+              %tr
+                %th Name
+                %th Price
+                %th In Stock
+                %th Description
+                %th Weight
+            %tbody
+              %tr
+                %td No records
+      .text-lg.mt-2
+        %span.font-medium Price:
         = number_to_currency(@product.price || 0.00)
-      .mt-2
+      .mt-1
         = form.submit "Save Product", class: 'btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]'
     = link_to 'Back', operational_portal_catalog_path, class: 'btn btn-secondary'
