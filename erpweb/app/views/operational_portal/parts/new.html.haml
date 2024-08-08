@@ -1,33 +1,33 @@
-/ app/views/operational_portal/parts/new.html.erb
-.py-5
-  %h1 New Part
-  = form_with(model: @part, url: operational_portal_parts_path) do |form|
-    - if @part.errors.any?
-      = render ErrorCardComponent.new errors: @part.errors.full_messages, label: "Validations"
-    .field
-      = form.label :name
-      = form.text_field :name, class: "input-primary"
-    .field
-      = form.label :description
-      = form.text_area :description, class: "input-primary"
-    .field
-      = form.label :weight
-      = form.number_field :weight, value: form.object.weight || 0.00, step: :any, class: "input-primary"
-    .flex.gap-2.items-center
-      = form.check_box :inventory, class: 'checkbox-primary'
-      = form.label :inventory, "Inventory"
-    .field
-      = form.label :in_stock, "In Stock"
-      = form.number_field :in_stock, class: "input-primary"
-    .flex.gap-2.items-center
-      = form.check_box :manual_price, class: 'checkbox-primary'
-      = form.label :manual_price, "Override Price"
-    .field
-      = form.label :price, "Price $"
-      = form.number_field :price, value: form.object.price || 0.00, step: :any, class: "input-primary"
-    .field
-      = form.label :files
-      = form.file_field :files, multiple: true
-    %div
-      = form.submit "Save Part", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"
-  = link_to 'Back', operational_portal_catalog_path, class: "btn btn-secondary"
+.mx-auto.w-full{class: "max-w-[700px]"}
+  .py-6
+    %h1.text-2xl.font-semibold.mb-4 New Part
+    = form_with(model: @part, url: operational_portal_parts_path, html: {class: "grid gap-2", data: {controller: "parts--form"}}) do |form|
+      - if @part.errors.any?
+        = render ErrorCardComponent.new errors: @part.errors.full_messages, label: "Validations"
+      .field
+        = form.label :name
+        = form.text_field :name, class: "input-primary", required: true
+      .field
+        = form.label :description
+        = form.text_area :description, class: "input-primary"
+      .field
+        = form.label :weight
+        = form.number_field :weight, placeholder: "0.0", step: :any, class: "input-primary", value: form.object.weight.zero? ? nil : form.object.weight
+      .flex.gap-2.items-center
+        = form.check_box :inventory, class: 'checkbox-primary', disabled: true, data: {"parts--form-target": "inventory", action: "input->parts--form#inventoryToggle"}
+        = form.label :inventory, "Inventory"
+      .field
+        = form.label :in_stock, "In Stock"
+        = form.number_field :in_stock, readonly: true, placeholder: "0", value: form.object.in_stock.zero? ? nil : form.object.in_stock, class: "input-primary", data: {"parts--form-target": "instock"}
+      .flex.gap-2.items-center
+        = form.check_box :manual_price, class: 'checkbox-primary', placeholder: "0.00", disabled: true, data: {"parts--form-target": "manualPrice", action: "input->parts--form#overrideToggle"}
+        = form.label :manual_price, "Override Price"
+      .field
+        = form.label :price, "Price $"
+        = form.number_field :price, placeholder: "0.00", value: form.object.price.zero? ? nil : form.object.price, step: 0.01, class: "input-primary", readonly: true, data: {"parts--form-target": "price"}
+      .field
+        = form.label :files
+        = form.file_field :files, multiple: true
+      .mt-2
+        = form.submit "Save Part", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"
+    = link_to 'Back', operational_portal_catalog_path, class: "btn btn-secondary"

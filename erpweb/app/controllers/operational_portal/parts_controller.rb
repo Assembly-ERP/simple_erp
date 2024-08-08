@@ -22,7 +22,7 @@ module OperationalPortal
         if @part.save
           format.html { redirect_to operational_portal_part_path(@part), notice: 'Part was successfully created.' }
         else
-          format.html { render :new }
+          format.html { render :new, status: :unprocessable_entity }
         end
       end
     end
