@@ -1,4 +1,5 @@
-# docker-compose.yml
+version: "3"
+name: simple_erp
 
 services:
   postgres:
@@ -12,9 +13,9 @@ services:
     image: erp-postgres
     container_name: postgres-1
     environment:
-      POSTGRES_USER: master1
-      POSTGRES_PASSWORD: password123
-      POSTGRES_DB: erpweb_1
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     networks:
       erpweb_network:
         ipv4_address: 172.30.0.100
@@ -33,16 +34,14 @@ services:
     image: v1-erpweb
     container_name: v1-erpweb-1
     environment:
-      - JWT_SECRET_KEY=40081508cad0c366f737d23f74fd6a6a8ccb2091296966ff1bf2cb88714537c03d9395be08be1373d72bf4349edc60487d0c304fe6791ef5ef751634971ee58d
-      - SECRET_KEY_BASE=c28896cbf01654b67f7cc564f9d22065d507a2c34664a1684bc7c1d6e6dc35270f66ce8b33d8355324c810f61503febd6739ba15396f970b814c4ce1ab6e09a2
-      # - RAILS_ENV=development
-      - DB_HOST=postgres
-      - DB_PORT=3010
-      - POSTGRES_USER=master1
-      - POSTGRES_PASSWORD=password123
-      - POSTGRES_DB=erpweb_1
-    #  - TYPESENSE_API_KEY=40081508cad0c366f737d23f74fd6a6a8ccb2091296966ff1bf2cb88714537c03d9395be08be1373d72bf4349edc60487d0c304fe6791ef5ef751634971ee58d
-    #  - TYPESENSE_SERVER_URL=http://typesense 
+      - JWT_SECRET_KEY=${JWT_SECRET_KEY}
+      - SECRET_KEY_BASE=${SECRET_KEY_BASE}
+      - RAILS_ENV=${RAILS_ENV}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
     networks:
       erpweb_network:
         ipv4_address: 172.30.0.10
@@ -50,7 +49,6 @@ services:
       - "3000:3000"
     depends_on:
       - postgres
-      #- typesense
     command: sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
     restart: always 
 
@@ -71,24 +69,11 @@ services:
         ipv4_address: 172.30.0.150
     ports:
       - "3100:80"
-    
-  # typesense:
-  #   image: typesense/typesense:0.24.0
-  #   ports:
-  #     - "8108:8108"
-  #   environment:
-  #     - TYPESENSE_API_KEY=40081508cad0c366f737d23f74fd6a6a8ccb2091296966ff1bf2cb88714537c03d9395be08be1373d72bf4349edc60487d0c304fe6791ef5ef751634971ee58d
-  #     - TYPESENSE_DATA_DIR=/data
-  #   volumes:
-  #     - typesense-data:/data
-  #   networks:
-  #     - erpweb_network
 
 volumes:
   postgres_data:
   erpweb_data:
   pgadmin_data:
-  # typesense-data:
 
 networks:
   erpweb_network:
