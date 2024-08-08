@@ -20,8 +20,6 @@ class Order < ApplicationRecord
 
   def total_amount
     order_details.sum(&:subtotal)
-    # amount = read_attribute(:total_amount)
-    # amount.nil? ? 0.00 : amount.to_f
   end
 
   private

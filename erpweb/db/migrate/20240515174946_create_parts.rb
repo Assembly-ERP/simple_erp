@@ -4,7 +4,7 @@
 class CreateParts < ActiveRecord::Migration[7.1]
   def change
     create_table :parts do |t|
-      t.string :name
+      t.string :name, null: false
       t.text :description
       t.decimal :price, precision: 10, scale: 2
       t.integer :in_stock

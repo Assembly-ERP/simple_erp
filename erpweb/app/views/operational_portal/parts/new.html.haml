@@ -1,46 +1,33 @@
 / app/views/operational_portal/parts/new.html.erb
-.container
+.py-5
   %h1 New Part
-  = form_with(model: @part, local: true, url: operational_portal_parts_path) do |form|
+  = form_with(model: @part, url: operational_portal_parts_path) do |form|
     - if @part.errors.any?
-      #error_explanation
-        %h2
-          = pluralize(@part.errors.count, "error")
-          prohibited this part from being saved:
-        %ul
-          - @part.errors.full_messages.each do |message|
-            %li= message
+      = render ErrorCardComponent.new errors: @part.errors.full_messages, label: "Validations"
     .field
       = form.label :name
-      = form.text_field :name
+      = form.text_field :name, class: "input-primary"
     .field
       = form.label :description
-      = form.text_area :description
+      = form.text_area :description, class: "input-primary"
     .field
       = form.label :weight
-      = form.number_field :weight, value: @part.weight || 0.00, step: :any
-    .field.toggle-field
-      = form.label :inventory, "Inventory", class: 'toggle-label'
-      = form.check_box :inventory, class: 'toggle-checkbox', id: 'inventory_toggle'
-      %label.toggle-switch{:for => "inventory_toggle"}
-      .swap-fields
-        .manual-edit-field
-          = form.label :in_stock, "In Stock"
-          = form.number_field :in_stock, value: @part.in_stock || 0
-    .field.toggle-field
-      = form.label :manual_price, "Override Price", class: 'toggle-label'
-      = form.check_box :manual_price, class: 'toggle-checkbox', id: 'manual_price_toggle'
-      %label.toggle-switch{:for => "manual_price_toggle"}
-      .swap-fields
-        .readonly-field
-          = form.label :price, "Price"
-          %span.price-display= number_to_currency(@part.price || 0.00)
-        .manual-edit-field
-          = form.label :price, "Price $"
-          = form.number_field :price, value: @part.price || 0.00, step: :any
+      = form.number_field :weight, value: form.object.weight || 0.00, step: :any, class: "input-primary"
+    .flex.gap-2.items-center
+      = form.check_box :inventory, class: 'checkbox-primary'
+      = form.label :inventory, "Inventory"
+    .field
+      = form.label :in_stock, "In Stock"
+      = form.number_field :in_stock, class: "input-primary"
+    .flex.gap-2.items-center
+      = form.check_box :manual_price, class: 'checkbox-primary'
+      = form.label :manual_price, "Override Price"
+    .field
+      = form.label :price, "Price $"
+      = form.number_field :price, value: form.object.price || 0.00, step: :any, class: "input-primary"
     .field
       = form.label :files
       = form.file_field :files, multiple: true
     %div
-      = form.submit "Save Part", class: "btn btn-primary"
+      = form.submit "Save Part", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"
   = link_to 'Back', operational_portal_catalog_path, class: "btn btn-secondary"

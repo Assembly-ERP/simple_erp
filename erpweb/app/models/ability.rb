@@ -15,6 +15,7 @@ class Ability
   def operational_portal(_user)
     can :read, :dashboard
     can :manage, Order
+    can :manage, Part
   end
 
   def customer_portal(_user)

@@ -106,7 +106,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_03_235631) do
   end
 
   create_table "parts", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.text "description"
     t.decimal "price", precision: 10, scale: 2
     t.integer "in_stock"
