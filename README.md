@@ -3,7 +3,7 @@
 Copy .env
 
 ```
-cp .env.template
+cp .env.template .env
 ```
 
 Run Dev Environment
