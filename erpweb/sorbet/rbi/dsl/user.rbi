@@ -914,51 +914,6 @@ class User
     sig { void }
     def encrypted_password_will_change!; end
 
-    sig { returns(T.nilable(::String)) }
-    def firstName; end
-
-    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
-    def firstName=(value); end
-
-    sig { returns(T::Boolean) }
-    def firstName?; end
-
-    sig { returns(T.nilable(::String)) }
-    def firstName_before_last_save; end
-
-    sig { returns(T.untyped) }
-    def firstName_before_type_cast; end
-
-    sig { returns(T::Boolean) }
-    def firstName_came_from_user?; end
-
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def firstName_change; end
-
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def firstName_change_to_be_saved; end
-
-    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
-    def firstName_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(::String)) }
-    def firstName_in_database; end
-
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def firstName_previous_change; end
-
-    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
-    def firstName_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(::String)) }
-    def firstName_previously_was; end
-
-    sig { returns(T.nilable(::String)) }
-    def firstName_was; end
-
-    sig { void }
-    def firstName_will_change!; end
-
     sig { returns(::Integer) }
     def id; end
 
@@ -1049,55 +1004,10 @@ class User
     sig { void }
     def id_will_change!; end
 
-    sig { returns(T.nilable(::String)) }
-    def lastName; end
-
-    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
-    def lastName=(value); end
-
-    sig { returns(T::Boolean) }
-    def lastName?; end
-
-    sig { returns(T.nilable(::String)) }
-    def lastName_before_last_save; end
-
-    sig { returns(T.untyped) }
-    def lastName_before_type_cast; end
-
-    sig { returns(T::Boolean) }
-    def lastName_came_from_user?; end
-
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def lastName_change; end
-
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def lastName_change_to_be_saved; end
-
-    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
-    def lastName_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(::String)) }
-    def lastName_in_database; end
-
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def lastName_previous_change; end
-
-    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
-    def lastName_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(::String)) }
-    def lastName_previously_was; end
-
-    sig { returns(T.nilable(::String)) }
-    def lastName_was; end
-
-    sig { void }
-    def lastName_will_change!; end
-
-    sig { returns(T.nilable(::String)) }
+    sig { returns(::String) }
     def name; end
 
-    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    sig { params(value: ::String).returns(::String) }
     def name=(value); end
 
     sig { returns(T::Boolean) }
@@ -1112,22 +1022,22 @@ class User
     sig { returns(T::Boolean) }
     def name_came_from_user?; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def name_change; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def name_change_to_be_saved; end
 
-    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
     def name_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def name_in_database; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def name_previous_change; end
 
-    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
     def name_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
@@ -1361,16 +1271,10 @@ class User
     def restore_encrypted_password!; end
 
     sig { void }
-    def restore_firstName!; end
-
-    sig { void }
     def restore_id!; end
 
     sig { void }
     def restore_id_value!; end
-
-    sig { void }
-    def restore_lastName!; end
 
     sig { void }
     def restore_name!; end
@@ -1391,18 +1295,15 @@ class User
     def restore_role!; end
 
     sig { void }
-    def restore_type!; end
-
-    sig { void }
     def restore_unconfirmed_email!; end
 
     sig { void }
     def restore_updated_at!; end
 
-    sig { returns(T.nilable(::String)) }
+    sig { returns(::String) }
     def role; end
 
-    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    sig { params(value: ::String).returns(::String) }
     def role=(value); end
 
     sig { returns(T::Boolean) }
@@ -1417,22 +1318,22 @@ class User
     sig { returns(T::Boolean) }
     def role_came_from_user?; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def role_change; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def role_change_to_be_saved; end
 
-    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
     def role_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def role_in_database; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def role_previous_change; end
 
-    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
     def role_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
@@ -1486,12 +1387,6 @@ class User
     sig { returns(T::Boolean) }
     def saved_change_to_encrypted_password?; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def saved_change_to_firstName; end
-
-    sig { returns(T::Boolean) }
-    def saved_change_to_firstName?; end
-
     sig { returns(T.nilable([::Integer, ::Integer])) }
     def saved_change_to_id; end
 
@@ -1504,13 +1399,7 @@ class User
     sig { returns(T::Boolean) }
     def saved_change_to_id_value?; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def saved_change_to_lastName; end
-
-    sig { returns(T::Boolean) }
-    def saved_change_to_lastName?; end
-
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def saved_change_to_name; end
 
     sig { returns(T::Boolean) }
@@ -1540,17 +1429,11 @@ class User
     sig { returns(T::Boolean) }
     def saved_change_to_reset_password_token?; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def saved_change_to_role; end
 
     sig { returns(T::Boolean) }
     def saved_change_to_role?; end
-
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def saved_change_to_type; end
-
-    sig { returns(T::Boolean) }
-    def saved_change_to_type?; end
 
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def saved_change_to_unconfirmed_email; end
@@ -1563,51 +1446,6 @@ class User
 
     sig { returns(T::Boolean) }
     def saved_change_to_updated_at?; end
-
-    sig { returns(T.nilable(::String)) }
-    def type; end
-
-    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
-    def type=(value); end
-
-    sig { returns(T::Boolean) }
-    def type?; end
-
-    sig { returns(T.nilable(::String)) }
-    def type_before_last_save; end
-
-    sig { returns(T.untyped) }
-    def type_before_type_cast; end
-
-    sig { returns(T::Boolean) }
-    def type_came_from_user?; end
-
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def type_change; end
-
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def type_change_to_be_saved; end
-
-    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
-    def type_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(::String)) }
-    def type_in_database; end
-
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def type_previous_change; end
-
-    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
-    def type_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(::String)) }
-    def type_previously_was; end
-
-    sig { returns(T.nilable(::String)) }
-    def type_was; end
-
-    sig { void }
-    def type_will_change!; end
 
     sig { returns(T.nilable(::String)) }
     def unconfirmed_email; end
@@ -1721,16 +1559,10 @@ class User
     def will_save_change_to_encrypted_password?; end
 
     sig { returns(T::Boolean) }
-    def will_save_change_to_firstName?; end
-
-    sig { returns(T::Boolean) }
     def will_save_change_to_id?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_id_value?; end
-
-    sig { returns(T::Boolean) }
-    def will_save_change_to_lastName?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_name?; end
@@ -1749,9 +1581,6 @@ class User
 
     sig { returns(T::Boolean) }
     def will_save_change_to_role?; end
-
-    sig { returns(T::Boolean) }
-    def will_save_change_to_type?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_unconfirmed_email?; end

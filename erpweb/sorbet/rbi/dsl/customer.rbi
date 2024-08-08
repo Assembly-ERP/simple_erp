@@ -544,51 +544,6 @@ class Customer
 
   module GeneratedAttributeMethods
     sig { returns(T.nilable(::String)) }
-    def address; end
-
-    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
-    def address=(value); end
-
-    sig { returns(T::Boolean) }
-    def address?; end
-
-    sig { returns(T.nilable(::String)) }
-    def address_before_last_save; end
-
-    sig { returns(T.untyped) }
-    def address_before_type_cast; end
-
-    sig { returns(T::Boolean) }
-    def address_came_from_user?; end
-
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def address_change; end
-
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def address_change_to_be_saved; end
-
-    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
-    def address_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(::String)) }
-    def address_in_database; end
-
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def address_previous_change; end
-
-    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
-    def address_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(::String)) }
-    def address_previously_was; end
-
-    sig { returns(T.nilable(::String)) }
-    def address_was; end
-
-    sig { void }
-    def address_will_change!; end
-
-    sig { returns(T.nilable(::String)) }
     def city; end
 
     sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
@@ -813,10 +768,10 @@ class Customer
     sig { void }
     def id_will_change!; end
 
-    sig { returns(T.nilable(::String)) }
+    sig { returns(::String) }
     def name; end
 
-    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    sig { params(value: ::String).returns(::String) }
     def name=(value); end
 
     sig { returns(T::Boolean) }
@@ -831,22 +786,22 @@ class Customer
     sig { returns(T::Boolean) }
     def name_came_from_user?; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def name_change; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def name_change_to_be_saved; end
 
-    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
     def name_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def name_in_database; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def name_previous_change; end
 
-    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
     def name_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
@@ -858,10 +813,10 @@ class Customer
     sig { void }
     def name_will_change!; end
 
-    sig { returns(T.nilable(::String)) }
+    sig { returns(::String) }
     def phone; end
 
-    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    sig { params(value: ::String).returns(::String) }
     def phone=(value); end
 
     sig { returns(T::Boolean) }
@@ -876,22 +831,22 @@ class Customer
     sig { returns(T::Boolean) }
     def phone_came_from_user?; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def phone_change; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def phone_change_to_be_saved; end
 
-    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
     def phone_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def phone_in_database; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def phone_previous_change; end
 
-    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
     def phone_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
@@ -949,9 +904,6 @@ class Customer
     def postal_code_will_change!; end
 
     sig { void }
-    def restore_address!; end
-
-    sig { void }
     def restore_city!; end
 
     sig { void }
@@ -985,12 +937,6 @@ class Customer
     def restore_updated_at!; end
 
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
-    def saved_change_to_address; end
-
-    sig { returns(T::Boolean) }
-    def saved_change_to_address?; end
-
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def saved_change_to_city; end
 
     sig { returns(T::Boolean) }
@@ -1020,13 +966,13 @@ class Customer
     sig { returns(T::Boolean) }
     def saved_change_to_id_value?; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def saved_change_to_name; end
 
     sig { returns(T::Boolean) }
     def saved_change_to_name?; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def saved_change_to_phone; end
 
     sig { returns(T::Boolean) }
@@ -1190,9 +1136,6 @@ class Customer
 
     sig { void }
     def updated_at_will_change!; end
-
-    sig { returns(T::Boolean) }
-    def will_save_change_to_address?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_city?; end
