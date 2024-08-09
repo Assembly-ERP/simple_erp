@@ -4,6 +4,10 @@ on:
   push:
     branches: [develop]
 
+permissions:
+  contents: read
+  packages: write
+
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
@@ -27,6 +31,8 @@ jobs:
     - name: Build and push Docker Image
       uses: docker/build-push-action@v5
       with:
+        driver-opts: |
+          image=moby/buildkit:v0.10.6
         context: ./erpweb
         file: ./erpweb/Dockerfile
         push: true
