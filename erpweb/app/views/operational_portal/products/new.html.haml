@@ -16,10 +16,10 @@
           -# %h1.text-lg.font-medium Parts
           %div{"data-action" => "click->dialog#backdropClose", "data-controller" => "dialog"}
             %dialog.bg-white.rounded{"data-dialog-target" => "dialog"}
-              .p-5{class: "w-[490px]"}
+              .p-5{class: "w-[500px]"}
                 .grid{class: "h-[470px] min-h-[450px] overflow-y-auto"}
                   .relative
-                    %input.w-full.rounded-full.border.h-fit.pr-4.pl-11.border-gray-300.focus:outline-0{autofocus: false, placeholder: "Search parts", class: "py-2.5"}
+                    %input.w-full.rounded-full.border.h-fit.pr-4.pl-11.border-gray-400.focus:outline-0{autofocus: false, placeholder: "Search parts", class: "py-2.5"}
                     = icon("fa-solid", "magnifying-glass", class: "text-lg absolute top-3.5 left-4")
                 .flex.justify-end.mt-1.gap-2
                   %button.btn-md.bg-zinc-500.text-white.px-7{"data-action" => "dialog#close", type: "button"} Cancel

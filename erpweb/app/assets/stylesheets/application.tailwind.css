@@ -90,7 +90,7 @@
   }
 
   table thead tr th {
-    @apply px-4 py-3 text-start font-semibold;
+    @apply px-4 py-3 text-start font-medium;
   }
 
   table tbody tr td {
