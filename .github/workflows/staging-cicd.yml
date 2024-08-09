@@ -37,11 +37,12 @@ jobs:
         tags: ${{ env.IMAGE_URL }}
         build-args: |
           SECRET_KEY_BASE=${{ secrets.SECRET_KEY_BASE }}
-          DB_HOST=${{ secrects.DB_HOST }}
+          DB_HOST=${{ secrets.DB_HOST }}
           DB_PORT=${{ secrets.DB_PORT }}
           POSTGRES_USER=${{ secrets.POSTGRES_USER }}
           POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
           POSTGRES_DB=${{ secrets.POSTGRES_DB }}
+
     - name: Deploy Image to CapRrover
       uses: caprover/deploy-from-github@v1.1.2
       with:
