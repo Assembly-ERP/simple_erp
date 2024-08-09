@@ -6,9 +6,6 @@ on:
 
 jobs:
   build_and_deploy:
-    defaults:
-      run:
-        working-directory: erpweb
     runs-on: ubuntu-latest
     steps:
     - name: Check out repository
@@ -31,7 +28,7 @@ jobs:
       uses: docker/build-push-action@v5
       with:
         context: .
-        file: ./Dockerfile
+        file: ./erpwep/Dockerfile
         push: true
         tags: ${{ env.IMAGE_URL }}
 
