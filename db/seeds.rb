@@ -59,21 +59,21 @@ if Rails.env.development?
   )
 
   # Create some support tickets
-  SupportTicket.create(
-    title: 'Issue with Product A',
-    issue_description: 'Description of issue with Product A',
-    status: 'open',
-    customer: customer1,
-    user: customer_user1
-  )
+  # SupportTicket.create(
+  #   title: 'Issue with Product A',
+  #   issue_description: 'Description of issue with Product A',
+  #   status: 'open',
+  #   customer: customer1,
+  #   user: customer_user1
+  # )
 
-  SupportTicket.create(
-    title: 'Issue with Service B',
-    issue_description: 'Description of issue with Service B',
-    status: 'pending',
-    customer: customer2,
-    user: customer_user2
-  )
+  # SupportTicket.create(
+  #   title: 'Issue with Service B',
+  #   issue_description: 'Description of issue with Service B',
+  #   status: 'pending',
+  #   customer: customer2,
+  #   user: customer_user2
+  # )
 
   # Create parts
   part1 = Part.create(
