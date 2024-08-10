@@ -52,7 +52,7 @@
   }
 
   .btn-md {
-    @apply py-3 px-5 cursor-pointer rounded text-[15px];
+    @apply py-[11px] px-5 cursor-pointer rounded text-[15px];
   }
   
   /* Inputs */
@@ -90,7 +90,7 @@
   }
 
   table thead tr th {
-    @apply px-4 py-3 text-start font-semibold;
+    @apply px-4 py-3 text-start font-medium;
   }
 
   table tbody tr td {
@@ -101,4 +101,36 @@
 /* Dynamic */
 .turbo-progress-bar {
   @apply bg-[color:var(--primary)];
+}
+
+/* Customize the dialog backdrop */
+dialog {
+  box-shadow: 0 0 0 100vw rgb(0 0 0 / 0.5);
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Add animations */
+dialog[data-dialog-target='dialog'][open] {
+  animation: fade-in 200ms forwards;
+}
+
+dialog[data-dialog-target='dialog'][closing] {
+  animation: fade-out 200ms forwards;
 }

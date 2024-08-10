@@ -1,6 +1,6 @@
 #  Ruby- erpweb -  ./Dockerfile
 # Use the official Ruby image
-FROM ruby:3.3.1
+FROM ruby:3.3.0
 
 # Install dependencies including default-mysql-client and curl for installing Node.js
 # RUN apt-get update -qq && apt-get install -y curl gnupg2 build-essential postgresql-client default-mysql-client default-libmysqlclient-dev libvips poppler-utils

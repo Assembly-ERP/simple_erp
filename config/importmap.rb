@@ -21,3 +21,4 @@ pin 'preview', to: 'preview.js'
 pin "@stimulus-components/notification", to: "@stimulus-components--notification.js" # @3.0.0
 pin "stimulus-use" # @0.52.2
 # pin "@stimulus-components/dropdown", to: "@stimulus-components--dropdown.js" # @3.0.0
+pin "@stimulus-components/dialog", to: "@stimulus-components--dialog.js" # @1.0.1
