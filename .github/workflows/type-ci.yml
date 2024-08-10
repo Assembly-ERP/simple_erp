@@ -3,9 +3,6 @@ name: Sorbet Type Checker CI
 on: [push, pull_request]
 jobs:
   type-checker:
-    defaults:
-      run:
-        working-directory: erpweb
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
