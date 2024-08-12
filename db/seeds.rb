@@ -4,7 +4,6 @@
 # development, test). The code here should be idempotent so that it can be executed at any point in every environment.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 
-# Clear existing data
 # Create an admin user
 if Rails.env.development?
   User.create(
@@ -48,7 +47,7 @@ if Rails.env.development?
     confirmed_at: Time.now.utc
   )
 
-  customer_user2 = User.create(
+  User.create(
     name: 'Regular Customer',
     email: 'cxregular@fake.com',
     password: 'password',
@@ -59,21 +58,21 @@ if Rails.env.development?
   )
 
   # Create some support tickets
-  # SupportTicket.create(
-  #   title: 'Issue with Product A',
-  #   issue_description: 'Description of issue with Product A',
-  #   status: 'open',
-  #   customer: customer1,
-  #   user: customer_user1
-  # )
+  SupportTicket.create(
+    title: 'Issue with Product A',
+    issue_description: 'Description of issue with Product A',
+    status: 'open',
+    customer: customer1,
+    user: customer_user1
+  )
 
-  # SupportTicket.create(
-  #   title: 'Issue with Service B',
-  #   issue_description: 'Description of issue with Service B',
-  #   status: 'pending',
-  #   customer: customer2,
-  #   user: customer_user2
-  # )
+  SupportTicket.create(
+    title: 'Issue with Service B',
+    issue_description: 'Description of issue with Service B',
+    status: 'pending',
+    customer: customer2,
+    user: customer_user2
+  )
 
   # Create parts
   part1 = Part.create(
@@ -108,19 +107,19 @@ if Rails.env.development?
   )
 
   # Associate parts with products
-  PartsProduct.create!(part: part1, product: product1, quantity: 2)
-  PartsProduct.create!(part: part2, product: product1, quantity: 1)
-  PartsProduct.create!(part: part1, product: product2, quantity: 1)
-  PartsProduct.create!(part: part2, product: product2, quantity: 2)
+  PartsProduct.create(part: part1, product: product1, quantity: 2)
+  PartsProduct.create(part: part2, product: product1, quantity: 1)
+  PartsProduct.create(part: part1, product: product2, quantity: 1)
+  PartsProduct.create(part: part2, product: product2, quantity: 2)
 
   # Manually trigger price and weight calculations for products
   [product1, product2].each do |product|
     product.send(:calculate_weight)
-    product.update!(price: product.price)
+    product.update(price: product.price)
   end
 
   # Create orders with order details
-  order1 = Order.create!(
+  order1 = Order.create(
     customer: customer1,
     status: 'pre_order',
     order_details_attributes: [
@@ -129,7 +128,7 @@ if Rails.env.development?
     ]
   )
 
-  order2 = Order.create!(
+  order2 = Order.create(
     customer: customer2,
     status: 'created',
     order_details_attributes: [
@@ -140,8 +139,16 @@ if Rails.env.development?
 
   # Recalculate total amounts for orders
   [order1, order2].each do |order|
-    order.update!(total_amount: order.order_details.sum(&:subtotal))
+    order.update(total_amount: order.order_details.sum(&:subtotal))
   end
-
-  puts 'Seed data created successfully!'
+else
+  User.create(
+    email: ENV.fetch('INITIAL_ADMIN_EMAIL', nil),
+    password: ENV.fetch('INITIAL_ADMIN_PASSWORD', nil),
+    role: 'admin',
+    name: ENV.fetch('INITIAL_ADMIN_NAME', nil),
+    confirmed_at: Time.now.utc
+  )
 end
+
+puts 'Seed data created successfully!'

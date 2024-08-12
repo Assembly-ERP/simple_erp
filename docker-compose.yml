@@ -23,24 +23,20 @@ services:
       - "3010:3010"
     command: postgres -c config_file=/var/lib/pgsql/data/postgresql.conf
     restart: always 
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
 
   erpweb:
     build:
-      context: ./erpweb
-      dockerfile: Dockerfile
+      context: .
+      dockerfile: ${APP_DOCKERFILE}
     volumes:
       - erpweb_data:/app
-      - ./erpweb:/app
+      - ./:/app
     image: v1-erpweb
     container_name: v1-erpweb-1
     environment:
       - JWT_SECRET_KEY=${JWT_SECRET_KEY}
       - SECRET_KEY_BASE=${SECRET_KEY_BASE}
+      - RAILS_MASTER_KEY=${RAILS_MASTER_KEY}
       - DB_HOST=${DB_HOST}
       - DB_PORT=${DB_PORT}
       - POSTGRES_USER=${POSTGRES_USER}

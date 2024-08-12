@@ -1,0 +1,50 @@
+FROM ruby:3.3.0
+
+RUN apt-get update -qq && apt-get install -y \
+  build-essential \
+  libpq-dev \
+  curl \
+  gnupg2 \
+  libvips \
+  poppler-utils \
+  postgresql-client \
+  iputils-ping \
+  nano  
+
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
+    apt-get install -y nodejs && \
+    corepack enable && corepack prepare yarn@stable --activate
+
+# Set working directory
+WORKDIR /app
+
+ENV RAILS_ENV production
+ENV RAILS_SERVE_STATIC_FILES true
+ENV RAILS_LOG_TO_STDOUT true
+
+# Copy the rest of the application code
+COPY Gemfile Gemfile.lock   ./
+COPY .ruby-version          .ruby-version
+COPY config.ru              config.ru
+COPY Rakefile               Rakefile
+COPY bin                    bin/
+COPY config                 config/
+COPY db                     db/
+COPY lib                    lib/
+COPY app                    app/
+COPY public                 public/
+COPY vendor                 vendor/
+
+RUN gem install bundler
+RUN bundle install --without development test
+RUN SECRET_KEY_BASE=`bin/rails secret` bin/rake assets:precompile --trace
+
+# Expose port 3000
+EXPOSE 3000
+
+COPY entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
+
+# Start the Rails server
+ENTRYPOINT ["/usr/bin/entrypoint.sh"]
+CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]

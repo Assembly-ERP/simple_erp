@@ -29,7 +29,6 @@ wait_for_postgres "${DB_HOST:-postgres}" "${DB_PORT:-3010}"
 # Remove any existing server.pid for Rails.
 rm -f /app/tmp/pids/server.pid
 
-
 # Run database migrations
 
 bundle exec rails db:create
