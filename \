@@ -1,0 +1,35 @@
+import { Controller } from "@hotwired/stimulus";
+
+export default class extends Controller {
+  static targets = ["userSelection"];
+
+  customerChanged(e) {
+    console.log(e.target.dataset);
+    this.userSelectionTarget.disabled = true;
+
+    const path = `${this.baseURL}/operational_portal/support_tickets/form_user_selection?customer_id=${e.target.value}`;
+
+    fetch(path, {
+      method: "GET",
+      headers: {
+        Accept: "text/vnd.turbo-stream.html",
+        "X-CSRF-Token": document
+          .querySelector('meta[name="csrf-token"]')
+          .getAttribute("content"),
+      },
+    })
+      .then((res) => {
+        console.log(res);
+        return res.text();
+      })
+      .then((html) => Turbo.renderStreamMessage(html));
+  }
+
+  get baseURL() {
+    return location.origin;
+  }
+
+  get supportTickerId() {
+    return "";
+  }
+}

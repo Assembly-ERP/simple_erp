@@ -4,7 +4,7 @@
 class Customer < ApplicationRecord
   has_many :orders, dependent: :destroy
   has_many :support_tickets, dependent: :destroy
-  has_many :users, class_name: 'CustomerUser', dependent: :destroy
+  has_many :users, dependent: :destroy
 
   validates :name, presence: true
   validates :phone, presence: true

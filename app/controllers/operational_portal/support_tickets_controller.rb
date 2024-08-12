@@ -8,9 +8,7 @@ module OperationalPortal
       @support_tickets = SupportTicket.accessible_by(current_ability)
     end
 
-    def show
-      @new_message = SupportTicketMessage.new
-    end
+    def show; end
 
     def new; end
 
@@ -22,7 +20,7 @@ module OperationalPortal
         redirect_to operational_portal_support_ticket_path(@support_ticket),
                     notice: 'Support ticket was successfully created.'
       else
-        render :new
+        render :new, status: :unprocessable_entity
       end
     end
 
@@ -31,13 +29,26 @@ module OperationalPortal
         redirect_to operational_portal_support_ticket_path(@support_ticket),
                     notice: 'Support ticket was successfully updated.'
       else
-        render :edit
+        render :edit, status: :unprocessable_entity
       end
     end
 
     def destroy
       @support_ticket.destroy!
       redirect_to operational_portal_support_tickets_path, notice: 'Support ticket was successfully deleted.'
+    end
+
+    def form_user_selection
+      @users =
+        (if params[:customer_id].present?
+           User.where(customer_id: params[:customer_id])
+         else
+           User.all
+         end)
+
+      respond_to do |format|
+        format.turbo_stream
+      end
     end
 
     def add_message
@@ -80,7 +91,7 @@ module OperationalPortal
     end
 
     def support_ticket_params
-      params.require(:support_ticket).permit(:issue_description, :status, :customer_id, :title, :user_id, file: [])
+      params.require(:support_ticket).permit(:issue_description, :status, :customer_id, :title, :user_id, files: [])
     end
 
     def message_params
