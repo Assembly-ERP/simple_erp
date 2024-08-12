@@ -1,0 +1,23 @@
+= form_with(model:, url:, html: {class: "grid gap-2", data: {controller: "support_tickets--form"}}) do |form|
+  - if @support_ticket.errors.any?
+    = render ErrorCardComponent.new errors: @support_ticket.errors.full_messages, label: "Validations"
+  .field
+    = form.label :title
+    = form.text_field :title, class: "input-primary", required: true
+  .field
+    = form.label :issue_description
+    = form.text_area :issue_description, class: "input-primary", required: true
+  .field
+    = form.label :status
+    = form.select :status, SupportTicket.statuses.keys.map { |status| [status.titleize, status] }, {}, {class: "input-primary"}
+  .field
+    = form.label :customer_id, "Customer"
+    = form.select :customer_id, Customer.all.pluck(:name, :id), {prompt: "--Select customer--"}, {data: {action: "change->support_tickets--form#customerChanged"}, class: "input-primary"}
+  .field
+    = form.label :user_id, "Assign to Customer User"
+    = render "user_select_input", form:, users: form.object.customer_id ? form.object.customer.users.pluck(:name, :id) : User.all.pluck(:name, :id)
+  .field
+    = form.label :files
+    = form.file_field :files, multiple: true
+  .mt-2
+    = form.submit submit_text, class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"

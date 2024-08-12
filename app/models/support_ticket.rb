@@ -2,12 +2,30 @@
 
 # app/models/support_ticket.rb
 class SupportTicket < ApplicationRecord
-  belongs_to :customer
-  belongs_to :user, optional: true
-  has_many :support_ticket_messages, class_name: 'SupportTicketMessage', dependent: :destroy
+  # Constants
+  enum status: { pending: 0, open: 1, resolved: 2 }
 
+  # Attachments
+  has_many_attached :files
+
+  # Relationships
+  belongs_to :customer, optional: true
+  belongs_to :user
+
+  has_many :support_ticket_messages, dependent: :destroy
+
+  # Validations
   validates :issue_description, :title, :status, presence: true
-  enum status: { open: 0, resolved: 1, pending: 2 }
+
+  validate :user_under_customer
+
+  private
+
+  def user_under_customer
+    return unless (user_id_changed? || customer_id_changed?) && user.customer.id != customer.id
+
+    errors.add(:user, 'must be under customer')
+  end
 end
 
 # == Schema Information
