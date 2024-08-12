@@ -23,15 +23,10 @@ services:
       - "3010:3010"
     command: postgres -c config_file=/var/lib/pgsql/data/postgresql.conf
     restart: always 
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 5s
-      timeout: 5s
-      retries: 5
 
   erpweb:
     build:
-      context: ./erpweb
+      context: .
       dockerfile: Dockerfile
     volumes:
       - erpweb_data:/app
