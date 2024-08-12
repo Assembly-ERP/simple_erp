@@ -7,26 +7,21 @@ export default class extends Controller {
     "inventory",
     "manualPrice",
     "instockDisplay",
-    "priceDisplay",
-    "staticPriceDisplay",
   ];
 
   connect() {
     this.manualPriceTarget.disabled = false;
     this.inventoryTarget.disabled = false;
+    console.log(this.instockDisplayTarget);
   }
 
   overrideToggle(e) {
     if (e.target.checked) {
-      this.priceDisplayTarget.classList.remove("hidden");
-      this.staticPriceDisplayTarget.classList.add("hidden");
-      this.priceTarget.disabled = false;
+      this.priceTarget.readOnly = false;
       this.priceTarget.required = true;
       return;
     }
-    this.priceDisplayTarget.classList.add("hidden");
-    this.staticPriceDisplayTarget.classList.remove("hidden");
-    this.priceTarget.disabled = true;
+    this.priceTarget.readOnly = true;
     this.priceTarget.required = false;
   }
 
