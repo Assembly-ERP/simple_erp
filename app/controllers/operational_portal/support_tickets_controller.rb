@@ -1,32 +1,18 @@
 # frozen_string_literal: true
 
 module OperationalPortal
-  class SupportTicketsController < ApplicationController
-    before_action :authenticate_user!
-    before_action :set_ticket, only: %i[show edit update destroy add_message preview_message_file]
-    before_action :ensure_operational_user
+  class SupportTicketsController < OperationalPortal::BaseController
+    load_and_authorize_resource
 
     def index
-      @support_tickets = SupportTicket.includes(:customer,
-                                                support_ticket_messages: { files_attachments: :blob }).all ||
-                         SupportTicketQuery.new.all_tickets_with_associations
+      @support_tickets = SupportTicket.accessible_by(current_ability)
     end
 
-    def show
-      @support_ticket = SupportTicket.includes(support_ticket_messages: { files_attachments: :blob }).find(params[:id])
-      @new_message = SupportTicketMessage.new
-    end
+    def show; end
 
-    def new
-      @support_ticket = SupportTicket.new
-      @customers = Customer.all
-      @customer_users = CustomerUser.all
-    end
+    def new; end
 
-    def edit
-      @customers = Customer.all
-      @customer_users = CustomerUser.all
-    end
+    def edit; end
 
     def create
       @support_ticket = SupportTicket.new(support_ticket_params)
@@ -34,9 +20,7 @@ module OperationalPortal
         redirect_to operational_portal_support_ticket_path(@support_ticket),
                     notice: 'Support ticket was successfully created.'
       else
-        @customers = Customer.all
-        @customer_users = CustomerUser.all
-        render :new
+        render :new, status: :unprocessable_entity
       end
     end
 
@@ -45,15 +29,26 @@ module OperationalPortal
         redirect_to operational_portal_support_ticket_path(@support_ticket),
                     notice: 'Support ticket was successfully updated.'
       else
-        @customers = Customer.all
-        @customer_users = CustomerUser.all
-        render :edit
+        render :edit, status: :unprocessable_entity
       end
     end
 
     def destroy
       @support_ticket.destroy!
       redirect_to operational_portal_support_tickets_path, notice: 'Support ticket was successfully deleted.'
+    end
+
+    def form_user_selection
+      @users =
+        (if params[:customer_id].present?
+           User.where(customer_id: params[:customer_id])
+         else
+           User.all
+         end)
+
+      respond_to do |format|
+        format.turbo_stream
+      end
     end
 
     def add_message
@@ -96,7 +91,7 @@ module OperationalPortal
     end
 
     def support_ticket_params
-      params.require(:support_ticket).permit(:issue_description, :status, :customer_id, :title, :user_id)
+      params.require(:support_ticket).permit(:issue_description, :status, :customer_id, :title, :user_id, files: [])
     end
 
     def message_params

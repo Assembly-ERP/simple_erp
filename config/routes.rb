@@ -68,7 +68,8 @@ Rails.application.routes.draw do
         get 'preview_message_file/:message_id', to: 'support_tickets#preview_message_file', as: 'preview_message_file'
       end
       collection do
-        get 'customer_users'
+        get :customer_users
+        get :form_user_selection
       end
     end
     resources :settings, only: %i[index edit update]

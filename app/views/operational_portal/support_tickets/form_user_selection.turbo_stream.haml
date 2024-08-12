@@ -1,0 +1,3 @@
+= form_with(model: SupportTicket.new, url: operational_portal_support_tickets_path) do |form|
+  = turbo_stream.replace "support_ticket_user_id" do
+    = render "user_select_input", form:, users: @users.pluck(:name, :id)
