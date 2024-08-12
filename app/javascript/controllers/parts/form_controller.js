@@ -1,7 +1,15 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["price", "manualPrice", "instock", "inventory"];
+  static targets = [
+    "price",
+    "instock",
+    "inventory",
+    "manualPrice",
+    "instockDisplay",
+    "priceDisplay",
+    "staticPriceDisplay",
+  ];
 
   connect() {
     this.manualPriceTarget.disabled = false;
@@ -10,21 +18,25 @@ export default class extends Controller {
 
   overrideToggle(e) {
     if (e.target.checked) {
-      this.priceTarget.readOnly = false;
+      this.priceDisplayTarget.classList.remove("hidden");
+      this.staticPriceDisplayTarget.classList.add("hidden");
+      this.priceTarget.disabled = false;
       this.priceTarget.required = true;
       return;
     }
-    this.priceTarget.readOnly = true;
+    this.priceDisplayTarget.classList.add("hidden");
+    this.staticPriceDisplayTarget.classList.remove("hidden");
+    this.priceTarget.disabled = true;
     this.priceTarget.required = false;
-    this.priceTarget.value = null;
   }
 
   inventoryToggle(e) {
     if (e.target.checked) {
-      this.instockTarget.readOnly = false;
+      this.instockDisplayTarget.classList.remove("hidden");
+      this.instockTarget.disabled = false;
       return;
     }
-    this.instockTarget.readOnly = true;
-    this.instockTarget.value = null;
+    this.instockDisplayTarget.classList.add("hidden");
+    this.instockTarget.disabled = true;
   }
 }

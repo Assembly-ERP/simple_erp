@@ -29,9 +29,9 @@ Rails.application.routes.draw do
 
   get '/customer', to: 'customer_portal/dashboard#index', as: :customer_root
 
-  unauthenticated do
-    root 'home#index'
-  end
+  # unauthenticated do
+  root 'home#index'
+  # end
 
   # Define routes for JWT login and logout
   # post 'login', to: 'users/sessions#create'
