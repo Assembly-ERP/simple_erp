@@ -50,16 +50,3 @@
     %div
       = form.submit "Add Message", class: "btn btn-primary"
 = link_to 'Back to Tickets', operational_portal_support_tickets_path, class: 'btn btn-secondary'
-/ Modal Structure for Images
-#imageModal.modal
-  %span.close{:onclick => "closeModal()"} ×
-  #spinner.spinner
-  %img#modalImage.image-modal/
-  #caption
-/ Modal for file preview
-#fileModal.modal
-  %span.close{:onclick => "closeFileModal()"} ×
-  #fileSpinner.spinner
-  %iframe#modalFile.preview-modal
-  #fileCaption
-= javascript_include_tag 'preview'

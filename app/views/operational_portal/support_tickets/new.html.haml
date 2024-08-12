@@ -1,29 +1,5 @@
-/ app/views/operational_portal/support_tickets/new.html.erb
 .mx-auto.w-full{class: "max-w-[700px]"}
   .py-6
     %h1.text-2xl.font-semibold.mb-4 New Support Ticket
-    = form_with(model: @support_ticket, url: operational_portal_support_tickets_path, html: {class: "grid gap-2"}) do |form|
-      - if @support_ticket.errors.any?
-        = render ErrorCardComponent.new errors: @support_ticket.errors.full_messages, label: "Validations"
-      .field
-        = form.label :title, "Subject"
-        = form.text_field :title, class: "input-primary", required: true
-      .field
-        = form.label :issue_description, "Description"
-        = form.text_area :issue_description, class: "input-primary", required: true
-      .field
-        = form.label :status
-        = form.select :status, SupportTicket.statuses.keys.map { |status| [status.titleize, status] }, {}, {class: "input-primary"}
-      .field
-        = form.label :customer_id, "Customer"
-        = form.select :customer_id, @customers.pluck(:name, :id), {prompt: "Select customer"}, {class: "input-primary"}
-      .field
-        = form.label :user_id, "Assign to Customer User"
-        = form.select :user_id, [], {prompt: 'Select user'}, {class: "input-primary"}
-        #user-loading-indicator{:style => "display: none;"} Loading...
-      .field
-        = form.label :files
-        = form.file_field :files, multiple: true
-      .mt-2
-        = form.submit "New Ticket", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"
+    = render "form", model: @support_ticket, url: operational_portal_support_tickets_path, submit_text: "New Ticket"
     = link_to 'Back', operational_portal_support_tickets_path, class: "btn btn-secondary"
