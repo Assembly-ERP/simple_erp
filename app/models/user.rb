@@ -20,6 +20,9 @@ class User < ApplicationRecord
 
   accepts_nested_attributes_for :customer
 
+  # Scopes
+  scope :customer_users, -> { where(role: 'customer_user_admin').or(User.where(role: 'customer_user_regular')) }
+
   # Validate presence of additional attributes
   validates :name, presence: true
   validates :email, presence: true, uniqueness: { message: 'This email is already taken' }

@@ -2,12 +2,20 @@
 
 # app/models/support_ticket.rb
 class SupportTicket < ApplicationRecord
+  # Constants
+  enum status: { pending: 0, open: 1, resolved: 2 }
+
+  # Attachments
+  has_many_attached :files
+
+  # Relationships
   belongs_to :customer
   belongs_to :user, optional: true
+
   has_many :support_ticket_messages, class_name: 'SupportTicketMessage', dependent: :destroy
 
+  # Validations
   validates :issue_description, :title, :status, presence: true
-  enum status: { open: 0, resolved: 1, pending: 2 }
 end
 
 # == Schema Information

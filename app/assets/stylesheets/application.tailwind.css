@@ -16,6 +16,9 @@
     @apply absolute z-[9999] top-6 right-7;
   }
 
+  select option[value=""], select option:not([value]) {
+    @apply text-zinc-500;
+  }
 }
 
 @layer components {

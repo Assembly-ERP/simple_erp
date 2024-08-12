@@ -20,7 +20,7 @@ module OperationalPortal
     def new
       @support_ticket = SupportTicket.new
       @customers = Customer.all
-      @customer_users = CustomerUser.all
+      @customer_users = User.customer_users
     end
 
     def edit
@@ -96,7 +96,7 @@ module OperationalPortal
     end
 
     def support_ticket_params
-      params.require(:support_ticket).permit(:issue_description, :status, :customer_id, :title, :user_id)
+      params.require(:support_ticket).permit(:issue_description, :status, :customer_id, :title, :user_id, file: [])
     end
 
     def message_params
