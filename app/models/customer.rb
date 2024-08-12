@@ -6,7 +6,7 @@ class Customer < ApplicationRecord
   has_many :support_tickets, dependent: :destroy
   has_many :users, dependent: :destroy
 
-  validates :name, presence: true
+  validates :name, presence: true, uniqueness: true
   validates :phone, presence: true
   validates :discount, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
 end

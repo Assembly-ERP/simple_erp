@@ -1,16 +1,16 @@
 # frozen_string_literal: true
 
-if Rails.env.development?
-  # Create an admin user
-  User.create(
-    email: 'admin@example.com',
-    password: 'password',
-    password_confirmation: 'password',
-    role: 'admin',
-    name: 'Tim Smith',
-    confirmed_at: Time.now.utc
-  )
+# Create an admin user
+User.create(
+  email: 'admin@example.com',
+  password: 'password',
+  password_confirmation: 'password',
+  role: 'admin',
+  name: 'Tim Smith',
+  confirmed_at: Time.now.utc
+)
 
+if Rails.env.development? || ENV['FORCE_MIGRATE'] == 'true'
   # Create customers
   customer1 = Customer.create(
     name: 'Big Shop',
@@ -137,14 +137,6 @@ if Rails.env.development?
   [order1, order2].each do |order|
     order.update(total_amount: order.order_details.sum(&:subtotal))
   end
-else
-  User.create(
-    email: ENV.fetch('INITIAL_ADMIN_EMAIL', nil),
-    password: ENV.fetch('INITIAL_ADMIN_PASSWORD', nil),
-    role: 'admin',
-    name: ENV.fetch('INITIAL_ADMIN_NAME', nil),
-    confirmed_at: Time.now.utc
-  )
 end
 
 puts 'Seed data created successfully!'
