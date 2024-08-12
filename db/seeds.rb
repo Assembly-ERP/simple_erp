@@ -143,10 +143,10 @@ if Rails.env.development?
   end
 else
   User.create(
-    email: 'assembly@erp.com',
-    password: 'assembly@erp',
+    email: ENV.fetch('INITIAL_ADMIN_EMAIL', nil),
+    password: ENV.fetch('INITIAL_ADMIN_PASSWORD', nil),
     role: 'admin',
-    name: 'ERP Admin',
+    name: ENV.fetch('INITIAL_ADMIN_NAME', nil),
     confirmed_at: Time.now.utc
   )
 end
