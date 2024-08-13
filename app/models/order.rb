@@ -2,7 +2,7 @@
 
 class Order < ApplicationRecord
   # Constants
-  enum status: { pre_order: 'pre-order', created: 'new', submitted: 'submitted', cancelled: 'cancelled' }
+  STATUSES = %w[pre-order new submitted cancelled].freeze
 
   # Relationships
   belongs_to :customer
@@ -20,7 +20,7 @@ class Order < ApplicationRecord
         }
 
   # Validations
-  validates :status, presence: true
+  validates :status, inclusion: { in: STATUSES }, presence: true
   validates :total_amount, numericality: { greater_than_or_equal_to: 0 }
   validate :at_least_one_item, on: :create
 
