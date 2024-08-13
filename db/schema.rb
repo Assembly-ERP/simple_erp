@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_06_03_235631) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_13_181917) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -125,6 +125,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_06_03_235631) do
     t.integer "quantity"
     t.index ["part_id", "product_id"], name: "index_parts_products_on_part_id_and_product_id"
     t.index ["product_id", "part_id"], name: "index_parts_products_on_product_id_and_part_id"
+  end
+
+  create_table "poly_attributes", force: :cascade do |t|
+    t.string "attributable_type", null: false
+    t.bigint "attributable_id", null: false
+    t.string "input_type", default: "text", null: false
+    t.string "value", null: false
+    t.string "label", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attributable_type", "attributable_id"], name: "index_poly_attributes_on_attributable"
   end
 
   create_table "products", force: :cascade do |t|
