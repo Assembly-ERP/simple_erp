@@ -14,6 +14,13 @@ class SupportTicket < ApplicationRecord
 
   has_many :support_ticket_messages, dependent: :destroy
 
+  # Scopes
+  scope :with_customer,
+        lambda {
+          select('support_tickets.*, customers.name as customer_name')
+            .joins(:customer)
+        }
+
   # Validations
   validates :issue_description, :title, :status, presence: true
 
