@@ -21,8 +21,8 @@
     = form.label :manual_price, "Override Price"
   .field{class: form.object.manual_price ? "" : "hidden", data: {"parts--form-target": "priceDisplay"}}
     = form.label :price, "Price $"
-    = form.number_field :price, placeholder: "0.00", value: form.object.price.zero? ? nil : form.object.price, step: 0.01, class: "input-primary", disabled: !form.object.manual_price, data: {"parts--form-target": "price"}
-  .flex.gap-2.text-xl.font-medium{data: {"parts--form-target": "staticPriceDisplay"}}
+    = form.number_field :price, placeholder: "0.00", step: 0.01, class: "input-primary", disabled: !form.object.manual_price, data: {"parts--form-target": "price"}
+  .flex.gap-2.text-xl.font-medium{class: form.object.manual_price ? "hidden" : "", data: {"parts--form-target": "staticPriceDisplay"}}
     %span Price:
     %span 
       = "$#{form.object.price}"
