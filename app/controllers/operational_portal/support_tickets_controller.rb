@@ -5,7 +5,7 @@ module OperationalPortal
     load_and_authorize_resource
 
     def index
-      @support_tickets = SupportTicket.accessible_by(current_ability)
+      @support_tickets = SupportTicket.with_customer.accessible_by(current_ability)
     end
 
     def show; end

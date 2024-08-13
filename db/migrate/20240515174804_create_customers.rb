@@ -13,5 +13,7 @@ class CreateCustomers < ActiveRecord::Migration[7.1]
 
       t.timestamps
     end
+
+    add_index :customers, :name, unique: true
   end
 end

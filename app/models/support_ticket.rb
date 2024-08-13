@@ -3,7 +3,7 @@
 # app/models/support_ticket.rb
 class SupportTicket < ApplicationRecord
   # Constants
-  enum status: { pending: 0, open: 1, resolved: 2 }
+  STATUSES = %w[pending open resolved].freeze
 
   # Attachments
   has_many_attached :files
@@ -14,15 +14,24 @@ class SupportTicket < ApplicationRecord
 
   has_many :support_ticket_messages, dependent: :destroy
 
+  # Scopes
+  scope :with_customer,
+        lambda {
+          select('support_tickets.*, customers.name as customer_name')
+            .joins(:customer)
+        }
+
   # Validations
   validates :issue_description, :title, :status, presence: true
+  validates :status, inclusion: { in: STATUSES }, presence: true
 
-  validate :user_under_customer
+  # Custom Validations
+  validate :user_must_under_customer
 
   private
 
-  def user_under_customer
-    return unless (user_id_changed? || customer_id_changed?) && user.customer.id != customer.id
+  def user_must_under_customer
+    return unless customer_id.present? && (user_id_changed? || customer_id_changed?) && user.customer.id != customer.id
 
     errors.add(:user, 'must be under customer')
   end
