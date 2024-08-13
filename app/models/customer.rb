@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# app/models/customer.rb
 class Customer < ApplicationRecord
   has_many :orders, dependent: :destroy
   has_many :support_tickets, dependent: :destroy
@@ -16,14 +15,17 @@ end
 # Table name: customers
 #
 #  id          :bigint           not null, primary key
-#  address     :string
 #  city        :string
 #  discount    :decimal(5, 2)    default(0.0)
-#  name        :string
-#  phone       :string
+#  name        :string           not null
+#  phone       :string           not null
 #  postal_code :string
 #  state       :string
 #  street      :string
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
+#
+# Indexes
+#
+#  index_customers_on_name  (name) UNIQUE
 #

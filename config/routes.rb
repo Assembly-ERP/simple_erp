@@ -181,13 +181,13 @@ end
 #                                          user_password PATCH  /users/password(.:format)                                                                         devise/passwords#update
 #                                                        PUT    /users/password(.:format)                                                                         devise/passwords#update
 #                                                        POST   /users/password(.:format)                                                                         devise/passwords#create
-#                               cancel_user_registration GET    /users/cancel(.:format)                                                                           devise/registrations#cancel
-#                                  new_user_registration GET    /users/sign_up(.:format)                                                                          devise/registrations#new
-#                                 edit_user_registration GET    /users/edit(.:format)                                                                             devise/registrations#edit
-#                                      user_registration PATCH  /users(.:format)                                                                                  devise/registrations#update
-#                                                        PUT    /users(.:format)                                                                                  devise/registrations#update
-#                                                        DELETE /users(.:format)                                                                                  devise/registrations#destroy
-#                                                        POST   /users(.:format)                                                                                  devise/registrations#create
+#                               cancel_user_registration GET    /users/cancel(.:format)                                                                           users/registrations#cancel
+#                                  new_user_registration GET    /users/sign_up(.:format)                                                                          users/registrations#new
+#                                 edit_user_registration GET    /users/edit(.:format)                                                                             users/registrations#edit
+#                                      user_registration PATCH  /users(.:format)                                                                                  users/registrations#update
+#                                                        PUT    /users(.:format)                                                                                  users/registrations#update
+#                                                        DELETE /users(.:format)                                                                                  users/registrations#destroy
+#                                                        POST   /users(.:format)                                                                                  users/registrations#create
 #                                  new_user_confirmation GET    /users/confirmation/new(.:format)                                                                 devise/confirmations#new
 #                                      user_confirmation GET    /users/confirmation(.:format)                                                                     devise/confirmations#show
 #                                                        POST   /users/confirmation(.:format)                                                                     devise/confirmations#create
@@ -231,6 +231,7 @@ end
 #          add_message_operational_portal_support_ticket POST   /operational_portal/support_tickets/:id/add_message(.:format)                                     operational_portal/support_tickets#add_message
 # preview_message_file_operational_portal_support_ticket GET    /operational_portal/support_tickets/:id/preview_message_file/:message_id(.:format)                operational_portal/support_tickets#preview_message_file
 #      customer_users_operational_portal_support_tickets GET    /operational_portal/support_tickets/customer_users(.:format)                                      operational_portal/support_tickets#customer_users
+# form_user_selection_operational_portal_support_tickets GET    /operational_portal/support_tickets/form_user_selection(.:format)                                 operational_portal/support_tickets#form_user_selection
 #                     operational_portal_support_tickets GET    /operational_portal/support_tickets(.:format)                                                     operational_portal/support_tickets#index
 #                                                        POST   /operational_portal/support_tickets(.:format)                                                     operational_portal/support_tickets#create
 #                  new_operational_portal_support_ticket GET    /operational_portal/support_tickets/new(.:format)                                                 operational_portal/support_tickets#new

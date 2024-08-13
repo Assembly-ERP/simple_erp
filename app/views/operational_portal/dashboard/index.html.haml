@@ -14,20 +14,20 @@
               %th ID
               %th Customer Name
               %th Status
-              %th.numeric Total Amount
+              %th Total Amount
               %th Created Date
           %tbody
             - if @orders.present?
               - @orders.each do |order|
-                %tr.order-row
+                %tr
                   %td= link_to "Order ##{order.id}", operational_portal_order_path(order)
-                  %td= order.customer.name
+                  %td= order.customer_name
                   %td= order.status
-                  %td.numeric= order.total_amount
-                  %td.local-time{"data-time" => "#{order.created_at}"}= order.created_at
+                  %td= order.total_amount
+                  %td= order.created_at
             - else
               %tr
-                %td{:colspan => "6"} No orders found
+                %td No orders found
     .grid.gap-2
       %h2.font-medium Support Tickets
       .table-primary
@@ -43,7 +43,7 @@
               - @support_tickets.each do |ticket|
                 %tr.order-row
                   %td= link_to ticket.title, operational_portal_support_ticket_path(ticket)
-                  %td= ticket.customer.name
+                  %td= ticket.customer_name
                   %td= ticket.status
                   %td.local-time{"data-time" => "#{ticket.created_at}"}= ticket.created_at
             - else
