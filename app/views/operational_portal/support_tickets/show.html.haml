@@ -17,10 +17,10 @@
         = @support_ticket.created_at.strftime("%B %d, %Y %H:%M")
   .grid.bg-white.rounded.p-5.shadow
     %h2.font-medium.text-lg Messages
-    %ul
+    %ul.divide-y
       - if @support_ticket_messages.any?
         - @support_ticket_messages.each do |support_ticket_message|
-          %li.my-3
+          %li.py-3
             %div
               %strong Sender:
               = support_ticket_message.sender_name
@@ -50,7 +50,7 @@
       = form_with model: [@support_ticket, SupportTicketMessage.new], url: add_message_operational_portal_support_ticket_path(@support_ticket), local: true, html: { class: "grid gap-2", multipart: true } do |form|
         .field
           = form.label :body, "Message"
-          = form.text_area :body, required: true
+          = form.text_area :body, required: true, class: "input-primary"
         .field
           = form.label :files, "Files"
           = form.file_field :files, multiple: true
