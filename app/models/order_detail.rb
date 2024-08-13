@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class OrderDetail < ApplicationRecord
-  belongs_to :order
+  belongs_to :order, touch: true
   belongs_to :product, optional: true
   belongs_to :part, optional: true
 
@@ -30,7 +30,7 @@ end
 #
 #  id         :bigint           not null, primary key
 #  price      :decimal(10, 2)
-#  quantity   :integer
+#  quantity   :integer          default(1), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  order_id   :bigint           not null
