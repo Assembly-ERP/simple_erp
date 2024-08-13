@@ -50,7 +50,7 @@
       = form_with model: [@support_ticket, SupportTicketMessage.new], url: add_message_operational_portal_support_ticket_path(@support_ticket), local: true, html: { class: "grid gap-2", multipart: true } do |form|
         .field
           = form.label :body, "Message"
-          = form.text_area :body
+          = form.text_area :body, required: true
         .field
           = form.label :files, "Files"
           = form.file_field :files, multiple: true
