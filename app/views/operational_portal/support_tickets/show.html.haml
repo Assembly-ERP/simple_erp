@@ -17,10 +17,10 @@
         = @support_ticket.created_at.strftime("%B %d, %Y %H:%M")
   .grid.bg-white.rounded.p-5.shadow
     %h2.font-medium.text-lg Messages
-    %ul
+    %ul.divide-y
       - if @support_ticket_messages.any?
         - @support_ticket_messages.each do |support_ticket_message|
-          %li.my-3
+          %li.py-3
             %div
               %strong Sender:
               = support_ticket_message.sender_name
