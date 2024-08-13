@@ -6,7 +6,7 @@ class Part < ApplicationRecord
   has_many_attached :files
 
   validates :name, presence: true
-  validates :price, numericality: { greater_than_or_equal_to: 0 }
+  validates :price, numericality: { greater_than_or_equal_to: 0, only_float: true }
   validates :weight, numericality: { greater_than_or_equal_to: 0 }
 
   attribute :manual_price, :boolean, default: false

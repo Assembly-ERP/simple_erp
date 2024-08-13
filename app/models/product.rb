@@ -5,25 +5,16 @@ class Product < ApplicationRecord
   has_many :parts, through: :parts_products
 
   validates :name, presence: true
-  validates :price, numericality: { greater_than_or_equal_to: 0 }
+  validates :price, numericality: { greater_than_or_equal_to: 0, only_float: true }
 
   before_save :calculate_weight
 
   def parts_with_quantities
-    # parts_with_quantities = {}
-    # part_quantities.each do |part_id, quantity|
-    #   part = Part.find(part_id)
-    #   parts_with_quantities[part] = quantity.to_i
-    # end
-    # parts_with_quantities
-
     parts_products.includes(:part).to_h { |pp| [pp.part, pp.quantity] }
   end
 
   def price
-    # current_price = parts_products.sum { |pp| pp.part.price.to_f * pp.quantity.to_i }
     parts_products.sum { |pp| pp.part.price.to_f * pp.quantity.to_i }
-    # sprintf('%.2f', current_price)
   end
 
   private
@@ -50,7 +41,7 @@ end
 #  description     :text
 #  json_attributes :json
 #  name            :string
-#  price           :decimal(, )
+#  price           :decimal(10, 2)
 #  weight          :decimal(10, 2)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
