@@ -59,9 +59,9 @@ module OperationalPortal
 
     def update
       if @order.update(order_params)
-        render json: { success: true }
+        redirect_to operational_portal_order_path(@order), notice: 'Order updated successfully.'
       else
-        render json: { success: false, errors: @order.errors.full_messages }, status: :unprocessable_entity
+        render :edit, status: :unprocessable_entity
       end
     end
 
