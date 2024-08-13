@@ -8,7 +8,9 @@ module OperationalPortal
       @support_tickets = SupportTicket.with_customer.accessible_by(current_ability)
     end
 
-    def show; end
+    def show
+      @support_ticket_messages = @support_ticket.support_ticket_messages.with_user
+    end
 
     def new; end
 
