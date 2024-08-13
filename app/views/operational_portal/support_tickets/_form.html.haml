@@ -9,7 +9,7 @@
     = form.text_area :issue_description, class: "input-primary", required: true
   .field
     = form.label :status
-    = form.select :status, SupportTicket.statuses.keys.map { |status| [status.titleize, status] }, {}, {class: "input-primary"}
+    = form.select :status, SupportTicket::STATUSES.map { |s| [s.titleize, s] }, {}, {class: "input-primary"}
   .field
     = form.label :customer_id, "Customer"
     = form.select :customer_id, Customer.all.pluck(:name, :id), {prompt: "--Select customer--"}, {data: {action: "change->support_tickets--form#customerChanged"}, class: "input-primary"}
