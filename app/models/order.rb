@@ -31,9 +31,9 @@ class Order < ApplicationRecord
   private
 
   def at_least_one_item
-    return unless order_details.empty?
+    return if order_details.present?
 
-    errors.add(:base, 'Order must have at least one item')
+    errors.add(:order, 'must have at least one item')
   end
 
   def calculate_total_amount
