@@ -1,11 +1,10 @@
 # frozen_string_literal: true
 
-# app/models/setting.rb
 class Setting < ApplicationRecord
-  after_save :recalculate_part_prices, if: -> { key == 'Price Per Pound' && saved_change_to_value? }
-
   validates :key, presence: true, uniqueness: true
   validates :value, presence: true
+
+  after_save :recalculate_part_prices, if: -> { key == 'Price Per Pound' && saved_change_to_value? }
 
   def self.get(key)
     find_by(key:)&.value

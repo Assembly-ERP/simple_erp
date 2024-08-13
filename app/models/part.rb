@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# app/models/parts.rb
 class Part < ApplicationRecord
   has_many :parts_products, dependent: :destroy
   has_many :products, through: :parts_products
@@ -33,13 +32,13 @@ end
 #
 #  id              :bigint           not null, primary key
 #  description     :text
-#  in_stock        :integer
+#  in_stock        :integer          default(0)
 #  inventory       :boolean          default(FALSE), not null
 #  json_attributes :json
 #  manual_price    :boolean          default(FALSE), not null
-#  name            :string
-#  price           :decimal(10, 2)
-#  weight          :decimal(10, 2)
+#  name            :string           not null
+#  price           :decimal(10, 2)   default(0.0)
+#  weight          :decimal(10, 2)   default(0.0)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #

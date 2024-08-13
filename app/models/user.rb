@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# app/models/user.rb
 class User < ApplicationRecord
   # Define roles as constants or methods
   ROLES = %w[regular manager admin customer_user_admin customer_user_regular].freeze
@@ -65,15 +64,12 @@ end
 #  confirmed_at           :datetime
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
-#  firstName              :string
-#  lastName               :string
-#  name                   :string
+#  name                   :string           not null
 #  phone                  :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
-#  role                   :string
-#  type                   :string
+#  role                   :string           not null
 #  unconfirmed_email      :string
 #  created_at             :datetime         not null
 #  updated_at             :datetime         not null

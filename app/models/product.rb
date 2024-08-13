@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# app/models/products.rb
 class Product < ApplicationRecord
   has_many :parts_products, dependent: :destroy
   has_many :parts, through: :parts_products
