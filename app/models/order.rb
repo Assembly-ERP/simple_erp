@@ -25,8 +25,8 @@ class Order < ApplicationRecord
   validate :at_least_one_item, on: :create
 
   # Generators
-  before_save :calculate_total_amount
   before_create :set_default_status
+  after_save :calculate_total_amount
 
   private
 
@@ -37,8 +37,9 @@ class Order < ApplicationRecord
   end
 
   def calculate_total_amount
-    # self.total_amount = total_amount
-    self.total_amount = order_details.sum(&:subtotal)
+    # rubocop:disable Rails::SkipsModelValidations
+    update_column(:total_amount, order_details.sum(&:subtotal))
+    # rubocop:enable Rails::SkipsModelValidations
   end
 
   def set_default_status
@@ -52,7 +53,7 @@ end
 #
 #  id           :bigint           not null, primary key
 #  status       :string           not null
-#  total_amount :decimal(10, 2)
+#  total_amount :decimal(10, 2)   default(0.0)
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #  customer_id  :bigint           not null

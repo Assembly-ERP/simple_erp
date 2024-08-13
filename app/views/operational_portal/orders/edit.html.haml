@@ -1,7 +1,7 @@
 / app/views/operational_portal/orders/edit.html.erb
 %h1
   Update #{"Order ##{@order.id}"}
-= form_with(model: @order, local: true, url: operational_portal_orders_path) do |form|
+= form_with(model: @order, local: true, url: operational_portal_order_path) do |form|
   - if @order.errors.any?
     #error_explanation
       %h2
