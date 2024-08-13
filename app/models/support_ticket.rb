@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# app/models/support_ticket.rb
 class SupportTicket < ApplicationRecord
   # Constants
   STATUSES = %w[pending open resolved].freeze
@@ -42,9 +41,9 @@ end
 # Table name: support_tickets
 #
 #  id                :bigint           not null, primary key
-#  issue_description :text
-#  status            :string
-#  title             :string
+#  issue_description :text             not null
+#  status            :string           default("pending"), not null
+#  title             :string           not null
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  customer_id       :bigint

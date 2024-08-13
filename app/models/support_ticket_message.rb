@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# app/models/support_ticket_message.rb
 class SupportTicketMessage < ApplicationRecord
   # Attachments
   has_many_attached :files

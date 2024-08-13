@@ -2,10 +2,8 @@
 
 # app/controllers/operational_portal/users_controller.rb
 module OperationalPortal
-  class UsersController < ApplicationController
-    before_action :authenticate_user!
-    before_action :ensure_operational_user
-    before_action :set_user, only: %i[show edit update destroy]
+  class UsersController < OperationalPortal::BaseController
+    load_and_authorize_resource
 
     def index
       @users = User.all

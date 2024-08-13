@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
-# app/models/webhook.rb
 class Webhook < ApplicationRecord
+  # Relationships
   belongs_to :customer
-  belongs_to :user # Assuming each webhook is linked to a specific user for permission checks
+  belongs_to :user
 
+  # Generators
   before_create :generate_secret_token
 
   private
