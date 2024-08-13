@@ -4,8 +4,10 @@ class PolyAttribute < ApplicationRecord
   # Constants
   INPUT_TYPES = %w[text number decimal].freeze
 
+  # Relationships
   belongs_to :attributable, polymorphic: true
 
+  # Validations
   validates :label, :input_type, :value, presence: true
   validates :input_type, inclusion: { in: INPUT_TYPES }
 end
