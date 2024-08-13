@@ -25,8 +25,8 @@ class Order < ApplicationRecord
   validate :at_least_one_item, on: :create
 
   # Generators
-  before_save :calculate_total_amount
   before_create :set_default_status
+  after_save :calculate_total_amount
 
   private
 
@@ -37,7 +37,6 @@ class Order < ApplicationRecord
   end
 
   def calculate_total_amount
-    # self.total_amount = total_amount
     self.total_amount = order_details.sum(&:subtotal)
   end
 

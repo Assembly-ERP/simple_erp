@@ -115,7 +115,7 @@ if Rails.env.development? || ENV['FORCE_MIGRATE'] == 'true'
   end
 
   # Create orders with order details
-  order1 = Order.create(
+  Order.create(
     customer: customer1,
     status: 'pre_order',
     order_details_attributes: [
@@ -124,7 +124,7 @@ if Rails.env.development? || ENV['FORCE_MIGRATE'] == 'true'
     ]
   )
 
-  order2 = Order.create(
+  Order.create(
     customer: customer2,
     status: 'created',
     order_details_attributes: [
@@ -132,11 +132,6 @@ if Rails.env.development? || ENV['FORCE_MIGRATE'] == 'true'
       { part: part2, quantity: 2, price: part2.price }
     ]
   )
-
-  # Recalculate total amounts for orders
-  [order1, order2].each do |order|
-    order.update(total_amount: order.order_details.sum(&:subtotal))
-  end
 end
 
 puts 'Seed data created successfully!'
