@@ -10,6 +10,7 @@ class SupportTicketMessage < ApplicationRecord
   belongs_to :user
 
   # Scopes
+  default_scope { order(id: :asc) }
   scope :with_user,
         lambda {
           select('support_ticket_messages.*, users.name AS sender_name')
