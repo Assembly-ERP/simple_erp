@@ -15,7 +15,7 @@
     = form.collection_select :customer_id, Customer.all, :id, :name, prompt: "Select a Customer"
   .field
     = form.label :status
-    = form.select :status, Order.statuses.keys.map { |status| [status.titleize, status] }
+    = form.select :status, Order.STATUSES.map { |status| [status.titleize, status] }
   .field
     = form.label :total_amount, "Total Amount"
     = form.number_field :total_amount, step: :any
