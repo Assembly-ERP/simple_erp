@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_12_231045) do
+ActiveRecord::Schema[7.1].define(version: 2024_06_03_235631) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -158,7 +158,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_12_231045) do
   create_table "support_tickets", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.text "issue_description", null: false
-    t.string "status"
+    t.string "status", default: "pending", null: false
     t.bigint "customer_id"
     t.string "title", null: false
     t.datetime "created_at", null: false

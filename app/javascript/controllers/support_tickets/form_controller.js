@@ -23,8 +23,4 @@ export default class extends Controller {
   get baseURL() {
     return location.origin;
   }
-
-  get supportTickerId() {
-    return "";
-  }
 }

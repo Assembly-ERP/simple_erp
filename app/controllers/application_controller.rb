@@ -32,7 +32,6 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_out_path_for(_resource_or_scope)
-    session[:return_to] = nil
     root_path
   end
 

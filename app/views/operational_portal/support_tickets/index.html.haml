@@ -18,14 +18,15 @@
       %tbody
         - if @support_tickets.present?
           - @support_tickets.each do |ticket|
-            %tr.order-row
+            %tr
               %td= link_to ticket.title, operational_portal_support_ticket_path(ticket)
-              %td= ticket.customer.name
+              %td= ticket.customer_name
               %td= ticket.status
-              %td.local-time{"data-time" => "#{ticket.created_at}"}= ticket.created_at
-              %td
+              %td= ticket.created_at
+              %td.flex.gap-1
+                = link_to 'View', operational_portal_support_ticket_path(ticket)
                 = link_to 'Edit', edit_operational_portal_support_ticket_path(ticket)
-                = link_to 'Delete', operational_portal_support_ticket_path(ticket), method: :delete, data: { confirm: 'Are you sure?' }
+                = button_to 'Delete', operational_portal_support_ticket_path(ticket), method: :delete, form: {data: {turbo_confirm: 'Are you sure to delete this support ticket?'}}
         - else
           %tr
             %td{:colspan => "5"} No Support Tickets found

@@ -30,7 +30,6 @@ wait_for_postgres "${DB_HOST:-postgres}" "${DB_PORT:-3010}"
 rm -f /app/tmp/pids/server.pid
 
 # Run database migrations
-
 bundle exec rails db:create
 bundle exec rails db:migrate
 bundle exec rails db:seed
