@@ -12,12 +12,11 @@
   %td.p-4.flex.justify-end
     #quantity-container
       #quantity.small
-        = button_tag class: "decrement transition-colors duration-200", type: "button", data: {action: "click->products--part-item#decrement"} do
+        = button_tag class: "decrement transition-colors duration-200", type: "button", data: {action: "products--part-item#decrement"} do
           = icon("fa-solid", "minus")
         = number_field_tag 'quantity', 1, min: 1, id: dom_id(part, "search-part-qty"), class: "number-input transition-colors duration-200", data: {"products--part-item-target": "quantity", action: "input->products--part-item#quantityInput change->products--part-item#quantityChange"}
-        = button_tag class: "increment transition-colors duration-200", type: "button", data: {action: "click->products--part-item#increment"} do
+        = button_tag class: "increment transition-colors duration-200", type: "button", data: {action: "products--part-item#increment"} do
           = icon("fa-solid", "plus")
-  %td.py-4
-    %button.ml-auto.block.text-white.rounded.px-3.text-sm.py-1{"data-tooltip-placement" => "top", "data-tooltip-target" => "remove-tooltip", type: "button", class: "bg-[color:var(--primary)] disabled:bg-gray-400", disabled: true, data: {name: part.name, quantity: 1, price: part.price, "products--part-item-target": "add", action: "click->products--nested-form#add click->products--part-item#reset"}}
-      = icon("fa-solid", "plus")
+  %td.py-4.pr-4
+    %button.ml-auto.block.text-white.rounded.px-5.text-sm{"data-tooltip-placement" => "top", "data-tooltip-target" => "remove-tooltip", type: "button", class: "py-1.5 bg-[color:var(--primary)] disabled:bg-gray-400", data: {name: part.name, quantity: 1, price: part.price, part_id: part.id, "products--part-item-target": "add", action: "products--nested-form#add"}}
       Add

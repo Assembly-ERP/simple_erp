@@ -12,14 +12,13 @@
         = form.text_area :description, required: true, class: "input-primary", rows: 4
       %template{data: {"products--nested-form-target": "template"}}
         = form.fields_for :parts, PartsProduct.new, child_index: 'NEW_RECORD' do |part_form|
-          = render "part_form_template", f: part_form
+          = render "part_form", name: "{{name}}", quantity: "{{quantity}}", price: "{{price}}", part_id: "{{part-id}}", f: part_form
       = render "search_parts", form:
       .flex.flex-col.gap-2.mt-2
-        %h1.font-medium.text-xl Parts
         .flex.w-full.gap-5
           .px-4.py-5.w-full.h-full.min-h-80.border.border-gray-300.rounded.bg-white.flex.flex-col.items-start.divide-y.w-full
             %div{data: {"products--nested-form-target": "target"}}
-          .border.border-gray-300.rounded.px-4.py-5.min-w-72.bg-white.h-80.max-h-80
+          .border.border-gray-300.rounded.px-4.py-5.min-w-80.bg-white.h-80.max-h-80
             %h1.text-xl.font-medium Parts Summary
             .space-y-4.mt-4
               .space-y-2
