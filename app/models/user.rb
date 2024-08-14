@@ -12,7 +12,7 @@ class User < ApplicationRecord
   # Relationship
   belongs_to :customer, optional: true
 
-  # Associations for customer-related data
+  has_many :poly_attributes, as: :attributable, dependent: :destroy
   has_many :orders, foreign_key: 'customer_id', primary_key: 'customer_id', inverse_of: :customer, dependent: :destroy
   has_many :support_tickets, foreign_key: 'customer_id', primary_key: 'customer_id', inverse_of: :customer,
                              dependent: :destroy
@@ -22,18 +22,16 @@ class User < ApplicationRecord
   # Scopes
   scope :customer_users, -> { where(role: 'customer_user_admin').or(User.where(role: 'customer_user_regular')) }
 
-  # Validate presence of additional attributes
   validates :name, presence: true
   validates :email, presence: true, uniqueness: { message: 'This email is already taken' }
-
-  # Conditional validation for passwords
   validates :password_confirmation, presence: true, if: -> { password.present? }
   validates :role, inclusion: { in: ROLES, message: 'Invalid role' }
   validates :customer, presence: true, if: -> { role == 'customer_user_admin' }
   validates :password, presence: true, length: { minimum: 8, message: 'at least 8 characters' },
                        if: -> { new_record? || !password.nil? }
 
-  before_validation :default_role
+  # Generators
+  before_validation :fill_or_default_role
 
   def remember_me
     super.nil? ? true : super
@@ -49,7 +47,7 @@ class User < ApplicationRecord
 
   private
 
-  def default_role
+  def fill_or_default_role
     self.role ||= 'customer_user_admin'
   end
 end
