@@ -1,0 +1,10 @@
+.py-4.w-full.flex.justify-between
+  #name.whitespace-nowrap.px-3= name
+  .flex.gap-12.items-center
+    #quantity.flex.gap-2
+      %span.font-medium.text-gray-600 Quantity:
+      %span= quantity
+    #price.pr-3.font-semibold
+      = "$#{price}"
+  = f.hidden_field :part_id, value: part_id
+  = f.hidden_field :quantity, value: quantity

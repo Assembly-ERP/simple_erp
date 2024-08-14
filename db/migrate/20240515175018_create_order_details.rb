@@ -8,6 +8,7 @@ class CreateOrderDetails < ActiveRecord::Migration[7.1]
       t.references :part, foreign_key: true
       t.integer :quantity, default: 1, null: false
       t.decimal :price, precision: 10, scale: 2
+      t.boolean :override, default: false, null: false
 
       t.timestamps
     end
