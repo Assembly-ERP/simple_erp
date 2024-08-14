@@ -9,7 +9,7 @@ end
 #
 # Table name: parts_products
 #
-#  quantity   :integer
+#  quantity   :integer          default(1)
 #  part_id    :bigint           not null
 #  product_id :bigint           not null
 #

@@ -49,6 +49,9 @@ Rails.application.routes.draw do
       end
     end
     resources :parts do
+      collection do
+        get :search_part_results
+      end
       member do
         delete :delete_file
         post :upload_file
@@ -206,6 +209,7 @@ end
 #                                                        PATCH  /operational_portal/products/:id(.:format)                                                        operational_portal/products#update
 #                                                        PUT    /operational_portal/products/:id(.:format)                                                        operational_portal/products#update
 #                                                        DELETE /operational_portal/products/:id(.:format)                                                        operational_portal/products#destroy
+#           search_part_results_operational_portal_parts GET    /operational_portal/parts/search_part_results(.:format)                                           operational_portal/parts#search_part_results
 #                    delete_file_operational_portal_part DELETE /operational_portal/parts/:id/delete_file(.:format)                                               operational_portal/parts#delete_file
 #                    upload_file_operational_portal_part POST   /operational_portal/parts/:id/upload_file(.:format)                                               operational_portal/parts#upload_file
 #                               operational_portal_parts GET    /operational_portal/parts(.:format)                                                               operational_portal/parts#index

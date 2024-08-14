@@ -1,17 +1,23 @@
 # frozen_string_literal: true
 
 class Part < ApplicationRecord
+  # Relationships
   has_many :parts_products, dependent: :destroy
   has_many :products, through: :parts_products
+  has_many :poly_attributes, as: :attributable, dependent: :destroy
+
+  # Attachments
   has_many_attached :files
 
+  # Scopes
+  default_scope { order(id: :desc) }
+
+  # Validations
   validates :name, presence: true
   validates :price, numericality: { greater_than_or_equal_to: 0, only_float: true }
   validates :weight, numericality: { greater_than_or_equal_to: 0 }
 
-  attribute :manual_price, :boolean, default: false
-  attribute :inventory, :boolean, default: false
-
+  # Generators
   before_validation :set_price_value, unless: :manual_price?
 
   def calculate_price

@@ -1,0 +1,12 @@
+.py-4.w-full.flex.justify-between
+  #name.whitespace-nowrap.px-3 {{name}}
+  .flex.gap-6.items-center
+    #quantity-container
+      #quantity.small
+        = button_tag class: "decrement transition-colors duration-200", type: "button" do
+          = icon("fa-solid", "minus")
+        = f.number_field :quantity, value: "{{input-value}}", class: "number-input", min: 1
+        = button_tag class: "increment transition-colors duration-200", type: "button" do
+          = icon("fa-solid", "plus")
+    #price.font-semibold {{price}}
+  = f.hidden_field :part_id
