@@ -6,9 +6,11 @@ class Order < ApplicationRecord
 
   # Relationships
   belongs_to :customer
+
   has_many :order_details, dependent: :destroy
   has_many :products, through: :order_details
   has_many :parts, through: :order_details
+  has_many :poly_attributes, as: :attributable, dependent: :destroy
 
   accepts_nested_attributes_for :order_details, allow_destroy: true
 

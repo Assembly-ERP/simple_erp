@@ -1,10 +1,13 @@
 # frozen_string_literal: true
 
 class Customer < ApplicationRecord
+  # Relationships
   has_many :orders, dependent: :destroy
   has_many :support_tickets, dependent: :destroy
   has_many :users, dependent: :destroy
+  has_many :poly_attributes, as: :attributable, dependent: :destroy
 
+  # Validations
   validates :name, presence: true, uniqueness: true
   validates :phone, presence: true
   validates :discount, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }

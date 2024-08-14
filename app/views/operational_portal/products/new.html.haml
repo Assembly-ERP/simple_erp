@@ -1,8 +1,7 @@
-/ app/views/operational_portal/products/new.html.erb
-.mx-auto.w-full{class: "max-w-[700px]"}
+.w-full
   .py-6
     %h1.text-2xl.font-medium.mb-4 New Product
-    = form_with(model: @product, url: operational_portal_products_path, html: {class: "grid gap-3"}) do |form|
+    = form_with(model: @product, url: operational_portal_products_path, html: {data: {controller: "products--nested-form"}, class: "grid gap-3"}) do |form|
       - if @product.errors.any?
         = render ErrorCardComponent.new errors: @product.errors.full_messages, label: "Validations"
       .field
@@ -11,37 +10,28 @@
       .field
         = form.label :description
         = form.text_area :description, required: true, class: "input-primary", rows: 4
-      .grid.gap-3.mt-2
-        .flex.gap-4.items-center
-          -# %h1.text-lg.font-medium Parts
-          %div{"data-action" => "click->dialog#backdropClose", "data-controller" => "dialog"}
-            %dialog.bg-white.rounded{"data-dialog-target" => "dialog"}
-              .p-5{class: "w-[500px]"}
-                .grid{class: "h-[470px] min-h-[450px] overflow-y-auto"}
-                  .relative
-                    %input.w-full.rounded-full.border.h-fit.pr-4.pl-11.border-gray-400.focus:outline-0{autofocus: false, placeholder: "Search parts", class: "py-2.5"}
-                    = icon("fa-solid", "magnifying-glass", class: "text-lg absolute top-3.5 left-4")
-                .flex.justify-end.mt-1.gap-2
-                  %button.btn-md.bg-zinc-500.text-white.px-7{"data-action" => "dialog#close", type: "button"} Cancel
-                  %button.btn-md.px-8{class: "bg-[color:var(--primary)] text-[color:var(--primary-text)]"} Apply
-            %button{data: {action: "dialog#open"}, type: "button", type: "button", class: "text-sm bg-[color:var(--primary)] text-[color:var(--primary-text)] px-3.5 py-2 rounded"}
-              = icon("fa-solid", "plus", class: "text-sm mr-1")
-              Add parts
-        .table-primary
-          %table
-            %thead
-              %tr
-                %th Name
-                %th Price
-                %th In Stock
-                %th Description
-                %th Weight
-            %tbody
-              %tr
-                %td No records
-      .text-lg.mt-2
-        %span.font-medium Price:
-        = number_to_currency(@product.price || 0.00)
+      %template{data: {"products--nested-form-target": "template"}}
+        = form.fields_for :parts, PartsProduct.new, child_index: 'NEW_RECORD' do |part_form|
+          = render "part_form_template", f: part_form
+      = render "search_parts", form:
+      .flex.flex-col.gap-2.mt-2
+        %h1.font-medium.text-xl Parts
+        .flex.w-full.gap-5
+          .px-4.py-5.w-full.h-full.min-h-80.border.border-gray-300.rounded.bg-white.flex.flex-col.items-start.divide-y.w-full
+            %div{data: {"products--nested-form-target": "target"}}
+          .border.border-gray-300.rounded.px-4.py-5.min-w-72.bg-white.h-80.max-h-80
+            %h1.text-xl.font-medium Parts Summary
+            .space-y-4.mt-4
+              .space-y-2
+                %dl.flex.items-center.justify-between.gap-4
+                  %dt.text-base.font-normal.text-gray-500 Total price
+                  %dd.text-base.font-medium.text-gray-900 $7,592.00
+                %dl.flex.items-center.justify-between.gap-4
+                  %dt.text-base.font-normal.text-gray-500 Discount
+                  %dd.text-base.font-medium.text-green-600 -$299.00
+              %dl.flex.items-center.justify-between.gap-4.border-t.border-gray-200.pt-2
+                %dt.text-base.font-bold.text-gray-900 Total
+                %dd.text-base.font-bold.text-gray-900 $8,191.00
       .mt-1
         = form.submit "Save Product", class: 'btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]'
     = link_to 'Back', operational_portal_catalog_path, class: 'btn btn-secondary'

@@ -1,12 +1,18 @@
 # frozen_string_literal: true
 
 class Product < ApplicationRecord
+  # Relationships
   has_many :parts_products, dependent: :destroy
   has_many :parts, through: :parts_products
+  has_many :poly_attributes, as: :attributable, dependent: :destroy
 
+  accepts_nested_attributes_for :parts_products, allow_destroy: true
+
+  # Validations
   validates :name, presence: true
   validates :price, numericality: { greater_than_or_equal_to: 0, only_float: true }
 
+  # Generators
   before_save :calculate_weight
 
   def parts_with_quantities
