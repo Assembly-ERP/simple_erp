@@ -1,7 +1,8 @@
 %tr
   %td.w-96.min-w-56.whitespace-nowrap.py-4{class: "text-[16px]"}
-    Apple iMac 27”
-  %td.p-4.text-base.font-bold.text-gray-900 $1,499
+    = part.name
+  %td.p-4.text-base.font-semibold.text-gray-900
+    = number_to_currency(part.price, unit: "$", precision: 2)
   %td.p-4.flex.justify-end
     #quantity-container
       #quantity.small

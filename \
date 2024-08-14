@@ -10,5 +10,9 @@
   .h-80.overflow-y-auto.w-full.relative.overscroll-contain
     .hidden{data: {"products--search-parts-target": "loadingTemplate"}}
       = render "loading_template"
-    = turbo_frame_tag "search-parts-results", src: search_part_results_operational_portal_parts_path(format: :turbo_stream), loading: :lazy do
-      = render "loading_template"
+    %table.w-full.text-left.text-base.text-gray-900.md:table-fixed
+      %tbody#search-parts-container.divide-y.divide-gray-200
+        = turbo_frame_tag "search-parts-container", src: search_part_results_operational_portal_parts_path do
+          = render "loading_template"
+        -# - 10.times do
+        -#   = render "search_parts_item"

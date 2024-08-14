@@ -49,6 +49,9 @@ Rails.application.routes.draw do
       end
     end
     resources :parts do
+      collection do
+        get :search_part_results
+      end
       member do
         delete :delete_file
         post :upload_file

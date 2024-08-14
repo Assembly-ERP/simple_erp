@@ -41,6 +41,13 @@ module OperationalPortal
       @part.destroy!
     end
 
+    def search_part_results
+      @parts = Part.accessible_by(current_ability)
+      respond_to do |format|
+        format.turbo_stream { render 'operational_portal/products/search_part_results' }
+      end
+    end
+
     private
 
     def part_params
