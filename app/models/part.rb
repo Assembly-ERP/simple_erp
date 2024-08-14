@@ -9,6 +9,9 @@ class Part < ApplicationRecord
   # Attachments
   has_many_attached :files
 
+  # Scopes
+  default_scope { order(id: :desc) }
+
   # Validations
   validates :name, presence: true
   validates :price, numericality: { greater_than_or_equal_to: 0, only_float: true }

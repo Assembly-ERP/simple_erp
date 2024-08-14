@@ -6,6 +6,8 @@ class Product < ApplicationRecord
   has_many :parts, through: :parts_products
   has_many :poly_attributes, as: :attributable, dependent: :destroy
 
+  accepts_nested_attributes_for :parts_products, allow_destroy: true
+
   # Validations
   validates :name, presence: true
   validates :price, numericality: { greater_than_or_equal_to: 0, only_float: true }

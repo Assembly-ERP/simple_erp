@@ -122,7 +122,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_13_181917) do
   create_table "parts_products", id: false, force: :cascade do |t|
     t.bigint "product_id", null: false
     t.bigint "part_id", null: false
-    t.integer "quantity"
+    t.integer "quantity", default: 1
     t.index ["part_id", "product_id"], name: "index_parts_products_on_part_id_and_product_id"
     t.index ["product_id", "part_id"], name: "index_parts_products_on_product_id_and_part_id"
   end

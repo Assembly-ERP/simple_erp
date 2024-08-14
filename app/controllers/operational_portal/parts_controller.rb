@@ -42,7 +42,10 @@ module OperationalPortal
     end
 
     def search_part_results
-      @parts = Part.accessible_by(current_ability)
+      @parts = Part.all
+      @parts = @parts.order(id: params[:sort]) if params[:sort].present?
+      @parts = @parts.accessible_by(current_ability)
+
       respond_to do |format|
         format.turbo_stream { render 'operational_portal/products/search_part_results' }
       end

@@ -49,7 +49,7 @@ module OperationalPortal
     private
 
     def product_params
-      params.require(:product).permit(:name, :description, :price)
+      params.require(:product).permit(:name, :description, :price, parts_attributes: %i[id name _destroy])
     end
 
     def calculate_total_price(parts, part_quantities)
