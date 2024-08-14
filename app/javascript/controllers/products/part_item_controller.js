@@ -3,9 +3,9 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ["name", "quantity", "price", "add"];
 
-  connect() {
-    this.addTarget.disabled = false;
-  }
+  // connect() {
+  //   this.addTarget.disabled = false;
+  // }
 
   increment() {
     this.quantityTarget.stepUp();
@@ -32,9 +32,5 @@ export default class extends Controller {
   quantityChange(event) {
     event.target.value = event.target.value || this.quantityTarget.min;
     event.target.blur();
-  }
-
-  reset() {
-    this.quantityTarget.value = this.quantityTarget.min;
   }
 }
