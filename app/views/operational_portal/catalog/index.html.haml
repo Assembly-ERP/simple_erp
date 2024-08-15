@@ -14,12 +14,16 @@
             %th Name
             %th Price
             %th Description
+            %th Actions
         %tbody
           - @products.each do |product|
             %tr
               %td= link_to product.name, operational_portal_product_path(product)
               %td= number_to_currency(product.price, unit: "$", precision: 2)
               %td= product.description
+              %td.flex.gap-2
+                = link_to 'Edit', edit_operational_portal_product_path(product)
+                = link_to 'View', operational_portal_product_path(product)
   .grid.gap-3
     .flex.justify-between.gap-2.items-center
       %h1.font-semibold.text-2xl Parts
@@ -36,6 +40,7 @@
             %th In Stock
             %th Description
             %th Weight
+            %th Actions
         %tbody
           - @parts.each do |part|
             %tr
@@ -46,3 +51,6 @@
                   = part.in_stock
               %td= part.description
               %td= part.weight
+              %td.flex.gap-2
+                = link_to 'Edit', edit_operational_portal_part_path(part)
+                = link_to 'View', operational_portal_part_path(part)

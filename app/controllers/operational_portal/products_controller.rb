@@ -11,15 +11,12 @@ module OperationalPortal
 
     def show; end
 
-    def new
-      @product = Product.new
-      @parts = Part.all
-    end
+    def new; end
 
     def edit; end
 
     def create
-      @product = Product.new(product_params.except(:part_quantities))
+      @product = Product.new(product_params)
       if @product.save
         redirect_to operational_portal_product_path(@product), notice: 'Product was successfully created.'
       else
@@ -28,10 +25,9 @@ module OperationalPortal
     end
 
     def update
-      if @product.update
+      if @product.update(product_params)
         redirect_to operational_portal_product_path(@product), notice: 'Product was successfully updated.'
       else
-        @parts = Part.all
         render :edit
       end
     end
@@ -49,7 +45,8 @@ module OperationalPortal
     private
 
     def product_params
-      params.require(:product).permit(:name, :description, :price, parts_attributes: %i[id name _destroy])
+      params.require(:product).permit(:name, :description, :price,
+                                      parts_products_attributes: %i[id name part_id quantity _destroy])
     end
 
     def calculate_total_price(parts, part_quantities)

@@ -12,6 +12,14 @@ class Part < ApplicationRecord
   # Scopes
   default_scope { order(id: :desc) }
 
+  scope :with_product,
+        lambda { |product_id|
+          select('parts.*, parts_products.product_id AS product_id, parts_products.quantity AS quantity, ' \
+                 'parts_products.id AS item_id')
+            .joins("LEFT JOIN parts_products ON parts_products.product_id = #{product_id} " \
+                   'AND parts_products.part_id = parts.id')
+        }
+
   # Validations
   validates :name, presence: true
   validates :price, numericality: { greater_than_or_equal_to: 0, only_float: true }

@@ -10,18 +10,19 @@ class Product < ApplicationRecord
 
   # Validations
   validates :name, presence: true
+  validates :parts_products, presence: { message: 'add at least one part' }
   validates :price, numericality: { greater_than_or_equal_to: 0, only_float: true }
 
   # Generators
   before_save :calculate_weight
 
-  def parts_with_quantities
-    parts_products.includes(:part).to_h { |pp| [pp.part, pp.quantity] }
-  end
+  # def parts_with_quantities
+  #   parts_products.includes(:part).to_h { |pp| [pp.part, pp.quantity] }
+  # end
 
-  def price
-    parts_products.sum { |pp| pp.part.price.to_f * pp.quantity.to_i }
-  end
+  # def price
+  #   parts_products.sum { |pp| pp.part.price.to_f * pp.quantity.to_i }
+  # end
 
   private
 
@@ -47,8 +48,8 @@ end
 #  description     :text
 #  json_attributes :json
 #  name            :string
-#  price           :decimal(10, 2)
-#  weight          :decimal(10, 2)
+#  price           :decimal(10, 2)   default(0.0)
+#  weight          :decimal(10, 2)   default(0.0)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #

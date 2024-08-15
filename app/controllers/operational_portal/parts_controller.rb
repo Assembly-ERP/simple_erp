@@ -44,6 +44,7 @@ module OperationalPortal
     def search_part_results
       @parts = Part.all
       @parts = @parts.order(id: params[:sort]) if params[:sort].present?
+      @parts = @parts.with_product(params[:product_id]) if params[:product_id].present?
       @parts = @parts.accessible_by(current_ability)
 
       respond_to do |format|
