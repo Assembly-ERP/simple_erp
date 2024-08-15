@@ -36,6 +36,7 @@ export default class extends Controller {
       .replace("{{name}}", dataset.name)
       .replace(/{{quantity}}/g, dataset.quantity)
       .replace("{{price}}", totalPrice)
+      .replace("{{price-per-item}}", dataset.price)
       .replace("{{weight}}", dataset.weight)
       .replace(/{{part-id}}/g, dataset.partId);
 
@@ -59,12 +60,39 @@ export default class extends Controller {
       destroy.value = "1";
     }
 
+    this.resetSearchPart(e.target.dataset.partId);
+
     const event = new CustomEvent("rails-nested-form:remove", { bubbles: !0 });
     this.element.dispatchEvent(event);
   }
 
+  resetSearchPart(id) {
+    const checkedSearchPart = this.checkSearchPart(id);
+
+    if (checkedSearchPart) {
+      const input = checkedSearchPart.querySelector(
+        `[id='search-part-qty_part_${id}']`,
+      );
+
+      const button = checkedSearchPart.querySelector(
+        `[id='search-part-btn-${id}']`,
+      );
+
+      if (input) input.value = 1;
+      if (button) {
+        button.classList.remove("bg-[color:var(--secondary)]");
+        button.classList.add("bg-[color:var(--primary)]");
+        button.innerHTML = "Add";
+      }
+    }
+  }
+
   checkPart(id) {
     return document.querySelector(`[id='part-form-${id}']`);
+  }
+
+  checkSearchPart(id) {
+    return document.querySelector(`[id='search-part-${id}']`);
   }
 
   get isNewPart() {
