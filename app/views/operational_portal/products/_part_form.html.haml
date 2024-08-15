@@ -1,14 +1,22 @@
-.py-4.w-full.flex.justify-between{id: "part-form-#{part_id}"}
+.py-4.w-full.flex.justify-between.nested-form-wrapper{id: "part-form-#{part_id}", "data-new-record": f.object.new_record?}
   #name.whitespace-nowrap.px-3= name
   .flex.gap-12.items-center
     #weight.flex.gap-2
       %span.font-medium.text-gray-600 weight:
       %span= weight
     #quantity.flex.gap-2
-      %span.font-medium.text-gray-600 quantity:
+      %span.font-medium.text-gray-600 qty:
       %span= quantity
-    #price.pr-3.font-semibold
+    #price-per-item
+      %span.font-medium.text-gray-600 price:
+      %span= price_per_item
+    #total-price.font-semibold
+      %span.font-medium.text-gray-600 total:
       = price.kind_of?(String) ? "$#{price}" : number_to_currency(quantity * price.to_f, unit: "$", precision: 2)
+    #icon.pr-3
+      %button.text-gray-400.hover:text-red-500{type: "button", data: {part_id: part_id, action: "products--nested-form#remove"}}
+        = icon("fa-solid", "trash-can", class: "pointer-events-none")
   = f.hidden_field :id, value: id
   = f.hidden_field :part_id, value: part_id
   = f.hidden_field :quantity, value: quantity
+  = f.hidden_field :_destroy
