@@ -89,6 +89,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_13_181917) do
     t.bigint "part_id"
     t.integer "quantity", default: 1, null: false
     t.decimal "price", precision: 10, scale: 2
+    t.boolean "override", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["order_id"], name: "index_order_details_on_order_id"
@@ -123,8 +124,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_13_181917) do
     t.bigint "product_id", null: false
     t.bigint "part_id", null: false
     t.integer "quantity", default: 1
-    t.index ["part_id", "product_id"], name: "index_parts_products_on_part_id_and_product_id"
-    t.index ["product_id", "part_id"], name: "index_parts_products_on_product_id_and_part_id"
+    t.index ["part_id", "product_id"], name: "index_parts_products_on_part_id_and_product_id", unique: true
   end
 
   create_table "poly_attributes", force: :cascade do |t|

@@ -15,6 +15,5 @@ end
 #
 # Indexes
 #
-#  index_parts_products_on_part_id_and_product_id  (part_id,product_id)
-#  index_parts_products_on_product_id_and_part_id  (product_id,part_id)
+#  index_parts_products_on_part_id_and_product_id  (part_id,product_id) UNIQUE
 #

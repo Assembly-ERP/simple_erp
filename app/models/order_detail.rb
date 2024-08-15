@@ -29,6 +29,7 @@ end
 # Table name: order_details
 #
 #  id         :bigint           not null, primary key
+#  override   :boolean          default(FALSE), not null
 #  price      :decimal(10, 2)
 #  quantity   :integer          default(1), not null
 #  created_at :datetime         not null
