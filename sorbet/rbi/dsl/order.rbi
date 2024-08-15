@@ -8,7 +8,6 @@
 class Order
   include GeneratedAssociationMethods
   include GeneratedAttributeMethods
-  include EnumMethodsModule
   extend CommonRelationMethods
   extend GeneratedRelationMethods
 
@@ -16,11 +15,6 @@ class Order
 
   sig { returns(NilClass) }
   def to_ary; end
-
-  class << self
-    sig { returns(T::Hash[T.any(String, Symbol), String]) }
-    def statuses; end
-  end
 
   module CommonRelationMethods
     sig { params(block: T.nilable(T.proc.params(record: ::Order).returns(T.untyped))).returns(T::Boolean) }
@@ -329,32 +323,6 @@ class Order
     def third_to_last!; end
   end
 
-  module EnumMethodsModule
-    sig { void }
-    def cancelled!; end
-
-    sig { returns(T::Boolean) }
-    def cancelled?; end
-
-    sig { void }
-    def created!; end
-
-    sig { returns(T::Boolean) }
-    def created?; end
-
-    sig { void }
-    def pre_order!; end
-
-    sig { returns(T::Boolean) }
-    def pre_order?; end
-
-    sig { void }
-    def submitted!; end
-
-    sig { returns(T::Boolean) }
-    def submitted?; end
-  end
-
   module GeneratedAssociationMethods
     sig { params(args: T.untyped, blk: T.untyped).returns(::Customer) }
     def build_customer(*args, &blk); end
@@ -409,6 +377,20 @@ class Order
     def parts=(value); end
 
     sig { returns(T::Array[T.untyped]) }
+    def poly_attribute_ids; end
+
+    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
+    def poly_attribute_ids=(ids); end
+
+    # This method is created by ActiveRecord on the `Order` class because it declared `has_many :poly_attributes`.
+    # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
+    sig { returns(::PolyAttribute::PrivateCollectionProxy) }
+    def poly_attributes; end
+
+    sig { params(value: T::Enumerable[::PolyAttribute]).void }
+    def poly_attributes=(value); end
+
+    sig { returns(T::Array[T.untyped]) }
     def product_ids; end
 
     sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
@@ -440,13 +422,7 @@ class Order
     def annotate(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def cancelled(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def create_with(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def created(*args, &blk); end
 
     sig { params(value: T::Boolean).returns(PrivateAssociationRelation) }
     def distinct(value = true); end
@@ -540,18 +516,6 @@ class Order
     def none(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def not_cancelled(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def not_created(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def not_pre_order(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def not_submitted(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def null_relation?(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
@@ -568,9 +532,6 @@ class Order
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def order(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def pre_order(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def preload(*args, &blk); end
@@ -606,9 +567,6 @@ class Order
     def structurally_compatible?(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def submitted(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def uniq!(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
@@ -637,6 +595,9 @@ class Order
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def with(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def with_customer(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def without(*args, &blk); end
@@ -868,7 +829,7 @@ class Order
     sig { returns(T::Boolean) }
     def saved_change_to_id_value?; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def saved_change_to_status; end
 
     sig { returns(T::Boolean) }
@@ -886,10 +847,10 @@ class Order
     sig { returns(T::Boolean) }
     def saved_change_to_updated_at?; end
 
-    sig { returns(T.nilable(::String)) }
+    sig { returns(::String) }
     def status; end
 
-    sig { params(value: T.nilable(T.any(::String, ::Symbol))).returns(T.nilable(T.any(::String, ::Symbol))) }
+    sig { params(value: ::String).returns(::String) }
     def status=(value); end
 
     sig { returns(T::Boolean) }
@@ -904,32 +865,22 @@ class Order
     sig { returns(T::Boolean) }
     def status_came_from_user?; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def status_change; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def status_change_to_be_saved; end
 
-    sig do
-      params(
-        from: T.nilable(T.any(::String, ::Symbol)),
-        to: T.nilable(T.any(::String, ::Symbol))
-      ).returns(T::Boolean)
-    end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
     def status_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def status_in_database; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def status_previous_change; end
 
-    sig do
-      params(
-        from: T.nilable(T.any(::String, ::Symbol)),
-        to: T.nilable(T.any(::String, ::Symbol))
-      ).returns(T::Boolean)
-    end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
     def status_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
@@ -1064,13 +1015,7 @@ class Order
     def annotate(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def cancelled(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def create_with(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def created(*args, &blk); end
 
     sig { params(value: T::Boolean).returns(PrivateRelation) }
     def distinct(value = true); end
@@ -1130,18 +1075,6 @@ class Order
     def none(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def not_cancelled(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def not_created(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def not_pre_order(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def not_submitted(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def null_relation?(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
@@ -1158,9 +1091,6 @@ class Order
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def order(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def pre_order(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def preload(*args, &blk); end
@@ -1196,9 +1126,6 @@ class Order
     def structurally_compatible?(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def submitted(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def uniq!(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
@@ -1209,6 +1136,9 @@ class Order
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def with(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def with_customer(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def without(*args, &blk); end
