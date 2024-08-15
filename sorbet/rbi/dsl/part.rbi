@@ -373,6 +373,20 @@ class Part
     def parts_products=(value); end
 
     sig { returns(T::Array[T.untyped]) }
+    def poly_attribute_ids; end
+
+    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
+    def poly_attribute_ids=(ids); end
+
+    # This method is created by ActiveRecord on the `Part` class because it declared `has_many :poly_attributes`.
+    # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
+    sig { returns(::PolyAttribute::PrivateCollectionProxy) }
+    def poly_attributes; end
+
+    sig { params(value: T::Enumerable[::PolyAttribute]).void }
+    def poly_attributes=(value); end
+
+    sig { returns(T::Array[T.untyped]) }
     def product_ids; end
 
     sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
@@ -574,6 +588,9 @@ class Part
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def with_attached_files(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def with_product(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def without(*args, &blk); end
@@ -1400,6 +1417,9 @@ class Part
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def with_attached_files(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def with_product(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def without(*args, &blk); end

@@ -166,6 +166,9 @@ module GeneratedPathHelpersModule
   def fetch_products_operational_portal_orders_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def form_user_selection_operational_portal_support_tickets_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def invitations_create_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -407,6 +410,9 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def search_items_operational_portal_orders_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def search_part_results_operational_portal_parts_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def search_parts_operational_portal_products_path(*args); end
