@@ -368,6 +368,20 @@ class User
     sig { params(value: T::Enumerable[::Order]).void }
     def orders=(value); end
 
+    sig { returns(T::Array[T.untyped]) }
+    def poly_attribute_ids; end
+
+    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
+    def poly_attribute_ids=(ids); end
+
+    # This method is created by ActiveRecord on the `User` class because it declared `has_many :poly_attributes`.
+    # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
+    sig { returns(::PolyAttribute::PrivateCollectionProxy) }
+    def poly_attributes; end
+
+    sig { params(value: T::Enumerable[::PolyAttribute]).void }
+    def poly_attributes=(value); end
+
     sig { returns(T.nilable(::Customer)) }
     def reload_customer; end
 
@@ -401,6 +415,9 @@ class User
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def create_with(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def customer_users(*args, &blk); end
 
     sig { params(value: T::Boolean).returns(PrivateAssociationRelation) }
     def distinct(value = true); end
@@ -1601,6 +1618,9 @@ class User
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def create_with(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def customer_users(*args, &blk); end
 
     sig { params(value: T::Boolean).returns(PrivateRelation) }
     def distinct(value = true); end

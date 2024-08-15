@@ -8,19 +8,19 @@
 class SupportTicket
   include GeneratedAssociationMethods
   include GeneratedAttributeMethods
-  include EnumMethodsModule
   extend CommonRelationMethods
   extend GeneratedRelationMethods
+
+  sig { returns(ActiveStorage::Attached::Many) }
+  def files; end
+
+  sig { params(attachable: T.untyped).returns(T.untyped) }
+  def files=(attachable); end
 
   private
 
   sig { returns(NilClass) }
   def to_ary; end
-
-  class << self
-    sig { returns(T::Hash[T.any(String, Symbol), Integer]) }
-    def statuses; end
-  end
 
   module CommonRelationMethods
     sig { params(block: T.nilable(T.proc.params(record: ::SupportTicket).returns(T.untyped))).returns(T::Boolean) }
@@ -379,26 +379,6 @@ class SupportTicket
     def third_to_last!; end
   end
 
-  module EnumMethodsModule
-    sig { void }
-    def open!; end
-
-    sig { returns(T::Boolean) }
-    def open?; end
-
-    sig { void }
-    def pending!; end
-
-    sig { returns(T::Boolean) }
-    def pending?; end
-
-    sig { void }
-    def resolved!; end
-
-    sig { returns(T::Boolean) }
-    def resolved?; end
-  end
-
   module GeneratedAssociationMethods
     sig { params(args: T.untyped, blk: T.untyped).returns(::Customer) }
     def build_customer(*args, &blk); end
@@ -429,6 +409,34 @@ class SupportTicket
 
     sig { returns(T::Boolean) }
     def customer_previously_changed?; end
+
+    sig { returns(T::Array[T.untyped]) }
+    def files_attachment_ids; end
+
+    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
+    def files_attachment_ids=(ids); end
+
+    # This method is created by ActiveRecord on the `SupportTicket` class because it declared `has_many :files_attachments`.
+    # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
+    sig { returns(::ActiveStorage::Attachment::PrivateCollectionProxy) }
+    def files_attachments; end
+
+    sig { params(value: T::Enumerable[::ActiveStorage::Attachment]).void }
+    def files_attachments=(value); end
+
+    sig { returns(T::Array[T.untyped]) }
+    def files_blob_ids; end
+
+    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
+    def files_blob_ids=(ids); end
+
+    # This method is created by ActiveRecord on the `SupportTicket` class because it declared `has_many :files_blobs, through: :files_attachments`.
+    # 🔗 [Rails guide for `has_many_through` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-through-association)
+    sig { returns(::ActiveStorage::Blob::PrivateCollectionProxy) }
+    def files_blobs; end
+
+    sig { params(value: T::Enumerable[::ActiveStorage::Blob]).void }
+    def files_blobs=(value); end
 
     sig { returns(T.nilable(::Customer)) }
     def reload_customer; end
@@ -574,15 +582,6 @@ class SupportTicket
     def none(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def not_open(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def not_pending(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def not_resolved(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def null_relation?(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
@@ -592,9 +591,6 @@ class SupportTicket
     def only(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def open(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def optimizer_hints(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
@@ -602,9 +598,6 @@ class SupportTicket
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def order(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def pending(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def preload(*args, &blk); end
@@ -623,9 +616,6 @@ class SupportTicket
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def reselect(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
-    def resolved(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def reverse_order(*args, &blk); end
@@ -671,6 +661,12 @@ class SupportTicket
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def with(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def with_attached_files(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def with_customer(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def without(*args, &blk); end
@@ -857,10 +853,10 @@ class SupportTicket
     sig { void }
     def id_will_change!; end
 
-    sig { returns(T.nilable(::String)) }
+    sig { returns(::String) }
     def issue_description; end
 
-    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    sig { params(value: ::String).returns(::String) }
     def issue_description=(value); end
 
     sig { returns(T::Boolean) }
@@ -875,22 +871,22 @@ class SupportTicket
     sig { returns(T::Boolean) }
     def issue_description_came_from_user?; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def issue_description_change; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def issue_description_change_to_be_saved; end
 
-    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
     def issue_description_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def issue_description_in_database; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def issue_description_previous_change; end
 
-    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
     def issue_description_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
@@ -953,19 +949,19 @@ class SupportTicket
     sig { returns(T::Boolean) }
     def saved_change_to_id_value?; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def saved_change_to_issue_description; end
 
     sig { returns(T::Boolean) }
     def saved_change_to_issue_description?; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def saved_change_to_status; end
 
     sig { returns(T::Boolean) }
     def saved_change_to_status?; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def saved_change_to_title; end
 
     sig { returns(T::Boolean) }
@@ -983,10 +979,10 @@ class SupportTicket
     sig { returns(T::Boolean) }
     def saved_change_to_user_id?; end
 
-    sig { returns(T.nilable(::String)) }
+    sig { returns(::String) }
     def status; end
 
-    sig { params(value: T.nilable(T.any(::String, ::Symbol))).returns(T.nilable(T.any(::String, ::Symbol))) }
+    sig { params(value: ::String).returns(::String) }
     def status=(value); end
 
     sig { returns(T::Boolean) }
@@ -1001,32 +997,22 @@ class SupportTicket
     sig { returns(T::Boolean) }
     def status_came_from_user?; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def status_change; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def status_change_to_be_saved; end
 
-    sig do
-      params(
-        from: T.nilable(T.any(::String, ::Symbol)),
-        to: T.nilable(T.any(::String, ::Symbol))
-      ).returns(T::Boolean)
-    end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
     def status_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def status_in_database; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def status_previous_change; end
 
-    sig do
-      params(
-        from: T.nilable(T.any(::String, ::Symbol)),
-        to: T.nilable(T.any(::String, ::Symbol))
-      ).returns(T::Boolean)
-    end
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
     def status_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
@@ -1038,10 +1024,10 @@ class SupportTicket
     sig { void }
     def status_will_change!; end
 
-    sig { returns(T.nilable(::String)) }
+    sig { returns(::String) }
     def title; end
 
-    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    sig { params(value: ::String).returns(::String) }
     def title=(value); end
 
     sig { returns(T::Boolean) }
@@ -1056,22 +1042,22 @@ class SupportTicket
     sig { returns(T::Boolean) }
     def title_came_from_user?; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def title_change; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def title_change_to_be_saved; end
 
-    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
     def title_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def title_in_database; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def title_previous_change; end
 
-    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
     def title_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
@@ -1272,15 +1258,6 @@ class SupportTicket
     def none(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def not_open(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def not_pending(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def not_resolved(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def null_relation?(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
@@ -1290,9 +1267,6 @@ class SupportTicket
     def only(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def open(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def optimizer_hints(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
@@ -1300,9 +1274,6 @@ class SupportTicket
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def order(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def pending(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def preload(*args, &blk); end
@@ -1321,9 +1292,6 @@ class SupportTicket
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def reselect(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
-    def resolved(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def reverse_order(*args, &blk); end
@@ -1351,6 +1319,12 @@ class SupportTicket
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def with(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def with_attached_files(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def with_customer(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def without(*args, &blk); end

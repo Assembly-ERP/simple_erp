@@ -339,6 +339,20 @@ class Customer
     def orders=(value); end
 
     sig { returns(T::Array[T.untyped]) }
+    def poly_attribute_ids; end
+
+    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
+    def poly_attribute_ids=(ids); end
+
+    # This method is created by ActiveRecord on the `Customer` class because it declared `has_many :poly_attributes`.
+    # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
+    sig { returns(::PolyAttribute::PrivateCollectionProxy) }
+    def poly_attributes; end
+
+    sig { params(value: T::Enumerable[::PolyAttribute]).void }
+    def poly_attributes=(value); end
+
+    sig { returns(T::Array[T.untyped]) }
     def support_ticket_ids; end
 
     sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
@@ -351,6 +365,20 @@ class Customer
 
     sig { params(value: T::Enumerable[::SupportTicket]).void }
     def support_tickets=(value); end
+
+    sig { returns(T::Array[T.untyped]) }
+    def user_ids; end
+
+    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
+    def user_ids=(ids); end
+
+    # This method is created by ActiveRecord on the `Customer` class because it declared `has_many :users`.
+    # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
+    sig { returns(::User::PrivateCollectionProxy) }
+    def users; end
+
+    sig { params(value: T::Enumerable[::User]).void }
+    def users=(value); end
   end
 
   module GeneratedAssociationRelationMethods

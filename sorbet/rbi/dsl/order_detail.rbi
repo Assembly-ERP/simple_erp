@@ -821,6 +821,51 @@ class OrderDetail
     sig { void }
     def order_id_will_change!; end
 
+    sig { returns(T::Boolean) }
+    def override; end
+
+    sig { params(value: T::Boolean).returns(T::Boolean) }
+    def override=(value); end
+
+    sig { returns(T::Boolean) }
+    def override?; end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def override_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def override_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def override_came_from_user?; end
+
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def override_change; end
+
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def override_change_to_be_saved; end
+
+    sig { params(from: T::Boolean, to: T::Boolean).returns(T::Boolean) }
+    def override_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def override_in_database; end
+
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def override_previous_change; end
+
+    sig { params(from: T::Boolean, to: T::Boolean).returns(T::Boolean) }
+    def override_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def override_previously_was; end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def override_was; end
+
+    sig { void }
+    def override_will_change!; end
+
     sig { returns(T.nilable(::Integer)) }
     def part_id; end
 
@@ -956,10 +1001,10 @@ class OrderDetail
     sig { void }
     def product_id_will_change!; end
 
-    sig { returns(T.nilable(::Integer)) }
+    sig { returns(::Integer) }
     def quantity; end
 
-    sig { params(value: T.nilable(::Integer)).returns(T.nilable(::Integer)) }
+    sig { params(value: ::Integer).returns(::Integer) }
     def quantity=(value); end
 
     sig { returns(T::Boolean) }
@@ -974,22 +1019,22 @@ class OrderDetail
     sig { returns(T::Boolean) }
     def quantity_came_from_user?; end
 
-    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    sig { returns(T.nilable([::Integer, ::Integer])) }
     def quantity_change; end
 
-    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    sig { returns(T.nilable([::Integer, ::Integer])) }
     def quantity_change_to_be_saved; end
 
-    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    sig { params(from: ::Integer, to: ::Integer).returns(T::Boolean) }
     def quantity_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Integer)) }
     def quantity_in_database; end
 
-    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    sig { returns(T.nilable([::Integer, ::Integer])) }
     def quantity_previous_change; end
 
-    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    sig { params(from: ::Integer, to: ::Integer).returns(T::Boolean) }
     def quantity_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Integer)) }
@@ -1012,6 +1057,9 @@ class OrderDetail
 
     sig { void }
     def restore_order_id!; end
+
+    sig { void }
+    def restore_override!; end
 
     sig { void }
     def restore_part_id!; end
@@ -1052,6 +1100,12 @@ class OrderDetail
     sig { returns(T::Boolean) }
     def saved_change_to_order_id?; end
 
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def saved_change_to_override; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_override?; end
+
     sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
     def saved_change_to_part_id; end
 
@@ -1070,7 +1124,7 @@ class OrderDetail
     sig { returns(T::Boolean) }
     def saved_change_to_product_id?; end
 
-    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    sig { returns(T.nilable([::Integer, ::Integer])) }
     def saved_change_to_quantity; end
 
     sig { returns(T::Boolean) }
@@ -1138,6 +1192,9 @@ class OrderDetail
 
     sig { returns(T::Boolean) }
     def will_save_change_to_order_id?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_override?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_part_id?; end
