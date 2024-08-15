@@ -1,7 +1,7 @@
 .w-full
   .py-6
     %h1.text-2xl.font-medium.mb-4 New Product
-    = form_with(model: @product, url: operational_portal_products_path, html: {data: {controller: "products--nested-form"}, class: "grid gap-3"}) do |form|
+    = form_with(model: @product, url: operational_portal_products_path, html: {data: {is_new: @product.new_record?, controller: "products--nested-form"}, class: "grid gap-3"}) do |form|
       - if @product.errors.any?
         = render ErrorCardComponent.new errors: @product.errors.full_messages, label: "Validations"
       .field
@@ -24,13 +24,13 @@
               .space-y-2
                 %dl.flex.items-center.justify-between.gap-4
                   %dt.text-base.font-normal.text-gray-500 Total price
-                  %dd.text-base.font-medium.text-gray-900 $7,592.00
+                  %dd.text-base.font-medium.text-gray-900 $0.00
                 %dl.flex.items-center.justify-between.gap-4
                   %dt.text-base.font-normal.text-gray-500 Discount
-                  %dd.text-base.font-medium.text-green-600 -$299.00
+                  %dd.text-base.font-medium.text-green-600 -$0.00
               %dl.flex.items-center.justify-between.gap-4.border-t.border-gray-200.pt-2
                 %dt.text-base.font-bold.text-gray-900 Total
-                %dd.text-base.font-bold.text-gray-900 $8,191.00
+                %dd.text-base.font-bold.text-gray-900 $0.00
       .mt-1
         = form.submit "Save Product", class: 'btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]'
     = link_to 'Back', operational_portal_catalog_path, class: 'btn btn-secondary'
