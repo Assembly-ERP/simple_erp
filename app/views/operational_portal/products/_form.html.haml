@@ -1,0 +1,16 @@
+= form_with(model: @product, url:, html: {data: {is_new: @product.new_record?, controller: "products--nested-form"}, class: "grid gap-3"}) do |form|
+  - if @product.errors.any?
+    = render ErrorCardComponent.new errors: @product.errors.full_messages, label: "Validations"
+  .field
+    = form.label :name
+    = form.text_field :name, required: true, class: "input-primary"
+  .field
+    = form.label :description
+    = form.text_area :description, required: true, class: "input-primary", rows: 4
+  %template{data: {"products--nested-form-target": "template"}}
+    = form.fields_for :parts_products, PartsProduct.new, child_index: 'NEW_RECORD' do |part_form|
+      = render "part_form", name: "{{name}}", quantity: "{{quantity}}", price: "{{price}}", part_id: "{{part-id}}", f: part_form, weight: "{{weight}}", id: "{{id}}"
+  = render "search_parts", form:
+  = render "form_parts", form:
+  .mt-1
+    = form.submit @product.new_record? ? "Save Product" : "Update Product", class: 'btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]'

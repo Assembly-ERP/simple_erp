@@ -71,7 +71,7 @@ if Rails.env.development? || ENV['FORCE_MIGRATE'] == 'true'
   )
 
   # Create parts
-  part1 = Part.create(
+  part1 = Part.create!(
     name: 'Part One',
     description: 'This is part one',
     price: 100.00,
@@ -81,7 +81,7 @@ if Rails.env.development? || ENV['FORCE_MIGRATE'] == 'true'
     inventory: true
   )
 
-  part2 = Part.create(
+  part2 = Part.create!(
     name: 'Part Two',
     description: 'This is part two',
     price: 200.00,
@@ -92,21 +92,23 @@ if Rails.env.development? || ENV['FORCE_MIGRATE'] == 'true'
   )
 
   # Create products
-  product1 = Product.create(
+  product1 = Product.create!(
     name: 'Product One',
-    description: 'This is product one'
+    description: 'This is product one',
+    parts_products_attributes: [
+      { part_id: part1.id, quantity: 2 },
+      { part_id: part2.id, quantity: 1 }
+    ]
   )
 
-  product2 = Product.create(
+  product2 = Product.create!(
     name: 'Product Two',
-    description: 'This is product two'
+    description: 'This is product two',
+    parts_products_attributes: [
+      { part_id: part1.id, quantity: 2 },
+      { part_id: part2.id, quantity: 1 }
+    ]
   )
-
-  # Associate parts with products
-  PartsProduct.create(part: part1, product: product1, quantity: 2)
-  PartsProduct.create(part: part2, product: product1, quantity: 1)
-  PartsProduct.create(part: part1, product: product2, quantity: 1)
-  PartsProduct.create(part: part2, product: product2, quantity: 2)
 
   # Manually trigger price and weight calculations for products
   [product1, product2].each do |product|
