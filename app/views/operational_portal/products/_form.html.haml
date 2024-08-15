@@ -9,7 +9,7 @@
     = form.text_area :description, required: true, class: "input-primary", rows: 4
   %template{data: {"products--nested-form-target": "template"}}
     = form.fields_for :parts_products, PartsProduct.new, child_index: 'NEW_RECORD' do |part_form|
-      = render "part_form", name: "{{name}}", quantity: "{{quantity}}", price: "{{price}}", part_id: "{{part-id}}", f: part_form, weight: "{{weight}}", id: "{{id}}"
+      = render "part_form", name: "{{name}}", quantity: "{{quantity}}", price: "{{price}}", part_id: "{{part-id}}", f: part_form, weight: "{{weight}}", id: "{{id}}", price_per_item: "{{price-per-item}}"
   = render "search_parts", form:
   = render "form_parts", form:
   .mt-1
