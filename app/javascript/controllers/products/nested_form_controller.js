@@ -83,6 +83,7 @@ export default class extends Controller {
         button.classList.remove("bg-[color:var(--secondary)]");
         button.classList.add("bg-[color:var(--primary)]");
         button.innerHTML = "Add";
+        button.dataset.quantity = 1;
       }
     }
   }
