@@ -18,10 +18,7 @@ export default class extends Controller {
     const checkedPart = this.checkPart(dataset.partId);
 
     if (checkedPart) {
-      if (this.isNewPart) this.appendPart(dataset, checkedPart);
-      else {
-        /* update via turbo-stream*/
-      }
+      this.appendPart(dataset, checkedPart);
       return;
     }
 
@@ -35,9 +32,11 @@ export default class extends Controller {
 
     let template = this.templateTarget.innerHTML
       .replace(/NEW_RECORD/g, new Date().getTime().toString())
+      .replace("{{id}}", dataset.itemId || "")
       .replace("{{name}}", dataset.name)
       .replace(/{{quantity}}/g, dataset.quantity)
       .replace("{{price}}", totalPrice)
+      .replace("{{weight}}", dataset.weight)
       .replace(/{{part-id}}/g, dataset.partId);
 
     if (!replaceEl)

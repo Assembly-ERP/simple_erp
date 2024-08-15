@@ -10,5 +10,5 @@
   .h-80.overflow-y-auto.w-full.relative.overscroll-contain
     .hidden{data: {"products--search-parts-target": "loadingTemplate"}}
       = render "loading_template"
-    = turbo_frame_tag "search-parts-results", src: search_part_results_operational_portal_parts_path(format: :turbo_stream), loading: :lazy do
+    = turbo_frame_tag "search-parts-results", src: search_part_results_operational_portal_parts_path(format: :turbo_stream, product_id: @product.id), loading: :lazy do
       = render "loading_template"

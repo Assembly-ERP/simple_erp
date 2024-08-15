@@ -1,10 +1,14 @@
 .py-4.w-full.flex.justify-between{id: "part-form-#{part_id}"}
   #name.whitespace-nowrap.px-3= name
   .flex.gap-12.items-center
+    #weight.flex.gap-2
+      %span.font-medium.text-gray-600 weight:
+      %span= weight
     #quantity.flex.gap-2
-      %span.font-medium.text-gray-600 Quantity:
+      %span.font-medium.text-gray-600 quantity:
       %span= quantity
     #price.pr-3.font-semibold
-      = "$#{price}"
+      = price.kind_of?(String) ? "$#{price}" : number_to_currency(quantity * price.to_f, unit: "$", precision: 2)
+  = f.hidden_field :id, value: id
   = f.hidden_field :part_id, value: part_id
   = f.hidden_field :quantity, value: quantity

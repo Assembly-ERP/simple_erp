@@ -1,36 +1,5 @@
 .w-full
   .py-6
     %h1.text-2xl.font-medium.mb-4 New Product
-    = form_with(model: @product, url: operational_portal_products_path, html: {data: {is_new: @product.new_record?, controller: "products--nested-form"}, class: "grid gap-3"}) do |form|
-      - if @product.errors.any?
-        = render ErrorCardComponent.new errors: @product.errors.full_messages, label: "Validations"
-      .field
-        = form.label :name
-        = form.text_field :name, required: true, class: "input-primary"
-      .field
-        = form.label :description
-        = form.text_area :description, required: true, class: "input-primary", rows: 4
-      %template{data: {"products--nested-form-target": "template"}}
-        = form.fields_for :parts, PartsProduct.new, child_index: 'NEW_RECORD' do |part_form|
-          = render "part_form", name: "{{name}}", quantity: "{{quantity}}", price: "{{price}}", part_id: "{{part-id}}", f: part_form
-      = render "search_parts", form:
-      .flex.flex-col.gap-2.mt-2
-        .flex.w-full.gap-5
-          .px-4.py-5.w-full.h-full.min-h-80.border.border-gray-300.rounded.bg-white.flex.flex-col.items-start.divide-y.w-full
-            %div{data: {"products--nested-form-target": "target"}}
-          .border.border-gray-300.rounded.px-4.py-5.min-w-80.bg-white.h-80.max-h-80
-            %h1.text-xl.font-medium Parts Summary
-            .space-y-4.mt-4
-              .space-y-2
-                %dl.flex.items-center.justify-between.gap-4
-                  %dt.text-base.font-normal.text-gray-500 Total price
-                  %dd.text-base.font-medium.text-gray-900 $0.00
-                %dl.flex.items-center.justify-between.gap-4
-                  %dt.text-base.font-normal.text-gray-500 Discount
-                  %dd.text-base.font-medium.text-green-600 -$0.00
-              %dl.flex.items-center.justify-between.gap-4.border-t.border-gray-200.pt-2
-                %dt.text-base.font-bold.text-gray-900 Total
-                %dd.text-base.font-bold.text-gray-900 $0.00
-      .mt-1
-        = form.submit "Save Product", class: 'btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]'
+    = render "form", url: operational_portal_products_path
     = link_to 'Back', operational_portal_catalog_path, class: 'btn btn-secondary'

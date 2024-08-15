@@ -120,11 +120,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_13_181917) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "parts_products", id: false, force: :cascade do |t|
-    t.bigint "product_id", null: false
+  create_table "parts_products", force: :cascade do |t|
     t.bigint "part_id", null: false
+    t.bigint "product_id", null: false
     t.integer "quantity", default: 1
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["part_id", "product_id"], name: "index_parts_products_on_part_id_and_product_id", unique: true
+    t.index ["part_id"], name: "index_parts_products_on_part_id"
+    t.index ["product_id"], name: "index_parts_products_on_product_id"
   end
 
   create_table "poly_attributes", force: :cascade do |t|
@@ -141,8 +145,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_13_181917) do
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.decimal "price", precision: 10, scale: 2
-    t.decimal "weight", precision: 10, scale: 2
+    t.decimal "price", precision: 10, scale: 2, default: "0.0"
+    t.decimal "weight", precision: 10, scale: 2, default: "0.0"
     t.json "json_attributes"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -230,6 +234,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_13_181917) do
   add_foreign_key "order_details", "parts"
   add_foreign_key "order_details", "products"
   add_foreign_key "orders", "customers"
+  add_foreign_key "parts_products", "parts"
+  add_foreign_key "parts_products", "products"
   add_foreign_key "support_ticket_messages", "support_tickets"
   add_foreign_key "support_ticket_messages", "users"
   add_foreign_key "support_tickets", "customers"
