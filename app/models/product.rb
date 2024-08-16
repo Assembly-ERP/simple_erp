@@ -28,7 +28,7 @@ class Product < ApplicationRecord
   end
 
   def parts_products_is_changed?
-    parts_products.any?(&:changed?)
+    updated_at_changed? || parts_products.any?(&:changed?)
   end
 end
 
