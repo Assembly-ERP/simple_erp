@@ -27,10 +27,17 @@ class Part < ApplicationRecord
 
   # Generators
   before_validation :set_price_value, unless: :manual_price?
+  after_save :recalculate_products, if: :price_previously_changed?
 
   def calculate_price
     price_per_pound = Setting.price_per_pound
     weight.to_f * price_per_pound
+  end
+
+  def recalculate_products
+    products.each do |product|
+      product.update(updated_at: Time.zone.now)
+    end
   end
 
   private
