@@ -14,29 +14,21 @@ class Product < ApplicationRecord
   validates :price, numericality: { greater_than_or_equal_to: 0, only_float: true }
 
   # Generators
-  before_save :calculate_weight
-
-  # def parts_with_quantities
-  #   parts_products.includes(:part).to_h { |pp| [pp.part, pp.quantity] }
-  # end
-
-  # def price
-  #   parts_products.sum { |pp| pp.part.price.to_f * pp.quantity.to_i }
-  # end
+  before_validation :calculate_weight, if: :parts_products_is_changed?
+  before_validation :calculate_price, if: :parts_products_is_changed?
 
   private
 
+  def calculate_price
+    self.price = parts_products.map { |pp| pp.part.price.to_f * pp.quantity.to_i }.sum
+  end
+
   def calculate_weight
-    total_weight = parts_products.includes(:part).sum do |pp|
-      part_weight = pp.part.weight.to_f
-      quantity = pp.quantity.to_i
-      part_weight * quantity
-    end
-    self.weight = total_weight.round(2)
-  rescue StandardError => e
-    Rails.logger.error "Error calculating product weight: #{e.message}"
-    errors.add(:base, 'Error calculating product weight. Please check that all parts have a valid weight.')
-    throw :abort
+    self.weight = parts_products.map { |pp| pp.part.weight.to_f * pp.quantity.to_i }.sum
+  end
+
+  def parts_products_is_changed?
+    parts_products.any?(&:changed?)
   end
 end
 
