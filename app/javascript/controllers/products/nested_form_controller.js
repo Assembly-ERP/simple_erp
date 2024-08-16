@@ -1,7 +1,16 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["target", "template", "addedPart"];
+  static targets = [
+    "empty",
+    "target",
+    "template",
+    "searchParts",
+    "addedParts",
+    "summaryTotalPrice",
+    "summaryTotalSum",
+    "summaryDiscount",
+  ];
 
   static values = {
     wrapperSelector: { type: String, default: ".nested-form-wrapper" },
@@ -36,7 +45,7 @@ export default class extends Controller {
       .replace("{{name}}", dataset.name)
       .replace(/{{quantity}}/g, dataset.quantity)
       .replace("{{price}}", totalPrice)
-      .replace("{{price-per-item}}", dataset.price)
+      .replace("{{price-per-item}}", Number(dataset.price).toFixed(2))
       .replace("{{weight}}", dataset.weight)
       .replace(/{{part-id}}/g, dataset.partId);
 
@@ -46,6 +55,7 @@ export default class extends Controller {
 
     const event = new CustomEvent("rails-nested-form:add", { bubbles: !0 });
     this.element.dispatchEvent(event);
+    this.hideAndShowEmpty();
   }
 
   remove(e) {
@@ -55,7 +65,7 @@ export default class extends Controller {
 
     if (closest.dataset.newRecord === "true") t.remove();
     else {
-      closest.style.display = "none";
+      closest.classList.add("hidden");
       const destroy = closest.querySelector("input[name*='_destroy']");
       destroy.value = "1";
     }
@@ -64,6 +74,7 @@ export default class extends Controller {
 
     const event = new CustomEvent("rails-nested-form:remove", { bubbles: !0 });
     this.element.dispatchEvent(event);
+    this.hideAndShowEmpty();
   }
 
   resetSearchPart(id) {
@@ -88,15 +99,23 @@ export default class extends Controller {
     }
   }
 
+  hideAndShowEmpty() {
+    if (!this.addedParts().length) {
+      this.emptyTarget.classList.remove("hidden");
+      return;
+    }
+    this.emptyTarget.classList.add("hidden");
+  }
+
   checkPart(id) {
-    return document.querySelector(`[id='part-form-${id}']`);
+    return this.addedPartsTarget.querySelector(`[id='part-form-${id}']`);
   }
 
   checkSearchPart(id) {
-    return document.querySelector(`[id='search-part-${id}']`);
+    return this.searchPartsTarget.querySelector(`[id='search-part-${id}']`);
   }
 
-  get isNewPart() {
-    return this.element.dataset.isNew == "true";
+  addedParts() {
+    return this.element.querySelectorAll(".added-part:not(.hidden)");
   }
 }
