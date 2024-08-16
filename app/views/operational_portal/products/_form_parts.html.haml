@@ -1,19 +1,13 @@
 .flex.flex-col.gap-2.mt-2
   .flex.w-full.gap-5
-    .px-4.py-5.w-full.h-full.min-h-80.border.border-gray-300.rounded.bg-white.flex.flex-col.items-start.divide-y.w-full
-      = form.fields_for :parts_products, @product.parts_products do |pp_form|
-        = render "part_form", name: pp_form.object.part.name, quantity: pp_form.object.quantity, price: pp_form.object.part.price, part_id: pp_form.object.part_id, weight: pp_form.object.part.weight, f: pp_form, id: pp_form.object.id, price_per_item: pp_form.object.part.price
-      %div{data: {"products--nested-form-target": "target"}}
-    .border.border-gray-300.rounded.px-4.py-5.min-w-80.bg-white.h-80.max-h-80
-      %h1.text-xl.font-medium Parts Summary
-      .space-y-4.mt-4
-        .space-y-2
-          %dl.flex.items-center.justify-between.gap-4
-            %dt.text-base.font-normal.text-gray-500 Total price
-            %dd.text-base.font-medium.text-gray-900 $0.00
-          %dl.flex.items-center.justify-between.gap-4
-            %dt.text-base.font-normal.text-gray-500 Discount
-            %dd.text-base.font-medium.text-green-600 -$0.00
-        %dl.flex.items-center.justify-between.gap-4.border-t.border-gray-200.pt-2
-          %dt.text-base.font-bold.text-gray-900 Total
-          %dd.text-base.font-bold.text-gray-900 $0.00
+    .px-4.py-5.w-full.h-full.min-h-80.border.border-gray-300.rounded.bg-white.flex.flex-col.w-full{data: { "products--nested-form-target": "addedParts"}}
+      .flex.flex-col.divide-y
+        = form.fields_for :parts_products, @product.parts_products do |pp_form|
+          = render "part_form", name: pp_form.object.part.name, quantity: pp_form.object.quantity, price: pp_form.object.part.price, part_id: pp_form.object.part_id, weight: pp_form.object.part.weight, f: pp_form, id: pp_form.object.id, price_per_item: pp_form.object.part.price
+        .hidden{data: {"products--nested-form-target": "target"}}
+      .grid.w-full.h-64.place-items-center{data: {"products--nested-form-target": "empty"}, class: @product.parts_products.present? ? "hidden" : "" }
+        .flex.flex-col.gap-1.items-center.text-gray-400
+          = icon("fa-solid", "box-open", class: "text-5xl")
+          %span
+            Select atleast one part
+    = render "part_summary"

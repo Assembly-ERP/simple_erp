@@ -3,10 +3,6 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ["name", "quantity", "price", "add"];
 
-  // connect() {
-  //   this.addTarget.disabled = false;
-  // }
-
   increment() {
     this.quantityTarget.stepUp();
     this.addTarget.dataset.quantity = this.quantityTarget.value;
