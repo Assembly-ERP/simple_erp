@@ -20,11 +20,11 @@ class Product < ApplicationRecord
   private
 
   def calculate_price
-    self.price = parts_products.map { |pp| pp.part.price.to_f * pp.quantity.to_i }.sum
+    self.price = parts_products.map { |pp| pp.quantity * pp.part.price }.sum
   end
 
   def calculate_weight
-    self.weight = parts_products.map { |pp| pp.part.weight.to_f * pp.quantity.to_i }.sum
+    self.weight = parts_products.map { |pp| pp.quantity * pp.part.weight }.sum
   end
 
   def parts_products_is_changed?
