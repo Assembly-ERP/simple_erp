@@ -1,23 +1,28 @@
 # frozen_string_literal: true
 
 class OrderDetail < ApplicationRecord
+  # Relationships
   belongs_to :order, touch: true
   belongs_to :product, optional: true
   belongs_to :part, optional: true
 
+  # Validations
   validates :quantity, numericality: { only_integer: true, greater_than: 0 }
   validates :price, numericality: { greater_than_or_equal_to: 0, only_float: true }
   validate :product_or_part_present
 
-  def item_price
-    (product&.price || part&.price || 0).to_f
-  end
+  # Generators
+  before_validation :calculate_price
 
-  def subtotal
-    quantity * item_price
+  def item_price
+    product&.price || part&.price || 0.0
   end
 
   private
+
+  def calculate_price
+    self.price = item_price * quantity
+  end
 
   def product_or_part_present
     errors.add(:order, 'must have either a product or a part') unless product_id.present? || part_id.present?

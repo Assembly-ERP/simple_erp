@@ -23,25 +23,17 @@ class Order < ApplicationRecord
 
   # Validations
   validates :status, inclusion: { in: STATUSES }, presence: true
-  validates :total_amount, numericality: { greater_than_or_equal_to: 0 }
-  validate :at_least_one_item, on: :create
+  validates :total_amount, numericality: { greater_than_or_equal_to: 0, only_float: true }
+  validates :order_details, presence: { message: 'must have at least one item' }
 
   # Generators
-  before_create :set_default_status
-  after_save :calculate_total_amount
+  before_validation :set_default_status
+  before_validation :calculate_total_amount, if: :new_record?
 
   private
 
-  def at_least_one_item
-    return if order_details.present?
-
-    errors.add(:order, 'must have at least one item')
-  end
-
   def calculate_total_amount
-    # rubocop:disable Rails::SkipsModelValidations
-    update_column(:total_amount, order_details.sum(&:subtotal))
-    # rubocop:enable Rails::SkipsModelValidations
+    self.total_amount = order_details.map { |od| od.item_price.to_f * od.quantity.to_i }.sum
   end
 
   def set_default_status
