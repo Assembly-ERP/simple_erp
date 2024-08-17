@@ -18,10 +18,14 @@ class OrderDetail < ApplicationRecord
     product&.price || part&.price || 0.0
   end
 
+  def subtotal
+    quantity * price
+  end
+
   private
 
   def calculate_price
-    self.price = item_price * quantity
+    self.price = item_price
   end
 
   def product_or_part_present
