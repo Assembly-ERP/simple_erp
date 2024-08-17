@@ -7,14 +7,12 @@ class CreateOrderDetails < ActiveRecord::Migration[7.1]
       t.references :product, foreign_key: true
       t.references :part, foreign_key: true
       t.integer :quantity, default: 1, null: false
-      t.decimal :price, precision: 10, scale: 2
+      t.decimal :price, precision: 10, scale: 2, default: 0.0
       t.boolean :override, default: false, null: false
 
       t.timestamps
     end
 
-    change_column_null :order_details, :product_id, true
-    change_column_null :order_details, :part_id, true
     add_check_constraint :order_details, '(product_id IS NOT NULL) OR (part_id IS NOT NULL)',
                          name: 'product_or_part_present_check'
   end
