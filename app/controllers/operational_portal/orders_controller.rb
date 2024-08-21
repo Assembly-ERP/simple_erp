@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# app/controllers/operational_portal/orders_controller.rb
 module OperationalPortal
   class OrdersController < OperationalPortal::BaseController
     load_and_authorize_resource
@@ -88,24 +87,24 @@ module OperationalPortal
       params.require(:order).permit(:status, :customer_id,
                                     order_details_attributes: %i[id product_id part_id quantity price _destroy])
     end
-  end
 
-  def part_attributes(part)
-    {
-      id: part.id,
-      name: part.name,
-      description: part.description,
-      price: part.price,
-      inventory: part.in_stock
-    }
-  end
+    def part_attributes(part)
+      {
+        id: part.id,
+        name: part.name,
+        description: part.description,
+        price: part.price,
+        inventory: part.in_stock
+      }
+    end
 
-  def product_attributes(product)
-    {
-      id: product.id,
-      name: product.name,
-      description: product.description,
-      price: product.price
-    }
+    def product_attributes(product)
+      {
+        id: product.id,
+        name: product.name,
+        description: product.description,
+        price: product.price
+      }
+    end
   end
 end
