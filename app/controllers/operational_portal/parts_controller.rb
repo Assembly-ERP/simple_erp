@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# app/controllers/operational_portal/parts_controller.rb
 module OperationalPortal
   class PartsController < OperationalPortal::BaseController
     load_and_authorize_resource

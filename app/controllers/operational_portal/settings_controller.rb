@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# app/controllers/operational_portal/settings_controller.rb
 module OperationalPortal
   class SettingsController < ApplicationController
     before_action :authenticate_user!

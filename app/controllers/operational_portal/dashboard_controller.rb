@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# app/controllers/operational_portal/dashboard_controller.rb
 module OperationalPortal
   class DashboardController < OperationalPortal::BaseController
     authorize_resource class: false

@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# app/controllers/operational_portal/customers_controller.rb
 module OperationalPortal
   class CustomersController < ApplicationController
     before_action :authenticate_user!
