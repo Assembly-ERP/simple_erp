@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# app/controllers/webhooks_controller.rb
 class WebhooksController < ApplicationController
   before_action :set_webhook, only: %i[show edit update destroy]
   before_action :check_admin, only: %i[new create edit update destroy]

@@ -100,7 +100,7 @@ export default class extends Controller {
   }
 
   hideAndShowEmpty() {
-    if (!this.addedParts().length) {
+    if (!this.addedParts.length) {
       this.emptyTarget.classList.remove("hidden");
       return;
     }
@@ -115,7 +115,7 @@ export default class extends Controller {
     return this.searchPartsTarget.querySelector(`[id='search-part-${id}']`);
   }
 
-  addedParts() {
+  get addedParts() {
     return this.element.querySelectorAll(".added-part:not(.hidden)");
   }
 }
