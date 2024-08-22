@@ -6,27 +6,26 @@
     .field
       = form.label :customer_id, "Select Customer"
       = form.collection_select :customer_id, @customers, :id, :name, {prompt: '--Select Customer--'}, {class: "input-primary"}
-    .flex.gap-5.p-5.bg-white.rounded.border.border-gray-300.h-96
-      .flex.flex-col.w-full
-        .flex.gap-4.items-center
-          .relative{class: "w-[40%]"}
-            %input.py-2.w-full.rounded-xl.border.h-fit.pr-4.pl-11.border-gray-300.focus:outline-0.focus:ring-4.focus:ring-gray-200{placeholder: "Search products"}
-            = icon("fa-solid", "magnifying-glass", class: "text-gray-500 text-lg absolute top-3 left-4")
-          .relative{data: {controller: "dropdown"}}
-            %button.py-2.flex.gap-2.items-center.justify-center.px-4.font-medium.text-gray-900.focus:outline-none.bg-white.rounded-xl.border.border-gray-300.hover:bg-gray-100.focus:z-10.focus:ring-4.focus:ring-gray-200{type: "button", data: {action: "dropdown#toggle click@window->dropdown#hide"}}
-              = icon("fa-solid", "filter", class: "text-gray-400")
-              %span.text-gray-500 Filter
-              = icon("fa-solid", "chevron-down", class: "text-gray-400 text-sm")
-            .hidden.transition.transform.origin-top-right.absolute.right-0{"data-dropdown-target" => "menu", "data-transition-enter-from" => "opacity-0 scale-95", "data-transition-enter-to" => "opacity-100 scale-100", "data-transition-leave-from" => "opacity-100 scale-100", "data-transition-leave-to" => "opacity-0 scale-95"}
-              .border.p-3.rounded.shadow-sm.bg-white.w-40.mt-2
-                .flex.flex-col
-                  %label.text-sm.text-gray-500 Search by:
-                  .flex.items-center.gap-2
-                    = radio_button("search", "item", "product", {checked: true})
-                    %label{for: "search_item_product"} product
-                  .flex.items-center.gap-2
-                    = radio_button("search", "item", "part")
-                    %label{for: "search_item_part"} part
+    .flex.gap-5.p-5.bg-white.rounded.border.border-gray-300.h-96.flex-col
+      .flex.gap-4.items-center
+        .relative{class: "w-[40%]"}
+          %input.py-2.w-full.rounded-xl.border.h-fit.pr-4.pl-11.border-gray-300.focus:outline-0.focus:ring-4.focus:ring-gray-200{placeholder: "Search products"}
+          = icon("fa-solid", "magnifying-glass", class: "text-gray-500 text-lg absolute top-3 left-4")
+        .relative{data: {controller: "dropdown"}}
+          %button.py-2.flex.gap-2.items-center.justify-center.px-4.font-medium.text-gray-900.focus:outline-none.bg-white.rounded-xl.border.border-gray-300.hover:bg-gray-100.focus:z-10.focus:ring-4.focus:ring-gray-200{type: "button", data: {action: "dropdown#toggle click@window->dropdown#hide"}}
+            = icon("fa-solid", "filter", class: "text-gray-400")
+            %span.text-gray-500 Filter
+            = icon("fa-solid", "chevron-down", class: "text-gray-400 text-sm")
+          .hidden.transition.transform.origin-top-right.absolute.right-0{"data-dropdown-target" => "menu", "data-transition-enter-from" => "opacity-0 scale-95", "data-transition-enter-to" => "opacity-100 scale-100", "data-transition-leave-from" => "opacity-100 scale-100", "data-transition-leave-to" => "opacity-0 scale-95"}
+            .border.p-3.rounded.shadow.bg-white.w-40.mt-2
+              .flex.flex-col
+                %label.text-sm.text-gray-500 Search by:
+                .flex.items-center.gap-2
+                  = radio_button("search", "item", "product", {checked: true})
+                  %label{for: "search_item_product"} product
+                .flex.items-center.gap-2
+                  = radio_button("search", "item", "part")
+                  %label{for: "search_item_part"} part
         #search-results.hidden
           %h3 Search Results
           %table
