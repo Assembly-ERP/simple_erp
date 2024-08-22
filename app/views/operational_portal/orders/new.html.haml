@@ -1,15 +1,16 @@
 .w-full.py-6
   %h1.text-2xl.font-medium.mb-4 New Order
-  = form_with(model: @order, url: operational_portal_orders_path, html: {class: "grid gap-5"}) do |form|
+  = form_with(model: @order, url: operational_portal_orders_path, html: {class: "grid gap-5", data: {controller: "orders--form"}}) do |form|
     - if @order.errors.any?
       = render ErrorCardComponent.new errors: @order.errors.full_messages, label: "Validations"
     .field
       = form.label :customer_id, "Select Customer"
-      = form.collection_select :customer_id, @customers, :id, :name, {prompt: '--Select Customer--'}, {class: "input-primary"}
+      = form.collection_select :customer_id, Customer.all, :id, :name, {prompt: '--Select Customer--'}, {class: "input-primary"}
+    = form.hidden_field :status, value: "pre-order"
     .flex.gap-5.p-4.bg-white.rounded.border.border-gray-300.h-96.flex-col
       .flex.gap-4.items-center
         .relative{class: "w-[40%]"}
-          %input.py-2.w-full.rounded-xl.border.h-fit.pr-4.pl-11.border-gray-300.focus:outline-0.focus:ring-4.focus:ring-gray-200{placeholder: "Search products"}
+          %input.py-2.w-full.rounded-xl.border.h-fit.pr-4.pl-11.border-gray-300.focus:outline-0.focus:ring-4.focus:ring-gray-200{placeholder: "Search products", data: {"orders--form-target": "searchInput", action: "orders--form#search"}}
           = icon("fa-solid", "magnifying-glass", class: "text-gray-500 text-lg absolute top-3 left-4")
         .relative{data: {controller: "dropdown"}}
           %button.py-2.flex.gap-2.items-center.justify-center.px-4.font-medium.text-gray-900.focus:outline-none.bg-white.rounded-xl.border.border-gray-300.hover:bg-gray-100.focus:z-10.focus:ring-4.focus:ring-gray-200{type: "button", data: {action: "dropdown#toggle click@window->dropdown#hide"}}
@@ -21,11 +22,11 @@
               .flex.flex-col
                 %label.text-sm.text-gray-500 Search by:
                 .flex.items-center.gap-2
-                  = radio_button("search", "item", "product", {checked: true})
-                  %label{for: "search_item_product"} product
+                  = radio_button("search", "item", "products", {checked: true, data: {"orders--form-target": "searchByRadio", action: "orders--form#searchBy"}})
+                  %label{for: "search_item_products"} product
                 .flex.items-center.gap-2
-                  = radio_button("search", "item", "part")
-                  %label{for: "search_item_part"} part
+                  = radio_button("search", "item", "parts", {data: {"orders--form-target": "searchByRadio", action: "orders--form#searchBy"}})
+                  %label{for: "search_item_parts"} part
     .flex.w-full.gap-5.mt-2
       .px-4.py-5.w-full.h-full.min-h-80.border.border-gray-300.rounded.bg-white.flex.flex-col.w-full
       = render "order_summary"
