@@ -6,7 +6,7 @@
     .field
       = form.label :customer_id, "Select Customer"
       = form.collection_select :customer_id, @customers, :id, :name, {prompt: '--Select Customer--'}, {class: "input-primary"}
-    .flex.gap-5.p-5.bg-white.rounded.border.border-gray-300.h-96.flex-col
+    .flex.gap-5.p-4.bg-white.rounded.border.border-gray-300.h-96.flex-col
       .flex.gap-4.items-center
         .relative{class: "w-[40%]"}
           %input.py-2.w-full.rounded-xl.border.h-fit.pr-4.pl-11.border-gray-300.focus:outline-0.focus:ring-4.focus:ring-gray-200{placeholder: "Search products"}
@@ -26,18 +26,8 @@
                 .flex.items-center.gap-2
                   = radio_button("search", "item", "part")
                   %label{for: "search_item_part"} part
-        #search-results.hidden
-          %h3 Search Results
-          %table
-            %thead
-              %tr
-                %th Name
-                %th Type
-                %th Weight
-                %th Price
-                %th Stock
-                %th Quantity
-                %th Action
-            %tbody#search-results-body
+    .flex.w-full.gap-5.mt-2
+      .px-4.py-5.w-full.h-full.min-h-80.border.border-gray-300.rounded.bg-white.flex.flex-col.w-full
+      = render "order_summary"
     .flex
       = form.submit "Create Order", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"
