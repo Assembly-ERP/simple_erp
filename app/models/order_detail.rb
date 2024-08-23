@@ -12,7 +12,7 @@ class OrderDetail < ApplicationRecord
   validate :product_or_part_present
 
   # Generators
-  before_validation :calculate_price, if: :new_record?
+  before_validation :calculate_price, unless: :override?
 
   def item_price
     product&.price || part&.price || 0.0
