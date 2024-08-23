@@ -1,9 +1,8 @@
 .flex.items-center.font-medium.margin-max-screen{class: "gap-0.5"}
-  = render NavbarLinkComponent.new path: root_path, label: "Home"
   - if current_user.operational_user?
     = render NavbarLinkComponent.new path: operational_root_path, label: "Dashboard"
     = render NavbarLinkComponent.new path: operational_portal_orders_path, label: "Orders"
-    = render NavbarLinkComponent.new path: operational_portal_catalog_path, label: "Catalog"
+    = render NavbarLinkComponent.new path: operational_portal_catalog_index_path, label: "Catalog"
     .relative{"data-controller" => "nav-dropdown"}
       %button.pb-3.px-4{"data-action" => "nav-dropdown#toggle click@window->nav-dropdown#hide", type: "button", class: "border-b-2 border-b-transparent hover:border-[color:var(--primary)]"}
         Manage 
