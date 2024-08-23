@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 # typed: true
 
-class NavbarLinksComponent < ViewComponent::Base
+class NavbarLinkComponent < ViewComponent::Base
   extend T::Sig
 
   sig { params(label: String, path: String).void }
