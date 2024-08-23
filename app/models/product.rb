@@ -8,6 +8,13 @@ class Product < ApplicationRecord
 
   accepts_nested_attributes_for :parts_products, allow_destroy: true
 
+  # Scopes
+  default_scope { order(id: :desc) }
+
+  scope :search_results, lambda {
+    select('products.id, products.name, products.price, products.weight')
+  }
+
   # Validations
   validates :name, presence: true
   validates :parts_products, presence: { message: 'add at least one part' }

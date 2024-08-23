@@ -33,10 +33,6 @@ Rails.application.routes.draw do
   root 'home#index'
   # end
 
-  # Define routes for JWT login and logout
-  # post 'login', to: 'users/sessions#create'
-  # delete 'logout', to: 'users/sessions#destroy'
-
   # Operational portal namespace
   namespace :operational_portal do
     #   root to: 'operational_portal/dashboard#index'
@@ -56,8 +52,7 @@ Rails.application.routes.draw do
     end
     resources :orders do
       collection do
-        get 'preview'
-        get 'search_results'
+        get :search_results
       end
     end
     resources :support_tickets do

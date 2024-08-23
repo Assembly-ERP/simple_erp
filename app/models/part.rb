@@ -12,6 +12,9 @@ class Part < ApplicationRecord
   # Scopes
   default_scope { order(id: :desc) }
 
+  scope :search_results, lambda {
+    select('parts.id, parts.name, parts.price, parts.weight')
+  }
   scope :with_product,
         lambda { |product_id|
           select('parts.*, parts_products.product_id AS product_id, parts_products.quantity AS quantity, ' \

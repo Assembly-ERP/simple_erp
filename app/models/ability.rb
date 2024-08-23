@@ -17,6 +17,7 @@ class Ability
     can :index, :dashboard
     can :index, :catalog
     can :search_part_results, :product
+    can :search_results, :order
     # with load resource
     can :manage, Product
     can :manage, Part

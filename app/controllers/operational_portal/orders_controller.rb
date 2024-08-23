@@ -2,7 +2,8 @@
 
 module OperationalPortal
   class OrdersController < OperationalPortal::BaseController
-    load_and_authorize_resource
+    load_and_authorize_resource except: :search_results
+    authorize_resource class: false, only: :search_results
 
     def index
       @orders = Order.accessible_by(current_ability)
@@ -45,13 +46,14 @@ module OperationalPortal
     end
 
     def search_results
-      @parts = Part.all
-      @parts = @parts.order(id: params[:sort]) if params[:sort].present?
+      @results = params[:search_by] == 'parts' ? Part.all : Product.all
+      @results = @results.order(id: params[:sort]) if params[:sort].present?
+      @results = @results.search_results
 
       if params[:search].present?
         case params[:filter_by]
         when 'name'
-          @parts = @parts.where('name ILIKE ?', "%#{params[:search]}%")
+          @results = @results.where('name ILIKE ?', "%#{params[:search]}%")
         end
       end
 
