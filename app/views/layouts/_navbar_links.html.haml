@@ -1,9 +1,9 @@
 .flex.items-center.font-medium.margin-max-screen{class: "gap-0.5"}
-  = render NavbarLinksComponent.new path: root_path, label: "Home"
+  = render NavbarLinkComponent.new path: root_path, label: "Home"
   - if current_user.operational_user?
-    = render NavbarLinksComponent.new path: operational_root_path, label: "Dashboard"
-    = render NavbarLinksComponent.new path: operational_portal_orders_path, label: "Orders"
-    = render NavbarLinksComponent.new path: operational_portal_catalog_path, label: "Catalog"
+    = render NavbarLinkComponent.new path: operational_root_path, label: "Dashboard"
+    = render NavbarLinkComponent.new path: operational_portal_orders_path, label: "Orders"
+    = render NavbarLinkComponent.new path: operational_portal_catalog_path, label: "Catalog"
     .relative{"data-controller" => "nav-dropdown"}
       %button.pb-3.px-4{"data-action" => "nav-dropdown#toggle click@window->nav-dropdown#hide", type: "button", class: "border-b-2 border-b-transparent hover:border-[color:var(--primary)]"}
         Manage 
@@ -14,6 +14,6 @@
           = link_to 'Manage Customers', operational_portal_customers_path, class: "px-4 py-2 hover:text-[color:var(--primary-text)] hover:bg-[color:var(--primary)] transition-colors duration-100"
           = link_to 'Settings', operational_portal_settings_path, class: "px-4 py-2 hover:text-[color:var(--primary-text)] hover:bg-[color:var(--primary)] transition-colors duration-100"
   - elsif current_user.customer_user?
-    = render NavbarLinksComponent.new path: customer_root_path, label: "Dashboard"
-    = render NavbarLinksComponent.new path: customer_portal_orders_path, label: "Orders"
-    = render NavbarLinksComponent.new path: customer_portal_support_tickets_path, label: "Support Tickets"
+    = render NavbarLinkComponent.new path: customer_root_path, label: "Dashboard"
+    = render NavbarLinkComponent.new path: customer_portal_orders_path, label: "Orders"
+    = render NavbarLinkComponent.new path: customer_portal_support_tickets_path, label: "Support Tickets"
