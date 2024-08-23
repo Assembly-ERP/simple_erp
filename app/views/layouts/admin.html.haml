@@ -11,7 +11,5 @@
       }
   %body.flex.flex-col
     = render FlashComponent.new
-    = render "layouts/navbar"
-    %main.flex-1.margin-max-screen.grid
+    %main
       = yield
-    = render "layouts/footer"
