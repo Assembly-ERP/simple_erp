@@ -2,7 +2,8 @@
 
 module OperationalPortal
   class OrdersController < OperationalPortal::BaseController
-    load_and_authorize_resource
+    load_and_authorize_resource except: :search_results
+    authorize_resource class: false, only: :search_results
 
     def index
       @orders = Order.accessible_by(current_ability)
@@ -41,6 +42,23 @@ module OperationalPortal
 
       respond_to do |format|
         format.html { redirect_to operational_portal_orders_path, notice: 'Order was successfully cancelled.' }
+      end
+    end
+
+    def search_results
+      @results = params[:search_by] == 'parts' ? Part.all : Product.all
+      @results = @results.order(id: params[:sort]) if params[:sort].present?
+      @results = @results.search_results
+
+      if params[:search].present?
+        case params[:filter_by]
+        when 'name'
+          @results = @results.where('name ILIKE ?', "%#{params[:search]}%")
+        end
+      end
+
+      respond_to do |format|
+        format.turbo_stream
       end
     end
 

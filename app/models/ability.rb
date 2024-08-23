@@ -13,8 +13,12 @@ class Ability
   private
 
   def operational_portal(_user)
-    can :read, :dashboard
-    can :read, :catalog
+    # only authorize by action
+    can :index, :dashboard
+    can :index, :catalog
+    can :search_part_results, :product
+    can :search_results, :order
+    # with load resource
     can :manage, Product
     can :manage, Part
     can :manage, Order
