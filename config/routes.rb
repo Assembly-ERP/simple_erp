@@ -45,13 +45,10 @@ Rails.application.routes.draw do
     resources :catalog, only: [:index]
     resources :products do
       collection do
-        get 'search_parts'
+        get :search_part_results
       end
     end
     resources :parts do
-      collection do
-        get :search_part_results
-      end
       member do
         delete :delete_file
         post :upload_file
@@ -60,9 +57,7 @@ Rails.application.routes.draw do
     resources :orders do
       collection do
         get 'preview'
-        get 'fetch_parts'
-        get 'fetch_products'
-        get 'search_items'
+        get 'search_results'
       end
     end
     resources :support_tickets do

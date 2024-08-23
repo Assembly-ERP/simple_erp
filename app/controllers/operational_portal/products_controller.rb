@@ -2,7 +2,8 @@
 
 module OperationalPortal
   class ProductsController < OperationalPortal::BaseController
-    load_and_authorize_resource
+    load_and_authorize_resource except: :search_part_results
+    authorize_resource class: false, only: :search_part_results
 
     def index
       @products = Product.accessible_by(current_ability)
@@ -36,24 +37,28 @@ module OperationalPortal
       redirect_to operational_portal_catalog_path, notice: 'Product was successfully deleted.'
     end
 
-    def search_parts
-      @parts = Part.where('name ILIKE ?', "%#{params[:q]}%")
-      render json: @parts
+    def search_part_results
+      @parts = Part.all
+      @parts = @parts.order(id: params[:sort]) if params[:sort].present?
+      @parts = @parts.with_product(params[:product_id]) if params[:product_id].present?
+
+      if params[:search].present?
+        case params[:filter_by]
+        when 'name'
+          @parts = @parts.where('name ILIKE ?', "%#{params[:search]}%")
+        end
+      end
+
+      respond_to do |format|
+        format.turbo_stream
+      end
     end
 
     private
 
     def product_params
-      params.require(:product).permit(:name, :description, :price,
-                                      parts_products_attributes: %i[id name part_id quantity _destroy])
-    end
-
-    def calculate_total_price(parts, part_quantities)
-      # parts.sum { |part| part.price.to_f * part_quantities[part.id.to_s].to_i }
-      parts.sum do |part|
-        quantity = part_quantities[part.id.to_s].to_i
-        part.price.to_f * quantity
-      end
+      params.require(:product)
+            .permit(:name, :description, :price, parts_products_attributes: %i[id name part_id quantity _destroy])
     end
   end
 end
