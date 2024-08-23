@@ -1,34 +1,26 @@
 %header.w-full.bg-white.sticky.top-0.border-b.z-20
   .flex.justify-between.items-center.margin-max-screen.py-5
-    .text-3xl.mr-6.font-bold{class: "text-[color:var(--primary)]"}
-      Company
+    .flex.items-center
+      .text-3xl.mr-6.font-bold{class: "text-[color:var(--primary)]"}
+        Company
+      - if user_signed_in?
+        %button.bg-white.hover:bg-gray-100.px-5.border.border-gray-300.gap-3.flex.items-center.rounded-lg.text-gray-500{class: "py-2.5"}
+          = icon("fa-solid", "magnifying-glass")
+          %span Search Products, Parts, etc..
     - if user_signed_in?
-      .flex.gap-6.items-center.font-medium.mt-1
-        = link_to 'Home', root_path
-        - if current_user.operational_user?
-          = link_to 'Dashboard', operational_root_path
-          = link_to 'Orders', operational_portal_orders_path
-          = link_to 'Catalog', operational_portal_catalog_path
-          .relative{"data-controller" => "nav-dropdown"}
-            %button{"data-action" => "nav-dropdown#toggle click@window->nav-dropdown#hide", type: "button"} 
-              Manage 
-              = icon("fa-solid", "angles-right") 
-            .hidden.transition.transform.origin-top-left.absolute.left-0{"data-nav-dropdown-target" => "menu", "data-transition-enter-from" => "opacity-0 scale-95", "data-transition-enter-to" => "opacity-100 scale-100", "data-transition-leave-from" => "opacity-100 scale-100", "data-transition-leave-to" => "opacity-0 scale-95"}
-              .bg-white.border.grid.w-52.mt-2.divide-y.shadow
-                = link_to 'Support Tickets', operational_portal_support_tickets_path, class: "px-4 py-2 hover:text-[color:var(--primary-text)] hover:bg-[color:var(--primary)] transition-colors duration-100"
-                = link_to 'Manage Users', operational_portal_users_path, class: "px-4 py-2 hover:text-[color:var(--primary-text)] hover:bg-[color:var(--primary)] transition-colors duration-100"
-                = link_to 'Manage Customers', operational_portal_customers_path, class: "px-4 py-2 hover:text-[color:var(--primary-text)] hover:bg-[color:var(--primary)] transition-colors duration-100"
-                = link_to 'Settings', operational_portal_settings_path, class: "px-4 py-2 hover:text-[color:var(--primary-text)] hover:bg-[color:var(--primary)] transition-colors duration-100"
-          = link_to 'Profile', operational_portal_profile_path
-        - elsif current_user.customer_user?
-          = link_to 'Dashboard', customer_root_path
-          = link_to 'Orders', customer_portal_orders_path
-          = link_to 'Support Tickets', customer_portal_support_tickets_path
-          = link_to 'Profile', customer_portal_profile_path
-        = link_to 'Logout', destroy_user_session_path, data: { turbo_method: :delete }, id: 'logout-link'
-        %button.px-4.border.border-gray-500.gap-3.flex.items-center.py-2.rounded-md.text-gray-500
-          = icon("fa-solid", "magnifying-glass", class: "text-lg")
-          %span{class: "text-[16px]"} Search Products, Parts, etc..
+      .flex.gap-3.items-center
+        .bg-white.rounded-lg.hover:bg-gray-100.py-2.px-3.cursor-pointer
+          = icon("fa-solid", "bell", class: "text-gray-500 text-xl")
+        .relative{data: {controller: "dropdown"}}
+          %button{type: "button", data: {action: "dropdown#toggle click@window->dropdown#hide"}}
+            = image_tag "profile.png", class: "w-9 h-9 rounded-full"
+          .hidden.transition.transform.origin-top-right.absolute.right-0{"data-dropdown-target" => "menu", "data-transition-enter-from" => "opacity-0 scale-95", "data-transition-enter-to" => "opacity-100 scale-100", "data-transition-leave-from" => "opacity-100 scale-100", "data-transition-leave-to" => "opacity-0 scale-95"}
+            .bg-white.w-52.divide-y.border.rounded-lg.flex.flex-col
+              .flex.flex-col.ga-2.px-4.py-2
+                .font-medium= current_user.name
+                .text-sm= current_user.email
+              = link_to 'My profile', operational_portal_profile_path, class: "px-4 py-2 hover:bg-gray-100"
+              = button_to "Logout", destroy_user_session_path, method: :delete, class: "px-4 py-2 hover:bg-gray-100 w-full text-start"
     - else
       .flex.items-center.gap-5.font-medium.mt-1
         = link_to 'Login', new_user_session_path, class: "text-lg hover:underline hover:decoration-[color:var(--secondary)] decoration-2 underline-offset-4"
