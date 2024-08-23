@@ -1,43 +1,28 @@
 # config/routes.rb
 Rails.application.routes.draw do
-  get 'carts/show'
-  get 'invitations/new'
-  get 'invitations/create'
-  get 'dashboard/index'
+  root 'home#index'
 
-  # API namespace setup
-  namespace :api do
-    namespace :v1 do
-      resources :products
-      resources :parts
-      resources :orders
-      resources :customers
-      resources :support_tickets
-      resources :webhooks
-    end
-  end
+  # # API namespace setup
+  # namespace :api do
+  #   namespace :v1 do
+  #     resources :products
+  #     resources :parts
+  #     resources :orders
+  #     resources :customers
+  #     resources :support_tickets
+  #     resources :webhooks
+  #   end
+  # end
 
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
 
-  # devise_for :customer_users, controllers: {
-  #   registrations: 'customer_users/registrations'
-  # }
-
   get '/operational_portal', to: 'operational_portal/dashboard#index', as: :operational_root
-
   get '/customer', to: 'customer_portal/dashboard#index', as: :customer_root
-
-  # unauthenticated do
-  root 'home#index'
-  # end
 
   # Operational portal namespace
   namespace :operational_portal do
-    #   root to: 'operational_portal/dashboard#index'
-    resources :dashboard, only: [:index]
-    get 'catalog', to: 'catalog#index'
     resources :catalog, only: [:index]
     resources :products do
       collection do
