@@ -1,4 +1,4 @@
-.flex.items-center.font-medium.margin-max-screen
+.flex.items-center.font-medium.margin-max-screen{class: "gap-0.5"}
   = render NavbarLinksComponent.new path: root_path, label: "Home"
   - if current_user.operational_user?
     = render NavbarLinksComponent.new path: operational_root_path, label: "Dashboard"
