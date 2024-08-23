@@ -102,3 +102,6 @@ gem 'tapioca', require: false, group: %i[development test]
 
 # Role base authentication
 gem 'cancancan', '~> 3.5'
+
+# Pagination
+gem 'pagy', '~> 6.4'

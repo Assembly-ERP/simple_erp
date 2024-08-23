@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 module ApplicationHelper
+  include Pagy::Frontend
+
   def orders_path_for(user)
     if user.operational_user?
       operational_portal_orders_path

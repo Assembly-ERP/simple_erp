@@ -44,6 +44,22 @@ module OperationalPortal
       end
     end
 
+    def search_results
+      @parts = Part.all
+      @parts = @parts.order(id: params[:sort]) if params[:sort].present?
+
+      if params[:search].present?
+        case params[:filter_by]
+        when 'name'
+          @parts = @parts.where('name ILIKE ?', "%#{params[:search]}%")
+        end
+      end
+
+      respond_to do |format|
+        format.turbo_stream
+      end
+    end
+
     private
 
     def order_params
