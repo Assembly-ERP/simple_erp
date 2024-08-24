@@ -99,58 +99,7 @@ end
 # == Route Map
 #
 #                                                 Prefix Verb   URI Pattern                                                                                       Controller#Action
-#                                             carts_show GET    /carts/show(.:format)                                                                             carts#show
-#                                        invitations_new GET    /invitations/new(.:format)                                                                        invitations#new
-#                                     invitations_create GET    /invitations/create(.:format)                                                                     invitations#create
-#                                        dashboard_index GET    /dashboard/index(.:format)                                                                        dashboard#index
-#                                        api_v1_products GET    /api/v1/products(.:format)                                                                        api/v1/products#index
-#                                                        POST   /api/v1/products(.:format)                                                                        api/v1/products#create
-#                                     new_api_v1_product GET    /api/v1/products/new(.:format)                                                                    api/v1/products#new
-#                                    edit_api_v1_product GET    /api/v1/products/:id/edit(.:format)                                                               api/v1/products#edit
-#                                         api_v1_product GET    /api/v1/products/:id(.:format)                                                                    api/v1/products#show
-#                                                        PATCH  /api/v1/products/:id(.:format)                                                                    api/v1/products#update
-#                                                        PUT    /api/v1/products/:id(.:format)                                                                    api/v1/products#update
-#                                                        DELETE /api/v1/products/:id(.:format)                                                                    api/v1/products#destroy
-#                                           api_v1_parts GET    /api/v1/parts(.:format)                                                                           api/v1/parts#index
-#                                                        POST   /api/v1/parts(.:format)                                                                           api/v1/parts#create
-#                                        new_api_v1_part GET    /api/v1/parts/new(.:format)                                                                       api/v1/parts#new
-#                                       edit_api_v1_part GET    /api/v1/parts/:id/edit(.:format)                                                                  api/v1/parts#edit
-#                                            api_v1_part GET    /api/v1/parts/:id(.:format)                                                                       api/v1/parts#show
-#                                                        PATCH  /api/v1/parts/:id(.:format)                                                                       api/v1/parts#update
-#                                                        PUT    /api/v1/parts/:id(.:format)                                                                       api/v1/parts#update
-#                                                        DELETE /api/v1/parts/:id(.:format)                                                                       api/v1/parts#destroy
-#                                          api_v1_orders GET    /api/v1/orders(.:format)                                                                          api/v1/orders#index
-#                                                        POST   /api/v1/orders(.:format)                                                                          api/v1/orders#create
-#                                       new_api_v1_order GET    /api/v1/orders/new(.:format)                                                                      api/v1/orders#new
-#                                      edit_api_v1_order GET    /api/v1/orders/:id/edit(.:format)                                                                 api/v1/orders#edit
-#                                           api_v1_order GET    /api/v1/orders/:id(.:format)                                                                      api/v1/orders#show
-#                                                        PATCH  /api/v1/orders/:id(.:format)                                                                      api/v1/orders#update
-#                                                        PUT    /api/v1/orders/:id(.:format)                                                                      api/v1/orders#update
-#                                                        DELETE /api/v1/orders/:id(.:format)                                                                      api/v1/orders#destroy
-#                                       api_v1_customers GET    /api/v1/customers(.:format)                                                                       api/v1/customers#index
-#                                                        POST   /api/v1/customers(.:format)                                                                       api/v1/customers#create
-#                                    new_api_v1_customer GET    /api/v1/customers/new(.:format)                                                                   api/v1/customers#new
-#                                   edit_api_v1_customer GET    /api/v1/customers/:id/edit(.:format)                                                              api/v1/customers#edit
-#                                        api_v1_customer GET    /api/v1/customers/:id(.:format)                                                                   api/v1/customers#show
-#                                                        PATCH  /api/v1/customers/:id(.:format)                                                                   api/v1/customers#update
-#                                                        PUT    /api/v1/customers/:id(.:format)                                                                   api/v1/customers#update
-#                                                        DELETE /api/v1/customers/:id(.:format)                                                                   api/v1/customers#destroy
-#                                 api_v1_support_tickets GET    /api/v1/support_tickets(.:format)                                                                 api/v1/support_tickets#index
-#                                                        POST   /api/v1/support_tickets(.:format)                                                                 api/v1/support_tickets#create
-#                              new_api_v1_support_ticket GET    /api/v1/support_tickets/new(.:format)                                                             api/v1/support_tickets#new
-#                             edit_api_v1_support_ticket GET    /api/v1/support_tickets/:id/edit(.:format)                                                        api/v1/support_tickets#edit
-#                                  api_v1_support_ticket GET    /api/v1/support_tickets/:id(.:format)                                                             api/v1/support_tickets#show
-#                                                        PATCH  /api/v1/support_tickets/:id(.:format)                                                             api/v1/support_tickets#update
-#                                                        PUT    /api/v1/support_tickets/:id(.:format)                                                             api/v1/support_tickets#update
-#                                                        DELETE /api/v1/support_tickets/:id(.:format)                                                             api/v1/support_tickets#destroy
-#                                        api_v1_webhooks GET    /api/v1/webhooks(.:format)                                                                        api/v1/webhooks#index
-#                                                        POST   /api/v1/webhooks(.:format)                                                                        api/v1/webhooks#create
-#                                     new_api_v1_webhook GET    /api/v1/webhooks/new(.:format)                                                                    api/v1/webhooks#new
-#                                    edit_api_v1_webhook GET    /api/v1/webhooks/:id/edit(.:format)                                                               api/v1/webhooks#edit
-#                                         api_v1_webhook GET    /api/v1/webhooks/:id(.:format)                                                                    api/v1/webhooks#show
-#                                                        PATCH  /api/v1/webhooks/:id(.:format)                                                                    api/v1/webhooks#update
-#                                                        PUT    /api/v1/webhooks/:id(.:format)                                                                    api/v1/webhooks#update
-#                                                        DELETE /api/v1/webhooks/:id(.:format)                                                                    api/v1/webhooks#destroy
+#                                                   root GET    /                                                                                                 home#index
 #                                       new_user_session GET    /users/sign_in(.:format)                                                                          devise/sessions#new
 #                                           user_session POST   /users/sign_in(.:format)                                                                          devise/sessions#create
 #                                   destroy_user_session DELETE /users/sign_out(.:format)                                                                         devise/sessions#destroy
@@ -171,11 +120,8 @@ end
 #                                                        POST   /users/confirmation(.:format)                                                                     devise/confirmations#create
 #                                       operational_root GET    /operational_portal(.:format)                                                                     operational_portal/dashboard#index
 #                                          customer_root GET    /customer(.:format)                                                                               customer_portal/dashboard#index
-#                                                   root GET    /                                                                                                 home#index
-#                     operational_portal_dashboard_index GET    /operational_portal/dashboard(.:format)                                                           operational_portal/dashboard#index
-#                             operational_portal_catalog GET    /operational_portal/catalog(.:format)                                                             operational_portal/catalog#index
 #                       operational_portal_catalog_index GET    /operational_portal/catalog(.:format)                                                             operational_portal/catalog#index
-#               search_parts_operational_portal_products GET    /operational_portal/products/search_parts(.:format)                                               operational_portal/products#search_parts
+#        search_part_results_operational_portal_products GET    /operational_portal/products/search_part_results(.:format)                                        operational_portal/products#search_part_results
 #                            operational_portal_products GET    /operational_portal/products(.:format)                                                            operational_portal/products#index
 #                                                        POST   /operational_portal/products(.:format)                                                            operational_portal/products#create
 #                         new_operational_portal_product GET    /operational_portal/products/new(.:format)                                                        operational_portal/products#new
@@ -184,7 +130,6 @@ end
 #                                                        PATCH  /operational_portal/products/:id(.:format)                                                        operational_portal/products#update
 #                                                        PUT    /operational_portal/products/:id(.:format)                                                        operational_portal/products#update
 #                                                        DELETE /operational_portal/products/:id(.:format)                                                        operational_portal/products#destroy
-#           search_part_results_operational_portal_parts GET    /operational_portal/parts/search_part_results(.:format)                                           operational_portal/parts#search_part_results
 #                    delete_file_operational_portal_part DELETE /operational_portal/parts/:id/delete_file(.:format)                                               operational_portal/parts#delete_file
 #                    upload_file_operational_portal_part POST   /operational_portal/parts/:id/upload_file(.:format)                                               operational_portal/parts#upload_file
 #                               operational_portal_parts GET    /operational_portal/parts(.:format)                                                               operational_portal/parts#index
@@ -195,10 +140,7 @@ end
 #                                                        PATCH  /operational_portal/parts/:id(.:format)                                                           operational_portal/parts#update
 #                                                        PUT    /operational_portal/parts/:id(.:format)                                                           operational_portal/parts#update
 #                                                        DELETE /operational_portal/parts/:id(.:format)                                                           operational_portal/parts#destroy
-#                      preview_operational_portal_orders GET    /operational_portal/orders/preview(.:format)                                                      operational_portal/orders#preview
-#                  fetch_parts_operational_portal_orders GET    /operational_portal/orders/fetch_parts(.:format)                                                  operational_portal/orders#fetch_parts
-#               fetch_products_operational_portal_orders GET    /operational_portal/orders/fetch_products(.:format)                                               operational_portal/orders#fetch_products
-#                 search_items_operational_portal_orders GET    /operational_portal/orders/search_items(.:format)                                                 operational_portal/orders#search_items
+#               search_results_operational_portal_orders GET    /operational_portal/orders/search_results(.:format)                                               operational_portal/orders#search_results
 #                              operational_portal_orders GET    /operational_portal/orders(.:format)                                                              operational_portal/orders#index
 #                                                        POST   /operational_portal/orders(.:format)                                                              operational_portal/orders#create
 #                           new_operational_portal_order GET    /operational_portal/orders/new(.:format)                                                          operational_portal/orders#new
