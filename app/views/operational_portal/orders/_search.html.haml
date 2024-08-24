@@ -13,7 +13,7 @@
       .hidden.transition.transform.origin-top-right.absolute.right-0.z-10{"data-dropdown-target" => "menu", "data-transition-enter-from" => "opacity-0 scale-95", "data-transition-enter-to" => "opacity-100 scale-100", "data-transition-leave-from" => "opacity-100 scale-100", "data-transition-leave-to" => "opacity-0 scale-95"}
         .border.p-3.rounded.shadow.bg-white.w-40.mt-2
           .flex.flex-col
-            %label.text-sm.text-gray-500 Search by:
+            %label.text-sm.text-gray-500 Search by
             .flex.items-center.gap-2
               = radio_button("search", "item", "products", {checked: true, data: {"orders--form-target": "searchByRadio", action: "orders--form#searchBy"}})
               %label{for: "search_item_products"} product
