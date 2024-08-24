@@ -2,6 +2,10 @@
 
 class OrderStatus < ApplicationRecord
   has_many :orders, dependent: :destroy
+
+  def self.operation_default_id
+    find_by(operation_default: true).id
+  end
 end
 
 # == Schema Information

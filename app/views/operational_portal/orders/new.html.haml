@@ -6,7 +6,7 @@
     .field
       = form.label :customer_id, "Select Customer"
       = form.collection_select :customer_id, Customer.all, :id, :name, {prompt: '--Select Customer--'}, {class: "input-primary"}
-    = form.hidden_field :status, value: "pre-order"
+    = form.hidden_field :order_status_id, value: OrderStatus.operation_default_id
     = render "search"
     %template{data: {"orders--form-target": "template"}}
       = form.fields_for :order_details, OrderDetail.new, child_index: 'NEW_RECORD' do |od_form|
