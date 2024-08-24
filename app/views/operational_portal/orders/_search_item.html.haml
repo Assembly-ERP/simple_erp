@@ -19,7 +19,7 @@
           = icon("fa-solid", "plus")
   %td.py-4.pr-4
     %button.ml-auto.block.text-white.rounded.px-4.text-sm{id: dom_id(result, "search-item-btn"), type: "button", class: "py-1.5 #{(params[:order_id].present? && result.item_id.present?) ? "bg-[color:var(--secondary)]" : "bg-[color:var(--primary)]"} disabled:bg-gray-400", data: {action: "orders--form#addToItem", quantity: params[:order_id].present? && result.quantity ? result.quantity : 1, item_id: params[:order_id].present? && result.item_id.present? ? result.item_id : "", weight: result.weight, name: result.name, type: result.type, pid: result.id, price: result.price, "orders--search-item-target": "add"}}
-      - if params[:order_id].present?
+      - if params[:order_id].present? && result.item_id
         Update
       - else
         Add
