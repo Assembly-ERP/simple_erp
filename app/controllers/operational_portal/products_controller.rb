@@ -18,7 +18,7 @@ module OperationalPortal
     def create
       @product = Product.new(product_params)
       if @product.save
-        redirect_to operational_portal_product_path(@product), notice: 'Product was successfully created.'
+        redirect_to operational_portal_catalog_index_path, notice: 'Product was successfully created.'
       else
         render :new, status: :unprocessable_entity
       end
@@ -26,7 +26,7 @@ module OperationalPortal
 
     def update
       if @product.update(product_params)
-        redirect_to operational_portal_product_path(@product), notice: 'Product was successfully updated.'
+        redirect_to operational_portal_catalog_index_path, notice: 'Product was successfully updated.'
       else
         render :edit
       end
@@ -34,7 +34,7 @@ module OperationalPortal
 
     def destroy
       @product.destroy!
-      redirect_to operational_portal_catalog_path, notice: 'Product was successfully deleted.'
+      redirect_to operational_portal_catalog_index_path, notice: 'Product was successfully deleted.'
     end
 
     def search_part_results
