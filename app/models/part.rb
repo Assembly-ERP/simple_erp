@@ -13,7 +13,7 @@ class Part < ApplicationRecord
   default_scope { order(id: :desc) }
 
   scope :search_results, lambda {
-    select('parts.id, parts.name, parts.price, parts.weight')
+    select("parts.id, parts.name, parts.price, parts.weight, 'part' AS type")
   }
   scope :with_product,
         lambda { |product_id|

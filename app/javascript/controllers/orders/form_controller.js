@@ -1,7 +1,62 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["items", "searchInput", "searchByRadio"];
+  static targets = [
+    "items",
+    "target",
+    "template",
+    "addedItems",
+    "searchInput",
+    "searchByRadio",
+  ];
+
+  addToItem(e) {
+    e.preventDefault();
+
+    e.target.classList.remove("bg-[color:var(--primary)]");
+    e.target.classList.add("bg-[color:var(--secondary)]");
+    e.target.innerHTML = "Update";
+
+    const dataset = e.target.dataset;
+    const checkedItem = this.checkAddedItem(dataset.itemId, dataset.type);
+
+    if (checkedItem) {
+      this.appendPart(dataset, checkedItem);
+      return;
+    }
+
+    this.appendPart(dataset);
+  }
+
+  appendPart(dataset, replaceEl = null) {
+    const totalPrice = (
+      Number(dataset.price) * Number(dataset.quantity)
+    ).toFixed(2);
+
+    let template = this.templateTarget.innerHTML
+      .replace(/NEW_RECORD/g, new Date().getTime().toString())
+      .replace("{{id}}", dataset.itemId || "")
+      .replace("{{name}}", dataset.name)
+      .replace(/{{quantity}}/g, dataset.quantity)
+      .replace(/{{type}}/g, dataset.type)
+      .replace(/{{item-price}}/g, dataset.price)
+      .replace(/{{price}}/g, totalPrice)
+      .replace(/{{weight}}/g, dataset.weight);
+
+    if (!replaceEl)
+      this.targetTarget.insertAdjacentHTML("beforebegin", template);
+    else replaceEl.outerHTML = template;
+
+    const event = new CustomEvent("rails-nested-form:add", { bubbles: !0 });
+    this.element.dispatchEvent(event);
+    // this.hideAndShowEmpty();
+  }
+
+  checkAddedItem(id, type) {
+    return this.addedItemsTarget.querySelector(
+      `[id='item-form-${type}_${id}']`,
+    );
+  }
 
   // Search
   search() {

@@ -12,7 +12,7 @@ class Product < ApplicationRecord
   default_scope { order(id: :desc) }
 
   scope :search_results, lambda {
-    select('products.id, products.name, products.price, products.weight')
+    select("products.id, products.name, products.price, products.weight, 'product' AS type")
   }
 
   # Validations
