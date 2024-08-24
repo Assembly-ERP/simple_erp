@@ -26,8 +26,8 @@ class Product < ApplicationRecord
   validates :price, numericality: { greater_than_or_equal_to: 0, only_float: true }
 
   # Generators
-  after_save :calculate_weight, if: :calculate_condition?
-  after_save :calculate_price, if: :calculate_condition?
+  after_save :calculate_weight
+  after_save :calculate_price
 
   private
 
@@ -37,10 +37,6 @@ class Product < ApplicationRecord
 
   def calculate_weight
     update_column(:weight, parts_products.map { |pp| pp.quantity * pp.part.weight }.sum)
-  end
-
-  def calculate_condition?
-    updated_at_previously_changed? || parts_products.any?(&:saved_changes?)
   end
 end
 
