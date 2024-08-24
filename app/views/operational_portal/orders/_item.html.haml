@@ -1,24 +1,21 @@
-.grid.grid-cols-9.added-item.w-full.text-gray-900.py-3.gap-3{id: "item-form-#{type}_#{id}", "data-new-record": f.object.new_record?}
+.grid.grid-cols-8.added-item.w-full.text-gray-900.py-3.gap-3.nested-form-wrapper{id: "item-form-#{type}_#{item_id}", "data-new-record": f.object.new_record?.to_s}
   .w-60.min-w-56.whitespace-nowrap.col-span-3.pl-3
     = name
-  .block
-    .rounded-md.w-fit.text-sm.text-white.px-2.bg-gray-600{class: "py-0.5"}
+  %div
+    .rounded-md.w-fit.text-sm.text-white.px-3.bg-gray-500{class: "py-0.5"}
       = type
-  .flex.gap-3.col-span-3.justify-center
-    .whitespace-nowrap
-      = weight
-      lbs
+  .flex.gap-4.col-span-2
     .whitespace-nowrap
       %span.font-medium.text-gray-600 qty:
       %span= quantity
-    .whitespace-nowrape
+    .whitespace-nowrap
       %span.font-medium.text-gray-600 price:
       %span= price.kind_of?(String) ? "$#{item_price}" : number_to_currency(item_price, unit: "$", precision: 2)
   .font-semibold.flex.gap-1.whitespace-nowrap
     .font-medium.text-gray-600 total:
     = price.kind_of?(String) ? "$#{price}" : number_to_currency(quantity * price.to_f, unit: "$", precision: 2)
   .flex.justify-end.pr-3
-    %button.text-gray-400.hover:text-red-500{type: "button", data: {item_id: "item-form-#{type}_#{id}", action: "orders--form#remove"}}
+    %button.text-gray-400.hover:text-red-500{type: "button", data: {pid: item_id, type: type, action: "orders--form#remove"}}
       = icon("fa-solid", "trash-can", class: "pointer-events-none")
   = f.hidden_field :id, value: id
   = f.hidden_field :part_id, value: part_id

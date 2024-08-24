@@ -9,14 +9,7 @@
     = @order.customer.name
   %p
     %strong Status:
-    = select_tag :order_status,                                                           |
-      options_for_select(Order.statuses.keys.map { |s| [s.titleize, s] }, @order.status), |
-      id: 'order-status-select',                                                          |
-      class: 'order-show-status-select',                                                  |
-      data: {                                                                             |
-        order_status_target: "status",                                                    |
-        action: "change->order-status#statusChanged"                                      |
-      }                                                                                   |
+    = @order.order_status.name
   %p
     %strong Order Date:
     %span.local-time{"data-time" => "#{@order.created_at.iso8601}"}= @order.created_at.strftime("%B %d, %Y %I:%M %p")
