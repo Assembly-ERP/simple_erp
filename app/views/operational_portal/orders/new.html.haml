@@ -8,8 +8,12 @@
       = form.collection_select :customer_id, Customer.all, :id, :name, {prompt: '--Select Customer--'}, {class: "input-primary"}
     = form.hidden_field :status, value: "pre-order"
     = render "search"
+    %template{data: {"orders--form-target": "template"}}
+      = form.fields_for :order_details, OrderDetail.new, child_index: 'NEW_RECORD' do |od_form|
+        = render "item", name: "{{name}}", quantity: "{{quantity}}", price: "{{price}}", part_id: "{{part-id}}", product_id: "{{product_id}}", f: od_form, weight: "{{weight}}", id: "{{id}}", type: "{{type}}", item_price: "{{item-price}}"
     .flex.w-full.gap-5.mt-2
-      .px-4.py-5.w-full.h-full.min-h-80.border.border-gray-300.rounded.bg-white.flex.flex-col.w-full
+      .px-4.py-5.w-full.divide-y.h-full.min-h-80.border.border-gray-300.rounded.bg-white.flex.flex-col.w-full{data: { "orders--form-target": "addedItems"}}
+        .hidden{data: {"orders--form-target": "target"}}
       = render "order_summary"
     .flex
       = form.submit "Create Order", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"
