@@ -29,7 +29,7 @@ class Order < ApplicationRecord
   validates :order_details, presence: { message: 'must have at least one item' }
 
   # Generators
-  after_save :calculate_total_amount, if: :calculate_condition?
+  after_save :calculate_total_amount
 
   private
 
