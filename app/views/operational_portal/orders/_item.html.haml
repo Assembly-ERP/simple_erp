@@ -1,20 +1,20 @@
 .grid.grid-cols-9.added-item.w-full.text-gray-900.py-3.gap-3{id: "item-form-#{type}_#{id}", "data-new-record": f.object.new_record?}
   .w-60.min-w-56.whitespace-nowrap.col-span-3.pl-3
     = name
-  %div
+  .block
     .rounded-md.w-fit.text-sm.text-white.px-2.bg-gray-600{class: "py-0.5"}
       = type
   .flex.gap-3.col-span-3.justify-center
-    %div
+    .whitespace-nowrap
       = weight
       lbs
-    %div
+    .whitespace-nowrap
       %span.font-medium.text-gray-600 qty:
       %span= quantity
-    %div
+    .whitespace-nowrape
       %span.font-medium.text-gray-600 price:
       %span= price.kind_of?(String) ? "$#{item_price}" : number_to_currency(item_price, unit: "$", precision: 2)
-  .font-semibold.flex.gap-1.w-fit
+  .font-semibold.flex.gap-1.whitespace-nowrap
     .font-medium.text-gray-600 total:
     = price.kind_of?(String) ? "$#{price}" : number_to_currency(quantity * price.to_f, unit: "$", precision: 2)
   .flex.justify-end.pr-3
