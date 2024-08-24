@@ -12,11 +12,7 @@ class OrderDetail < ApplicationRecord
   validate :product_or_part_present
 
   # Generators
-  before_validation :calculate_price, unless: :override?
-
-  def item_price
-    product&.price || part&.price || 0.0
-  end
+  after_save :calculate_price, unless: :override?
 
   def subtotal
     quantity * price
@@ -25,7 +21,7 @@ class OrderDetail < ApplicationRecord
   private
 
   def calculate_price
-    self.price = item_price
+    update_column(:price, product&.price || part&.price || 0.0)
   end
 
   def product_or_part_present
