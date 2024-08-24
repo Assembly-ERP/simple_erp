@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_13_181917) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_24_024660) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -88,7 +88,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_13_181917) do
     t.bigint "product_id"
     t.bigint "part_id"
     t.integer "quantity", default: 1, null: false
-    t.decimal "price", precision: 10, scale: 2
+    t.decimal "price", precision: 10, scale: 2, default: "0.0"
     t.boolean "override", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -98,13 +98,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_13_181917) do
     t.check_constraint "product_id IS NOT NULL OR part_id IS NOT NULL", name: "product_or_part_present_check"
   end
 
+  create_table "order_statuses", force: :cascade do |t|
+    t.string "name", null: false
+    t.boolean "locked", default: false, null: false
+    t.boolean "inventory", default: false, null: false
+    t.boolean "reversed", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "orders", force: :cascade do |t|
     t.bigint "customer_id", null: false
     t.string "status", null: false
     t.decimal "total_amount", precision: 10, scale: 2, default: "0.0"
+    t.bigint "order_status_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_orders_on_customer_id"
+    t.index ["order_status_id"], name: "index_orders_on_order_status_id"
   end
 
   create_table "parts", force: :cascade do |t|
@@ -234,6 +245,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_13_181917) do
   add_foreign_key "order_details", "parts"
   add_foreign_key "order_details", "products"
   add_foreign_key "orders", "customers"
+  add_foreign_key "orders", "order_statuses"
   add_foreign_key "parts_products", "parts"
   add_foreign_key "parts_products", "products"
   add_foreign_key "support_ticket_messages", "support_tickets"

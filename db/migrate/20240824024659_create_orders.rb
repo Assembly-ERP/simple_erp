@@ -6,6 +6,7 @@ class CreateOrders < ActiveRecord::Migration[7.1]
       t.references :customer, null: false, foreign_key: true
       t.string :status, null: false
       t.decimal :total_amount, precision: 10, scale: 2, default: 0
+      t.references :order_status, null: false, foreign_key: true
 
       t.timestamps
     end
