@@ -1,9 +1,6 @@
 # frozen_string_literal: true
 
 class Order < ApplicationRecord
-  # Constants
-  STATUSES = %w[pre-order new submitted cancelled].freeze
-
   # Relationships
   belongs_to :customer
   belongs_to :order_status
@@ -23,7 +20,6 @@ class Order < ApplicationRecord
         }
 
   # Validations
-  validates :status, inclusion: { in: STATUSES }, presence: true
   validates :total_amount, numericality: { greater_than_or_equal_to: 0, only_float: true }
   validates :order_details, presence: { message: 'must have at least one item' }
 
