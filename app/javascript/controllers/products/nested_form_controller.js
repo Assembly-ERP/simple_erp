@@ -37,7 +37,10 @@ export default class extends Controller {
   appendPart(dataset, replaceEl = null) {
     const totalPrice = (
       Number(dataset.price) * Number(dataset.quantity)
-    ).toFixed(2);
+    ).toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
 
     let template = this.templateTarget.innerHTML
       .replace(/NEW_RECORD/g, new Date().getTime().toString())
