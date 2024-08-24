@@ -26,21 +26,21 @@ class Product < ApplicationRecord
   validates :price, numericality: { greater_than_or_equal_to: 0, only_float: true }
 
   # Generators
-  before_validation :calculate_weight, if: :parts_products_is_changed?
-  before_validation :calculate_price, if: :parts_products_is_changed?
+  after_save :calculate_weight, if: :calculate_condition?
+  after_save :calculate_price, if: :calculate_condition?
 
   private
 
   def calculate_price
-    self.price = parts_products.map { |pp| pp.quantity * pp.part.price }.sum
+    update_column(:price, parts_products.map { |pp| pp.quantity * pp.part.price }.sum)
   end
 
   def calculate_weight
-    self.weight = parts_products.map { |pp| pp.quantity * pp.part.weight }.sum
+    update_column(:weight, parts_products.map { |pp| pp.quantity * pp.part.weight }.sum)
   end
 
-  def parts_products_is_changed?
-    updated_at_changed? || parts_products.any?(&:changed?)
+  def calculate_condition?
+    updated_at_previously_changed? || parts_products.any?(&:saved_changes?)
   end
 end
 
