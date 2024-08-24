@@ -36,10 +36,6 @@ class Order < ApplicationRecord
   def calculate_total_amount
     update_column(:total_amount, order_details.map { |od| od.price.to_f * od.quantity.to_i }.sum)
   end
-
-  def calculate_condition?
-    updated_at_previously_changed? || order_details.any?(&:saved_changes?)
-  end
 end
 
 # == Schema Information
