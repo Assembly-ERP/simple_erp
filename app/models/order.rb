@@ -43,7 +43,6 @@ end
 # Table name: orders
 #
 #  id              :bigint           not null, primary key
-#  status          :string           not null
 #  total_amount    :decimal(10, 2)   default(0.0)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
