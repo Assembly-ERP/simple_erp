@@ -23,7 +23,7 @@ export default class extends Controller {
     e.target.innerHTML = "Update";
 
     const dataset = e.target.dataset;
-    const checkedItem = this.checkAddedItem(dataset.itemId, dataset.type);
+    const checkedItem = this.checkAddedItem(dataset.pid, dataset.type);
 
     if (checkedItem) {
       this.appendPart(dataset, checkedItem);
@@ -44,12 +44,17 @@ export default class extends Controller {
     let template = this.templateTarget.innerHTML
       .replace(/NEW_RECORD/g, new Date().getTime().toString())
       .replace(/{{id}}/g, dataset.itemId || "")
+      .replace(/{{item-id}}/g, dataset.pid)
       .replace(/{{name}}/g, dataset.name)
       .replace(/{{quantity}}/g, dataset.quantity)
       .replace(/{{type}}/g, dataset.type)
       .replace(/{{item-price}}/g, dataset.price)
       .replace(/{{price}}/g, totalPrice)
-      .replace(/{{weight}}/g, dataset.weight);
+      .replace(/{{part-id}}/g, dataset.type === "part" ? dataset.pid : "")
+      .replace(
+        /{{product-id}}/g,
+        dataset.type === "product" ? dataset.pid : "",
+      );
 
     if (!replaceEl)
       this.targetTarget.insertAdjacentHTML("beforebegin", template);
@@ -72,7 +77,7 @@ export default class extends Controller {
       destroy.value = "1";
     }
 
-    this.resetSearchItem(e.target.dataset.itemId, e.target.dataset.type);
+    this.resetSearchItem(e.target.dataset.pid, e.target.dataset.type);
 
     const event = new CustomEvent("rails-nested-form:remove", { bubbles: !0 });
     this.element.dispatchEvent(event);
@@ -118,7 +123,9 @@ export default class extends Controller {
     clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {
       let path = this.searchInputTarget.dataset.url;
-      path += `?search_by=${this.searchByValue}`;
+
+      if (path.includes("?")) path += `&search_by=${this.searchByValue}`;
+      else path += `?search_by=${this.searchByValue}`;
 
       if (this.searchInputTarget.value) {
         path += "&search=" + this.searchInputTarget.value;

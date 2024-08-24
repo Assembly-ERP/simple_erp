@@ -1,0 +1,19 @@
+= form_with(model: @order, url: path, html: {class: "grid gap-5", data: {controller: "orders--form"}}) do |form|
+  - if @order.errors.any?
+    = render ErrorCardComponent.new errors: @order.errors.full_messages, label: "Validations"
+  .field
+    = form.label :customer_id, "Select Customer"
+    = form.collection_select :customer_id, Customer.all, :id, :name, {prompt: '--Select Customer--'}, {required: true, class: "input-primary"}
+  = form.hidden_field :order_status_id, value: OrderStatus.operation_default_id
+  = render "search"
+  %template{data: {"orders--form-target": "template"}}
+    = form.fields_for :order_details, OrderDetail.new, child_index: 'NEW_RECORD' do |od_form|
+      = render "item", name: "{{name}}", quantity: "{{quantity}}", price: "{{price}}", part_id: "{{part-id}}", product_id: "{{product-id}}", type: "{{type}}", id: "{{id}}", item_id: "{{item-id}}", item_price: "{{item-price}}", f: od_form
+  .flex.w-full.gap-5.mt-2
+    .px-4.py-5.w-full.divide-y.h-full.min-h-80.border.border-gray-300.rounded.bg-white.flex.flex-col.w-full{data: { "orders--form-target": "addedItems"}}
+      = form.fields_for :order_details, @order.order_details do |od_form|
+        = render "item", name: od_form.object.product_id ? od_form.object.product.name : od_form.object.part.name , quantity: od_form.object.quantity, price: od_form.object.price, part_id: od_form.object.part_id, product_id: od_form.object.product_id, id: od_form.object.id, item_id: od_form.object.product_id || od_form.object.part_id, type: od_form.object.product_id ? "product" : "part", item_price: od_form.object.price, f: od_form
+      .hidden{data: {"orders--form-target": "target"}}
+    = render "order_summary"
+  .flex
+    = form.submit @order.new_record? ? "Save Order" : "Update Order", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"

@@ -6,7 +6,7 @@ module OperationalPortal
     authorize_resource class: false, only: :search_results
 
     def index
-      @orders = Order.accessible_by(current_ability)
+      @orders = Order.with_order_status.accessible_by(current_ability)
     end
 
     def show; end
@@ -50,6 +50,8 @@ module OperationalPortal
       @results = @results.order(id: params[:sort]) if params[:sort].present?
       @results = @results.search_results
 
+      @results = @results.search_results_with_order(params[:order_id]) if params[:order_id].present?
+
       if params[:search].present?
         case params[:filter_by]
         when 'name'
@@ -66,7 +68,8 @@ module OperationalPortal
 
     def order_params
       params.require(:order)
-            .permit(:status, :customer_id, order_details_attributes: %i[id product_id part_id quantity price _destroy])
+            .permit(:status, :customer_id, :order_status_id,
+                    order_details_attributes: %i[id product_id part_id quantity price _destroy])
     end
   end
 end

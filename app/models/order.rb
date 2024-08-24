@@ -13,6 +13,11 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :order_details, allow_destroy: true
 
   # Scopes
+  scope :with_order_status,
+        lambda {
+          select('orders.*, order_statuses.name AS status')
+            .joins(:order_status)
+        }
   scope :with_customer,
         lambda {
           select('orders.*, customers.name as customer_name')
@@ -24,17 +29,12 @@ class Order < ApplicationRecord
   validates :order_details, presence: { message: 'must have at least one item' }
 
   # Generators
-  before_validation :set_default_status
-  before_validation :calculate_total_amount, if: :new_record?
+  before_validation :calculate_total_amount
 
   private
 
   def calculate_total_amount
     self.total_amount = order_details.map { |od| od.item_price.to_f * od.quantity.to_i }.sum
-  end
-
-  def set_default_status
-    self.status ||= 'new'
   end
 end
 
