@@ -39,7 +39,7 @@ end
 #
 #  id         :bigint           not null, primary key
 #  override   :boolean          default(FALSE), not null
-#  price      :decimal(10, 2)
+#  price      :decimal(10, 2)   default(0.0)
 #  quantity   :integer          default(1), not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
