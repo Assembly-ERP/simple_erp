@@ -1,4 +1,4 @@
-%table.added-part.w-full.text-left.text-base.text-gray-900.nested-form-wrapper{id: "part-form-#{part_id}", "data-new-record": f.object.new_record?}
+%table.added-part.w-full.text-left.text-base.text-gray-900.nested-form-wrapper{id: "part-form-#{part_id}", "data-new-record": f.object.new_record?.to_s}
   %body
     %tr
       %td#name.w-80.min-w-56.whitespace-nowrap.px-3= name

@@ -6,9 +6,14 @@ export default class extends Controller {
     "target",
     "template",
     "addedItems",
+    "searchItems",
     "searchInput",
     "searchByRadio",
   ];
+
+  static values = {
+    wrapperSelector: { type: String, default: ".nested-form-wrapper" },
+  };
 
   addToItem(e) {
     e.preventDefault();
@@ -38,8 +43,8 @@ export default class extends Controller {
 
     let template = this.templateTarget.innerHTML
       .replace(/NEW_RECORD/g, new Date().getTime().toString())
-      .replace("{{id}}", dataset.itemId || "")
-      .replace("{{name}}", dataset.name)
+      .replace(/{{id}}/g, dataset.itemId || "")
+      .replace(/{{name}}/g, dataset.name)
       .replace(/{{quantity}}/g, dataset.quantity)
       .replace(/{{type}}/g, dataset.type)
       .replace(/{{item-price}}/g, dataset.price)
@@ -53,6 +58,53 @@ export default class extends Controller {
     const event = new CustomEvent("rails-nested-form:add", { bubbles: !0 });
     this.element.dispatchEvent(event);
     // this.hideAndShowEmpty();
+  }
+
+  remove(e) {
+    e.preventDefault();
+
+    const closest = e.target.closest(this.wrapperSelectorValue);
+
+    if (closest.dataset.newRecord === "true") closest.remove();
+    else {
+      closest.classList.add("hidden");
+      const destroy = closest.querySelector("input[name*='_destroy']");
+      destroy.value = "1";
+    }
+
+    this.resetSearchItem(e.target.dataset.itemId, e.target.dataset.type);
+
+    const event = new CustomEvent("rails-nested-form:remove", { bubbles: !0 });
+    this.element.dispatchEvent(event);
+    // this.hideAndShowEmpty();
+  }
+
+  resetSearchItem(id, type) {
+    const checkedSearchPart = this.checkSearchItem(id, type);
+
+    if (checkedSearchPart) {
+      const input = checkedSearchPart.querySelector(
+        `[id='search-item-qty_${type}_${id}']`,
+      );
+
+      const button = checkedSearchPart.querySelector(
+        `[id='search-item-btn_${type}_${id}']`,
+      );
+
+      if (input) input.value = 1;
+      if (button) {
+        button.classList.remove("bg-[color:var(--secondary)]");
+        button.classList.add("bg-[color:var(--primary)]");
+        button.innerHTML = "Add";
+        button.dataset.quantity = 1;
+      }
+    }
+  }
+
+  checkSearchItem(id, type) {
+    return this.searchItemsTarget.querySelector(
+      `[id='search-item_${type}_${id}']`,
+    );
   }
 
   checkAddedItem(id, type) {
@@ -90,7 +142,6 @@ export default class extends Controller {
   searchBy(e) {
     this.searchInputTarget.placeholder = `Search ${e.target.value}`;
     this.searchInputTarget.value = "";
-
     this.search();
   }
 
