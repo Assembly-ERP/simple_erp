@@ -1,3 +1,7 @@
+%template{data: {"products--nested-form-target": "template"}}
+  = form.fields_for :parts_products, PartsProduct.new, child_index: 'NEW_RECORD' do |part_form|
+    = render "part_form", name: "{{name}}", quantity: "{{quantity}}", price: "{{price}}", part_id: "{{part-id}}", f: part_form, weight: "{{weight}}", id: "{{id}}", price_per_item: "{{price-per-item}}"
+
 .flex.w-full.gap-5.mt-2
   .px-4.py-5.w-full.h-full.min-h-80.border.border-gray-300.rounded.bg-white.flex.flex-col.w-full{data: { "products--nested-form-target": "addedParts"}}
     .flex.flex-col.divide-y
