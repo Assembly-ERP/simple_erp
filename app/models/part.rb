@@ -15,6 +15,11 @@ class Part < ApplicationRecord
   scope :search_results, lambda {
     select("parts.id, parts.name, parts.price, parts.weight, 'part' AS type")
   }
+  scope :search_results_with_order, lambda { |order_id|
+    select('order_details.id AS item_id, order_details.quantity AS quantity')
+      .joins("LEFT JOIN order_details ON order_details.order_id = #{order_id} " \
+             'AND order_details.part_id = parts.id')
+  }
   scope :with_product,
         lambda { |product_id|
           select('parts.*, parts_products.product_id AS product_id, parts_products.quantity AS quantity, ' \

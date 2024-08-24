@@ -103,6 +103,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_24_024660) do
     t.boolean "locked", default: false, null: false
     t.boolean "inventory", default: false, null: false
     t.boolean "reversed", default: false, null: false
+    t.boolean "customer_default", default: false, null: false
+    t.boolean "operation_default", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

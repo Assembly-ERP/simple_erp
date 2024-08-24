@@ -1,4 +1,4 @@
 %table#search-results.w-full.text-left.text-base.text-gray-900.md:table-fixed
-  %tbody.divide-y.divide-gray-200
+  %tbody.divide-y.divide-gray-200{data: {"orders--form-target": "searchItems"}}
     - @results.each do |result|
       = render "search_item", result:

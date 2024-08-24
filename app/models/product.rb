@@ -14,6 +14,11 @@ class Product < ApplicationRecord
   scope :search_results, lambda {
     select("products.id, products.name, products.price, products.weight, 'product' AS type")
   }
+  scope :search_results_with_order, lambda { |order_id|
+    select('order_details.id AS item_id, order_details.quantity AS quantity')
+      .joins("LEFT JOIN order_details ON order_details.order_id = #{order_id} " \
+             'AND order_details.product_id = products.id')
+  }
 
   # Validations
   validates :name, presence: true

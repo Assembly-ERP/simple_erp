@@ -66,7 +66,7 @@ export default class extends Controller {
 
     const closest = e.target.closest(this.wrapperSelectorValue);
 
-    if (closest.dataset.newRecord === "true") t.remove();
+    if (closest.dataset.newRecord === "true") closest.remove();
     else {
       closest.classList.add("hidden");
       const destroy = closest.querySelector("input[name*='_destroy']");
