@@ -29,12 +29,16 @@ class Order < ApplicationRecord
   validates :order_details, presence: { message: 'must have at least one item' }
 
   # Generators
-  after_save :calculate_total_amount
+  after_save :calculate_total_amount, if: :calculate_total_amount_condition?
 
   private
 
   def calculate_total_amount
     update_column(:total_amount, order_details.map { |od| od.price.to_f * od.quantity.to_i }.sum)
+  end
+
+  def calculate_total_amount_condition?
+    new_record? || !order_status.locked
   end
 end
 

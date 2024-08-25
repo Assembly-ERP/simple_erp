@@ -21,7 +21,7 @@
           - @orders.each do |order|
             %tr.order-row
               %td= link_to "Order ##{order.id}", operational_portal_order_path(order)
-              %td= order.customer.name
+              %td= order.customer_name
               %td= order.status
               %td.numeric= order.total_amount
               %td.local-time{"data-time" => "#{order.created_at}"}= order.created_at
