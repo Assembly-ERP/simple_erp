@@ -3,6 +3,7 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = [
     "items",
+    "empty",
     "target",
     "template",
     "addedItems",
@@ -59,10 +60,7 @@ export default class extends Controller {
     if (!replaceEl)
       this.targetTarget.insertAdjacentHTML("beforebegin", template);
     else replaceEl.outerHTML = template;
-
-    const event = new CustomEvent("rails-nested-form:add", { bubbles: !0 });
-    this.element.dispatchEvent(event);
-    // this.hideAndShowEmpty();
+    this.hideAndShowEmpty();
   }
 
   remove(e) {
@@ -81,7 +79,19 @@ export default class extends Controller {
 
     const event = new CustomEvent("rails-nested-form:remove", { bubbles: !0 });
     this.element.dispatchEvent(event);
-    // this.hideAndShowEmpty();
+    this.hideAndShowEmpty();
+  }
+
+  hideAndShowEmpty() {
+    if (!this.addedItems.length) {
+      this.emptyTarget.classList.remove("hidden");
+      return;
+    }
+    this.emptyTarget.classList.add("hidden");
+  }
+
+  get addedItems() {
+    return this.addedItemsTarget.querySelectorAll(".added-item:not(.hidden)");
   }
 
   resetSearchItem(id, type) {
