@@ -22,10 +22,10 @@
     %span Status:
     .flex.gap-4.items-center
       .flex.items-center{class: "gap-1.5"}
-        = radio_button("order", "status", "all", {checked: true})
+        = radio_button("order", "status", "all", {checked: true, class: "bg-foreground"})
         = label_tag "order_status_all", "All" 
       - OrderStatus.all.each do |os|
         .flex.gap-1.items-center
-          = radio_button("order", "status", os.id)
+          = radio_button("order", "status", os.id, {class: "bg-foreground"})
           = label_tag "order_status_#{os.id}", os.name 
 
