@@ -1,4 +1,4 @@
 %table#search-parts-results.w-full.text-left.text-base.text-gray-900.md:table-fixed
-  %tbody.divide-y.divide-gray-200{data: {"products--nested-form-target": "searchParts"}}
+  %tbody.divide-y.divide-gray-200{data: {"products--form-target": "searchParts"}}
     - @parts.each do |part|
       = render "search_parts_item", part:

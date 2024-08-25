@@ -15,7 +15,7 @@
         %span.font-medium.text-gray-600 total:
         %span= price.kind_of?(String) ? "$#{price}" : number_to_currency(quantity * price.to_f, unit: "$", precision: 2)
       %td#icon.pr-3
-        %button.text-gray-400.hover:text-red-500{type: "button", data: {part_id: part_id, action: "products--nested-form#remove"}}
+        %button.text-gray-400.hover:text-red-500{type: "button", data: {part_id: part_id, action: "products--form#remove"}}
           = icon("fa-solid", "trash-can", class: "pointer-events-none")
       = f.hidden_field :id, value: id
       = f.hidden_field :part_id, value: part_id
