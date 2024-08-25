@@ -1,2 +1,5 @@
 = turbo_stream.replace "search-results" do
-  = render "search_table"
+  - if @results.present?
+    = render "search_table"
+  - else
+    = render "no_search_results"
