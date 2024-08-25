@@ -1,4 +1,4 @@
-.grid.grid-cols-8.added-item.w-full.text-gray-900.py-3.gap-3.nested-form-wrapper{id: "item-form-#{type}_#{item_id}", "data-new-record": f.object.new_record?.to_s}
+.grid.grid-cols-8.added-item.w-full.text-gray-900.py-3.gap-3.nested-form-wrapper{id: "item-form-#{type}_#{item_id}", data: {"new-record": f.object.new_record?.to_s, item_id: item_id, qty: quantity}}
   .w-60.min-w-56.whitespace-nowrap.col-span-3.pl-3
     = name
   %div

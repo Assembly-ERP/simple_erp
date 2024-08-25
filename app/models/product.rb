@@ -4,6 +4,7 @@ class Product < ApplicationRecord
   # Relationships
   has_many :parts_products, dependent: :destroy
   has_many :parts, through: :parts_products
+  has_many :order_details, dependent: :destroy
   has_many :poly_attributes, as: :attributable, dependent: :destroy
 
   accepts_nested_attributes_for :parts_products, allow_destroy: true

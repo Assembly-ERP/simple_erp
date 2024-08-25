@@ -3,6 +3,10 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   static targets = ["quantity", "add"];
 
+  connect() {
+    this.checkIfExistOnItems();
+  }
+
   increment() {
     this.quantityTarget.stepUp();
     this.addTarget.dataset.quantity = this.quantityTarget.value;
@@ -30,5 +34,24 @@ export default class extends Controller {
     event.target.blur();
 
     this.addTarget.dataset.quantity = event.target.value;
+  }
+
+  checkIfExistOnItems() {
+    const item = this.checkAddedItem(
+      this.addTarget.dataset.pid,
+      this.addTarget.dataset.type,
+    );
+
+    if (item) {
+      this.addTarget.classList.remove("bg-[color:var(--primary)]");
+      this.addTarget.classList.add("bg-[color:var(--secondary)]");
+      this.addTarget.innerHTML = "Update";
+      this.addTarget.dataset.quantity = item.dataset.qty;
+      this.quantityTarget.value = item.dataset.qty;
+    }
+  }
+
+  checkAddedItem(id, type) {
+    return document.querySelector(`[id='item-form-${type}_${id}']`);
   }
 }

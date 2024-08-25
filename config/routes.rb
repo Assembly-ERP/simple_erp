@@ -36,6 +36,9 @@ Rails.application.routes.draw do
       end
     end
     resources :orders do
+      member do
+        post :sync_price
+      end
       collection do
         get :search_results
       end

@@ -4,6 +4,8 @@ class Part < ApplicationRecord
   # Relationships
   has_many :parts_products, dependent: :destroy
   has_many :products, through: :parts_products
+  has_many :order_details, dependent: :destroy
+  has_many :orders, through: :order_details
   has_many :poly_attributes, as: :attributable, dependent: :destroy
 
   # Attachments
@@ -37,6 +39,8 @@ class Part < ApplicationRecord
   before_validation :set_price_value, unless: :manual_price?
   after_save :recalculate_products, if: :price_previously_changed?
 
+  private
+
   def calculate_price
     price_per_pound = Setting.price_per_pound
     weight.to_f * price_per_pound
@@ -47,8 +51,6 @@ class Part < ApplicationRecord
       product.update(updated_at: Time.zone.now)
     end
   end
-
-  private
 
   def set_price_value
     self.price = calculate_price
