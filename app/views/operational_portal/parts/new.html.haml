@@ -2,4 +2,4 @@
   .py-6
     %h1.text-2xl.font-semibold.mb-4 New Part
     = render "form", model: @part, url: operational_portal_parts_path, btn_text: "Save Part"
-    = link_to 'back', operational_portal_catalog_path, class: "btn btn-secondary"
+    = link_to 'back', operational_portal_catalog_index_path, class: "btn btn-secondary"
