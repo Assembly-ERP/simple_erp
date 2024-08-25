@@ -118,6 +118,10 @@ export default class extends Controller {
     );
   }
 
+  get checkAddedItems() {
+    return this.addedItemsTarget.querySelectorAll("[id^=item-form-]");
+  }
+
   // Search
   search() {
     clearTimeout(this.timeout);
@@ -128,9 +132,19 @@ export default class extends Controller {
       else path += `?search_by=${this.searchByValue}`;
 
       if (this.searchInputTarget.value) {
-        path += "&search=" + this.searchInputTarget.value;
+        path += `&search=${this.searchInputTarget.value}`;
         path += "&filter_by=name";
       }
+
+      // const addedItems = this.checkAddedItems;
+
+      // if (addedItems.length) {
+      //   const addedItemsIds = Array.from(addedItems)
+      //     .map((item) => `(${item.dataset.itemId},${item.dataset.qty})`)
+      //     .join(",");
+      //
+      //   path += `&order_ids=${addedItemsIds}`;
+      // }
 
       fetch(path, {
         method: "GET",

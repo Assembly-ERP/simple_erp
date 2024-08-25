@@ -6,7 +6,7 @@ module OperationalPortal
     authorize_resource class: false, only: :search_results
 
     def index
-      @orders = Order.with_order_status.accessible_by(current_ability)
+      @orders = Order.with_customer.with_order_status.accessible_by(current_ability)
     end
 
     def show; end
@@ -31,6 +31,16 @@ module OperationalPortal
       respond_to do |format|
         if @order.update(order_params)
           format.html { redirect_to operational_portal_orders_path, notice: 'Order updated successfully.' }
+        else
+          format.html { render :edit, status: :unprocessable_entity }
+        end
+      end
+    end
+
+    def sync_price
+      respond_to do |format|
+        if @order.update(updated_at: Time.zone.now)
+          format.html { render :edit, status: :ok }
         else
           format.html { render :edit, status: :unprocessable_entity }
         end

@@ -16,4 +16,5 @@
       .hidden{data: {"orders--form-target": "target"}}
     = render "order_summary"
   .flex
-    = form.submit @order.new_record? ? "Save Order" : "Update Order", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"
+    - if @order.new_record? || can?(:update, @order)
+      = form.submit @order.new_record? ? "Save Order" : "Update Order", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"
