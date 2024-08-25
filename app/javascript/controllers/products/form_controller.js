@@ -75,9 +75,6 @@ export default class extends Controller {
     }
 
     this.resetSearchPart(e.target.dataset.partId);
-
-    const event = new CustomEvent("rails-nested-form:remove", { bubbles: !0 });
-    this.element.dispatchEvent(event);
     this.hideAndShowEmpty();
   }
 
@@ -120,7 +117,7 @@ export default class extends Controller {
   }
 
   get addedParts() {
-    return this.element.querySelectorAll(".added-part:not(.hidden)");
+    return this.addedPartsTarget.querySelectorAll(".added-part:not(.hidden)");
   }
 
   // search
