@@ -6,6 +6,12 @@ class OrderDetail < ApplicationRecord
   belongs_to :product, optional: true
   belongs_to :part, optional: true
 
+  scope :with_part_and_product, lambda {
+    select('order_details.*, products.name AS product_name, parts.name AS part_name')
+      .joins('LEFT JOIN products ON order_details.product_id = products.id')
+      .joins('LEFT JOIN parts ON order_details.part_id = parts.id')
+  }
+
   # Validations
   validates :quantity, numericality: { only_integer: true, greater_than: 0 }
   validates :price, numericality: { greater_than_or_equal_to: 0, only_float: true }
