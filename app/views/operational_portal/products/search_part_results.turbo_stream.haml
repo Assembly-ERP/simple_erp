@@ -1,2 +1,6 @@
 = turbo_stream.replace "search-parts-results" do
-  = render "search_parts_table"
+  - if @parts.present?
+    = render "search_parts_table"
+  - else
+    = render "no_search_results"
+
