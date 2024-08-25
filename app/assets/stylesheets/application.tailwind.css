@@ -57,6 +57,10 @@
   .btn-md {
     @apply py-[11px] px-5 cursor-pointer rounded-lg text-[15px];
   }
+
+  .btn-sm {
+    @apply py-2 px-4 cursor-pointer rounded-lg text-[15px];
+  }
   
   /* Inputs */
   .input-primary {

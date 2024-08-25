@@ -3,12 +3,12 @@
     = render NavbarLinkComponent.new path: operational_root_path, label: "Dashboard"
     = render NavbarLinkComponent.new path: operational_portal_orders_path, label: "Orders"
     = render NavbarLinkComponent.new path: operational_portal_catalog_index_path, label: "Catalog"
+    = render NavbarLinkComponent.new path: operational_portal_support_tickets_path, label: "Support Tickets"
     .relative{"data-controller" => "nav-dropdown"}
       %button.pb-3.px-4{"data-action" => "nav-dropdown#toggle click@window->nav-dropdown#hide", type: "button", class: "border-b-2 border-b-transparent hover:border-[color:var(--primary)]"}
         Manage 
       .hidden.transition.transform.origin-top-left.absolute.left-0{"data-nav-dropdown-target" => "menu", "data-transition-enter-from" => "opacity-0 scale-95", "data-transition-enter-to" => "opacity-100 scale-100", "data-transition-leave-from" => "opacity-100 scale-100", "data-transition-leave-to" => "opacity-0 scale-95"}
         .bg-white.border.grid.w-52.divide-y.shadow
-          = link_to 'Support Tickets', operational_portal_support_tickets_path, class: "px-4 py-2 hover:text-[color:var(--primary-text)] hover:bg-[color:var(--primary)] transition-colors duration-100"
           = link_to 'Manage Users', operational_portal_users_path, class: "px-4 py-2 hover:text-[color:var(--primary-text)] hover:bg-[color:var(--primary)] transition-colors duration-100"
           = link_to 'Manage Customers', operational_portal_customers_path, class: "px-4 py-2 hover:text-[color:var(--primary-text)] hover:bg-[color:var(--primary)] transition-colors duration-100"
           = link_to 'Settings', operational_portal_settings_path, class: "px-4 py-2 hover:text-[color:var(--primary-text)] hover:bg-[color:var(--primary)] transition-colors duration-100"
