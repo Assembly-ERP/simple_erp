@@ -146,16 +146,6 @@ export default class extends Controller {
         path += "&filter_by=name";
       }
 
-      // const addedItems = this.checkAddedItems;
-
-      // if (addedItems.length) {
-      //   const addedItemsIds = Array.from(addedItems)
-      //     .map((item) => `(${item.dataset.itemId},${item.dataset.qty})`)
-      //     .join(",");
-      //
-      //   path += `&order_ids=${addedItemsIds}`;
-      // }
-
       fetch(path, {
         method: "GET",
         headers: {
