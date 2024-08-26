@@ -13,9 +13,10 @@ class Product < ApplicationRecord
   scope :search_results, lambda {
     select("products.id, products.name, products.price, products.weight, 'product' AS type")
   }
-  scope :for_union_with_parts, lambda {
+  scope :catalog, lambda {
     select('products.id, products.name, products.description, products.price, products.weight, ' \
-           "'product' AS type, 0 AS in_stock, products.created_at")
+           "'product' AS type, 0 AS in_stock, products.created_at, products.available, " \
+           'FALSE as inventory')
   }
   scope :search_results_with_order, lambda { |order_id|
     select('order_details.id AS item_id, order_details.quantity AS quantity')
@@ -31,6 +32,7 @@ class Product < ApplicationRecord
   # Generators
   after_save :calculate_weight
   after_save :calculate_price
+  after_save :update_availability
 
   private
 
@@ -41,6 +43,17 @@ class Product < ApplicationRecord
   def calculate_weight
     update_column(:weight, parts_products.map { |pp| pp.quantity * pp.part.weight }.sum)
   end
+
+  def update_availability
+    inventory_parts = parts.where(inventory: true)
+
+    if inventory_parts.count.zero? || inventory_parts.where('in_stock > 0').count.positive?
+      update_column(:available, true)
+      return
+    end
+
+    update_column(:available, false)
+  end
 end
 
 # == Schema Information
@@ -48,9 +61,10 @@ end
 # Table name: products
 #
 #  id              :bigint           not null, primary key
+#  available       :boolean          default(FALSE), not null
 #  description     :text
 #  json_attributes :json
-#  name            :string
+#  name            :string           not null
 #  price           :decimal(10, 2)   default(0.0)
 #  weight          :decimal(10, 2)   default(0.0)
 #  created_at      :datetime         not null

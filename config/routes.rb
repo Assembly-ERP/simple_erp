@@ -96,6 +96,8 @@ end
 #
 #                                                 Prefix Verb   URI Pattern                                                                                       Controller#Action
 #                                                   root GET    /                                                                                                 home#index
+#                                                        GET    /                                                                                                 redirect(301, /operational_portal)
+#                                                        GET    /                                                                                                 redirect(301, /customer)
 #                                       new_user_session GET    /users/sign_in(.:format)                                                                          devise/sessions#new
 #                                           user_session POST   /users/sign_in(.:format)                                                                          devise/sessions#create
 #                                   destroy_user_session DELETE /users/sign_out(.:format)                                                                         devise/sessions#destroy
@@ -216,7 +218,6 @@ end
 #                                                product GET    /products/:id(.:format)                                                                           products#show
 #                                                  parts GET    /parts(.:format)                                                                                  parts#index
 #                                                   part GET    /parts/:id(.:format)                                                                              parts#show
-#                                                 search GET    /search(.:format)                                                                                 search#index
 #                                     rails_health_check GET    /up(.:format)                                                                                     rails/health#show
 #                       turbo_recede_historical_location GET    /recede_historical_location(.:format)                                                             turbo/native/navigation#recede
 #                       turbo_resume_historical_location GET    /resume_historical_location(.:format)                                                             turbo/native/navigation#resume

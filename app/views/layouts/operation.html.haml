@@ -2,7 +2,7 @@
 %html
   %head
     = render "layouts/head"
-  %body.flex.flex-col
+  %body.flex.flex-col{style: theme}
     = render FlashComponent.new
     = render "layouts/operation_navbar"
     %main.flex-1.margin-max-screen.grid
