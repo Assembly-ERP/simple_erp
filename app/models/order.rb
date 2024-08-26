@@ -15,7 +15,7 @@ class Order < ApplicationRecord
   # Scopes
   scope :with_order_status,
         lambda {
-          select('orders.*, order_statuses.name AS status')
+          select('orders.*, order_statuses.name AS status, order_statuses.locked AS status_locked')
             .joins(:order_status)
         }
   scope :with_customer,
