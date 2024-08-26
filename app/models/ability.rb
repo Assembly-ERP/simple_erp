@@ -24,8 +24,8 @@ class Ability
     can :manage, Part
 
     # Order
-    can %i[read new create], Order
-    can %i[update destroy sync_price], Order, order_status: { locked: false }
+    can %i[index show new create], Order
+    can %i[update destroy sync_price edit], Order, order_status: { locked: false }
     can :search_results, :order
 
     can :manage, SupportTicket

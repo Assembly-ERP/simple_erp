@@ -1,0 +1,32 @@
+%table#orders-table
+  %thead.border-b-0{class: "bg-gray-50"}
+    %tr
+      %th ID
+      %th Customer Name
+      %th Status
+      %th Total Amount
+      %th Created Date
+      %th
+  %tbody
+    - if @orders.present?
+      - @orders.each do |order|
+        %tr
+          %td= link_to "Order ##{order.id}", operational_portal_order_path(order), class: "hover:underline"
+          %td= order.customer_name
+          %td= order.status
+          %td= number_to_currency(order.total_amount, unit: "$", precision: 2)
+          %td= order.created_at
+          %td.flex.justify-end.mr-2
+            .relative{data: {controller: "dropdown"}}
+              %button.px-2.py-1.hover:bg-gray-100.rounded-lg{data: {action: "dropdown#toggle click@window->dropdown#hide"}}
+                = icon("fa-solid", "ellipsis", class: "text-lg text-gray-500")
+              .hidden.transition.transform.origin-top-right.absolute.right-0.z-10{"data-dropdown-target" => "menu", "data-transition-enter-from" => "opacity-0 scale-95", "data-transition-enter-to" => "opacity-100 scale-100", "data-transition-leave-from" => "opacity-100 scale-100", "data-transition-leave-to" => "opacity-0 scale-95"}
+                .bg-white.divide-y.rounded.border.border-gray-200.w-40.flex.flex-col.mt-1
+                  - unless order.status_locked
+                    = link_to 'Show', operational_portal_order_path(order), class: "py-2 px-3.5 hover:bg-gray-50"
+                  = link_to 'Edit', edit_operational_portal_order_path(order), class: "py-2 px-3.5 hover:bg-gray-50"
+                  - unless order.status_locked
+                    = button_to 'Delete', operational_portal_order_path(order), method: :delete, class: "text-start py-2 px-3.5 hover:bg-gray-50 w-full", form: {data: {turbo_confirm: 'Are you sure to delete this order?'}}
+    - else
+      %tr
+        %td No orders found

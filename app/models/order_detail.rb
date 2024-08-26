@@ -31,7 +31,7 @@ class OrderDetail < ApplicationRecord
   end
 
   def product_or_part_present
-    errors.add(:order, 'must have either a product or a part') unless product_id.present? || part_id.present?
+    errors.add(:order, I18n.t('errors.order_details.product_or_part')) unless product_id.present? || part_id.present?
   end
 end
 
