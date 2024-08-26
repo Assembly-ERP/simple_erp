@@ -5,8 +5,8 @@ module OperationalPortal
     authorize_resource class: false
 
     def index
-      products = Product.for_union_with_parts
-      parts = Part.for_union_with_products
+      products = Product.catalog
+      parts = Part.catalog
 
       @items = Product.from("(#{products.to_sql} UNION #{parts.to_sql}) products")
     end

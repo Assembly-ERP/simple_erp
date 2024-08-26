@@ -15,9 +15,10 @@ class Part < ApplicationRecord
   scope :search_results, lambda {
     select("parts.id, parts.name, parts.price, parts.weight, 'part' AS type")
   }
-  scope :for_union_with_products, lambda {
+  scope :catalog, lambda {
     select('parts.id, parts.name, parts.description, parts.price, parts.weight, ' \
-           "'part' AS type, parts.in_stock, parts.created_at")
+           "'part' AS type, parts.in_stock, parts.created_at, FALSE AS available, " \
+           'parts.inventory')
   }
   scope :search_results_with_order, lambda { |order_id|
     select('order_details.id AS item_id, order_details.quantity AS quantity')
@@ -39,7 +40,7 @@ class Part < ApplicationRecord
 
   # Generators
   before_validation :set_price_value, unless: :manual_price?
-  after_save :recalculate_products, if: :price_previously_changed?
+  after_save :recalculate_products, if: :recalculate_products_condition?
 
   private
 
@@ -52,6 +53,10 @@ class Part < ApplicationRecord
     products.each do |product|
       product.update(updated_at: Time.zone.now)
     end
+  end
+
+  def recalculate_products_condition?
+    price_previously_changed? || in_stock_previously_changed? || inventory_previously_changed?
   end
 
   def set_price_value
