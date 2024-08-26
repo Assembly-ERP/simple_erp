@@ -13,43 +13,13 @@
             %th Name
             %th Price
             %th Description
-            %th Actions
+            %th type
+            %th Created Date
         %tbody
-          - @products.each do |product|
+          - @items.each do |item|
             %tr
-              %td= link_to product.name, operational_portal_product_path(product), class: "hover:underline"
-              %td= number_to_currency(product.price, unit: "$", precision: 2)
-              %td= product.description
-              %td.flex.gap-2
-                = link_to 'Edit', edit_operational_portal_product_path(product)
-                = link_to 'View', operational_portal_product_path(product)
-  .grid.gap-3
-    .flex.justify-between.gap-2.items-center
-      %h1.font-semibold.text-2xl Parts
-      .actions
-        = link_to new_operational_portal_part_path, class: "flex gap-3 items-center btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]" do
-          = icon("fa-solid", "plus")
-          New Part
-    .table-primary
-      %table
-        %thead
-          %tr
-            %th Name
-            %th Price
-            %th In Stock
-            %th Description
-            %th Weight
-            %th Actions
-        %tbody
-          - @parts.each do |part|
-            %tr
-              %td= link_to part.name, operational_portal_part_path(part), class: "hover:underline"
-              %td= number_to_currency(part.price, unit: "$", precision: 2)
-              %td
-                - if part.inventory
-                  = part.in_stock
-              %td= part.description
-              %td= part.weight
-              %td.flex.gap-2
-                = link_to 'Edit', edit_operational_portal_part_path(part)
-                = link_to 'View', operational_portal_part_path(part)
+              %td= item.name
+              %td= number_to_currency(item.price, unit: "$", precision: 2)
+              %td= item.description
+              %td= item.type
+              %td= item.created_at

@@ -12,10 +12,12 @@ class Part < ApplicationRecord
   has_many_attached :files
 
   # Scopes
-  default_scope { order(id: :desc) }
-
   scope :search_results, lambda {
     select("parts.id, parts.name, parts.price, parts.weight, 'part' AS type")
+  }
+  scope :for_union_with_products, lambda {
+    select('parts.id, parts.name, parts.description, parts.price, parts.weight, ' \
+           "'part' AS type, parts.in_stock, parts.created_at")
   }
   scope :search_results_with_order, lambda { |order_id|
     select('order_details.id AS item_id, order_details.quantity AS quantity')
