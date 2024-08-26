@@ -1,0 +1,16 @@
+.flex.justify-between.gap-4.flex-col.md:flex-row
+  .flex.gap-3
+    .relative.w-full
+      %input.text-sm.border.border-gray-300.rounded-lg.pl-10.pr-4.w-full.md:w-80.lg:w-96{class: "py-2.5 focus:outline-[color:var(--primary)]", placeholder: "Search..."}
+      = icon("fa-solid", "magnifying-glass", class: "text-sm absolute top-3.5 left-3.5 text-gray-400")
+    %button.btn-sm.border.border-gray-300.h-fit.flex.gap-2.items-center.bg-white.hover:bg-foreground.focus:ring-4.focus:ring-gray-200
+      = icon("fa-solid", "filter", class: "text-sm text-gray-400")
+      Filter
+      = icon("fa-solid", "chevron-down", class: "text-sm text-gray-400")
+  .flex.items-center.gap-3
+    = link_to new_operational_portal_product_path, class: "flex gap-3 items-center btn-sm bg-[color:var(--primary)] text-[color:var(--primary-text)]" do
+      = icon("fa-solid", "plus", class: "text-sm")
+      New Product
+    = link_to new_operational_portal_part_path, class: "flex gap-3 items-center btn-sm bg-[color:var(--primary)] text-[color:var(--primary-text)]" do
+      = icon("fa-solid", "plus", class: "text-sm")
+      New Part

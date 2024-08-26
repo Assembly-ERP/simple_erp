@@ -2,13 +2,6 @@
 %html
   %head
     = render "layouts/head"
-    :css
-      :root {
-        --primary: #214290;
-        --primary-text: #fff;
-        --secondary: #589245;
-        --secondary-text: #fff;
-      }
   %body.flex.flex-col
     = render FlashComponent.new
     = render "layouts/operation_navbar"
