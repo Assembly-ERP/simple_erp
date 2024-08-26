@@ -2,7 +2,7 @@
 %html
   %head
     = render "layouts/head"
-  %body.flex.flex-col
+  %body.flex.flex-col{style: theme}
     = render FlashComponent.new
     %main
       = yield

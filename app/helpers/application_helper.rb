@@ -3,6 +3,10 @@
 module ApplicationHelper
   include Pagy::Frontend
 
+  def theme
+    '--primary: #214290; --primary-text: #fff; --secondary: #589245; --secondary-text: #fff;'
+  end
+
   def orders_path_for(user)
     if user.operational_user?
       operational_portal_orders_path
