@@ -1,5 +1,15 @@
 Rails.application.routes.draw do
-  root 'home#index'
+  unauthenticated :user do
+    root 'home#index'
+  end
+
+  authenticated :user, -> { _1.operational_user? } do
+    get '/', to: redirect('/operational_portal')
+  end
+
+  authenticated :user, -> { _1.customer_user? } do
+    get '/', to: redirect('/customer')
+  end
 
   # Auth
   devise_for :users, controllers: {
