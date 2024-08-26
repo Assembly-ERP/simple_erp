@@ -6,6 +6,10 @@ class OrderStatus < ApplicationRecord
   def self.operation_default_id
     find_by(operation_default: true).id
   end
+
+  def self.customer_default_id
+    find_by(customer_default: true).id
+  end
 end
 
 # == Schema Information
