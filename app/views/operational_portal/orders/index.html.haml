@@ -17,7 +17,7 @@
               %td= link_to "Order ##{order.id}", operational_portal_order_path(order), class: "hover:underline"
               %td= order.customer_name
               %td= order.status
-              %td= order.total_amount
+              %td= number_to_currency(order.total_amount, unit: "$", precision: 2)
               %td= order.created_at
               %td.flex.justify-end.mr-2
                 .relative{data: {controller: "dropdown"}}

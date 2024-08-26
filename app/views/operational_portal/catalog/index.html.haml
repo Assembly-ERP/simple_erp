@@ -17,7 +17,7 @@
         %tbody
           - @products.each do |product|
             %tr
-              %td= link_to product.name, operational_portal_product_path(product)
+              %td= link_to product.name, operational_portal_product_path(product), class: "hover:underline"
               %td= number_to_currency(product.price, unit: "$", precision: 2)
               %td= product.description
               %td.flex.gap-2
@@ -43,7 +43,7 @@
         %tbody
           - @parts.each do |part|
             %tr
-              %td= link_to part.name, operational_portal_part_path(part)
+              %td= link_to part.name, operational_portal_part_path(part), class: "hover:underline"
               %td= number_to_currency(part.price, unit: "$", precision: 2)
               %td
                 - if part.inventory
