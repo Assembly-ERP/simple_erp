@@ -15,8 +15,9 @@ class CreateOrderStatuses < ActiveRecord::Migration[7.1]
 
     reversible do |dir|
       dir.up do
-        OrderStatus.create(name: 'Pre Order', locked: false, inventory: false, operation_default: true)
-        OrderStatus.create(name: 'New', locked: false, inventory: true, customer_default: true)
+        OrderStatus.create(name: 'Pre Order', locked: false, inventory: false, operation_default: true,
+                           customer_default: true)
+        OrderStatus.create(name: 'New', locked: false, inventory: true)
         OrderStatus.create(name: 'Submitted', locked: true, inventory: true)
         OrderStatus.create(name: 'Cancelled', locked: true, inventory: true, reversed: true)
         OrderStatus.create(name: 'Returned', locked: true, inventory: true, reversed: true)
