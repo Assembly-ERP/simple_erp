@@ -1,23 +1,12 @@
-# config/routes.rb
 Rails.application.routes.draw do
   root 'home#index'
 
-  # # API namespace setup
-  # namespace :api do
-  #   namespace :v1 do
-  #     resources :products
-  #     resources :parts
-  #     resources :orders
-  #     resources :customers
-  #     resources :support_tickets
-  #     resources :webhooks
-  #   end
-  # end
-
+  # Auth
   devise_for :users, controllers: {
     registrations: 'users/registrations'
   }
 
+  # Dashboards
   get '/operational_portal', to: 'operational_portal/dashboard#index', as: :operational_root
   get '/customer', to: 'customer_portal/dashboard#index', as: :customer_root
 
@@ -89,14 +78,8 @@ Rails.application.routes.draw do
   resources :products, only: %i[index show]
   resources :parts, only: %i[index show]
 
-  # Search route
-  get 'search', to: 'search#index'
-
   # Health check route for application monitoring
   get 'up' => 'rails/health#show', as: :rails_health_check
-
-  # Catch-all route to handle undefined routes
-  # match '*path', to: 'application#routing_error', via: :all
 end
 
 # == Route Map
@@ -143,6 +126,7 @@ end
 #                                                        PATCH  /operational_portal/parts/:id(.:format)                                                           operational_portal/parts#update
 #                                                        PUT    /operational_portal/parts/:id(.:format)                                                           operational_portal/parts#update
 #                                                        DELETE /operational_portal/parts/:id(.:format)                                                           operational_portal/parts#destroy
+#                    sync_price_operational_portal_order POST   /operational_portal/orders/:id/sync_price(.:format)                                               operational_portal/orders#sync_price
 #               search_results_operational_portal_orders GET    /operational_portal/orders/search_results(.:format)                                               operational_portal/orders#search_results
 #                              operational_portal_orders GET    /operational_portal/orders(.:format)                                                              operational_portal/orders#index
 #                                                        POST   /operational_portal/orders(.:format)                                                              operational_portal/orders#create

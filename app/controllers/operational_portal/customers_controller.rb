@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module OperationalPortal
-  class CustomersController < ApplicationController
+  class CustomersController < OperationalPortal::BaseController
     before_action :authenticate_user!
     before_action :ensure_operational_user
     before_action :set_customer, only: %i[show edit update destroy]

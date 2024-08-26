@@ -26,7 +26,7 @@ class Order < ApplicationRecord
 
   # Validations
   validates :total_amount, numericality: { greater_than_or_equal_to: 0, only_float: true }
-  validates :order_details, presence: { message: 'must have at least one item' }
+  validates :order_details, presence: { message: I18n.t('errors.orders.order_details_present') }
 
   # Generators
   after_save :calculate_total_amount, if: :calculate_total_amount_condition?
