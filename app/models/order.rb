@@ -26,6 +26,9 @@ class Order < ApplicationRecord
 
   # Validations
   validates :total_amount, numericality: { greater_than_or_equal_to: 0, only_float: true }
+  validates :discount_percentage, numericality: {
+    greater_than_or_equal_to: 0, less_than_or_equal_to: 100, only_float: true
+  }
   validates :order_details, presence: { message: I18n.t('errors.orders.order_details_present') }
 
   # Generators
@@ -46,12 +49,14 @@ end
 #
 # Table name: orders
 #
-#  id              :bigint           not null, primary key
-#  total_amount    :decimal(10, 2)   default(0.0)
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  customer_id     :bigint           not null
-#  order_status_id :bigint           not null
+#  id                  :bigint           not null, primary key
+#  discount_percentage :decimal(5, 2)    default(0.0)
+#  shipping_price      :decimal(10, 2)   default(0.0)
+#  total_amount        :decimal(10, 2)   default(0.0)
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  customer_id         :bigint           not null
+#  order_status_id     :bigint           not null
 #
 # Indexes
 #

@@ -100,6 +100,10 @@
     @apply px-4 py-3 text-start font-medium;
   }
 
+  table tbody tr {
+    @apply hover:bg-gray-50;
+  }
+
   table tbody tr td {
     @apply px-4 py-3;
   }
