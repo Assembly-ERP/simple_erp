@@ -7,6 +7,10 @@ module ApplicationHelper
     '--primary: #214290; --primary-text: #fff; --secondary: #589245; --secondary-text: #fff;'
   end
 
+  def value_from_percentage(value, percentage)
+    value.to_f * (percentage.to_f / 100).to_f
+  end
+
   def orders_path_for(user)
     if user.operational_user?
       operational_portal_orders_path
