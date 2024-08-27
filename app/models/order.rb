@@ -5,12 +5,16 @@ class Order < ApplicationRecord
   belongs_to :customer
   belongs_to :order_status
 
+  has_one :order_assignee, dependent: :destroy
   has_many :order_details, dependent: :destroy
   has_many :products, through: :order_details
   has_many :parts, through: :order_details
   has_many :poly_attributes, as: :attributable, dependent: :destroy
 
   accepts_nested_attributes_for :order_details, allow_destroy: true
+  accepts_nested_attributes_for :order_assignee,
+                                allow_destroy: true,
+                                reject_if: proc { |attribute| attribute[:user_id].blank? }
 
   # Scopes
   scope :with_order_status,
@@ -38,9 +42,8 @@ class Order < ApplicationRecord
 
   def calculate_total_amount
     base_price = order_details.map { |od| od.price.to_f * od.quantity.to_i }.sum
-    price_and_shipping = base_price.to_f + shipping_price.to_f
-    discount_amount = price_and_shipping.to_f * (discount_percentage.to_f / 100).to_f
-    total_amount = price_and_shipping - discount_amount
+    discount_amount = base_price.to_f * (discount_percentage.to_f / 100).to_f
+    total_amount = (base_price.to_f - discount_amount.to_f) + shipping_price.to_f
 
     update_column(:price, base_price)
     update_column(:total_amount, total_amount)
