@@ -1,24 +1,28 @@
-/ app/views/operational_portal/orders/show.html.erb
-.order-show-container{"data-controller" => "order-status", "data-order-status-order-id-value" => "#{@order.id}"}
-  %h1 Order Details
-  %p
-    %strong Order ID:
-    = @order.id
-  %p
-    %strong Customer:
-    = @order.customer.name
-  %p
-    %strong Status:
-    = @order.order_status.name
-  %p
-    %strong Order Date:
-    %span.local-time{"data-time" => "#{@order.created_at.iso8601}"}= @order.created_at.strftime("%B %d, %Y %I:%M %p")
-  %p
-    %strong Total Amount:
-    = number_to_currency(@order.total_amount)
-  %h2 Items
-  - if @order.order_details.any?
-    %table.order-show-items-table
+.py-6.flex.flex-col.gap-5
+  .px-4.py-3.border.shadow.round.bg-white.rounded
+    %h1.mb-1 Order Details
+    %p
+      %strong Order ID:
+      = @order.id
+    %p
+      %strong Customer:
+      = @order.customer.name
+    %p
+      %strong Status:
+      = @order.order_status.name
+    %p
+      %strong Order Date:
+      %span.local-time{"data-time" => "#{@order.created_at.iso8601}"}= @order.created_at.strftime("%B %d, %Y %I:%M %p")
+    %p
+      %strong Total Amount:
+      = number_to_currency(@order.total_amount)
+
+  - order_details = @order.order_details.with_part_and_product
+
+  .table-primary
+    .px-4.py-3
+      %h2.text-lg.font-semibold Parts
+    %table
       %thead
         %tr
           %th Item
@@ -27,32 +31,19 @@
           %th Price
           %th Subtotal
       %tbody
-        - @order.order_details.each do |item|
-          %tr
-            %td
-              - if item.product
-                = item.product.name
-              - elsif item.part
-                = item.part.name
-              - else
-                Unknown Item
-            %td= item.product ? 'Product' : 'Part'
-            %td= item.quantity || 'N/A'
-            %td= number_to_currency(item.price) if item.price
-            %td
-              - if item.quantity && item.price
-                = number_to_currency(item.quantity * item.price)
-              - else
-                N/A
-  - else
-    %p No items in this order.
-  = link_to 'Back to Orders', operational_portal_orders_path, class: "btn btn-secondary", data: { turbo: false }
-  %button#save-changes.order-show-save-changes{"data-action" => "click->order-status#save", "data-order-status-target" => "save", :style => "display: none;"} Save Changes
-/ Navigation warning modal
-#navigation-warning-modal.order-show-modal{:style => "display: none;"}
-  .order-show-modal-content
-    %h2 Unsaved Changes
-    %p You have unsaved changes on this order. Would you like to save the changes?
-    %button{"data-action" => "click->order-status#saveAndNavigate"} Yes
-    %button{"data-action" => "click->order-status#discardAndNavigate"} No
-    %button.order-show-close-modal{"data-action" => "click->order-status#cancelNavigation"} ×
+        - if order_details.any?
+          - order_details.each do |item|
+            %tr
+              %td
+                - if item.product_name
+                  = item.product_name
+                - elsif item.part_name
+                  = item.part_name
+                - else
+                  Unknown Item
+              %td= item.product_name ? 'Product' : 'Part'
+              %td= item.quantity || 'N/A'
+              %td= number_to_currency(item.price)
+              %td
+                = number_to_currency(item.subtotal)
+  = link_to 'Edit Order', edit_operational_portal_order_path(@order), class: 'w-fit btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]'
