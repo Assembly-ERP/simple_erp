@@ -1,5 +1,3 @@
-.mx-auto.w-full{class: "max-w-[700px]"}
-  .py-6
-    %h1.text-2xl.font-semibold.mb-4 Edit Part
-    = render "form", model: @part, url: operational_portal_part_path, btn_text: "Update Part"
-    = link_to 'back', operational_portal_catalog_index_path, class: "btn btn-secondary"
+.mx-auto.w-full.py-6
+  %h1.text-2xl.font-semibold.mb-4 Edit Part
+  = render "form", model: @part, url: operational_portal_part_path, btn_text: "Update Part"

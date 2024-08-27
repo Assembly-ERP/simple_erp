@@ -8,7 +8,7 @@ module OperationalPortal
       products = Product.catalog
       parts = Part.catalog
 
-      @items = Product.from("(#{products.to_sql} UNION #{parts.to_sql}) products")
+      @items = Product.from("(#{products.to_sql} UNION #{parts.to_sql}) products").order(id: :desc)
     end
   end
 end

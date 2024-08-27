@@ -7,6 +7,10 @@ export default class extends Controller {
     "target",
     "template",
     "addedItems",
+    "summaryPrice",
+    "summaryShipping",
+    "summaryDiscount",
+    "summaryTotal",
     "searchItems",
     "searchInput",
     "searchByRadio",
@@ -15,6 +19,60 @@ export default class extends Controller {
   static values = {
     wrapperSelector: { type: String, default: ".nested-form-wrapper" },
   };
+
+  calculateSummary() {
+    const price = Number(this.summaryPriceTarget.dataset.value);
+    const shipping = Number(this.summaryShippingTarget.dataset.value);
+    const discount = Number(this.summaryDiscountTarget.dataset.value);
+
+    const priceAndShipping = price + shipping;
+    const discountAmount = priceAndShipping * (discount / 100);
+    const total = priceAndShipping - discountAmount;
+
+    this.summaryDiscountTarget.innerHTML = this.toLocalePrice(
+      discountAmount,
+      "-$",
+    );
+    this.summaryPriceTarget.innerHTML = this.toLocalePrice(price);
+    this.summaryShippingTarget.innerHTML = this.toLocalePrice(shipping);
+    this.summaryTotalTarget.innerHTML = this.toLocalePrice(total);
+  }
+
+  get basePriceCalc() {
+    let sum = 0;
+    for (const el of this.addedItems) {
+      sum += Number(el.dataset.price) * Number(el.dataset.qty);
+    }
+    return sum;
+  }
+
+  discountInput(event) {
+    if (Number(event.target.value) < 0)
+      event.target.value = Math.abs(event.target.value);
+    else if (Number(event.target.value) > 100) {
+      event.target.value = 100;
+    } else if (
+      (event.target.value != "" || event.data == "e") &&
+      Number(event.target.value) == 0
+    )
+      event.target.value = 0;
+
+    this.summaryDiscountTarget.dataset.value = event.target.value;
+    this.calculateSummary();
+  }
+
+  shippingInput(event) {
+    if (Number(event.target.value) < 0)
+      event.target.value = Math.abs(event.target.value);
+    else if (
+      (event.target.value != "" || event.data == "e") &&
+      Number(event.target.value) == 0
+    )
+      event.target.value = 0;
+
+    this.summaryShippingTarget.dataset.value = event.target.value;
+    this.calculateSummary();
+  }
 
   addToItem(e) {
     e.preventDefault();
@@ -61,6 +119,8 @@ export default class extends Controller {
       this.targetTarget.insertAdjacentHTML("beforebegin", template);
     else replaceEl.outerHTML = template;
     this.hideAndShowEmpty();
+    this.summaryPriceTarget.dataset.value = this.basePriceCalc;
+    this.calculateSummary();
   }
 
   remove(e) {
@@ -76,10 +136,9 @@ export default class extends Controller {
     }
 
     this.resetSearchItem(e.target.dataset.pid, e.target.dataset.type);
-
-    const event = new CustomEvent("rails-nested-form:remove", { bubbles: !0 });
-    this.element.dispatchEvent(event);
     this.hideAndShowEmpty();
+    this.summaryPriceTarget.dataset.value = this.basePriceCalc;
+    this.calculateSummary();
   }
 
   hideAndShowEmpty() {
@@ -164,6 +223,16 @@ export default class extends Controller {
     this.searchInputTarget.placeholder = `Search ${e.target.value}`;
     this.searchInputTarget.value = "";
     this.search();
+  }
+
+  toLocalePrice(price, currency = "$") {
+    return (
+      currency +
+      price.toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })
+    );
   }
 
   get searchByValue() {

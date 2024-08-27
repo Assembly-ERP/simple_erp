@@ -26,6 +26,9 @@ class Order < ApplicationRecord
 
   # Validations
   validates :total_amount, numericality: { greater_than_or_equal_to: 0, only_float: true }
+  validates :discount_percentage, numericality: {
+    greater_than_or_equal_to: 0, less_than_or_equal_to: 100, only_float: true
+  }
   validates :order_details, presence: { message: I18n.t('errors.orders.order_details_present') }
 
   # Generators
@@ -34,7 +37,13 @@ class Order < ApplicationRecord
   private
 
   def calculate_total_amount
-    update_column(:total_amount, order_details.map { |od| od.price.to_f * od.quantity.to_i }.sum)
+    base_price = order_details.map { |od| od.price.to_f * od.quantity.to_i }.sum
+    price_and_shipping = base_price.to_f + shipping_price.to_f
+    discount_amount = price_and_shipping.to_f * (discount_percentage.to_f / 100).to_f
+    total_amount = price_and_shipping - discount_amount
+
+    update_column(:price, base_price)
+    update_column(:total_amount, total_amount)
   end
 
   def calculate_total_amount_condition?
@@ -46,12 +55,15 @@ end
 #
 # Table name: orders
 #
-#  id              :bigint           not null, primary key
-#  total_amount    :decimal(10, 2)   default(0.0)
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
-#  customer_id     :bigint           not null
-#  order_status_id :bigint           not null
+#  id                  :bigint           not null, primary key
+#  discount_percentage :decimal(5, 2)    default(0.0)
+#  price               :decimal(10, 2)   default(0.0)
+#  shipping_price      :decimal(10, 2)   default(0.0)
+#  total_amount        :decimal(10, 2)   default(0.0)
+#  created_at          :datetime         not null
+#  updated_at          :datetime         not null
+#  customer_id         :bigint           not null
+#  order_status_id     :bigint           not null
 #
 # Indexes
 #
