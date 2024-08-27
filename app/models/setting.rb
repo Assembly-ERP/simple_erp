@@ -24,7 +24,7 @@ class Setting < ApplicationRecord
 
   def recalculate_part_prices
     Part.where(manual_price: false).find_each do |part|
-      part.update(price: part.calculate_price)
+      part.update(updated_at: Time.zone.now)
     end
   end
 end

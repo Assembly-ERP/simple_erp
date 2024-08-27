@@ -25,9 +25,8 @@ export default class extends Controller {
     const shipping = Number(this.summaryShippingTarget.dataset.value);
     const discount = Number(this.summaryDiscountTarget.dataset.value);
 
-    const priceAndShipping = price + shipping;
-    const discountAmount = priceAndShipping * (discount / 100);
-    const total = priceAndShipping - discountAmount;
+    const discountAmount = price * (discount / 100);
+    const total = price - discountAmount + shipping;
 
     this.summaryDiscountTarget.innerHTML = this.toLocalePrice(
       discountAmount,
