@@ -78,7 +78,7 @@ module OperationalPortal
 
     def order_params
       params.require(:order)
-            .permit(:status, :customer_id, :order_status_id,
+            .permit(:status, :customer_id, :order_status_id, :shipping_price, :discount_percentage,
                     order_details_attributes: %i[id product_id part_id quantity price _destroy])
     end
   end

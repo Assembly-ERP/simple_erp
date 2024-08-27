@@ -1,10 +1,17 @@
 = form_with(model: @order, url: path, html: {class: "grid gap-5", data: {controller: "orders--form"}}) do |form|
   - if @order.errors.any?
     = render ErrorCardComponent.new errors: @order.errors.full_messages, label: "Validations"
-  .field
-    = form.label :customer_id, "Select Customer"
-    = form.collection_select :customer_id, Customer.all, :id, :name, {prompt: '--Select Customer--'}, {required: true, class: "input-primary"}
-  = form.hidden_field :order_status_id, value: OrderStatus.operation_default_id
+  - if @order.new_record?
+    .field
+      = form.label :customer_id, "Select Customer"
+      = form.collection_select :customer_id, Customer.all, :id, :name, {prompt: '--Select Customer--'}, {required: true, class: "input-primary"}
+    = form.hidden_field :order_status_id, value: OrderStatus.operation_default_id
+  - else
+    .flex.bg-white.h-20.rounded-lg.border.px-4.py-5.border-gray-300
+      .flex.items-center.gap-2
+        %h2.text-lg.font-medium= @order.customer.name
+        %button.rounded-md.bg-gray-400.hover:bg-gray-500.h-fit.text-xs.text-white{class: "px-1.5 py-0.5", type: "button"}
+          = icon("fa-solid", "arrow-right", class: "-rotate-45")
   - if @order.new_record? || can?(:update, @order)
     = render "search"
   %template{data: {"orders--form-target": "template"}}
@@ -22,7 +29,7 @@
           = icon("fa-solid", "box-open", class: "text-5xl")
           %span
             Add at least one item
-    = render "order_summary"
+    = render "order_summary", form: form
   .flex
     - if @order.new_record? || can?(:update, @order)
       = form.submit @order.new_record? ? "Save Order" : "Update Order", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"
