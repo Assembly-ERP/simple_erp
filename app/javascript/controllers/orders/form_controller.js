@@ -29,10 +29,10 @@ export default class extends Controller {
     const tax = Number(this.summaryTaxTarget.dataset.value);
 
     const discountAmount = price * (discount / 100);
-    const subtotal = price + tax - discountAmount;
+    const subtotal = price - discountAmount + tax;
     const total = subtotal + shipping;
 
-    this.summarySubtotalTarget.dataset.value = tax;
+    this.summarySubtotalTarget.dataset.value = subtotal;
     this.summaryTaxTarget.innerHTML = this.toLocalePrice(tax);
     this.summarySubtotalTarget.innerHTML = this.toLocalePrice(subtotal);
     this.summaryPriceTarget.innerHTML = this.toLocalePrice(price);

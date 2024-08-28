@@ -12,7 +12,7 @@
             .text-base.text-gray-500 Discount
             = form.number_field :discount_percentage, class: "text-gray-600 border-none ring-1 ring-gray-300 focus:ring-gray-400 focus:border-none rounded-md p-0 w-14 text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none", step: :any, data: {action: "input->orders--form#discountInput change->orders--form#discountChange"}
             %span.text-gray-500 %
-        - discount_value = value_from_percentage(@order.price + @order.shipping_price, @order.discount_percentage)
+        - discount_value = value_from_percentage(@order.price, @order.discount_percentage)
         .text-base.font-medium.text-green-600{data: {"orders--form-target": "summaryDiscount", value: @order.discount_percentage}}
           = "-$#{number_with_precision(discount_value, precision: 2)}"
       .flex.items-center.justify-between.gap-4
@@ -21,7 +21,7 @@
           = form.number_field :tax, class: "text-gray-600 border-none ring-1 ring-gray-300 focus:ring-gray-400 focus:border-none rounded-md p-0 w-14 text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none", step: :any, data: {action: "input->orders--form#taxInput change->orders--form#taxChange"}
         .text-base.font-medium{data: {"orders--form-target": "summaryTax", value: @order.tax}}
           = number_to_currency(@order.tax, unit: "$", precision: 2)
-      - subtotal = @order.price + @order.tax - discount_value
+      - subtotal = @order.price - discount_value + @order.tax.to_f
       .flex.items-center.justify-between.gap-4
         .text-base.font-normal.text-gray-500 Subtotal
         .text-base.font-medium.text-gray-900{data: {"orders--form-target": "summarySubtotal", value: subtotal }}
