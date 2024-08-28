@@ -56,7 +56,8 @@ class Part < ApplicationRecord
   end
 
   def recalculate_products_condition?
-    price_previously_changed? || in_stock_previously_changed? || inventory_previously_changed?
+    price_previously_changed? || in_stock_previously_changed? || inventory_previously_changed? ||
+      updated_at_previously_changed?
   end
 
   def set_price_value
