@@ -10,6 +10,8 @@ export default class extends Controller {
     "summaryPrice",
     "summaryShipping",
     "summaryDiscount",
+    "summaryTax",
+    "summarySubtotal",
     "summaryTotal",
     "searchItems",
     "searchInput",
@@ -24,17 +26,22 @@ export default class extends Controller {
     const price = Number(this.summaryPriceTarget.dataset.value);
     const shipping = Number(this.summaryShippingTarget.dataset.value);
     const discount = Number(this.summaryDiscountTarget.dataset.value);
+    const tax = Number(this.summaryTaxTarget.dataset.value);
 
     const discountAmount = price * (discount / 100);
-    const total = price - discountAmount + shipping;
+    const subtotal = price + tax - discountAmount;
+    const total = subtotal + shipping;
 
+    this.summarySubtotalTarget.dataset.value = tax;
+    this.summaryTaxTarget.innerHTML = this.toLocalePrice(tax);
+    this.summarySubtotalTarget.innerHTML = this.toLocalePrice(subtotal);
+    this.summaryPriceTarget.innerHTML = this.toLocalePrice(price);
+    this.summaryShippingTarget.innerHTML = this.toLocalePrice(shipping);
+    this.summaryTotalTarget.innerHTML = this.toLocalePrice(total);
     this.summaryDiscountTarget.innerHTML = this.toLocalePrice(
       discountAmount,
       "-$",
     );
-    this.summaryPriceTarget.innerHTML = this.toLocalePrice(price);
-    this.summaryShippingTarget.innerHTML = this.toLocalePrice(shipping);
-    this.summaryTotalTarget.innerHTML = this.toLocalePrice(total);
   }
 
   get basePriceCalc() {
@@ -60,6 +67,13 @@ export default class extends Controller {
     this.calculateSummary();
   }
 
+  discountChange(event) {
+    event.target.value = event.target.value || 0;
+    event.target.blur();
+    this.summaryDiscountTarget.dataset.value = event.target.value;
+    this.calculateSummary();
+  }
+
   shippingInput(event) {
     if (Number(event.target.value) < 0)
       event.target.value = Math.abs(event.target.value);
@@ -70,6 +84,33 @@ export default class extends Controller {
       event.target.value = 0;
 
     this.summaryShippingTarget.dataset.value = event.target.value;
+    this.calculateSummary();
+  }
+
+  shippingChange(event) {
+    event.target.value = event.target.value || 0;
+    event.target.blur();
+    this.summaryShippingTarget.dataset.value = event.target.value;
+    this.calculateSummary();
+  }
+
+  taxInput(event) {
+    if (Number(event.target.value) < 0)
+      event.target.value = Math.abs(event.target.value);
+    else if (
+      (event.target.value != "" || event.data == "e") &&
+      Number(event.target.value) == 0
+    )
+      event.target.value = 0;
+
+    this.summaryTaxTarget.dataset.value = event.target.value;
+    this.calculateSummary();
+  }
+
+  taxChange(event) {
+    event.target.value = event.target.value || 0;
+    event.target.blur();
+    this.summaryTaxTarget.dataset.value = event.target.value;
     this.calculateSummary();
   }
 
