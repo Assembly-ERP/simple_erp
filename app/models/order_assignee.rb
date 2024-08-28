@@ -3,6 +3,14 @@
 class OrderAssignee < ApplicationRecord
   belongs_to :order
   belongs_to :user
+
+  validate :user_must_under_customer
+
+  private
+
+  def user_must_under_customer
+    errors.add(:user, 'must be from the order customer') unless user.customer_id == order.customer_id
+  end
 end
 
 # == Schema Information

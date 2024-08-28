@@ -57,11 +57,7 @@ export default class extends Controller {
       event.target.value = Math.abs(event.target.value);
     else if (Number(event.target.value) > 100) {
       event.target.value = 100;
-    } else if (
-      (event.target.value != "" || event.data == "e") &&
-      Number(event.target.value) == 0
-    )
-      event.target.value = 0;
+    }
 
     this.summaryDiscountTarget.dataset.value = event.target.value;
     this.calculateSummary();
@@ -77,11 +73,6 @@ export default class extends Controller {
   shippingInput(event) {
     if (Number(event.target.value) < 0)
       event.target.value = Math.abs(event.target.value);
-    else if (
-      (event.target.value != "" || event.data == "e") &&
-      Number(event.target.value) == 0
-    )
-      event.target.value = 0;
 
     this.summaryShippingTarget.dataset.value = event.target.value;
     this.calculateSummary();
@@ -97,11 +88,6 @@ export default class extends Controller {
   taxInput(event) {
     if (Number(event.target.value) < 0)
       event.target.value = Math.abs(event.target.value);
-    else if (
-      (event.target.value != "" || event.data == "e") &&
-      Number(event.target.value) == 0
-    )
-      event.target.value = 0;
 
     this.summaryTaxTarget.dataset.value = event.target.value;
     this.calculateSummary();
