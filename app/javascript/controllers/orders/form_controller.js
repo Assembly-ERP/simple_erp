@@ -23,6 +23,8 @@ export default class extends Controller {
   };
 
   calculateSummary() {
+    this.summaryPriceTarget.dataset.value = this.basePriceCalc;
+
     const price = Number(this.summaryPriceTarget.dataset.value);
     const shipping = Number(this.summaryShippingTarget.dataset.value);
     const discount = Number(this.summaryDiscountTarget.dataset.value);
@@ -96,7 +98,6 @@ export default class extends Controller {
   taxChange(event) {
     event.target.value = event.target.value || 0;
     event.target.blur();
-    this.summaryTaxTarget.dataset.value = event.target.value;
     this.calculateSummary();
   }
 
@@ -119,6 +120,10 @@ export default class extends Controller {
   }
 
   appendPart(dataset, replaceEl = null) {
+    const itemPrice = Number(dataset.price).toLocaleString("en-US", {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    });
     const totalPrice = (
       Number(dataset.price) * Number(dataset.quantity)
     ).toLocaleString("en-US", {
@@ -133,7 +138,7 @@ export default class extends Controller {
       .replace(/{{name}}/g, dataset.name)
       .replace(/{{quantity}}/g, dataset.quantity)
       .replace(/{{type}}/g, dataset.type)
-      .replace(/{{item-price}}/g, dataset.price)
+      .replace(/{{item-price}}/g, itemPrice)
       .replace(/{{price}}/g, totalPrice)
       .replace(/{{part-id}}/g, dataset.type === "part" ? dataset.pid : "")
       .replace(
@@ -145,7 +150,6 @@ export default class extends Controller {
       this.targetTarget.insertAdjacentHTML("beforebegin", template);
     else replaceEl.outerHTML = template;
     this.hideAndShowEmpty();
-    this.summaryPriceTarget.dataset.value = this.basePriceCalc;
     this.calculateSummary();
   }
 
@@ -163,7 +167,6 @@ export default class extends Controller {
 
     this.resetSearchItem(e.target.dataset.pid, e.target.dataset.type);
     this.hideAndShowEmpty();
-    this.summaryPriceTarget.dataset.value = this.basePriceCalc;
     this.calculateSummary();
   }
 
