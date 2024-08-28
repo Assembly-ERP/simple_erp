@@ -1,18 +1,21 @@
-.grid.grid-cols-8.added-item.w-full.text-gray-900.py-3.gap-3.nested-form-wrapper{id: "item-form-#{type}_#{item_id}", data: {"new-record": f.object.new_record?.to_s, item_id: item_id, qty: quantity, price: item_price}}
+.grid.grid-cols-9.added-item.w-full.text-gray-900.py-3.gap-2.nested-form-wrapper{id: "item-form-#{type}_#{item_id}", data: {"new-record": f.object.new_record?.to_s, item_id: item_id, qty: quantity, price: item_price, override: f.object.override.to_s, controller: "orders--item"}}
   .w-60.min-w-56.whitespace-nowrap.col-span-3.pl-3
     = name
-  %div
+  .block
     .rounded-md.w-fit.text-sm.text-white.px-3.bg-gray-500{class: "py-0.5"}
       = type
-  .flex.gap-4.col-span-2
-    .whitespace-nowrap
-      %span.font-medium.text-gray-600 qty:
-      %span= quantity
-    .whitespace-nowrap
-      %span.font-medium.text-gray-600 price:
-      %span= price.kind_of?(String) ? "$#{item_price}" : number_to_currency(item_price, unit: "$", precision: 2)
-  .font-semibold.flex.gap-1.whitespace-nowrap
-    .font-medium.text-gray-600 total:
+  .whitespace-nowrap.text-center
+    %span= "x#{quantity}"
+  .flex.items-center.gap-1
+    = f.check_box :override, class: "checkbox-primary", data: {action: "orders--item#toggleInventory"}
+    %span{class: "text-[16px]"} override
+  .whitespace-nowrap.flex.gap-4.items-center.justify-center
+    %span{class: "#{f.object.override ? "hidden" : ""}", data: {"orders--item-target": "staticPrice"}}
+      = item_price.kind_of?(String) ? "$#{item_price}" : number_to_currency(item_price, unit: "$", precision: 2)
+    %div{class: "#{f.object.override ? "" : "hidden"}"}
+      %span $
+      = f.number_field :price, value: item_price, class: "rounded border border-gray-300 w-[70px] px-0 py-0 text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none", data: {"orders--item-target": "itemPrice", action: "input->orders--item#priceChange input->orders--form#calculateSummary change->orders--form#calculateSummary"}, step: :any
+  .font-semibold.flex.whitespace-nowrap.justify-center{data: {"orders--item-target": "total"}}
     = price.kind_of?(String) ? "$#{price}" : number_to_currency(quantity * price.to_f, unit: "$", precision: 2)
   .flex.justify-end.pr-3
     %button.text-gray-400.hover:text-red-500{type: "button", data: {pid: item_id, type: type, action: "orders--form#remove"}}
