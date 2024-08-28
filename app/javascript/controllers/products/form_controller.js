@@ -56,9 +56,6 @@ export default class extends Controller {
     if (!replaceEl)
       this.targetTarget.insertAdjacentHTML("beforebegin", template);
     else replaceEl.outerHTML = template;
-
-    const event = new CustomEvent("rails-nested-form:add", { bubbles: !0 });
-    this.element.dispatchEvent(event);
     this.hideAndShowEmpty();
   }
 
