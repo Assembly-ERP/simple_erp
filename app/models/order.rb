@@ -30,6 +30,8 @@ class Order < ApplicationRecord
 
   # Validations
   validates :total_amount, numericality: { greater_than_or_equal_to: 0, only_float: true }
+  validates :price, numericality: { greater_than_or_equal_to: 0, only_float: true }
+  validates :tax, numericality: { greater_than_or_equal_to: 0, only_float: true }
   validates :discount_percentage, numericality: {
     greater_than_or_equal_to: 0, less_than_or_equal_to: 100, only_float: true
   }
