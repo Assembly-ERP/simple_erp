@@ -7,7 +7,8 @@ class OrderDetail < ApplicationRecord
   belongs_to :part, optional: true
 
   scope :with_part_and_product, lambda {
-    select('order_details.*, products.name AS product_name, parts.name AS part_name')
+    select('order_details.*, products.name AS product_name, parts.name AS part_name, ' \
+           'parts.price AS part_price, products.price AS product_price')
       .joins('LEFT JOIN products ON order_details.product_id = products.id')
       .joins('LEFT JOIN parts ON order_details.part_id = parts.id')
   }
