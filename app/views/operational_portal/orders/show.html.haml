@@ -35,6 +35,13 @@
                       = item.product_name
                     - elsif item.part_name
                       = item.part_name
+                  %td.p-4.text-base.text-gray-900
+                    - if item.product_id
+                      .rounded-lg.text-sm.border.border-purple-600.text-purple-600.w-fit.px-2{class: "px-2.5 bg-purple-600/5"}
+                        Product
+                    - elsif item.part_id
+                      .rounded-lg.text-sm.border.border-orange-600.text-orange-600.w-fit.px-2{class: "bg-orange-600/5"}
+                        Part
                   %td.p-4.text-right.text-base.text-gray-900
                     = "x#{item.quantity}"
                   %td.p-4.text-right.text-base.text-gray-900
