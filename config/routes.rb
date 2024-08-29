@@ -55,11 +55,8 @@ Rails.application.routes.draw do
     resources :settings, only: %i[index edit update]
     resources :users
     resources :customers do
-      collection do
-        get 'search', to: 'customers#search', as: :search_customers
-      end
       member do
-        get 'details', to: 'customers#details', as: :details
+        get :users
       end
     end
     resources :invitations, only: %i[new create]
