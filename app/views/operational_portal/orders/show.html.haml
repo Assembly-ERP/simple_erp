@@ -24,7 +24,7 @@
           %strong Total:
           %span
             = number_to_currency(@order.total_amount, precision: 2)
-      .border.rounded-lg.shadow.py-5.bg-white
+      .border.rounded-lg.shadow.py-2.bg-white
         .relative.overflow-x-auto
           %table.w-full.text-left.font-medium.text-gray-900
             %tbody.divide-y.divide-gray-200
@@ -35,15 +35,22 @@
                       = item.product_name
                     - elsif item.part_name
                       = item.part_name
+                  %td.p-4.text-base.text-gray-900
+                    - if item.product_id
+                      .rounded-lg.text-sm.border.border-purple-600.text-purple-600.w-fit.px-2{class: "px-2.5 bg-purple-600/5"}
+                        Product
+                    - elsif item.part_id
+                      .rounded-lg.text-sm.border.border-orange-600.text-orange-600.w-fit.px-2{class: "bg-orange-600/5"}
+                        Part
                   %td.p-4.text-right.text-base.text-gray-900
                     = "x#{item.quantity}"
                   %td.p-4.text-right.text-base.text-gray-900
                     = number_to_currency(item.price, precision: 2)
                   %td.p-4.text-right.text-base.font-bold.text-gray-900
                     = number_to_currency(item.subtotal)
-      .space-y-6.border.rounded-lg.shadow.px-4.py-5.bg-white
+      .space-y-3.border.rounded-lg.shadow.px-4.py-5.bg-white
         %h4.text-xl.font-semibold.text-gray-900 Order summary
-        .space-y-4
+        .space-y-3
           .space-y-2
             %dl.flex.items-center.justify-between.gap-4
               %dt.text-gray-500 Base price
@@ -64,7 +71,7 @@
               %dt.text-gray-500 Subtotal
               %dd.text-base.font-medium.text-gray-900
                 = number_to_currency(subtotal, precision: 2)
-          .border-t.border-gray-200.pt-2.space-y-2
+          .border-t.border-gray-200.pt-3.space-y-2
             %dl.flex.items-center.justify-between.gap-4
               %dt.text-gray-500 Shipping
               %dd.text-base.font-medium.text-gray-900
