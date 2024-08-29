@@ -16,11 +16,68 @@ export default class extends Controller {
     "searchItems",
     "searchInput",
     "searchByRadio",
+    "userAssignee",
   ];
 
   static values = {
     wrapperSelector: { type: String, default: ".nested-form-wrapper" },
   };
+
+  customerChange(e) {
+    const optionNone =
+      this.userAssigneeTarget.querySelector("option[value='']");
+
+    if (!e.target.value) {
+      this.userAssigneeTarget.disabled = true;
+      optionNone.innerHTML = "--Select User--";
+      this.clearAssigneeOptions();
+      return;
+    }
+
+    this.userAssigneeTarget.disabled = true;
+    optionNone.innerHTML = "Loading Users...";
+
+    const customerUserPath = this.userAssigneeTarget.dataset.url;
+    const path = customerUserPath.replace(":id", e.target.value);
+    this.clearAssigneeOptions();
+
+    fetch(path, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "X-CSRF-Token": document
+          .querySelector('meta[name="csrf-token"]')
+          .getAttribute("content"),
+      },
+    })
+      .then((res) => {
+        if (res.ok) {
+          optionNone.innerHTML = "--Select User--";
+          this.userAssigneeTarget.disabled = false;
+        }
+        return res.json();
+      })
+      .then((data) => this.addAssigneeOptions(data));
+  }
+
+  addAssigneeOptions(users) {
+    if (!users.length > 0) return;
+
+    const selectEl = this.userAssigneeTarget;
+    const option = document.createElement("option");
+
+    for (const user of users) {
+      option.text = user.name;
+      option.value = user.id;
+      selectEl.add(option);
+    }
+  }
+
+  clearAssigneeOptions() {
+    this.userAssigneeTarget.querySelectorAll("option").forEach((el) => {
+      if (el.value) el.remove();
+    });
+  }
 
   calculateSummary() {
     this.summaryPriceTarget.dataset.value = this.basePriceCalc;
@@ -204,23 +261,6 @@ export default class extends Controller {
     }
   }
 
-  checkSearchItem(id, type) {
-    return this.searchItemsTarget.querySelector(
-      `[id='search-item_${type}_${id}']`,
-    );
-  }
-
-  checkAddedItem(id, type) {
-    return this.addedItemsTarget.querySelector(
-      `[id='item-form-${type}_${id}']`,
-    );
-  }
-
-  get checkAddedItems() {
-    return this.addedItemsTarget.querySelectorAll("[id^=item-form-]");
-  }
-
-  // Search
   search() {
     clearTimeout(this.timeout);
     this.timeout = setTimeout(() => {
@@ -264,7 +304,23 @@ export default class extends Controller {
     );
   }
 
+  checkSearchItem(id, type) {
+    return this.searchItemsTarget.querySelector(
+      `[id='search-item_${type}_${id}']`,
+    );
+  }
+
+  checkAddedItem(id, type) {
+    return this.addedItemsTarget.querySelector(
+      `[id='item-form-${type}_${id}']`,
+    );
+  }
+
   get searchByValue() {
     return this.searchByRadioTargets.filter((radio) => radio.checked)[0].value;
+  }
+
+  get checkAddedItems() {
+    return this.addedItemsTarget.querySelectorAll("[id^=item-form-]");
   }
 }

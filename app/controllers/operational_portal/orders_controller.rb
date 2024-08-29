@@ -79,7 +79,8 @@ module OperationalPortal
     def order_params
       params.require(:order)
             .permit(:status, :customer_id, :order_status_id, :shipping_price, :discount_percentage, :tax,
-                    order_details_attributes: %i[id product_id part_id quantity price override _destroy])
+                    order_details_attributes: %i[id product_id part_id quantity price override _destroy],
+                    order_assignee_attributes: %i[id user_id _destroy])
     end
   end
 end
