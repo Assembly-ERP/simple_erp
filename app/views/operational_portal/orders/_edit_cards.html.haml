@@ -1,0 +1,49 @@
+.grid.grid-cols-4.gap-5
+  .bg-white.rounded-lg.border.px-4.py-5.border-gray-300
+    %h6.font-normal.text-gray-500.mb-1
+      Customer
+    .flex.gap-2.items-center
+      = icon("fa-solid", "shop", class: "text-gray-600")
+      %div{"data-action" => "click->dialog#backdropClose", "data-controller" => "dialog"}
+        %dialog{"data-dialog-target": "dialog"}
+          .relative.px-4.py-3{class: "w-[600px] min-h-[500px]"}
+            = turbo_frame_tag "customer_show", src: operational_portal_customer_path(@order.customer), loading: :lazy do
+              .flex.items-center.justify-center.w-full{class: "h-[500px]"}
+                = icon("fa-solid", "spinner", class: "animate-spin text-4xl text-gray-400")
+            %button.absolute.top-2.right-2.px-3.py-2.hover:bg-gray-100.rounded-lg{autofocus: "", "data-action" => "dialog#close", type: "button"}
+              = icon("fa-solid", "xmark", class: "text-xl")
+        %button.font-medium.text-gray-900.hover:underline{type: "button", "data-action" => "dialog#open", type: "button"}
+          = @order.customer.name
+  .bg-white.rounded-lg.border.px-4.py-5.border-gray-300
+    .flex.gap-3.mb-1.items-center.mb-1
+      %h6.font-normal.text-gray-500
+        Assignee
+      %button.text-gray-400.transition-colors{type: "button", class: "hover:text-[var(--primary)]"}
+        = icon("fa-solid", "pen-to-square")
+    .flex.gap-2.items-center
+      = icon("fa-solid", "user", class: "text-gray-600 mb-0.5")
+      .font-medium.text-gray-900
+        - if @order.order_assignee.present?
+          = @order.order_assignee.user.name
+        - else
+          N/A
+  .bg-white.rounded-lg.border.px-4.py-5.border-gray-300
+    .flex.gap-3.mb-1.items-center.mb-1
+      %h6.font-normal.text-gray-500
+        Status
+      %button.text-gray-400.transition-colors{type: "button", class: "hover:text-[var(--primary)]"}
+        = icon("fa-solid", "pen-to-square")
+    .flex.gap-2.items-center.hover:underline
+      = icon("fa-solid", "chart-simple", class: "text-gray-600")
+      %span.font-medium.text-gray-900
+        = @order.order_status.name
+  .bg-white.rounded-lg.border.px-4.py-5.border-gray-300
+    .flex.gap-3.mb-1.items-center.mb-1
+      %h6.font-normal.text-gray-500
+        Shipping Details
+      %button.text-gray-400.transition-colors{type: "button", class: "hover:text-[var(--primary)]"}
+        = icon("fa-solid", "pen-to-square")
+    .flex.gap-2.items-center.hover:underline
+      = icon("fa-solid", "location-dot", class: "text-gray-600")
+      %span.font-medium.text-gray-900
+        N/A

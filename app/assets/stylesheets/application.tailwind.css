@@ -175,6 +175,7 @@
 /* Customize the dialog backdrop */
 dialog {
   box-shadow: 0 0 0 100vw rgb(0 0 0 / 0.5);
+  @apply rounded-lg;
 }
 
 @keyframes fade-in {
@@ -202,4 +203,8 @@ dialog[data-dialog-target='dialog'][open] {
 
 dialog[data-dialog-target='dialog'][closing] {
   animation: fade-out 200ms forwards;
+}
+
+body:has(dialog[data-dialog-target='dialog'][open]) {
+  overflow: hidden
 }
