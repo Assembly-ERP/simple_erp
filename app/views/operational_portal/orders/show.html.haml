@@ -19,8 +19,12 @@
           = @order.order_status.name
         %p
           %strong Order Date:
-          %span.local-time{"data-time" => "#{@order.created_at.iso8601}"}= @order.created_at.strftime("%B %d, %Y %I:%M %p")
-      .border.rounded-lg.shadow.px-4.py-5.bg-white
+          %span= @order.created_at.strftime("%B %d, %Y %I:%M %p")
+        %p
+          %strong Total:
+          %span
+            = number_to_currency(@order.total_amount, precision: 2)
+      .border.rounded-lg.shadow.py-5.bg-white
         .relative.overflow-x-auto
           %table.w-full.text-left.font-medium.text-gray-900
             %tbody.divide-y.divide-gray-200
