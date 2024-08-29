@@ -8,7 +8,7 @@
     %span= "x#{quantity}"
   .whitespace-nowrap.flex.gap-1.items-center.justify-center
     %span $
-    = f.number_field :price, value: item_price.kind_of?(String) ? item_price : number_with_precision(item_price, precision: 2), class: "rounded border border-gray-300 w-[80px] px-0 py-0 text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none", data: {"orders--item-target": "itemPrice", action: "input->orders--item#priceChange input->orders--form#calculateSummary change->orders--form#calculateSummary"}, step: :any
+    = f.number_field :price, value: item_price.kind_of?(String) ? item_price : number_with_precision(item_price, precision: 2), class: "rounded border border-gray-300 w-[80px] px-0 py-0 text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none", data: {"orders--item-target": "itemPrice", action: "input->orders--item#priceInput input->orders--form#calculateSummary change->orders--form#calculateSummary change->orders--item#priceChange"}, step: :any
   .font-semibold.flex.whitespace-nowrap.justify-center{data: {"orders--item-target": "total"}}
     = price.kind_of?(String) ? "$#{price}" : number_to_currency(quantity * price.to_f, unit: "$", precision: 2)
   .flex.justify-end.pr-3
