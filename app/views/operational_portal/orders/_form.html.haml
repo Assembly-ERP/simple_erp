@@ -21,7 +21,11 @@
           %span.font-medium.text-gray-900
             = @order.customer.name
       .bg-white.rounded-lg.border.px-4.py-5.border-gray-300
-        %h6.font-normal.text-gray-500.mb-1 Assignee
+        .flex.gap-3.mb-1.items-center.mb-1
+          %h6.font-normal.text-gray-500
+            Assignee
+          %button.text-gray-400.transition-colors{class: "hover:text-[var(--primary)]"}
+            = icon("fa-solid", "pen-to-square")
         .flex.gap-2.items-center
           = icon("fa-solid", "user", class: "text-gray-600 mb-0.5")
           .font-medium.text-gray-900
@@ -30,15 +34,21 @@
             - else
               N/A
       .bg-white.rounded-lg.border.px-4.py-5.border-gray-300
-        %h6.font-normal.text-gray-500.mb-1
-          Status
+        .flex.gap-3.mb-1.items-center.mb-1
+          %h6.font-normal.text-gray-500
+            Status
+          %button.text-gray-400.transition-colors{class: "hover:text-[var(--primary)]"}
+            = icon("fa-solid", "pen-to-square")
         .flex.gap-2.items-center.hover:underline
           = icon("fa-solid", "chart-simple", class: "text-gray-600")
           %span.font-medium.text-gray-900
             = @order.order_status.name
       .bg-white.rounded-lg.border.px-4.py-5.border-gray-300
-        %h6.font-normal.text-gray-500.mb-1
-          Shipping Details
+        .flex.gap-3.mb-1.items-center.mb-1
+          %h6.font-normal.text-gray-500
+            Shipping Details
+          %button.text-gray-400.transition-colors{class: "hover:text-[var(--primary)]"}
+            = icon("fa-solid", "pen-to-square")
         .flex.gap-2.items-center.hover:underline
           = icon("fa-solid", "location-dot", class: "text-gray-600")
           %span.font-medium.text-gray-900
