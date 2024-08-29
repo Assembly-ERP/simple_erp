@@ -13,14 +13,15 @@
         %tr
           %td
             %div{"data-action" => "click->dialog#backdropClose", "data-controller" => "dialog"}
-              %dialog{class: "max-w-margin w-full h-[80%]", "data-dialog-target": "dialog"}
-                .relative.p-4{class: "w-full h-full"}
-                  %h2.text-xl.font-semibold.mb-4 Order
+              %dialog.relative{class: "max-w-margin w-full overflow-y-auto h-[70%]", "data-dialog-target": "dialog"}
+                .flex.px-8.py-2.gap-4.items-center.sticky.top-0.bg-white.justify-between.z-10.border-b
+                  %h2.text-xl.font-semibold Order
+                  %button.sticky.px-3.py-2.hover:bg-gray-100.rounded-lg{autofocus: "", "data-action" => "dialog#close", type: "button"}
+                    = icon("fa-solid", "xmark", class: "text-xl")
+                .pt-4.pb-10.px-8{class: "w-full"}
                   = turbo_frame_tag "order_show", src: operational_portal_order_path(order), loading: :lazy do
                     .flex.items-center.justify-center.w-full{class: "h-full"}
                       = icon("fa-solid", "spinner", class: "animate-spin text-4xl text-gray-400")
-                  %button.absolute.top-2.right-2.px-3.py-2.hover:bg-gray-100.rounded-lg{autofocus: "", "data-action" => "dialog#close", type: "button"}
-                    = icon("fa-solid", "xmark", class: "text-xl")
               %button.font-medium.text-gray-900.hover:underline{type: "button", "data-action" => "dialog#open", type: "button"}
                 = "Order ##{order.id}"
           %td= order.customer_name

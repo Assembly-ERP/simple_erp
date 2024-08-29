@@ -1,8 +1,7 @@
 .py-6.flex.flex-col.gap-5
   = turbo_frame_tag "order_show" do
     .flex.flex-col.gap-5
-      .px-4.py-3.border.shadow.round.bg-white.rounded
-        %h1.mb-1 Order Details
+      .px-4.py-3.border.shadow.rounded-lg.bg-white.rounded.grid.grid-cols-2.gap-1
         %p
           %strong Order ID:
           = @order.id
@@ -10,42 +9,64 @@
           %strong Customer:
           = @order.customer.name
         %p
+          %strong Assignee:
+          - if @order.order_assignee.present?
+            = @order.order_assignee.user.name
+          - else
+            N/A
+        %p
           %strong Status:
           = @order.order_status.name
         %p
           %strong Order Date:
           %span.local-time{"data-time" => "#{@order.created_at.iso8601}"}= @order.created_at.strftime("%B %d, %Y %I:%M %p")
-        %p
-          %strong Total Amount:
-          = number_to_currency(@order.total_amount)
-
-      - order_details = @order.order_details.with_part_and_product
-
-      .table-primary
-        .px-4.py-3
-          %h2.text-lg.font-semibold Parts
-        %table
-          %thead
-            %tr
-              %th Item
-              %th Type
-              %th Quantity
-              %th Price
-              %th Subtotal
-          %tbody
-            - if order_details.any?
-              - order_details.each do |item|
+      .border.rounded-lg.shadow.px-4.py-5.bg-white
+        .relative.overflow-x-auto
+          %table.w-full.text-left.font-medium.text-gray-900
+            %tbody.divide-y.divide-gray-200
+              - @order.order_details.with_part_and_product.each do |item|
                 %tr
-                  %td
+                  %td.whitespace-nowrap.py-4{class: "md:w-[384px]"}
                     - if item.product_name
                       = item.product_name
                     - elsif item.part_name
                       = item.part_name
-                    - else
-                      Unknown Item
-                  %td= item.product_name ? 'Product' : 'Part'
-                  %td= item.quantity || 'N/A'
-                  %td= number_to_currency(item.price)
-                  %td
+                  %td.p-4.text-right.text-base.text-gray-900
+                    = "x#{item.quantity}"
+                  %td.p-4.text-right.text-base.text-gray-900
+                    = number_to_currency(item.price, precision: 2)
+                  %td.p-4.text-right.text-base.font-bold.text-gray-900
                     = number_to_currency(item.subtotal)
+      .space-y-6.border.rounded-lg.shadow.px-4.py-5.bg-white
+        %h4.text-xl.font-semibold.text-gray-900 Order summary
+        .space-y-4
+          .space-y-2
+            %dl.flex.items-center.justify-between.gap-4
+              %dt.text-gray-500 Base price
+              %dd.text-base.font-medium.text-gray-900                
+                = number_to_currency(@order.price, precision: 2)
+            - discount_value = value_from_percentage(@order.price, @order.discount_percentage)
+            %dl.flex.items-center.justify-between.gap-4
+              %dt.text-gray-500 
+                = "Discount (#{@order.discount_percentage}%)"
+              %dd.text-base.font-medium.text-green-500
+                = "-#{number_to_currency(discount_value, precision: 2)}"
+            %dl.flex.items-center.justify-between.gap-4
+              %dt.text-gray-500 Tax
+              %dd.text-base.font-medium.text-gray-900
+                = number_to_currency(@order.tax, precision: 2)
+            - subtotal = @order.price - discount_value + @order.tax.to_f
+            %dl.flex.items-center.justify-between.gap-4
+              %dt.text-gray-500 Subtotal
+              %dd.text-base.font-medium.text-gray-900
+                = number_to_currency(subtotal, precision: 2)
+          .border-t.border-gray-200.pt-2.space-y-2
+            %dl.flex.items-center.justify-between.gap-4
+              %dt.text-gray-500 Shipping
+              %dd.text-base.font-medium.text-gray-900
+                = number_to_currency(@order.shipping_price, precision: 2)
+            %dl.flex.items-center.justify-between.gap-4
+              %dt.text-lg.font-bold.text-gray-900 Total
+              %dd.text-lg.font-bold.text-gray-900
+                = number_to_currency(@order.total_amount, precision: 2)
   = link_to 'Edit Order', edit_operational_portal_order_path(@order), class: 'w-fit btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]'
