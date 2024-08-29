@@ -1,4 +1,4 @@
-.grid.grid-cols-9.added-item.w-full.text-gray-900.gap-2.nested-form-wrapper{class: "py-3.5", id: "item-form-#{type}_#{item_id}", data: {"new-record": f.object.new_record?.to_s, item_id: item_id, qty: quantity, price: item_price, original_price: f.object.new_record? ? item_price : f.object&.product_price || f.object&.part_price, override: f.object.override.to_s, controller: "orders--item"}}
+.grid.grid-cols-8.added-item.w-full.text-gray-900.gap-2.nested-form-wrapper{class: "py-3.5", id: "item-form-#{type}_#{item_id}", data: {"new-record": f.object.new_record?.to_s, item_id: item_id, qty: quantity, price: item_price, original_price: f.object.new_record? ? item_price : f.object&.product_price || f.object&.part_price, override: f.object.override.to_s, controller: "orders--item"}}
   .w-60.min-w-56.whitespace-nowrap.col-span-3.pl-3
     = name
   .block
@@ -6,15 +6,9 @@
       = type
   .whitespace-nowrap.text-center
     %span= "x#{quantity}"
-  .flex.items-center.gap-1
-    = f.check_box :override, class: "checkbox-primary", data: {action: "orders--item#toggleInventory orders--form#calculateSummary"}
-    %span{class: "text-[16px]"} override
-  .whitespace-nowrap.flex.gap-4.items-center.justify-center
-    %span{class: "#{f.object.override ? "hidden" : ""}", data: {"orders--item-target": "staticPrice"}}
-      = item_price.kind_of?(String) ? "$#{item_price}" : number_to_currency(item_price, unit: "$", precision: 2)
-    %div{class: "#{f.object.override ? "" : "hidden"}"}
-      %span $
-      = f.number_field :price, value: item_price, class: "rounded border border-gray-300 w-[70px] px-0 py-0 text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none", data: {"orders--item-target": "itemPrice", action: "input->orders--item#priceChange input->orders--form#calculateSummary change->orders--form#calculateSummary"}, step: :any
+  .whitespace-nowrap.flex.gap-1.items-center.justify-center
+    %span $
+    = f.number_field :price, value: item_price, class: "rounded border border-gray-300 w-[70px] px-0 py-0 text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none", data: {"orders--item-target": "itemPrice", action: "input->orders--item#priceChange input->orders--form#calculateSummary change->orders--form#calculateSummary"}, step: :any
   .font-semibold.flex.whitespace-nowrap.justify-center{data: {"orders--item-target": "total"}}
     = price.kind_of?(String) ? "$#{price}" : number_to_currency(quantity * price.to_f, unit: "$", precision: 2)
   .flex.justify-end.pr-3
