@@ -32,9 +32,9 @@ export default class extends Controller {
     this.itemPriceTarget.parentElement.classList.remove("hidden");
   }
 
-  toLocaPrice(value) {
+  toLocaPrice(value, currency = "$") {
     return (
-      "$" +
+      currency +
       value.toLocaleString("en-US", {
         minimumFractionDigits: 2,
         maximumFractionDigits: 2,
@@ -42,12 +42,17 @@ export default class extends Controller {
     );
   }
 
-  priceChange(e) {
+  priceInput(e) {
     const price = e.target.value || 0;
     const total = Number(price) * Number(this.element.dataset.qty);
 
     this.element.dataset.price = price;
     this.fallbackPrice = price;
     this.totalTarget.innerHTML = this.toLocaPrice(total);
+  }
+
+  priceChange(e) {
+    e.target.value = this.toLocaPrice(Number(e.target.value) || 0, "");
+    e.target.blur();
   }
 }
