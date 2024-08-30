@@ -186,6 +186,8 @@ export default class extends Controller {
   }
 
   appendPart(dataset, replaceEl = null) {
+    this.element.dataset.changed = "true";
+
     const itemPrice = Number(dataset.price).toLocaleString("en-US", {
       minimumFractionDigits: 2,
       maximumFractionDigits: 2,
