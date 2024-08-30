@@ -6,7 +6,7 @@ module OperationalPortal
     authorize_resource class: false, only: :search_results
 
     def index
-      @orders = Order.with_customer.with_order_status.accessible_by(current_ability)
+      @orders = Order.with_customer.with_order_status.not_voided.accessible_by(current_ability)
     end
 
     def show; end
@@ -48,10 +48,11 @@ module OperationalPortal
     end
 
     def destroy
-      @order.destroy
-
       respond_to do |format|
-        format.html { redirect_to operational_portal_orders_path, notice: 'Order was successfully cancelled.' }
+        if @order.update(voided_at: Time.zone.now)
+          format.html { redirect_to operational_portal_orders_path, notice: 'Order was successfully voided.' }
+          format.turbo_stream
+        end
       end
     end
 
