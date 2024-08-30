@@ -5,11 +5,11 @@
     .grid.grid-cols-2.gap-4
       .field
         = form.label :customer_id, "Select Customer"
-        = form.collection_select :customer_id, Customer.all, :id, :name, {prompt: '--Select Customer--'}, {required: true, class: "input-primary", "data-action": "change->orders--form#customerChange change->unsaved-changes#formIsChanged"}
+        = form.collection_select :customer_id, Customer.all, :id, :name, {prompt: 'Select Customer'}, {required: true, class: "input-primary", "data-orders--form-target": "customerSelect", "data-action": "change->orders--form#customerChange change->unsaved-changes#formIsChanged"}
       = form.fields_for :order_assignee, OrderAssignee.new do |os|
         .field
           = os.label :user_id, "Select Assignee"
-          = os.collection_select :user_id, [], :id, :name, {prompt: '--Select User--'}, {"data-orders--form-target": "userAssignee", "data-action": "change->unsaved-changes#formIsChanged", "data-url": users_operational_portal_customer_url(id: ":id"), disabled: true, class: "input-primary"}
+          = os.collection_select :user_id, [], :id, :name, {prompt: 'Select User'}, {"data-orders--form-target": "userAssignee", "data-action": "change->unsaved-changes#formIsChanged", "data-url": users_operational_portal_customer_url(id: ":id"), disabled: true, class: "input-primary"}
     = form.hidden_field :order_status_id, value: OrderStatus.operation_default_id
   - else
     = render "edit_cards", form: form
