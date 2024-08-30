@@ -16,8 +16,6 @@
               %dialog.relative{class: "max-w-margin w-full overflow-y-auto h-[70%]", "data-dialog-target": "dialog"}
                 .flex.px-8.py-3.gap-4.items-center.sticky.top-0.bg-white.z-10.border-b.relative
                   %h2.text-xl.font-semibold Order
-                  %button.absolute.top-2.right-2.px-3.py-2.hover:bg-gray-100.rounded-lg.z-20{autofocus: "", "data-action" => "dialog#close", type: "button"}
-                    = icon("fa-solid", "xmark", class: "text-xl")
                 .pt-4.pb-6.px-8{class: "w-full"}
                   = turbo_frame_tag "order_show", src: operational_portal_order_path(order), loading: :lazy do
                     .flex.items-center.justify-center.w-full{class: "h-full"}
