@@ -21,10 +21,6 @@ export default class extends Controller {
     }
   }
 
-  hi() {
-    console.log("hi");
-  }
-
   reset() {
     this.element.dataset.changed = "false";
   }
