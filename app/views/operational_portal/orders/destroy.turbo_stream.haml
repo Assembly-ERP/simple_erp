@@ -1,0 +1,3 @@
+= turbo_stream.prepend "notification-container" do
+  = render NotificationComponent.new notif_type: "success", message: "Order was successfully voided."
+= turbo_stream.remove dom_id(@order)
