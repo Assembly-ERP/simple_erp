@@ -16,7 +16,7 @@
     - else 
       .field
         = form.label :order_status_id, "Status"
-        = form.collection_select :order_status_id, OrderStatus.all, :id, :name, {prompt: 'Select Status'}, {required: true, class: "input-primary", "data-controller": "slim"}
+        = form.collection_select :order_status_id, OrderStatus.all, :id, :name, {prompt: 'Select Status'}, {required: true, class: "input-primary", "data-controller": "slim", "data-action": "change->unsaved-changes#formIsChanged"}
   - if @order.new_record? || can?(:update, @order)
     = render "search"
   %template{data: {"orders--form-target": "template"}}
