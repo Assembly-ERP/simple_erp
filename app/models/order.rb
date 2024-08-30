@@ -12,9 +12,7 @@ class Order < ApplicationRecord
   has_many :poly_attributes, as: :attributable, dependent: :destroy
 
   accepts_nested_attributes_for :order_details, allow_destroy: true
-  accepts_nested_attributes_for :order_assignee,
-                                allow_destroy: true,
-                                reject_if: proc { |attribute| attribute[:user_id].blank? }
+  accepts_nested_attributes_for :order_assignee, allow_destroy: true, reject_if: :all_blank?
 
   # Scopes
   scope :not_voided, -> { where(voided_at: nil) }

@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 const LEAVING_PAGE_MESSAGE =
-  "You have attempted to leave this page. Your changes will be lost. Are you sure you want to exit this page?";
+  "You have attempted to leave this page. Your changes will be lost. Are you sure you want to leave this page?";
 
 export default class extends Controller {
   formIsChanged() {
