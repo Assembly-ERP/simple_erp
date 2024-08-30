@@ -1,8 +1,6 @@
 = form_with(model: @order, url: path, html: {class: "grid gap-5", data: {controller: "orders--form unsaved-changes", action: ' beforeunload@window->unsaved-changes#leavingPage turbo:before-visit@document->unsaved-changes#leavingPage', changed: @order.errors.any? ? "true" : "false"}}) do |form|
   - if @order.errors.any?
     = render ErrorCardComponent.new errors: @order.errors.full_messages, label: "Validations"
-  -# - unless @order.new_record?
-  -#   = render "edit_cards", form: form
   .grid.gap-4{class: @order.new_record? ? "grid-cols-2" : "grid-cols-3"}
     .field
       = form.label :customer_id, "Customer"
