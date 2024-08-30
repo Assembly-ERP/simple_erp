@@ -4,16 +4,16 @@
   --ss-font-color: #000;
   --ss-font-placeholder-color: #8d8d8d;
   --ss-disabled-color: #fff;
-  --ss-border-color: #9A9B9B;
+  --ss-border-color: #D3D3D3;
   --ss-highlight-color: #fffb8c;
   --ss-success-color: #00b755;
   --ss-error-color: #dc3545;
   --ss-focus-color: #5897fb;
-  --ss-main-height: 42px;
+  --ss-main-height: 44px;
   --ss-content-height: 300px;
-  --ss-spacing-l: 6px;
-  --ss-spacing-m: 6px;
-  --ss-spacing-s: 6px;
+  --ss-spacing-l: 13px;
+  --ss-spacing-m: 8px;
+  --ss-spacing-s: 8px;
   --ss-animation-timing: 0.2s;
   --ss-border-radius: 3px
 }
@@ -61,12 +61,13 @@
   outline: 0;
   box-sizing: border-box;
   transition: background-color var(--ss-animation-timing);
-  overflow: hidden
+  overflow: hidden;
+  border: 1px solid var(--ss-border-color);
 }
 
-.ss-main:focus {
-  box-shadow: 0 0 5px var(--ss-focus-color)
-}
+/* .ss-main:focus { */
+/*   box-shadow: 0 0 5px var(--ss-focus-color) */
+/* } */
 
 .ss-main.ss-disabled {
   background-color: var(--ss-disabled-color);
@@ -233,6 +234,8 @@
   background-color: var(--ss-bg-color);
   transition: transform var(--ss-animation-timing), opacity var(--ss-animation-timing);
   opacity: 0;
+  border: 1px solid var(--ss-border-color);
+  padding-top: 10px;
   transform: scaleY(0);
   transform-origin: center top;
   overflow: hidden;
@@ -265,7 +268,8 @@
   flex: 0 1 auto;
   display: flex;
   flex-direction: row;
-  margin-bottom: 7px;
+  margin-bottom: 9px;
+  padding: 0px 10px;
 }
 
 .ss-content .ss-search input {
@@ -275,7 +279,7 @@
   flex: 1 1 auto;
   width: 100%;
   min-width: 0px;
-  padding: var(--ss-spacing-m) var(--ss-spacing-l);
+  padding: 6px 15px;
   margin: 0;
   border: 1px solid var(--ss-border-color);
   border-radius: var(--ss-border-radius);
@@ -476,3 +480,4 @@
 .ss-content .ss-list .ss-option .ss-search-highlight {
   background-color: var(--ss-highlight-color)
 }
+
