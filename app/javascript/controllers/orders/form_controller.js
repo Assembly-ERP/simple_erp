@@ -80,6 +80,7 @@ export default class extends Controller {
   }
 
   calculateSummary() {
+    this.element.dataset.changed = "true";
     this.summaryPriceTarget.dataset.value = this.basePriceCalc;
 
     const price = Number(this.summaryPriceTarget.dataset.value);
