@@ -4,10 +4,10 @@ pin 'application', preload: true
 pin '@hotwired/turbo-rails', to: 'turbo.min.js', preload: true
 pin '@hotwired/stimulus', to: 'https://ga.jspm.io/npm:@hotwired/stimulus@3.2.1/dist/stimulus.js', preload: true
 pin '@hotwired/stimulus-loading', to: 'stimulus-loading.js', preload: true
-pin_all_from 'app/javascript/controllers', under: 'controllers', preload: false
+pin_all_from 'app/javascript/controllers', under: 'controllers'
 
 # Utils
-pin_all_from 'app/javascript/utils', under: 'utils', preload: false
+pin_all_from 'app/javascript/utils', under: 'utils'
 
 # Add these lines to ensure your custom modules are properly loaded
 pin "@stimulus-components/notification", to: "@stimulus-components--notification.js" # @3.0.0
