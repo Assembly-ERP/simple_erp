@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
+import SlimSelect from "slim-select";
 
 export default class extends Controller {
   static targets = [
@@ -17,29 +18,30 @@ export default class extends Controller {
     "searchInput",
     "searchByRadio",
     "userAssignee",
+    "customerSelect",
   ];
 
   static values = {
     wrapperSelector: { type: String, default: ".nested-form-wrapper" },
   };
 
-  customerChange(e) {
-    const optionNone =
-      this.userAssigneeTarget.querySelector("option[value='']");
+  connect() {
+    this.customerSlim = new SlimSelect({ select: this.customerSelectTarget });
+    this.userAssigneeSlim = new SlimSelect({
+      select: this.userAssigneeTarget,
+    });
+  }
 
+  customerChange(e) {
     if (!e.target.value) {
       this.userAssigneeTarget.disabled = true;
-      optionNone.innerHTML = "--Select User--";
-      this.clearAssigneeOptions();
+      this.userAssigneeSlim.disable();
+      this.userAssigneeSlim.setData([{ text: "Select User", value: null }]);
       return;
     }
 
-    this.userAssigneeTarget.disabled = true;
-    optionNone.innerHTML = "Loading Users...";
-
     const customerUserPath = this.userAssigneeTarget.dataset.url;
     const path = customerUserPath.replace(":id", e.target.value);
-    this.clearAssigneeOptions();
 
     fetch(path, {
       method: "GET",
@@ -52,8 +54,7 @@ export default class extends Controller {
     })
       .then((res) => {
         if (res.ok) {
-          optionNone.innerHTML = "--Select User--";
-          this.userAssigneeTarget.disabled = false;
+          this.userAssigneeSlim.enable();
         }
         return res.json();
       })
@@ -62,15 +63,13 @@ export default class extends Controller {
 
   addAssigneeOptions(users) {
     if (!users.length > 0) return;
-
-    const selectEl = this.userAssigneeTarget;
-    const option = document.createElement("option");
+    let data = [{ text: "Select User", value: null }];
 
     for (const user of users) {
-      option.text = user.name;
-      option.value = user.id;
-      selectEl.add(option);
+      data.push({ value: user.id, text: user.name });
     }
+
+    this.userAssigneeSlim.setData(data);
   }
 
   clearAssigneeOptions() {
