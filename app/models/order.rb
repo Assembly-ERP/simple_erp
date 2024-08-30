@@ -17,6 +17,7 @@ class Order < ApplicationRecord
                                 reject_if: proc { |attribute| attribute[:user_id].blank? }
 
   # Scopes
+  scope :not_voided, -> { where(voided_at: nil) }
   scope :with_order_status,
         lambda {
           select('orders.*, order_statuses.name AS status, order_statuses.locked AS status_locked')
@@ -66,6 +67,7 @@ end
 #  shipping_price      :decimal(10, 2)   default(0.0)
 #  tax                 :decimal(10, 2)   default(0.0)
 #  total_amount        :decimal(10, 2)   default(0.0)
+#  voided_at           :datetime
 #  created_at          :datetime         not null
 #  updated_at          :datetime         not null
 #  customer_id         :bigint           not null

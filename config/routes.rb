@@ -169,8 +169,7 @@ end
 #                                                        PATCH  /operational_portal/users/:id(.:format)                                                           operational_portal/users#update
 #                                                        PUT    /operational_portal/users/:id(.:format)                                                           operational_portal/users#update
 #                                                        DELETE /operational_portal/users/:id(.:format)                                                           operational_portal/users#destroy
-#          search_customers_operational_portal_customers GET    /operational_portal/customers/search(.:format)                                                    operational_portal/customers#search
-#                    details_operational_portal_customer GET    /operational_portal/customers/:id/details(.:format)                                               operational_portal/customers#details
+#                      users_operational_portal_customer GET    /operational_portal/customers/:id/users(.:format)                                                 operational_portal/customers#users
 #                           operational_portal_customers GET    /operational_portal/customers(.:format)                                                           operational_portal/customers#index
 #                                                        POST   /operational_portal/customers(.:format)                                                           operational_portal/customers#create
 #                        new_operational_portal_customer GET    /operational_portal/customers/new(.:format)                                                       operational_portal/customers#new
