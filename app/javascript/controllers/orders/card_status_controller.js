@@ -1,32 +1,30 @@
 import { Controller } from "@hotwired/stimulus";
-import SlimSelect from "slim-select";
 
 export default class extends Controller {
-  static targets = ["select"];
+  static targets = ["statusInput"];
 
-  connect() {
-    this.selectSlim = new SlimSelect({ select: this.selectTarget });
-  }
+  submit(e) {
+    e.preventDefault();
+    const path = e.detail.url.origin + e.detail.url.pathname + "?modal=yes";
+    const statusChecked = this.statusInputTargets.find((el) => el.checked);
 
-  populate() {
-    const path = "";
+    const formData = new FormData();
+    formData.append("order[order_status_id]", statusChecked.value);
 
     fetch(path, {
-      method: "GET",
+      method: "PATCH",
+      body: formData,
       headers: {
-        Accept: "application/json",
+        Accept: "text/vnd.turbo-stream.html",
         "X-CSRF-Token": document
           .querySelector('meta[name="csrf-token"]')
           .getAttribute("content"),
       },
     })
       .then((res) => {
-        return res.json();
+        if (res.ok) this.element.close();
+        return res.text();
       })
-      .then((data) => console.log(data));
-  }
-
-  disconnect() {
-    this.selectSlim.destroy();
+      .then((html) => Turbo.renderStreamMessage(html));
   }
 }

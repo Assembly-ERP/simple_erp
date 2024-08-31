@@ -34,6 +34,8 @@ module OperationalPortal
         else
           format.html { render :edit, status: :unprocessable_entity }
         end
+
+        format.turbo_stream
       end
     end
 
