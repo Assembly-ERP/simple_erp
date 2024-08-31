@@ -33,10 +33,9 @@ export default class extends Controller {
   }
 
   customerChange(e) {
-    this.userAssigneeTarget.disabled = true;
+    this.userAssigneeSlim.disable();
 
     if (!e.target.value) {
-      this.userAssigneeSlim.disable();
       this.userAssigneeSlim.setData([{ text: "Select User", value: "" }]);
       return;
     }
@@ -56,7 +55,6 @@ export default class extends Controller {
       .then((res) => {
         if (res.ok) {
           this.userAssigneeSlim.enable();
-          this.userAssigneeTarget.disabled = false;
         }
         return res.json();
       })
