@@ -1,3 +1,7 @@
+%template{data: {"orders--form-target": "template"}}
+  = form.fields_for :order_details, OrderDetail.new, child_index: 'NEW_RECORD' do |od_form|
+    = render "item", name: "{{name}}", quantity: "{{quantity}}", price: "{{price}}", part_id: "{{part-id}}", product_id: "{{product-id}}", type: "{{type}}", id: "{{id}}", item_id: "{{item-id}}", item_price: "{{item-price}}", f: od_form
+
 - order_details = @order.order_details.with_part_and_product
 .px-4.py-5.w-full.min-h-80.border.border-gray-300.rounded.bg-white.w-full
   .divide-y.flex.flex-col.w-full{data: { "orders--form-target": "addedItems"}}

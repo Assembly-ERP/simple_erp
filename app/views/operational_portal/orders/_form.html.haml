@@ -4,12 +4,9 @@
   = render "form_head_inputs", form: form
   = render "form_shipping_address", form: form
   = render "search"
-  %template{data: {"orders--form-target": "template"}}
-    = form.fields_for :order_details, OrderDetail.new, child_index: 'NEW_RECORD' do |od_form|
-      = render "item", name: "{{name}}", quantity: "{{quantity}}", price: "{{price}}", part_id: "{{part-id}}", product_id: "{{product-id}}", type: "{{type}}", id: "{{id}}", item_id: "{{item-id}}", item_price: "{{item-price}}", f: od_form
   .flex.w-full.gap-5.mt-2
     = render "form_order_items", form: form
-    = render "order_summary", form: form
-  .flex
-    - if @order.new_record? || can?(:update, @order)
+    = render "form_order_summary", form: form
+  - if @order.new_record? || can?(:update, @order)
+    .block
       = form.submit @order.new_record? ? "Save Order" : "Update Order", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]", "data-action": "unsaved-changes#reset"
