@@ -51,8 +51,8 @@ module OperationalPortal
       respond_to do |format|
         if @order.update(voided_at: Time.zone.now)
           format.html { redirect_to operational_portal_orders_path, notice: 'Order was successfully voided.' }
-          format.turbo_stream
         end
+        format.turbo_stream
       end
     end
 

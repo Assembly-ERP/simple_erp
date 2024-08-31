@@ -133,13 +133,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_31_044932) do
     t.bigint "customer_id", null: false
     t.decimal "total_amount", precision: 10, scale: 2, default: "0.0"
     t.bigint "order_status_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.decimal "shipping_price", precision: 10, scale: 2, default: "0.0"
     t.decimal "discount_percentage", precision: 5, scale: 2, default: "0.0"
     t.decimal "price", precision: 10, scale: 2, default: "0.0"
     t.decimal "tax", precision: 10, scale: 2, default: "0.0"
     t.datetime "voided_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_orders_on_customer_id"
     t.index ["order_status_id"], name: "index_orders_on_order_status_id"
   end
