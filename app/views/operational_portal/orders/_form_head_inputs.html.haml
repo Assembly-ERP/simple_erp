@@ -1,5 +1,5 @@
 .grid.gap-4{class: @order.new_record? ? "grid-cols-2" : "grid-cols-3"}
-  .field
+  .field.relative
     = form.label :customer_id, "Customer"
     = form.collection_select :customer_id, Customer.all, :id, :name, {prompt: 'Select Customer'}, {required: true, "data-orders--form-target": "customerSelect", "data-action": "change->orders--form#customerChange change->unsaved-changes#formIsChanged"}
   = form.fields_for :order_assignee, form.object.order_assignee.blank? ? OrderAssignee.new : form.object.order_assignee do |os|
