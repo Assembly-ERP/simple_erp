@@ -33,6 +33,7 @@
         %dialog{data: {"dialog-target": "dialog", "orders--card-status-target": "dialog"}}
           .bg-white.p-4.w-80
             = form_with(model: @order, url: operational_portal_order_path, html: {"data-action": "turbo:before-fetch-request->orders--card-status#submit"}) do |form|
+              %h2.font-medium.text-lg.mb-1 Status
               - OrderStatus.all.each do |status|
                 .flex.gap-2.items-center
                   = form.radio_button :order_status_id, status.id, checked: status.id == @order.order_status_id, data: {"orders--card-status-target": "statusInput", label: status.name}
