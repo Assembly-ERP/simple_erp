@@ -63,6 +63,8 @@ export default class extends Controller {
   }
 
   addAssigneeOptions(users) {
+    console.log(users);
+
     if (!users.length > 0) return;
     let data = [{ text: "Select User", value: "" }];
 
