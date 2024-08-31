@@ -31,15 +31,17 @@
         Status
       .block{"data-action" => "click->dialog#backdropClose", "data-controller" => "dialog"}
         %dialog{"data-dialog-target" => "dialog"}
-          .bg-white.p-5.w-80.flex.flex-col.gap-3
+          .bg-white.p-4.w-80
             = form_with(model: @order, url: operational_portal_order_path) do |form|
               - OrderStatus.all.each do |status|
                 .flex.gap-2.items-center
                   = form.radio_button :order_status_id, status.id, checked: status.id == @order.order_status_id
                   = form.label "order_status_id_#{status.id}", status.name
-            .flex.gap-2.justify-end
-              %button.btn-sm{class: "bg-gray-500 text-white", autofocus: "", "data-action" => "dialog#close", type: "button"}  
-                Cancel
+              .flex.gap-2.justify-end.mt-2
+                %button.btn-sm{class: "bg-gray-500 text-white", autofocus: "", "data-action" => "dialog#close", type: "button"}  
+                  Cancel
+                %button.btn-sm{class: "bg-[color:var(--primary)] text-[color:var(--primary-text)] text-white", autofocus: ""}  
+                  Save
         %button.text-gray-400.transition-colors{data: {action: "dialog#open"}, type: "button", class: "hover:text-[var(--primary)]"}
           = icon("fa-solid", "pen-to-square")
     .flex.gap-2.items-center
