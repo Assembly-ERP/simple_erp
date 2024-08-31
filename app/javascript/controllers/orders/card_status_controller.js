@@ -9,10 +9,8 @@ export default class extends Controller {
     let path = e.detail.url.origin + e.detail.url.pathname;
     if (this.element.dataset.isModal === "true") path += "?modal=true";
 
-    const statusChecked = this.statusInputTargets.find((el) => el.checked);
-
     const formData = new FormData();
-    formData.append("order[order_status_id]", statusChecked.value);
+    formData.append("order[order_status_id]", this.statusChecked.value);
 
     fetch(path, {
       method: "PATCH",
@@ -27,9 +25,9 @@ export default class extends Controller {
       .then((res) => {
         if (res.ok) {
           this.dialogTarget.close();
-          this.displayTarget.innerHTML = statusChecked.dataset.label;
+          this.displayTarget.innerHTML = this.statusChecked.dataset.label;
           if (this.orderListItem)
-            this.orderListItem.innerHTML = statusChecked.dataset.label;
+            this.orderListItem.innerHTML = this.statusChecked.dataset.label;
         }
         return res.text();
       })
@@ -40,5 +38,9 @@ export default class extends Controller {
     return document.querySelector(
       `[id='list-order-status-${this.element.dataset.orderId}']`,
     );
+  }
+
+  get statusChecked() {
+    return this.statusInputTargets.find((el) => el.checked);
   }
 }
