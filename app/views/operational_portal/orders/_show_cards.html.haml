@@ -25,12 +25,23 @@
           = @order.order_assignee.user.name
         - else
           N/A
-  .bg-white.rounded-lg.border.px-4.py-5.border-gray-300
+  .bg-white.rounded-lg.border.px-4.py-5.border-gray-300{data: {controller: "orders--status-card"}}
     .flex.gap-3.mb-1.items-center.mb-1
       %h6.font-normal.text-gray-500
         Status
-      %button.text-gray-400.transition-colors{type: "button", class: "hover:text-[var(--primary)]"}
-        = icon("fa-solid", "pen-to-square")
+      .block{"data-action" => "click->dialog#backdropClose", "data-controller" => "dialog"}
+        %dialog{"data-dialog-target" => "dialog"}
+          .bg-white.p-5.w-80.flex.flex-col.gap-3
+            = form_with(model: @order, url: operational_portal_order_path) do |form|
+              - OrderStatus.all.each do |status|
+                .flex.gap-2.items-center
+                  = form.radio_button :order_status_id, status.id, checked: status.id == @order.order_status_id
+                  = form.label "order_status_id_#{status.id}", status.name
+            .flex.gap-2.justify-end
+              %button.btn-sm{class: "bg-gray-500 text-white", autofocus: "", "data-action" => "dialog#close", type: "button"}  
+                Cancel
+        %button.text-gray-400.transition-colors{data: {action: "dialog#open"}, type: "button", class: "hover:text-[var(--primary)]"}
+          = icon("fa-solid", "pen-to-square")
     .flex.gap-2.items-center
       = icon("fa-solid", "chart-simple", class: "text-gray-600")
       %span.font-medium.text-gray-900
@@ -39,8 +50,13 @@
     .flex.gap-3.mb-1.items-center.mb-1
       %h6.font-normal.text-gray-500
         Shipping Details
-      %button.text-gray-400.transition-colors{type: "button", class: "hover:text-[var(--primary)]"}
-        = icon("fa-solid", "pen-to-square")
+      .block{"data-action" => "click->dialog#backdropClose", "data-controller" => "dialog"}
+        %dialog{"data-dialog-target" => "dialog"}
+          .bg-white.p-5.w-80
+            %p The modal's content here
+            %button{autofocus: "", "data-action" => "dialog#close", type: "button"} Cancel
+        %button.text-gray-400.transition-colors{data: {action: "dialog#open"}, type: "button", class: "hover:text-[var(--primary)]"}
+          = icon("fa-solid", "pen-to-square")
     .flex.gap-2.items-start
       = icon("fa-solid", "location-dot", class: "text-gray-600 mt-1")
       %span.font-medium.text-gray-900
