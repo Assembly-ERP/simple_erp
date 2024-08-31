@@ -25,7 +25,7 @@
           = @order.order_assignee.user.name
         - else
           N/A
-  .bg-white.rounded-lg.border.px-4.py-5.border-gray-300{data: {controller: "orders--card-status", order_id: @order.id}}
+  .bg-white.rounded-lg.border.px-4.py-5.border-gray-300{data: {controller: "orders--card-status", order_id: @order.id, is_modal: params[:modal].to_s}}
     .flex.gap-3.mb-1.items-center.mb-1
       %h6.font-normal.text-gray-500
         Status
