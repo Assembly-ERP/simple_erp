@@ -1,0 +1,14 @@
+- if @order.errors.blank?
+  - unless params[:modal] == "yes" 
+    = turbo_stream.prepend "notification-container" do
+      = render NotificationComponent.new notif_type: "success", message: "Order was successfully updated."
+  - else
+    = turbo_stream.prepend "show-alert" do
+      = render AlertComponent.new notif_type: :success, message: "Order was successfully updated."
+- else 
+  - unless params[:modal] == "yes" 
+    = turbo_stream.prepend "notification-container" do
+      = render NotificationComponent.new notif_type: "error", message: "Something went wrong."
+  - else
+    = turbo_stream.prepend "show-alert" do
+      = render AlertComponent.new notif_type: :error, message: "Something went wrong."
