@@ -1,24 +1,30 @@
 import { Controller } from "@hotwired/stimulus";
 
-const LEAVING_PAGE_MESSAGE =
-  "You have attempted to leave this page. Your changes will be lost. Are you sure you want to leave this page?";
-
 export default class extends Controller {
+  static values = {
+    leaveMessage: {
+      type: String,
+      default:
+        "Your changes will be lost. Are you sure you want to leave this page?",
+    },
+  };
+
   formIsChanged() {
     this.element.dataset.changed = "true";
   }
 
   leavingPage(event) {
-    if (this.isFormChanged) {
-      if (event.type == "turbo:before-visit") {
-        if (!window.confirm(LEAVING_PAGE_MESSAGE)) {
-          event.preventDefault();
-        }
-      } else {
-        event.returnValue = LEAVING_PAGE_MESSAGE;
-        return event.returnValue;
-      }
+    if (!this.isFormChanged) return;
+    if (
+      event.type == "turbo:before-visit" &&
+      !window.confirm(this.leaveMessageValue)
+    ) {
+      event.preventDefault();
+      return;
     }
+
+    event.returnValue = this.leaveMessageValue;
+    return event.returnValue;
   }
 
   reset() {
