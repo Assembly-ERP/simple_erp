@@ -9,13 +9,13 @@
   --ss-success-color: #00b755;
   --ss-error-color: #dc3545;
   --ss-focus-color: #5897fb;
-  --ss-main-height: 44px;
+  --ss-main-height: 42px;
   --ss-content-height: 300px;
   --ss-spacing-l: 13px;
   --ss-spacing-m: 8px;
   --ss-spacing-s: 8px;
   --ss-animation-timing: 0.2s;
-  --ss-border-radius: 3px
+  --ss-border-radius: 5px
 }
 
 @keyframes ss-valueIn {
