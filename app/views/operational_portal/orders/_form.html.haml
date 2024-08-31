@@ -15,8 +15,8 @@
       .field
         = form.label :order_status_id, "Status"
         = form.collection_select :order_status_id, OrderStatus.all, :id, :name, {prompt: 'Select Status'}, {required: true, "data-controller": "slim", "data-action": "change->unsaved-changes#formIsChanged"}
-  - if @order.new_record? || can?(:update, @order)
-    = render "search"
+  = render "form_shipping_address", form: form
+  = render "search"
   %template{data: {"orders--form-target": "template"}}
     = form.fields_for :order_details, OrderDetail.new, child_index: 'NEW_RECORD' do |od_form|
       = render "item", name: "{{name}}", quantity: "{{quantity}}", price: "{{price}}", part_id: "{{part-id}}", product_id: "{{product-id}}", type: "{{type}}", id: "{{id}}", item_id: "{{item-id}}", item_price: "{{item-price}}", f: od_form
