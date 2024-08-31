@@ -335,4 +335,9 @@ export default class extends Controller {
   get checkAddedItems() {
     return this.addedItemsTarget.querySelectorAll("[id^=item-form-]");
   }
+
+  disconnect() {
+    this.customerSlim.destroy();
+    this.userAssigneeSlim.destroy();
+  }
 }

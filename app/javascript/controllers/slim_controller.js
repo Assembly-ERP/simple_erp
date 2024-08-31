@@ -3,6 +3,10 @@ import SlimSelect from "slim-select";
 
 export default class extends Controller {
   connect() {
-    new SlimSelect({ select: this.element });
+    this.slim = new SlimSelect({ select: this.element });
+  }
+
+  disconnect() {
+    this.slim.destroy();
   }
 }
