@@ -33,10 +33,10 @@ class Order < ApplicationRecord
   validates :total_amount, numericality: { greater_than_or_equal_to: 0, only_float: true }
   validates :price, numericality: { greater_than_or_equal_to: 0, only_float: true }
   validates :tax, numericality: { greater_than_or_equal_to: 0, only_float: true }
+  validates :order_details, presence: { message: I18n.t('errors.orders.order_details_present') }
   validates :discount_percentage, numericality: {
     greater_than_or_equal_to: 0, less_than_or_equal_to: 100, only_float: true
   }
-  validates :order_details, presence: { message: I18n.t('errors.orders.order_details_present') }
 
   # Generators
   after_save :calculate_total_amount, if: :calculate_total_amount_condition?
