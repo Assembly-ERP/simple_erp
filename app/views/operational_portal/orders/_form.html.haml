@@ -1,37 +1,14 @@
 = form_with(model: @order, url: path, html: {class: "grid gap-5", data: {controller: "orders--form unsaved-changes", action: ' beforeunload@window->unsaved-changes#leavingPage turbo:before-visit@document->unsaved-changes#leavingPage', changed: @order.errors.any? ? "true" : "false"}}) do |form|
   - if @order.errors.any?
     = render ErrorCardComponent.new errors: @order.errors.full_messages, label: "Validations"
-  .grid.gap-4{class: @order.new_record? ? "grid-cols-2" : "grid-cols-3"}
-    .field
-      = form.label :customer_id, "Customer"
-      = form.collection_select :customer_id, Customer.all, :id, :name, {prompt: 'Select Customer'}, {required: true, "data-orders--form-target": "customerSelect", "data-action": "change->orders--form#customerChange change->unsaved-changes#formIsChanged"}
-    = form.fields_for :order_assignee, form.object.order_assignee.blank? ? OrderAssignee.new : form.object.order_assignee do |os|
-      .field
-        = os.label :user_id, "Assignee"
-        = os.collection_select :user_id, form.object.customer.blank? ? [] : form.object.customer.users, :id, :name, {prompt: 'Select User'}, {"data-orders--form-target": "userAssignee", "data-action": "change->unsaved-changes#formIsChanged", "data-url": users_operational_portal_customer_url(id: ":id"), disabled: form.object.new_record? ? true :false}
-    - if @order.new_record?
-      = form.hidden_field :order_status_id, value: OrderStatus.operation_default_id
-    - else 
-      .field
-        = form.label :order_status_id, "Status"
-        = form.collection_select :order_status_id, OrderStatus.all, :id, :name, {prompt: 'Select Status'}, {required: true, "data-controller": "slim", "data-action": "change->unsaved-changes#formIsChanged"}
+  = render "form_head_inputs", form: form
   = render "form_shipping_address", form: form
   = render "search"
   %template{data: {"orders--form-target": "template"}}
     = form.fields_for :order_details, OrderDetail.new, child_index: 'NEW_RECORD' do |od_form|
       = render "item", name: "{{name}}", quantity: "{{quantity}}", price: "{{price}}", part_id: "{{part-id}}", product_id: "{{product-id}}", type: "{{type}}", id: "{{id}}", item_id: "{{item-id}}", item_price: "{{item-price}}", f: od_form
-  - order_details = @order.order_details.with_part_and_product
   .flex.w-full.gap-5.mt-2
-    .px-4.py-5.w-full.min-h-80.border.border-gray-300.rounded.bg-white.w-full
-      .divide-y.flex.flex-col.w-full{data: { "orders--form-target": "addedItems"}}
-        = form.fields_for :order_details, order_details do |od_form|
-          = render "item", name: od_form.object.product_id ? od_form.object.product_name : od_form.object.part_name , quantity: od_form.object.quantity, price: od_form.object.price, part_id: od_form.object.part_id, product_id: od_form.object.product_id, id: od_form.object.id, item_id: od_form.object.product_id || od_form.object.part_id, type: od_form.object.product_id ? "product" : "part", item_price: od_form.object.price, f: od_form
-        .hidden{data: {"orders--form-target": "target"}}
-      .grid.w-full.h-64.place-items-center{data: {"orders--form-target": "empty"}, class: order_details.present? ? "hidden" : "" }
-        .flex.flex-col.gap-1.items-center.text-gray-400
-          = icon("fa-solid", "box-open", class: "text-5xl")
-          %span
-            Add at least one item
+    = render "form_order_items", form: form
     = render "order_summary", form: form
   .flex
     - if @order.new_record? || can?(:update, @order)

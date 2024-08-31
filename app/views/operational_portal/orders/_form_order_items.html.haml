@@ -1,0 +1,11 @@
+- order_details = @order.order_details.with_part_and_product
+.px-4.py-5.w-full.min-h-80.border.border-gray-300.rounded.bg-white.w-full
+  .divide-y.flex.flex-col.w-full{data: { "orders--form-target": "addedItems"}}
+    = form.fields_for :order_details, order_details do |od_form|
+      = render "item", name: od_form.object.product_id ? od_form.object.product_name : od_form.object.part_name , quantity: od_form.object.quantity, price: od_form.object.price, part_id: od_form.object.part_id, product_id: od_form.object.product_id, id: od_form.object.id, item_id: od_form.object.product_id || od_form.object.part_id, type: od_form.object.product_id ? "product" : "part", item_price: od_form.object.price, f: od_form
+    .hidden{data: {"orders--form-target": "target"}}
+  .grid.w-full.h-64.place-items-center{data: {"orders--form-target": "empty"}, class: order_details.present? ? "hidden" : "" }
+    .flex.flex-col.gap-1.items-center.text-gray-400
+      = icon("fa-solid", "box-open", class: "text-5xl")
+      %span
+        Add at least one item
