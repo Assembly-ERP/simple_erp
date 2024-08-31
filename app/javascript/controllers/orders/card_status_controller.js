@@ -1,10 +1,11 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["statusInput"];
+  static targets = ["statusInput", "dialog", "display"];
 
   submit(e) {
     e.preventDefault();
+
     const path = e.detail.url.origin + e.detail.url.pathname + "?modal=yes";
     const statusChecked = this.statusInputTargets.find((el) => el.checked);
 
@@ -22,9 +23,20 @@ export default class extends Controller {
       },
     })
       .then((res) => {
-        if (res.ok) this.element.close();
+        if (res.ok) {
+          this.dialogTarget.close();
+          this.displayTarget.innerHTML = statusChecked.dataset.label;
+          if (this.orderListItem)
+            this.orderListItem.innerHTML = statusChecked.dataset.label;
+        }
         return res.text();
       })
       .then((html) => Turbo.renderStreamMessage(html));
+  }
+
+  get orderListItem() {
+    return document.querySelector(
+      `[id='list-order-status-${this.element.dataset.orderId}']`,
+    );
   }
 }
