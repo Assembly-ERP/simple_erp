@@ -31,7 +31,7 @@
         Status
       %button.text-gray-400.transition-colors{type: "button", class: "hover:text-[var(--primary)]"}
         = icon("fa-solid", "pen-to-square")
-    .flex.gap-2.items-center.hover:underline
+    .flex.gap-2.items-center
       = icon("fa-solid", "chart-simple", class: "text-gray-600")
       %span.font-medium.text-gray-900
         = @order.order_status.name
@@ -41,7 +41,10 @@
         Shipping Details
       %button.text-gray-400.transition-colors{type: "button", class: "hover:text-[var(--primary)]"}
         = icon("fa-solid", "pen-to-square")
-    .flex.gap-2.items-center.hover:underline
-      = icon("fa-solid", "location-dot", class: "text-gray-600")
+    .flex.gap-2.items-start
+      = icon("fa-solid", "location-dot", class: "text-gray-600 mt-1")
       %span.font-medium.text-gray-900
-        N/A
+        - if @order.order_shipping_address.present?
+          = order_readable_shipping_address(shipping_address: @order.order_shipping_address)
+        - else
+          N/A
