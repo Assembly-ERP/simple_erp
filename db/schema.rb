@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_30_165707) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_31_044932) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -105,6 +105,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_30_165707) do
     t.index ["part_id"], name: "index_order_details_on_part_id"
     t.index ["product_id"], name: "index_order_details_on_product_id"
     t.check_constraint "product_id IS NOT NULL OR part_id IS NOT NULL", name: "product_or_part_present_check"
+  end
+
+  create_table "order_shipping_addresses", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.string "street", null: false
+    t.string "city", null: false
+    t.string "state", null: false
+    t.string "zip_code", default: ""
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_shipping_addresses_on_order_id"
   end
 
   create_table "order_statuses", force: :cascade do |t|
@@ -262,6 +273,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_30_165707) do
   add_foreign_key "order_details", "orders"
   add_foreign_key "order_details", "parts"
   add_foreign_key "order_details", "products"
+  add_foreign_key "order_shipping_addresses", "orders"
   add_foreign_key "orders", "customers"
   add_foreign_key "orders", "order_statuses"
   add_foreign_key "parts_products", "parts"
