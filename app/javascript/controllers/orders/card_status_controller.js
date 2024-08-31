@@ -6,7 +6,9 @@ export default class extends Controller {
   submit(e) {
     e.preventDefault();
 
-    const path = e.detail.url.origin + e.detail.url.pathname + "?modal=yes";
+    let path = e.detail.url.origin + e.detail.url.pathname;
+    if (this.element.dataset.isModal === "true") path += "?modal=true";
+
     const statusChecked = this.statusInputTargets.find((el) => el.checked);
 
     const formData = new FormData();
