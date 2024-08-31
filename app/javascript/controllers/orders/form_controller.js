@@ -30,6 +30,10 @@ export default class extends Controller {
     this.userAssigneeSlim = new SlimSelect({
       select: this.userAssigneeTarget,
     });
+
+    this.customerSelectTarget.style = "opacity: 0; height: 65px;";
+    this.customerSelectTarget.classList.add("absolute", "top-0");
+    this.customerSelectTarget.removeAttribute("aria-hidden");
   }
 
   customerChange(e) {
