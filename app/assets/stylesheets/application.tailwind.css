@@ -183,7 +183,7 @@
 /* Customize the dialog backdrop */
 dialog {
   box-shadow: 0 0 0 100vw rgb(0 0 0 / 0.2);
-  @apply rounded-lg;
+  @apply rounded-lg bg-white outline-none;
 }
 
 @keyframes fade-in {
