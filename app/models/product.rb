@@ -47,12 +47,17 @@ class Product < ApplicationRecord
   def update_availability
     inventory_parts = parts.where(inventory: true)
 
-    if inventory_parts.count.zero? || inventory_parts.where('in_stock > 0').count.positive?
+    if inventory_parts.count.zero?
       update_column(:available, true)
       return
     end
 
-    update_column(:available, false)
+    if inventory_parts.where('in_stock = 0').count.positive?
+      update_column(:available, false)
+      return
+    end
+
+    update_column(:available, true)
   end
 end
 
