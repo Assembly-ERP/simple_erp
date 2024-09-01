@@ -1,19 +1,19 @@
-/ app/views/operational_portal/parts/show.html.erb
-.py-4.flex.flex-col.gap-3
-  .bg-white.px-4.py-3.bg-white.rounded.border.shadow
-    %h1.text-xl.mb-1.font-medium
-      = @part.name
-    %p
-      %strong Price:
-      = @part.price
-    - if @part.inventory
+= turbo_frame_tag "part_show" do
+  .py-4.flex.flex-col.gap-3
+    .bg-white.px-4.py-3.bg-white.rounded.border.shadow
+      %h1.text-xl.mb-1.font-medium
+        = @part.name
       %p
-        %strong In Stock:
-        = @part.in_stock
-    %p
-      %strong Description:
-      = @part.description
-    %p
-      %strong Weight:
-      = number_with_precision(@part.weight, precision: 2)
-  = link_to 'Edit Part', edit_operational_portal_part_path(@part), class: 'w-fit btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]'
+        %strong Price:
+        = @part.price
+      - if @part.inventory
+        %p
+          %strong In Stock:
+          = @part.in_stock
+      %p
+        %strong Description:
+        = @part.description
+      %p
+        %strong Weight:
+        = number_with_precision(@part.weight, precision: 2)
+    = link_to 'Edit Part', edit_operational_portal_part_path(@part), class: 'w-fit btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]', target: :_top

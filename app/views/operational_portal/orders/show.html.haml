@@ -27,10 +27,10 @@
                       = item.part_name
                   %td.p-4.text-base.text-gray-900
                     - if item.product_id
-                      .rounded-lg.text-sm.border.border-purple-600.text-purple-600.w-fit.px-2{class: "px-2.5 bg-purple-600/5"}
+                      .product-type-tag
                         Product
                     - elsif item.part_id
-                      .rounded-lg.text-sm.border.border-orange-600.text-orange-600.w-fit.px-2{class: "bg-orange-600/5"}
+                      .part-type-tag
                         Part
                   %td.p-4.text-right.text-base.text-gray-900
                     = "x#{item.quantity}"
@@ -49,7 +49,7 @@
             - discount_value = value_from_percentage(@order.price, @order.discount_percentage)
             %dl.flex.items-center.justify-between.gap-4
               %dt.text-gray-500 
-                = "Discount (#{@order.discount_percentage}%)"
+                = "Discount (#{number_with_precision(@order.discount_percentage, precision: 2)}%)"
               %dd.text-base.font-medium.text-green-500
                 = "-#{number_to_currency(discount_value, precision: 2)}"
             %dl.flex.items-center.justify-between.gap-4
