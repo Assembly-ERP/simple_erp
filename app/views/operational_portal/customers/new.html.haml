@@ -1,5 +1,5 @@
 / app/views/operational_portal/customers/new.html.erb
-.container
+.container.py-8
   %h1 New Customer
   = form_with(model: @customer, url: operational_portal_customers_path, local: true) do |form|
     - if @customer.errors.any?
