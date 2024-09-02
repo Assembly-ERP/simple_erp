@@ -1,0 +1,18 @@
+%aside.h-screen.w-64.sticky.border.bg-white
+  .overflow-y-auto.py-5.px-3.h-full.bg-white.border-r.border-gray-200
+    %ul.space-y-1
+      %li
+        .flex.items-center.p-2.text-base.font-normal.text-gray-900.rounded-lg.hover:bg-gray-100
+          .w-6.flex.justify-center
+            = icon("fa-solid", "user", class: "text-gray-400 text-xl")
+          %span.ml-3 Manage User
+      %li
+        .flex.items-center.p-2.text-base.font-normal.text-gray-900.rounded-lg.hover:bg-gray-100
+          .w-6.flex.justify-center
+            = icon("fa-solid", "store", class: "text-gray-400 text-xl")
+          %span.ml-3 Manage Customer
+      %li
+        .flex.items-center.p-2.text-base.font-normal.text-gray-900.rounded-lg
+          .w-6.flex.justify-center
+            = icon("fa-solid", "user", class: "text-gray-400 text-xl")
+          %span.ml-3 Settings

@@ -1,8 +1,10 @@
 !!!
-%html
+%html.h-full
   %head
     = render "layouts/head"
-  %body.flex.flex-col{style: theme}
+  %body.h-full{style: theme}
     = render FlashComponent.new
-    %main
-      = yield
+    %main.flex.h-full
+      = render "layouts/sidebar"
+      .overflow-auto.margin-max-screen.h-full.flex-1.py-8
+        = yield

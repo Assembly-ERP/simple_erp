@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   get '/customer', to: 'customer_portal/dashboard#index', as: :customer_root
 
   # Operational portal namespace
+  get '/operational_portal/manage', to: redirect('/operational_portal/users')
+
   namespace :operational_portal do
     resources :catalog, only: [:index]
     resources :products do
