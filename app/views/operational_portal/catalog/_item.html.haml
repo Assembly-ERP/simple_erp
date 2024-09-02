@@ -1,52 +1,53 @@
-.flex.w-full.cursor-pointer.flex.flex-col.md:flex-row.md:items-center.relative.p-3.md:gap-6.hover:bg-gray-50.bg-white.border.border-gray-200.rounded-lg.shadow{data: {controller: "dialog", action: "click->dialog#backdropClose"}}
+.relative{data: {controller: "dialog", action: "click->dialog#backdropClose"}}
   %dialog.relative{class: "xl:max-w-margin w-full overflow-y-auto h-[80%]", "data-dialog-target": "dialog"}
     .h-full
       .flex.px-8.py-3.gap-4.items-center.sticky.top-0.bg-white.z-10.border-b.relative
         %h2.text-xl.font-semibold
           = item.type.humanize
-      .pt-4.pb-6.px-8.w-full
+      .py-1.px-8.w-full
         = turbo_frame_tag (item.type == "product" ? "product_show" : "part_show"), src: item.type == "product" ? operational_portal_product_path(item) : operational_portal_part_path(item), loading: :lazy do
           .flex.items-center.justify-center.w-full{class: "h-full"}
             = icon("fa-solid", "spinner", class: "animate-spin text-4xl text-gray-400")
-  = image_tag "thumbnail.png", "data-action": "click->dialog#open", class: "w-20 h-20 rounded object-cover"
-  .flex.flex-col.md:justify-between.w-full{class: "md:w-[70%] lg:w-[50%]"}
-    .grid.grid-cols-2.lg:grid-cols-8.w-full.gap-4
-      .flex.flex-col.justify-between.h-full.col-span-4
-        %h3.text-base.font-medium.text-gray-700.mb-1.hover:underline{data: {action: "click->dialog#open"}}
-          = item.name
-        .block
-          - if item.type == "product"
-            .product-type-tag
-              = item.type.humanize
-          - else
-            .part-type-tag
-              = item.type.humanize
-      .col-span-1
-        %h6.font-normal.text-gray-500 Price
-        %p.font-medium.text-gray-900
-          = number_to_currency(item.price, unit: "$", precision: 2)
-      .col-span-1.lg:col-span-2.lg:text-center
-        %h6.font-normal.text-gray-500 In stock
-        %p.font-medium.text-gray-900
-          - if item.type == "product"
-            - if item.available
-              %span.text-green-600{class: "text-[15px]"} Available
+  .cursor-pointer.flex.w-full.flex.flex-col.md:flex-row.md:items-center.p-3.md:gap-6.hover:bg-gray-50.bg-white.border.border-gray-200.rounded-lg.shadow{data: {action: "click->dialog#open"}}
+    = image_tag "thumbnail.png", class: "w-20 h-20 rounded object-cover"
+    .flex.flex-col.md:justify-between.w-full{class: "md:w-[70%] lg:w-[50%]"}
+      .grid.grid-cols-2.lg:grid-cols-8.w-full.gap-4
+        .flex.flex-col.justify-between.h-full.col-span-4
+          %h3.text-base.font-medium.text-gray-700.mb-1
+            = item.name
+          .block
+            - if item.type == "product"
+              .product-type-tag
+                = item.type.humanize
             - else
-              %span.text-red-600{class: "text-[15px]"} Not available
-          - else
-            - if item.inventory
-              - if item.in_stock.positive?
-                = item.in_stock
-                stock
+              .part-type-tag
+                = item.type.humanize
+        .col-span-1
+          %h6.font-normal.text-gray-500 Price
+          %p.font-medium.text-gray-900
+            = number_to_currency(item.price, unit: "$", precision: 2)
+        .col-span-1.lg:col-span-2.lg:text-center
+          %h6.font-normal.text-gray-500 In stock
+          %p.font-medium.text-gray-900
+            - if item.type == "product"
+              - if item.available
+                %span.text-green-600{class: "text-[15px]"} Available
               - else
-                %span.text-red-600{class: "text-[15px]"} Out of stock
+                %span.text-red-600{class: "text-[15px]"} Not available
             - else
-              %span.text-green-600{class: "text-[15px]"} Available
-      .col-span-1
-        %h6.font-normal.text-gray-500 Weight
-        %p.font-medium.text-gray-900
-          = number_with_precision(item.weight, precision: 2)
-          lbs
+              - if item.inventory
+                - if item.in_stock.positive?
+                  = item.in_stock
+                  stock
+                - else
+                  %span.text-red-600{class: "text-[15px]"} Out of stock
+              - else
+                %span.text-green-600{class: "text-[15px]"} Available
+        .col-span-1
+          %h6.font-normal.text-gray-500 Weight
+          %p.font-medium.text-gray-900
+            = number_with_precision(item.weight, precision: 2)
+            lbs
   .absolute.top-3.right-3
     .relative{data: {controller: "dropdown"}}
       %button.px-2.py-1.hover:bg-gray-200.rounded-lg{data: {action: "dropdown#toggle click@window->dropdown#hide"}}
