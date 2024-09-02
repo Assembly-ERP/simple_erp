@@ -5,7 +5,7 @@
 @layer base {
   html,
   body {
-    @apply min-h-screen bg-foreground;
+    @apply bg-foreground;
   }
 
   .margin-max-screen {
