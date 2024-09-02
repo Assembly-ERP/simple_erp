@@ -16,6 +16,7 @@ class AlertComponent < ViewComponent::Base
     super
   end
 
+  sig { returns(String) }
   def alert_classes
     NOTIFY_TYPES[@notif_type] || NOTIFY_TYPES[:success]
   end
