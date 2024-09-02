@@ -6,7 +6,8 @@ module OperationalPortal
     authorize_resource class: false, only: :search_results
 
     def index
-      @orders = Order.with_customer.with_order_status.not_voided.accessible_by(current_ability)
+      @orders = Order.with_customer.with_order_status.not_voided
+                     .accessible_by(current_ability)
     end
 
     def show; end
@@ -80,11 +81,12 @@ module OperationalPortal
     private
 
     def order_params
-      params.require(:order)
-            .permit(:status, :customer_id, :order_status_id, :shipping_price, :discount_percentage, :tax,
-                    order_details_attributes: %i[id product_id part_id quantity price override _destroy],
-                    order_assignee_attributes: %i[id user_id _destroy],
-                    order_shipping_address_attributes: %i[id state street city zip_code])
+      params.require(:order).permit(
+        :status, :customer_id, :order_status_id, :shipping_price, :discount_percentage, :tax,
+        order_details_attributes: %i[id product_id part_id quantity price override _destroy],
+        order_shipping_address_attributes: %i[id state street city zip_code],
+        order_assignee_attributes: %i[id user_id _destroy]
+      )
     end
   end
 end

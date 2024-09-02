@@ -1,0 +1,9 @@
+%dialog.relative{class: "xl:max-w-margin w-full overflow-y-auto h-[80%]", "data-dialog-target": "dialog"}
+  .h-full
+    .flex.px-8.py-3.gap-4.items-center.sticky.top-0.bg-white.z-10.border-b.relative
+      %h2.text-xl.font-semibold
+        = item.type.humanize
+    .py-1.px-8.w-full
+      = turbo_frame_tag (item.type == "product" ? "product_show" : "part_show"), src: item.type == "product" ? operational_portal_product_path(item) : operational_portal_part_path(item), loading: :lazy do
+        .flex.items-center.justify-center.w-full{class: "h-full"}
+          = icon("fa-solid", "spinner", class: "animate-spin text-4xl text-gray-400")
