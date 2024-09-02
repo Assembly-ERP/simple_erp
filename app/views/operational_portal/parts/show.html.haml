@@ -6,10 +6,12 @@
       %p
         %strong Price:
         = @part.price
-      - if @part.inventory
-        %p
-          %strong In Stock:
+      %p
+        %strong In Stock:
+        - if @part.inventory
           = @part.in_stock
+        - else
+          Available
       %p
         %strong Description:
         = @part.description
