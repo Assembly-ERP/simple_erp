@@ -1,5 +1,5 @@
 / app/views/operational_portal/users/edit.html.erb
-.container
+.container.py-8
   %h1 Edit User
   = form_with(model: @user, url: operational_portal_user_path(@user), method: :patch, local: true) do |form|
     - if @user.errors.any?
