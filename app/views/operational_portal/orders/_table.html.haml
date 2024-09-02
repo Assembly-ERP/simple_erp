@@ -12,15 +12,9 @@
       - @orders.each do |order|
         %tr{id: dom_id(order)}
           %td
-            .block{"data-action" => "click->dialog#backdropClose", "data-controller" => "dialog"}
-              %dialog.relative{class: "xl:max-w-margin w-full overflow-y-auto h-[80%]", "data-dialog-target": "dialog"}
-                .flex.px-8.py-3.gap-4.items-center.sticky.top-0.bg-white.z-10.border-b.relative
-                  %h2.text-xl.font-semibold Order
-                .pt-4.pb-6.px-8{class: "w-full"}
-                  = turbo_frame_tag "order_show", src: operational_portal_order_path(order, modal: true), loading: :lazy do
-                    .flex.items-center.justify-center.w-full{class: "h-full"}
-                      = icon("fa-solid", "spinner", class: "animate-spin text-4xl text-gray-400")
-              %button.font-medium.text-gray-900.hover:underline{type: "button", "data-action" => "dialog#open", type: "button"}
+            .block{data: {controller: "dialog", action: "click->dialog#backdropClose"}}
+              = render "order_modal", order: order
+              %button.font-medium.text-gray-900.hover:underline{type: "button", data: {action: "dialog#open"}, type: "button"}
                 = "Order ##{order.id}"
           %td= order.customer_name
           %td{id: "list-order-status-#{order.order_status_id}"}= order.status

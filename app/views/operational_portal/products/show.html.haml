@@ -28,7 +28,10 @@
           - @product.parts_products.each do |parts_product|
             %tr
               %td
-                = render "part_modal", pp: parts_product
+                .block{data: {controller: "dialog", action: "click->dialog#backdropClose"}}
+                  = render "part_modal", pp: parts_product
+                  .hover:underline.cursor-pointer{data: {action: "click->dialog#open"}}
+                    = parts_product.part.name
               %td= number_to_currency(parts_product.part.price, unit: "$", precision: 2)
               %td= number_with_precision(parts_product.part.weight, precision: 2)
               %td= parts_product.quantity
