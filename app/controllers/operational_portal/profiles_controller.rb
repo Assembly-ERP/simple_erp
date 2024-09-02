@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module OperationalPortal
-  class ProfilesController < OperationalPortal::BaseController
+  class ProfilesController < OperationalPortal::NormalOperationController
     before_action :authenticate_user!
     before_action :ensure_operational_user
 

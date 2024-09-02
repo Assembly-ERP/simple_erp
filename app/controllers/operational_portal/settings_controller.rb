@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module OperationalPortal
-  class SettingsController < OperationalPortal::BaseController
+  class SettingsController < OperationalPortal::AdminOperationController
     before_action :authenticate_user!
     before_action :ensure_admin_user
 
