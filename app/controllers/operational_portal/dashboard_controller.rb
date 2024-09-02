@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module OperationalPortal
-  class DashboardController < OperationalPortal::BaseController
+  class DashboardController < OperationalPortal::NormalOperationController
     authorize_resource class: false
 
     def index

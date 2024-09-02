@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module OperationalPortal
-  class SupportTicketsController < OperationalPortal::BaseController
+  class SupportTicketsController < OperationalPortal::NormalOperationController
     load_and_authorize_resource
 
     def index
