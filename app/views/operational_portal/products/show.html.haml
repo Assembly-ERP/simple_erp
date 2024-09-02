@@ -27,7 +27,8 @@
         %tbody
           - @product.parts_products.each do |parts_product|
             %tr
-              %td= parts_product.part.name
+              %td
+                = render "part_modal", pp: parts_product
               %td= number_to_currency(parts_product.part.price, unit: "$", precision: 2)
               %td= number_with_precision(parts_product.part.weight, precision: 2)
               %td= parts_product.quantity
