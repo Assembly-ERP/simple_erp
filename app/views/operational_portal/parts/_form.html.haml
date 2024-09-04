@@ -1,48 +1,67 @@
 = form_with(model:, url:, html: {class: "grid gap-5", data: {controller: "parts--form"}}) do |form|
   - if @part.errors.any?
     = render ErrorCardComponent.new errors: @part.errors.full_messages, label: "Validations"
-  .flex.gap-5.w-full
-    .flex.flex-col.gap-3{class: "w-1/2"}
-      .field
-        = form.label :name
-        = form.text_field :name, class: "input-primary", required: true
-      .field
-        = form.label :sku
-        = form.text_field :sku, class: "input-primary"
-      .field
-        = form.label :description
-        = form.text_area :description, class: "input-primary", rows: 9
-    .flex.flex-col.gap-3{class: "w-1/2"}
-      .flex.gap-3.w-full
-        .field{class: "w-[60%]", data: {"parts--form-target": "priceDisplay"}}
-          = form.label :price, "Price $"
-          = form.number_field :price, placeholder: "0.00", step: 0.01, class: "input-primary", disabled: !@part.manual_price, required: @part.manual_price, data: {"parts--form-target": "price"}
-        .field.flex.items-center.gap-3.mt-6{class: "w-[40%]"}
-          %label.switch
-            = form.check_box :manual_price, data: {"parts--form-target": "manualPrice", action: "parts--form#overrideToggle"}
-            %span.slider
-          = form.label :manual_price, "Override Price"
-      .flex.gap-3
-        .field{class: "w-[60%]", data: {"parts--form-target": "instockDisplay"}}
-          = form.label :in_stock, "In Stock"
-          = form.number_field :in_stock, disabled: !form.object.inventory, placeholder: "0", class: "input-primary", data: {"parts--form-target": "instock"}
-        .field.flex.items-center.gap-3.mt-6{class: "w-[40%]"}
-          %label.switch
-            = form.check_box :inventory, data: {"parts--form-target": "inventory", action: "input->parts--form#inventoryToggle"}
-            %span.slider
-          = form.label :inventory
-      .grid.grid-cols-3.gap-3
-        .field
-          = form.label :weight
-          = form.number_field :weight, placeholder: "0.0", step: :any, class: "input-primary"
-        .field
-          = form.label :length
-          = form.number_field :length, placeholder: "0.0", step: :any, class: "input-primary"
-        .field
-          = form.label :width
-          = form.number_field :width, placeholder: "0.0", step: :any, class: "input-primary"
-      .field
-        = form.label :files
-        = form.file_field :files, multiple: true
+  .grid
+    .grid{data: {controller: "accordion"}}
+      %button.px-4.py-2.bg-white.border.border-gray-300.flex.justify-between.gap-3.items-center{type: "button", data: {action: "click->accordion#toggle"}}
+        General Information
+        = icon("fa-solid", "chevron-down", data: {"accordion-target": "iconDown"})
+      .flex.gap-5.w-full.py-4{data: {"accordion-target": "content"}}
+        .flex.flex-col.gap-3{class: "w-1/2"}
+          .field
+            = form.label :name
+            = form.text_field :name, class: "input-primary", required: true
+          .field
+            = form.label :sku
+            = form.text_field :sku, class: "input-primary"
+          .field
+            = form.label :description
+            = form.text_area :description, class: "input-primary", rows: 9
+        .flex.flex-col.gap-3{class: "w-1/2"}
+          .flex.gap-3.w-full
+            .field{class: "w-[60%]", data: {"parts--form-target": "priceDisplay"}}
+              = form.label :price, "Price $"
+              = form.number_field :price, placeholder: "0.00", step: 0.01, class: "input-primary", disabled: !@part.manual_price, required: @part.manual_price, data: {"parts--form-target": "price"}
+            .field.flex.items-center.gap-3.mt-6{class: "w-[40%]"}
+              %label.switch
+                = form.check_box :manual_price, data: {"parts--form-target": "manualPrice", action: "parts--form#overrideToggle"}
+                %span.slider
+              = form.label :manual_price, "Override Price"
+          .flex.gap-3
+            .field{class: "w-[60%]", data: {"parts--form-target": "instockDisplay"}}
+              = form.label :in_stock, "In Stock"
+              = form.number_field :in_stock, disabled: !form.object.inventory, placeholder: "0", class: "input-primary", data: {"parts--form-target": "instock"}
+            .field.flex.items-center.gap-3.mt-6{class: "w-[40%]"}
+              %label.switch
+                = form.check_box :inventory, data: {"parts--form-target": "inventory", action: "input->parts--form#inventoryToggle"}
+                %span.slider
+              = form.label :inventory
+          .grid.grid-cols-3.gap-3
+            .field
+              = form.label :weight
+              = form.number_field :weight, placeholder: "0.0", step: :any, class: "input-primary"
+            .field
+              = form.label :length
+              = form.number_field :length, placeholder: "0.0", step: :any, class: "input-primary"
+            .field
+              = form.label :width
+              = form.number_field :width, placeholder: "0.0", step: :any, class: "input-primary"
+          .grid.gap-3
+            %h2 Product Images
+            .flex.items-center.justify-center.w-full
+              = form.file_field :images, id: "dropzone-file", data: {}, multiple: true, class: "hidden peer", accept: Part::ALLOWED_IMAGE_TYPES.join(", ")
+
+              %label{for: "dropzone-file", data: {}, class: "flex flex-col items-center justify-center w-full h-60 transition-colors duration-200 border-2 text-gray-500 peer-disabled:text-gray-500 border-gray-300 peer-disabled:border-gray-300 peer-disabled:cursor-not-allowed hover:text-[color:var(--primary)] hover:border-[color:var(--primary)] border-dashed rounded-md cursor-pointer bg-white"}
+                = icon("fa-solid", "upload", class: "text-4xl mb-3")
+                %p.mb-1
+                  %span.font-semibold Click to upload
+                  or drag and drop
+                %p.text-sm.uppercase
+                  = Part::ALLOWED_IMAGE_TYPES.join(", ").gsub("image/", "")
+    .grid{data: {controller: "accordion", open: "false"}}
+      %button.px-4.py-2.bg-white.border.border-gray-300.flex.justify-between.gap-3.items-center{type: "button", data: {action: "click->accordion#toggle"}}
+        Custom Attribute
+        = icon("fa-solid", "chevron-down", data: {"accordion-target": "iconDown"})
+      .flex.gap-5.w-full.py-4{data: {"accordion-target": "content"}, class: "hidden"}
   .mt-2
     = form.submit btn_text, class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"
