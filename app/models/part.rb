@@ -9,6 +9,7 @@ class Part < ApplicationRecord
   has_many :poly_attributes, as: :attributable, dependent: :destroy
 
   # Attachments
+  has_many_attached :images
   has_many_attached :files
 
   # Scopes
@@ -74,10 +75,13 @@ end
 #  in_stock        :integer          default(0)
 #  inventory       :boolean          default(FALSE), not null
 #  json_attributes :json
+#  length          :decimal(10, 2)   default(0.0)
 #  manual_price    :boolean          default(FALSE), not null
 #  name            :string           not null
 #  price           :decimal(10, 2)   default(0.0)
+#  sku             :string
 #  weight          :decimal(10, 2)   default(0.0)
+#  width           :decimal(10, 2)   default(0.0)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
