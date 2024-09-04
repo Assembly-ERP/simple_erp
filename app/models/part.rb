@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Part < ApplicationRecord
+  # Constants
+  ALLOWED_IMAGE_TYPES = %w[image/png image/jpg image/jpeg].freeze
+
   # Relationships
   has_many :parts_products, dependent: :destroy
   has_many :products, through: :parts_products

@@ -105,3 +105,6 @@ gem 'cancancan', '~> 3.5'
 
 # Pagination
 gem 'pagy', '~> 6.4'
+
+# Attachment validations
+gem 'active_storage_validations', '~> 1.1'
