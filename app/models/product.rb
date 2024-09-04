@@ -26,7 +26,7 @@ class Product < ApplicationRecord
 
   # Validations
   validates :name, presence: true
-  validates :parts_products, presence: { message: 'add at least one part' }
+  # validates :parts_products, presence: { message: 'add at least one part' }
   validates :price, numericality: { greater_than_or_equal_to: 0, only_float: true }
 
   # Generators
@@ -71,6 +71,7 @@ end
 #  json_attributes :json
 #  name            :string           not null
 #  price           :decimal(10, 2)   default(0.0)
+#  sku             :string
 #  weight          :decimal(10, 2)   default(0.0)
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null

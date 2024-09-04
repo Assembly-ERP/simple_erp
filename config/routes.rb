@@ -117,6 +117,7 @@ end
 #                                                        POST   /users/confirmation(.:format)                                                                     devise/confirmations#create
 #                                       operational_root GET    /operational_portal(.:format)                                                                     operational_portal/dashboard#index
 #                                          customer_root GET    /customer(.:format)                                                                               customer_portal/dashboard#index
+#                              operational_portal_manage GET    /operational_portal/manage(.:format)                                                              redirect(301, /operational_portal/users)
 #                       operational_portal_catalog_index GET    /operational_portal/catalog(.:format)                                                             operational_portal/catalog#index
 #        search_part_results_operational_portal_products GET    /operational_portal/products/search_part_results(.:format)                                        operational_portal/products#search_part_results
 #                            operational_portal_products GET    /operational_portal/products(.:format)                                                            operational_portal/products#index

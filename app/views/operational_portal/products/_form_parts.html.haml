@@ -5,7 +5,7 @@
 .flex.w-full.gap-5.mt-2
   .px-4.py-5.w-full.h-full.min-h-80.border.border-gray-300.rounded.bg-white.flex.flex-col.w-full{data: { "products--form-target": "addedParts"}}
     .flex.flex-col.divide-y
-      = form.fields_for :parts_products, @product.parts_products do |pp_form|
+      = form.fields_for :parts_products, form.object.parts_products do |pp_form|
         = render "part_form", name: pp_form.object.part.name, quantity: pp_form.object.quantity, price: pp_form.object.part.price, part_id: pp_form.object.part_id, weight: pp_form.object.part.weight, f: pp_form, id: pp_form.object.id, price_per_item: pp_form.object.part.price
       .hidden{data: {"products--form-target": "target"}}
     .grid.w-full.h-64.place-items-center{data: {"products--form-target": "empty"}, class: @product.parts_products.present? ? "hidden" : "" }
