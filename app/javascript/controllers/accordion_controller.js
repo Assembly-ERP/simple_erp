@@ -4,16 +4,11 @@ export default class extends Controller {
   static targets = ["content", "iconDown"];
 
   connect() {
-    this.init();
-  }
-
-  init() {
     if (this.element.dataset.open === "false") {
       this.contentTarget.classList.add("hidden");
       this.iconDownTarget.classList.remove("rotate-180");
       return;
     }
-
     this.contentTarget.classList.remove("hidden");
     this.iconDownTarget.classList.add("rotate-180");
   }
