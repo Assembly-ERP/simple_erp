@@ -34,7 +34,7 @@ export default class extends Controller {
     // this.customerSelectTarget.style = "opacity: 0; height: 65px;";
     // this.customerSelectTarget.classList.add("absolute", "top-0");
     // this.customerSelectTarget.removeAttribute("aria-hidden");
-    this.calculateSummary();
+    this.calculateSummary(true);
   }
 
   customerChange(e) {
@@ -79,8 +79,8 @@ export default class extends Controller {
     });
   }
 
-  calculateSummary() {
-    this.element.dataset.changed = "true";
+  calculateSummary(start = false) {
+    this.element.dataset.changed = start ? "false" : "true";
     this.summaryPriceTarget.dataset.value = this.basePriceCalc;
 
     const price = Number(this.summaryPriceTarget.dataset.value);

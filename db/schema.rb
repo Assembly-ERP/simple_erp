@@ -146,10 +146,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_31_044932) do
 
   create_table "parts", force: :cascade do |t|
     t.string "name", null: false
+    t.string "sku"
     t.text "description"
     t.decimal "price", precision: 10, scale: 2, default: "0.0"
     t.integer "in_stock", default: 0
     t.decimal "weight", precision: 10, scale: 2, default: "0.0"
+    t.decimal "length", precision: 10, scale: 2, default: "0.0"
+    t.decimal "width", precision: 10, scale: 2, default: "0.0"
     t.json "json_attributes"
     t.boolean "manual_price", default: false, null: false
     t.boolean "inventory", default: false, null: false
@@ -181,6 +184,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_31_044932) do
 
   create_table "products", force: :cascade do |t|
     t.string "name", null: false
+    t.string "sku"
     t.text "description"
     t.decimal "price", precision: 10, scale: 2, default: "0.0"
     t.decimal "weight", precision: 10, scale: 2, default: "0.0"

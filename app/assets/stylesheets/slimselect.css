@@ -3,7 +3,7 @@
   --ss-bg-color: #ffffff;
   --ss-font-color: #000;
   --ss-font-placeholder-color: #8d8d8d;
-  --ss-disabled-color: #fff;
+  --ss-disabled-color: rgba(249, 250, 251, 1);
   --ss-border-color: #D3D3D3;
   --ss-highlight-color: #fffb8c;
   --ss-success-color: #00b755;
@@ -65,10 +65,6 @@
   border: 1px solid var(--ss-border-color);
 }
 
-/* .ss-main:focus { */
-/*   box-shadow: 0 0 5px var(--ss-focus-color) */
-/* } */
-
 .ss-main.ss-disabled {
   background-color: var(--ss-disabled-color);
   cursor: not-allowed
@@ -76,6 +72,10 @@
 
 .ss-main.ss-disabled .ss-values .ss-disabled {
   color: var(--ss-font-color)
+}
+
+.ss-main.ss-disabled .ss-values .ss-single {
+  color: rgba(156, 163, 175, 1)
 }
 
 .ss-main.ss-disabled .ss-values .ss-value .ss-value-delete {
