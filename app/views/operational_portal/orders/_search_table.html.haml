@@ -1,4 +1,12 @@
 %table#search-results.w-full.text-left.text-base.text-gray-900.md:table-fixed
+  %thead.border-b.sticky.top-0{class: "bg-gray-50"}
+    %tr
+      %th Name
+      %th Category
+      %th Weight
+      %th Price
+      %th.text-center Quantity
+      %th
   %tbody.divide-y.divide-gray-200{data: {"orders--form-target": "searchItems"}}
     - @results.each do |result|
       = render "search_item", result:
