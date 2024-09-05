@@ -7,8 +7,6 @@ export default class extends Controller {
       autoplay: {
         delay: 3000,
       },
-      loop: true,
-      // If we need pagination
       pagination: {
         el: ".swiper-pagination",
       },
@@ -18,5 +16,9 @@ export default class extends Controller {
         prevEl: ".swiper-button-prev",
       },
     });
+  }
+
+  disconnect() {
+    this.swiper.destroy(true, true);
   }
 }
