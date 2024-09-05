@@ -6,14 +6,14 @@ export default class extends Controller {
     "instock",
     "inventory",
     "manualPrice",
-    "instockDisplay",
-    "priceDisplay",
-    "staticPriceDisplay",
+    "staticInstock",
+    "staticPrice",
     "uploadingContainer",
     "uploading",
     "dropArea",
     "upload",
     "image",
+    "weight",
   ];
 
   connect() {
@@ -29,22 +29,37 @@ export default class extends Controller {
     });
   }
 
+  calcByWeight() {
+    const pricePerPound = Number(this.element.dataset.pricePerPound);
+    const total = pricePerPound * Number(this.weightTarget.value);
+    this.staticPriceTarget.innerHTML = this.toLocalePrice(total);
+  }
+
   overrideToggle(e) {
+    this.calcByWeight();
     if (e.target.checked) {
       this.priceTarget.disabled = false;
       this.priceTarget.required = true;
+      this.priceTarget.classList.remove("hidden");
+      this.staticPriceTarget.classList.add("hidden");
       return;
     }
     this.priceTarget.disabled = true;
     this.priceTarget.required = false;
+    this.priceTarget.classList.add("hidden");
+    this.staticPriceTarget.classList.remove("hidden");
   }
 
   inventoryToggle(e) {
     if (e.target.checked) {
       this.instockTarget.disabled = false;
+      this.instockTarget.classList.remove("hidden");
+      this.staticInstockTarget.classList.add("hidden");
       return;
     }
     this.instockTarget.disabled = true;
+    this.instockTarget.classList.add("hidden");
+    this.staticInstockTarget.classList.remove("hidden");
   }
 
   imageHandler(event) {
@@ -80,7 +95,6 @@ export default class extends Controller {
       const isFileAllowed = this.allowedFileTypes.includes(files[i].type);
       const reader = new FileReader();
 
-      // create element
       const container = document.createElement("div");
       container.classList.add("relative");
 
@@ -106,5 +120,25 @@ export default class extends Controller {
 
   get allowedFileTypes() {
     return this.uploadTarget.accept.split(", ");
+  }
+
+  toLocalePrice(price, currency = "$") {
+    return (
+      currency +
+      price.toLocaleString("en-US", {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })
+    );
+  }
+
+  disconnect() {
+    ["dragenter", "dragover", "dragleave", "drop"].forEach((el) => {
+      this.dropAreaTarget.removeEventListener(
+        el,
+        this.imageHandler.bind(this),
+        false,
+      );
+    });
   }
 }

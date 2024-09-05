@@ -1,0 +1,17 @@
+.grid.gap-3
+  %h2 Product Images
+  %div{class: form.object.images.attached? ? "" : "hidden", data: {"parts--form-target": "uploadingContainer"}}
+    .flex.flex-wrap.gap-4{data: {"parts--form-target": "uploading"}}
+      - form.object.images.each do |image|
+        .relative{data: {"parts--form-target": "image"}}
+          = image_tag image.variant(:thumb), class: "w-24 h-24 object-cover border rounded-sm"
+          = form.hidden_field :images, value: image.signed_id, multiple: true
+  .flex.items-center.justify-center.w-full
+    = form.file_field :images, id: "dropzone-file", data: {"parts--form-target": "upload", action: "input->parts--form#imageHandler"}, multiple: true, class: "hidden peer", accept: Part::ALLOWED_IMAGE_TYPES.join(", ")
+    %label{for: "dropzone-file", data: {"parts--form-target": "dropArea"}, class: "flex flex-col items-center justify-center w-full h-60 transition-colors duration-200 border-2 text-gray-500 peer-disabled:text-gray-500 border-gray-300 peer-disabled:border-gray-300 peer-disabled:cursor-not-allowed hover:text-[color:var(--primary)] hover:border-[color:var(--primary)] border-dashed rounded-md cursor-pointer bg-white"}
+      = icon("fa-solid", "upload", class: "text-4xl mb-3")
+      %p.mb-1
+        %span.font-semibold Click to upload
+        or drag and drop
+      %p.text-sm.uppercase
+        = Part::ALLOWED_IMAGE_TYPES.join(", ").gsub("image/", "")
