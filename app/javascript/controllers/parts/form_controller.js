@@ -8,12 +8,14 @@ export default class extends Controller {
     "manualPrice",
     "staticInstock",
     "staticPrice",
+    "priceContainer",
     "uploadingContainer",
     "uploading",
     "dropArea",
     "upload",
     "image",
     "weight",
+    "iconTemplate",
   ];
 
   connect() {
@@ -40,13 +42,13 @@ export default class extends Controller {
     if (e.target.checked) {
       this.priceTarget.disabled = false;
       this.priceTarget.required = true;
-      this.priceTarget.classList.remove("hidden");
+      this.priceContainerTarget.classList.remove("hidden");
       this.staticPriceTarget.classList.add("hidden");
       return;
     }
     this.priceTarget.disabled = true;
     this.priceTarget.required = false;
-    this.priceTarget.classList.add("hidden");
+    this.priceContainerTarget.classList.add("hidden");
     this.staticPriceTarget.classList.remove("hidden");
   }
 
@@ -93,10 +95,41 @@ export default class extends Controller {
 
     for (let i = 0; i < files.length; i++) {
       const isFileAllowed = this.allowedFileTypes.includes(files[i].type);
+      if (!isFileAllowed) return;
+
+      const parser = new DOMParser();
       const reader = new FileReader();
+
+      const identity = new Date().valueOf();
 
       const container = document.createElement("div");
       container.classList.add("relative");
+      container.setAttribute("data-parts--form-target", "image");
+      container.setAttribute("data-identity", identity);
+
+      const removeBtn = document.createElement("button");
+      removeBtn.setAttribute("data-identity", identity);
+      removeBtn.setAttribute("data-signed", "false");
+      removeBtn.setAttribute("data-action", "click->parts--form#removeImage");
+      removeBtn.setAttribute("type", "button");
+      removeBtn.classList.add("absolute", "top-1", "right-1");
+      const icon = parser.parseFromString(
+        this.iconTemplateTarget.innerHTML,
+        "text/html",
+      );
+      removeBtn.appendChild(icon.body.firstChild);
+
+      const input = document.createElement("input");
+      input.setAttribute("type", "file");
+      input.setAttribute("class", "hidden");
+      input.setAttribute("id", identity);
+      input.setAttribute("name", "part[images][]");
+      input.setAttribute("multiple", "");
+
+      const dataTransfer = new DataTransfer();
+      dataTransfer.items.add(files[i]);
+
+      input.files = dataTransfer.files;
 
       reader.onload = (e) => {
         const img = new Image();
@@ -111,15 +144,30 @@ export default class extends Controller {
         );
 
         container.appendChild(img);
+        container.appendChild(removeBtn);
+        container.appendChild(input);
         uploadingEl.appendChild(container);
       };
 
       reader.readAsDataURL(files[i]);
     }
+
+    this.uploadTarget.value = "";
+  }
+
+  removeImage(e) {
+    const image = this.findImageEl(e.target.dataset.identity);
+    if (image) image.remove();
   }
 
   get allowedFileTypes() {
     return this.uploadTarget.accept.split(", ");
+  }
+
+  findImageEl(identity) {
+    return this.imageTargets.find(
+      (image) => image.dataset.identity === identity,
+    );
   }
 
   toLocalePrice(price, currency = "$") {

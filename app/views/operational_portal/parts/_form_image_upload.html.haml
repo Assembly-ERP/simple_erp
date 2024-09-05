@@ -1,11 +1,15 @@
+%template{data: {"parts--form-target": "iconTemplate"}}
+  = icon("fa-solid", "trash-can", class: "text-red-500 pointer-events-none")
 .grid.gap-3
   %h2 Product Images
-  %div{class: form.object.images.attached? ? "" : "hidden", data: {"parts--form-target": "uploadingContainer"}}
+  .block{class: form.object.images.attached? ? "" : "hidden", data: {"parts--form-target": "uploadingContainer"}}
     .flex.flex-wrap.gap-4{data: {"parts--form-target": "uploading"}}
       - form.object.images.each do |image|
-        .relative{data: {"parts--form-target": "image"}}
+        .relative{data: {"parts--form-target": "image", identity: image.signed_id}}
           = image_tag image.variant(:thumb), class: "w-24 h-24 object-cover border rounded-sm"
           = form.hidden_field :images, value: image.signed_id, multiple: true
+          %button.absolute.top-1.right-2{type: "button", data: {identity: image.signed_id, signed: "true", action: "parts--form#removeImage"}}
+            = icon("fa-solid", "trash-can", class: "text-red-500 pointer-events-none")
   .flex.items-center.justify-center.w-full
     = form.file_field :images, id: "dropzone-file", data: {"parts--form-target": "upload", action: "input->parts--form#imageHandler"}, multiple: true, class: "hidden peer", accept: Part::ALLOWED_IMAGE_TYPES.join(", ")
     %label{for: "dropzone-file", data: {"parts--form-target": "dropArea"}, class: "flex flex-col items-center justify-center w-full h-60 transition-colors duration-200 border-2 text-gray-500 peer-disabled:text-gray-500 border-gray-300 peer-disabled:border-gray-300 peer-disabled:cursor-not-allowed hover:text-[color:var(--primary)] hover:border-[color:var(--primary)] border-dashed rounded-md cursor-pointer bg-white"}
