@@ -44,13 +44,13 @@
               = form.label :inventory
           .grid.grid-cols-3.gap-3
             .field
-              = form.label :weight
+              = form.label :weight, "Weight (lbs)"
               = form.number_field :weight, value: number_with_precision(form.object.weight, precision: 2), placeholder: "0.0", step: :any, class: "input-primary", data: {"parts--form-target": "weight", action: "input->parts--form#calcByWeight"}
             .field
-              = form.label :length
+              = form.label :length, "Length (cm)"
               = form.number_field :length, value: number_with_precision(form.object.length, precision: 2), placeholder: "0.0", step: :any, class: "input-primary"
             .field
-              = form.label :width
+              = form.label :width, "Width (cm)"
               = form.number_field :width, value: number_with_precision(form.object.width, precision: 2), placeholder: "0.0", step: :any, class: "input-primary"
           = render "form_image_upload", form: form
     .grid{data: {controller: "accordion", open: "false"}}
