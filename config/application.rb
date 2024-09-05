@@ -8,6 +8,7 @@ Bundler.require(*Rails.groups)
 module Erpweb
   class Application < Rails::Application
     config.load_defaults 7.1
+    config.hosts = nil
 
     config.generators do |g|
       g.template_engine = :haml
