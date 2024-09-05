@@ -44,8 +44,8 @@ module OperationalPortal
 
     def part_params
       params.require(:part).permit(
-        :name, :description, :price, :in_stock, :weight,
-        :manual_price, :inventory, files: []
+        :name, :description, :price, :in_stock, :weight, :sku, :length, :width,
+        :manual_price, :inventory, images: []
       )
     end
   end

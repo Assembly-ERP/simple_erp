@@ -1,23 +1,39 @@
 = turbo_frame_tag "part_show" do
-  .py-4.flex.flex-col.gap-3
-    .bg-white.px-4.py-3.bg-white.rounded.border.shadow
-      %h1.text-xl.mb-1.font-medium
-        = @part.name
-      %p
-        %strong Price:
-        = @part.price
-      %p
-        %strong In Stock:
-        - if @part.inventory
-          = @part.in_stock
-        - else
-          Available
-      %p
-        %strong Description:
-        = @part.description
-      %p
-        %strong Weight:
-        = number_with_precision(@part.weight, precision: 2)
+  .py-4.flex.flex-col.gap-4
+    - if params[:modal].blank?
+      %h2.font-semibold.text-xl Part Details
+    .grid.grid-cols-4
+      .grid.col-span-3.gap-6
+        .grid.gap-2
+          %h2.font-bold.text-3xl= @part.name
+          %h2.font-bold.text-2xl
+            = number_to_currency(@part.price, precision: 2, unit: "$")
+        .flex.justify-center
+          .h-72.w-80.relative
+            .swiper{data: {controller: "parts--carousel"}}
+              .swiper-wrapper
+                - @part.images.each do |image|
+                  .swiper-slide 
+                    = image_tag image.variant(:thumb), class: "w-80 h-72 object-cover rounded-md"
+              .swiper-pagination
+              .swiper-button-prev
+              .swiper-button-next
+        .grid.gap-2.mt-3
+          %h2.font-semibold Description
+          %p= @part.description
+      .flex.flex-col.gap-5.mt-4
+        .flex.flex-col.gap-1
+          %h2.font-semibold SKU
+          %span= @part.sku.present? ? @part.sku : "N/A"
+        .flex.flex-col.gap-1
+          %h2.font-semibold Weight (lbs)
+          %span= number_with_precision(@part.weight, precision: 2)
+        .flex.flex-col.gap-1
+          %h2.font-semibold Length (cm)
+          %span= number_with_precision(@part.length, precision: 2)
+        .flex.flex-col.gap-1
+          %h2.font-semibold Width (cm)
+          %span= number_with_precision(@part.width, precision: 2)
     .flex.gap-3{class: params[:modal] == "true" ? "sticky bottom-0 w-full bg-white py-4 border-t mt-2" : ""}
       = link_to 'Edit Part', edit_operational_portal_part_path(@part), class: 'w-fit btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]', target: :_top
       = button_to operational_portal_part_path(@part), method: :delete, class: "flex items-center gap-2 w-fit btn-md bg-red-600 text-white", form: {data: {turbo_confirm: 'Are you sure to void this part?'}} do

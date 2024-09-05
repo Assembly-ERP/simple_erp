@@ -22,6 +22,8 @@ class DeviseController
     include ::ActionText::TagHelper
     include ::Importmap::ImportmapTagsHelper
     include ::ActionController::Base::HelperMethods
+    include ::Pagy::UrlHelpers
+    include ::Pagy::Frontend
     include ::ApplicationHelper
     include ::Api::V1::PartsHelper
     include ::Api::V1::SupportTicketsHelper
@@ -33,6 +35,7 @@ class DeviseController
     include ::InvitationsHelper
     include ::OperationalPortal::Catalog::PartsHelper
     include ::OperationalUsers::RegistrationsHelper
+    include ::OrderShippingAddressesHelper
     include ::OrdersHelper
     include ::PartsHelper
     include ::ProductsHelper

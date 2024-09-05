@@ -108,3 +108,6 @@ gem 'pagy', '~> 6.4'
 
 # Attachment validations
 gem 'active_storage_validations', '~> 1.1'
+
+# S3
+gem 'aws-sdk-s3', require: false

@@ -325,6 +325,20 @@ class Product
 
   module GeneratedAssociationMethods
     sig { returns(T::Array[T.untyped]) }
+    def order_detail_ids; end
+
+    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
+    def order_detail_ids=(ids); end
+
+    # This method is created by ActiveRecord on the `Product` class because it declared `has_many :order_details`.
+    # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
+    sig { returns(::OrderDetail::PrivateCollectionProxy) }
+    def order_details; end
+
+    sig { params(value: T::Enumerable[::OrderDetail]).void }
+    def order_details=(value); end
+
+    sig { returns(T::Array[T.untyped]) }
     def part_ids; end
 
     sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
@@ -379,6 +393,9 @@ class Product
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def annotate(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def catalog(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def create_with(*args, &blk); end
@@ -517,6 +534,12 @@ class Product
     def rewhere(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def search_results(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def search_results_with_order(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def select(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
@@ -560,6 +583,51 @@ class Product
   end
 
   module GeneratedAttributeMethods
+    sig { returns(T::Boolean) }
+    def available; end
+
+    sig { params(value: T::Boolean).returns(T::Boolean) }
+    def available=(value); end
+
+    sig { returns(T::Boolean) }
+    def available?; end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def available_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def available_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def available_came_from_user?; end
+
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def available_change; end
+
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def available_change_to_be_saved; end
+
+    sig { params(from: T::Boolean, to: T::Boolean).returns(T::Boolean) }
+    def available_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def available_in_database; end
+
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def available_previous_change; end
+
+    sig { params(from: T::Boolean, to: T::Boolean).returns(T::Boolean) }
+    def available_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def available_previously_was; end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def available_was; end
+
+    sig { void }
+    def available_will_change!; end
+
     sig { returns(::ActiveSupport::TimeWithZone) }
     def created_at; end
 
@@ -785,10 +853,10 @@ class Product
     sig { void }
     def json_attributes_will_change!; end
 
-    sig { returns(T.nilable(::String)) }
+    sig { returns(::String) }
     def name; end
 
-    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    sig { params(value: ::String).returns(::String) }
     def name=(value); end
 
     sig { returns(T::Boolean) }
@@ -803,22 +871,22 @@ class Product
     sig { returns(T::Boolean) }
     def name_came_from_user?; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def name_change; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def name_change_to_be_saved; end
 
-    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
     def name_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def name_in_database; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def name_previous_change; end
 
-    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
     def name_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
@@ -876,6 +944,9 @@ class Product
     def price_will_change!; end
 
     sig { void }
+    def restore_available!; end
+
+    sig { void }
     def restore_created_at!; end
 
     sig { void }
@@ -897,10 +968,19 @@ class Product
     def restore_price!; end
 
     sig { void }
+    def restore_sku!; end
+
+    sig { void }
     def restore_updated_at!; end
 
     sig { void }
     def restore_weight!; end
+
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def saved_change_to_available; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_available?; end
 
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def saved_change_to_created_at; end
@@ -932,7 +1012,7 @@ class Product
     sig { returns(T::Boolean) }
     def saved_change_to_json_attributes?; end
 
-    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    sig { returns(T.nilable([::String, ::String])) }
     def saved_change_to_name; end
 
     sig { returns(T::Boolean) }
@@ -943,6 +1023,12 @@ class Product
 
     sig { returns(T::Boolean) }
     def saved_change_to_price?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_sku; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_sku?; end
 
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def saved_change_to_updated_at; end
@@ -955,6 +1041,51 @@ class Product
 
     sig { returns(T::Boolean) }
     def saved_change_to_weight?; end
+
+    sig { returns(T.nilable(::String)) }
+    def sku; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def sku=(value); end
+
+    sig { returns(T::Boolean) }
+    def sku?; end
+
+    sig { returns(T.nilable(::String)) }
+    def sku_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def sku_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def sku_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def sku_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def sku_change_to_be_saved; end
+
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def sku_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def sku_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def sku_previous_change; end
+
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def sku_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def sku_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def sku_was; end
+
+    sig { void }
+    def sku_will_change!; end
 
     sig { returns(::ActiveSupport::TimeWithZone) }
     def updated_at; end
@@ -1047,6 +1178,9 @@ class Product
     def weight_will_change!; end
 
     sig { returns(T::Boolean) }
+    def will_save_change_to_available?; end
+
+    sig { returns(T::Boolean) }
     def will_save_change_to_created_at?; end
 
     sig { returns(T::Boolean) }
@@ -1068,6 +1202,9 @@ class Product
     def will_save_change_to_price?; end
 
     sig { returns(T::Boolean) }
+    def will_save_change_to_sku?; end
+
+    sig { returns(T::Boolean) }
     def will_save_change_to_updated_at?; end
 
     sig { returns(T::Boolean) }
@@ -1083,6 +1220,9 @@ class Product
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def annotate(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def catalog(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def create_with(*args, &blk); end
@@ -1185,6 +1325,12 @@ class Product
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def rewhere(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def search_results(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def search_results_with_order(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def select(*args, &blk); end

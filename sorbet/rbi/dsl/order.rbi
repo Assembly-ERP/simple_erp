@@ -327,11 +327,38 @@ class Order
     sig { params(args: T.untyped, blk: T.untyped).returns(::Customer) }
     def build_customer(*args, &blk); end
 
+    sig { params(args: T.untyped, blk: T.untyped).returns(::OrderAssignee) }
+    def build_order_assignee(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::OrderShippingAddress) }
+    def build_order_shipping_address(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::OrderStatus) }
+    def build_order_status(*args, &blk); end
+
     sig { params(args: T.untyped, blk: T.untyped).returns(::Customer) }
     def create_customer(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::Customer) }
     def create_customer!(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::OrderAssignee) }
+    def create_order_assignee(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::OrderAssignee) }
+    def create_order_assignee!(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::OrderShippingAddress) }
+    def create_order_shipping_address(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::OrderShippingAddress) }
+    def create_order_shipping_address!(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::OrderStatus) }
+    def create_order_status(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::OrderStatus) }
+    def create_order_status!(*args, &blk); end
 
     sig { returns(T.nilable(::Customer)) }
     def customer; end
@@ -344,6 +371,15 @@ class Order
 
     sig { returns(T::Boolean) }
     def customer_previously_changed?; end
+
+    sig { returns(T.nilable(::OrderAssignee)) }
+    def order_assignee; end
+
+    sig { params(value: T.nilable(::OrderAssignee)).void }
+    def order_assignee=(value); end
+
+    sig { params(attributes: T.untyped).returns(T.untyped) }
+    def order_assignee_attributes=(attributes); end
 
     sig { returns(T::Array[T.untyped]) }
     def order_detail_ids; end
@@ -361,6 +397,27 @@ class Order
 
     sig { params(attributes: T.untyped).returns(T.untyped) }
     def order_details_attributes=(attributes); end
+
+    sig { returns(T.nilable(::OrderShippingAddress)) }
+    def order_shipping_address; end
+
+    sig { params(value: T.nilable(::OrderShippingAddress)).void }
+    def order_shipping_address=(value); end
+
+    sig { params(attributes: T.untyped).returns(T.untyped) }
+    def order_shipping_address_attributes=(attributes); end
+
+    sig { returns(T.nilable(::OrderStatus)) }
+    def order_status; end
+
+    sig { params(value: T.nilable(::OrderStatus)).void }
+    def order_status=(value); end
+
+    sig { returns(T::Boolean) }
+    def order_status_changed?; end
+
+    sig { returns(T::Boolean) }
+    def order_status_previously_changed?; end
 
     sig { returns(T::Array[T.untyped]) }
     def part_ids; end
@@ -407,8 +464,26 @@ class Order
     sig { returns(T.nilable(::Customer)) }
     def reload_customer; end
 
+    sig { returns(T.nilable(::OrderAssignee)) }
+    def reload_order_assignee; end
+
+    sig { returns(T.nilable(::OrderShippingAddress)) }
+    def reload_order_shipping_address; end
+
+    sig { returns(T.nilable(::OrderStatus)) }
+    def reload_order_status; end
+
     sig { void }
     def reset_customer; end
+
+    sig { void }
+    def reset_order_assignee; end
+
+    sig { void }
+    def reset_order_shipping_address; end
+
+    sig { void }
+    def reset_order_status; end
   end
 
   module GeneratedAssociationRelationMethods
@@ -516,6 +591,9 @@ class Order
     def none(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def not_voided(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def null_relation?(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
@@ -598,6 +676,9 @@ class Order
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def with_customer(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def with_order_status(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def without(*args, &blk); end
@@ -694,6 +775,51 @@ class Order
     sig { void }
     def customer_id_will_change!; end
 
+    sig { returns(T.nilable(::BigDecimal)) }
+    def discount_percentage; end
+
+    sig { params(value: T.nilable(::BigDecimal)).returns(T.nilable(::BigDecimal)) }
+    def discount_percentage=(value); end
+
+    sig { returns(T::Boolean) }
+    def discount_percentage?; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def discount_percentage_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def discount_percentage_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def discount_percentage_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def discount_percentage_change; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def discount_percentage_change_to_be_saved; end
+
+    sig { params(from: T.nilable(::BigDecimal), to: T.nilable(::BigDecimal)).returns(T::Boolean) }
+    def discount_percentage_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def discount_percentage_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def discount_percentage_previous_change; end
+
+    sig { params(from: T.nilable(::BigDecimal), to: T.nilable(::BigDecimal)).returns(T::Boolean) }
+    def discount_percentage_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def discount_percentage_previously_was; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def discount_percentage_was; end
+
+    sig { void }
+    def discount_percentage_will_change!; end
+
     sig { returns(::Integer) }
     def id; end
 
@@ -784,11 +910,104 @@ class Order
     sig { void }
     def id_will_change!; end
 
+    sig { returns(::Integer) }
+    def order_status_id; end
+
+    sig { params(value: ::Integer).returns(::Integer) }
+    def order_status_id=(value); end
+
+    sig { returns(T::Boolean) }
+    def order_status_id?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def order_status_id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def order_status_id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def order_status_id_came_from_user?; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def order_status_id_change; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def order_status_id_change_to_be_saved; end
+
+    sig { params(from: ::Integer, to: ::Integer).returns(T::Boolean) }
+    def order_status_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def order_status_id_in_database; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def order_status_id_previous_change; end
+
+    sig { params(from: ::Integer, to: ::Integer).returns(T::Boolean) }
+    def order_status_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def order_status_id_previously_was; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def order_status_id_was; end
+
+    sig { void }
+    def order_status_id_will_change!; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def price; end
+
+    sig { params(value: T.nilable(::BigDecimal)).returns(T.nilable(::BigDecimal)) }
+    def price=(value); end
+
+    sig { returns(T::Boolean) }
+    def price?; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def price_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def price_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def price_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def price_change; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def price_change_to_be_saved; end
+
+    sig { params(from: T.nilable(::BigDecimal), to: T.nilable(::BigDecimal)).returns(T::Boolean) }
+    def price_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def price_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def price_previous_change; end
+
+    sig { params(from: T.nilable(::BigDecimal), to: T.nilable(::BigDecimal)).returns(T::Boolean) }
+    def price_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def price_previously_was; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def price_was; end
+
+    sig { void }
+    def price_will_change!; end
+
     sig { void }
     def restore_created_at!; end
 
     sig { void }
     def restore_customer_id!; end
+
+    sig { void }
+    def restore_discount_percentage!; end
 
     sig { void }
     def restore_id!; end
@@ -797,13 +1016,25 @@ class Order
     def restore_id_value!; end
 
     sig { void }
-    def restore_status!; end
+    def restore_order_status_id!; end
+
+    sig { void }
+    def restore_price!; end
+
+    sig { void }
+    def restore_shipping_price!; end
+
+    sig { void }
+    def restore_tax!; end
 
     sig { void }
     def restore_total_amount!; end
 
     sig { void }
     def restore_updated_at!; end
+
+    sig { void }
+    def restore_voided_at!; end
 
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def saved_change_to_created_at; end
@@ -817,6 +1048,12 @@ class Order
     sig { returns(T::Boolean) }
     def saved_change_to_customer_id?; end
 
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def saved_change_to_discount_percentage; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_discount_percentage?; end
+
     sig { returns(T.nilable([::Integer, ::Integer])) }
     def saved_change_to_id; end
 
@@ -829,11 +1066,29 @@ class Order
     sig { returns(T::Boolean) }
     def saved_change_to_id_value?; end
 
-    sig { returns(T.nilable([::String, ::String])) }
-    def saved_change_to_status; end
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def saved_change_to_order_status_id; end
 
     sig { returns(T::Boolean) }
-    def saved_change_to_status?; end
+    def saved_change_to_order_status_id?; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def saved_change_to_price; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_price?; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def saved_change_to_shipping_price; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_shipping_price?; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def saved_change_to_tax; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_tax?; end
 
     sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
     def saved_change_to_total_amount; end
@@ -847,50 +1102,101 @@ class Order
     sig { returns(T::Boolean) }
     def saved_change_to_updated_at?; end
 
-    sig { returns(::String) }
-    def status; end
-
-    sig { params(value: ::String).returns(::String) }
-    def status=(value); end
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def saved_change_to_voided_at; end
 
     sig { returns(T::Boolean) }
-    def status?; end
+    def saved_change_to_voided_at?; end
 
-    sig { returns(T.nilable(::String)) }
-    def status_before_last_save; end
+    sig { returns(T.nilable(::BigDecimal)) }
+    def shipping_price; end
+
+    sig { params(value: T.nilable(::BigDecimal)).returns(T.nilable(::BigDecimal)) }
+    def shipping_price=(value); end
+
+    sig { returns(T::Boolean) }
+    def shipping_price?; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def shipping_price_before_last_save; end
 
     sig { returns(T.untyped) }
-    def status_before_type_cast; end
+    def shipping_price_before_type_cast; end
 
     sig { returns(T::Boolean) }
-    def status_came_from_user?; end
+    def shipping_price_came_from_user?; end
 
-    sig { returns(T.nilable([::String, ::String])) }
-    def status_change; end
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def shipping_price_change; end
 
-    sig { returns(T.nilable([::String, ::String])) }
-    def status_change_to_be_saved; end
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def shipping_price_change_to_be_saved; end
 
-    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
-    def status_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+    sig { params(from: T.nilable(::BigDecimal), to: T.nilable(::BigDecimal)).returns(T::Boolean) }
+    def shipping_price_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
-    sig { returns(T.nilable(::String)) }
-    def status_in_database; end
+    sig { returns(T.nilable(::BigDecimal)) }
+    def shipping_price_in_database; end
 
-    sig { returns(T.nilable([::String, ::String])) }
-    def status_previous_change; end
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def shipping_price_previous_change; end
 
-    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
-    def status_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+    sig { params(from: T.nilable(::BigDecimal), to: T.nilable(::BigDecimal)).returns(T::Boolean) }
+    def shipping_price_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
-    sig { returns(T.nilable(::String)) }
-    def status_previously_was; end
+    sig { returns(T.nilable(::BigDecimal)) }
+    def shipping_price_previously_was; end
 
-    sig { returns(T.nilable(::String)) }
-    def status_was; end
+    sig { returns(T.nilable(::BigDecimal)) }
+    def shipping_price_was; end
 
     sig { void }
-    def status_will_change!; end
+    def shipping_price_will_change!; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def tax; end
+
+    sig { params(value: T.nilable(::BigDecimal)).returns(T.nilable(::BigDecimal)) }
+    def tax=(value); end
+
+    sig { returns(T::Boolean) }
+    def tax?; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def tax_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def tax_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def tax_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def tax_change; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def tax_change_to_be_saved; end
+
+    sig { params(from: T.nilable(::BigDecimal), to: T.nilable(::BigDecimal)).returns(T::Boolean) }
+    def tax_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def tax_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def tax_previous_change; end
+
+    sig { params(from: T.nilable(::BigDecimal), to: T.nilable(::BigDecimal)).returns(T::Boolean) }
+    def tax_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def tax_previously_was; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def tax_was; end
+
+    sig { void }
+    def tax_will_change!; end
 
     sig { returns(T.nilable(::BigDecimal)) }
     def total_amount; end
@@ -982,11 +1288,69 @@ class Order
     sig { void }
     def updated_at_will_change!; end
 
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def voided_at; end
+
+    sig { params(value: T.nilable(::ActiveSupport::TimeWithZone)).returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def voided_at=(value); end
+
+    sig { returns(T::Boolean) }
+    def voided_at?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def voided_at_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def voided_at_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def voided_at_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def voided_at_change; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def voided_at_change_to_be_saved; end
+
+    sig do
+      params(
+        from: T.nilable(::ActiveSupport::TimeWithZone),
+        to: T.nilable(::ActiveSupport::TimeWithZone)
+      ).returns(T::Boolean)
+    end
+    def voided_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def voided_at_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def voided_at_previous_change; end
+
+    sig do
+      params(
+        from: T.nilable(::ActiveSupport::TimeWithZone),
+        to: T.nilable(::ActiveSupport::TimeWithZone)
+      ).returns(T::Boolean)
+    end
+    def voided_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def voided_at_previously_was; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def voided_at_was; end
+
+    sig { void }
+    def voided_at_will_change!; end
+
     sig { returns(T::Boolean) }
     def will_save_change_to_created_at?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_customer_id?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_discount_percentage?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_id?; end
@@ -995,13 +1359,25 @@ class Order
     def will_save_change_to_id_value?; end
 
     sig { returns(T::Boolean) }
-    def will_save_change_to_status?; end
+    def will_save_change_to_order_status_id?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_price?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_shipping_price?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_tax?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_total_amount?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_updated_at?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_voided_at?; end
   end
 
   module GeneratedRelationMethods
@@ -1075,6 +1451,9 @@ class Order
     def none(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def not_voided(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def null_relation?(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
@@ -1139,6 +1518,9 @@ class Order
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def with_customer(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def with_order_status(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def without(*args, &blk); end
