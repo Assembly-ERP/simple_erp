@@ -40,18 +40,18 @@
           %p.font-medium.text-gray-900
             = number_with_precision(item.weight, precision: 2)
             lbs
-  .absolute.top-3.right-3
-    .relative{data: {controller: "dropdown"}}
-      %button.px-2.py-1.hover:bg-gray-200.rounded-lg{data: {action: "dropdown#toggle click@window->dropdown#hide"}}
-        = icon("fa-solid", "ellipsis", class: "text-lg text-gray-500")
-      .hidden.transition.transform.origin-top-right.absolute.right-0.z-10{"data-dropdown-target" => "menu", "data-transition-enter-from" => "opacity-0 scale-95", "data-transition-enter-to" => "opacity-100 scale-100", "data-transition-leave-from" => "opacity-100 scale-100", "data-transition-leave-to" => "opacity-0 scale-95"}
-        .bg-white.divide-y.rounded.border.border-gray-200.w-40.flex.flex-col.mt-1.shadow
-          - if item.type == "product"
-            = link_to 'Show', operational_portal_product_path(item), class: "py-2 px-3.5 hover:bg-gray-50"
-            = link_to 'Edit', edit_operational_portal_product_path(item), class: "py-2 px-3.5 hover:bg-gray-50"
-            = button_to 'Void', operational_portal_product_path(item), method: :delete, class: "text-start py-2 px-3.5 hover:bg-gray-50 w-full", form: {data: {turbo_confirm: 'Are you sure to void this product?'}}
-          - else
-            = link_to 'Show', operational_portal_part_path(item), class: "py-2 px-3.5 hover:bg-gray-50"
-            = link_to 'Edit', edit_operational_portal_part_path(item), class: "py-2 px-3.5 hover:bg-gray-50"
-            = button_to 'Void', operational_portal_part_path(item), method: :delete, class: "text-start py-2 px-3.5 hover:bg-gray-50 w-full", form: {data: {turbo_confirm: 'Are you sure to void this product?'}}
-
+  -# .absolute.top-3.right-3
+  -#   .relative{data: {controller: "dropdown"}}
+  -#     %button.px-2.py-1.hover:bg-gray-200.rounded-lg{data: {action: "dropdown#toggle click@window->dropdown#hide"}}
+  -#       = icon("fa-solid", "ellipsis", class: "text-lg text-gray-500")
+  -#     .hidden.transition.transform.origin-top-right.absolute.right-0.z-10{"data-dropdown-target" => "menu", "data-transition-enter-from" => "opacity-0 scale-95", "data-transition-enter-to" => "opacity-100 scale-100", "data-transition-leave-from" => "opacity-100 scale-100", "data-transition-leave-to" => "opacity-0 scale-95"}
+  -#       .bg-white.divide-y.rounded.border.border-gray-200.w-40.flex.flex-col.mt-1.shadow
+  -#         - if item.type == "product"
+  -#           = link_to 'Show', operational_portal_product_path(item), class: "py-2 px-3.5 hover:bg-gray-50"
+  -#           = link_to 'Edit', edit_operational_portal_product_path(item), class: "py-2 px-3.5 hover:bg-gray-50"
+  -#           = button_to 'Void', operational_portal_product_path(item), method: :delete, class: "text-start py-2 px-3.5 hover:bg-gray-50 w-full", form: {data: {turbo_confirm: 'Are you sure to void this product?'}}
+  -#         - else
+  -#           = link_to 'Show', operational_portal_part_path(item), class: "py-2 px-3.5 hover:bg-gray-50"
+  -#           = link_to 'Edit', edit_operational_portal_part_path(item), class: "py-2 px-3.5 hover:bg-gray-50"
+  -#           = button_to 'Void', operational_portal_part_path(item), method: :delete, class: "text-start py-2 px-3.5 hover:bg-gray-50 w-full", form: {data: {turbo_confirm: 'Are you sure to void this product?'}}
+  -#

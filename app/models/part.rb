@@ -12,8 +12,10 @@ class Part < ApplicationRecord
   has_many :poly_attributes, as: :attributable, dependent: :destroy
 
   # Attachments
-  has_many_attached :images
   has_many_attached :files
+  has_many_attached :images do |attachable|
+    attachable.variant :thumb, resize_to_limit: [320, 320]
+  end
 
   # Scopes
   scope :search_results, lambda {
@@ -41,6 +43,7 @@ class Part < ApplicationRecord
   validates :name, presence: true
   validates :price, numericality: { greater_than_or_equal_to: 0, only_float: true }
   validates :weight, numericality: { greater_than_or_equal_to: 0 }
+  validates :images, content_type: ALLOWED_IMAGE_TYPES
 
   # Generators
   before_validation :set_price_value, unless: :manual_price?

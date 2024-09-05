@@ -27,6 +27,8 @@ class Rails::ApplicationController
     include ::ActionController::Base::HelperMethods
     include ::Api::V1::PartsHelper
     include ::Api::V1::SupportTicketsHelper
+    include ::Pagy::UrlHelpers
+    include ::Pagy::Frontend
     include ::ApplicationHelper
     include ::CartsHelper
     include ::CustomerUsers::RegistrationsHelper
@@ -36,6 +38,7 @@ class Rails::ApplicationController
     include ::InvitationsHelper
     include ::OperationalPortal::Catalog::PartsHelper
     include ::OperationalUsers::RegistrationsHelper
+    include ::OrderShippingAddressesHelper
     include ::OrdersHelper
     include ::PartsHelper
     include ::ProductsHelper

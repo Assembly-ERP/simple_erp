@@ -17,6 +17,12 @@ class Part
   sig { params(attachable: T.untyped).returns(T.untyped) }
   def files=(attachable); end
 
+  sig { returns(ActiveStorage::Attached::Many) }
+  def images; end
+
+  sig { params(attachable: T.untyped).returns(T.untyped) }
+  def images=(attachable); end
+
   private
 
   sig { returns(NilClass) }
@@ -359,6 +365,62 @@ class Part
     def files_blobs=(value); end
 
     sig { returns(T::Array[T.untyped]) }
+    def images_attachment_ids; end
+
+    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
+    def images_attachment_ids=(ids); end
+
+    # This method is created by ActiveRecord on the `Part` class because it declared `has_many :images_attachments`.
+    # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
+    sig { returns(::ActiveStorage::Attachment::PrivateCollectionProxy) }
+    def images_attachments; end
+
+    sig { params(value: T::Enumerable[::ActiveStorage::Attachment]).void }
+    def images_attachments=(value); end
+
+    sig { returns(T::Array[T.untyped]) }
+    def images_blob_ids; end
+
+    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
+    def images_blob_ids=(ids); end
+
+    # This method is created by ActiveRecord on the `Part` class because it declared `has_many :images_blobs, through: :images_attachments`.
+    # 🔗 [Rails guide for `has_many_through` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-through-association)
+    sig { returns(::ActiveStorage::Blob::PrivateCollectionProxy) }
+    def images_blobs; end
+
+    sig { params(value: T::Enumerable[::ActiveStorage::Blob]).void }
+    def images_blobs=(value); end
+
+    sig { returns(T::Array[T.untyped]) }
+    def order_detail_ids; end
+
+    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
+    def order_detail_ids=(ids); end
+
+    # This method is created by ActiveRecord on the `Part` class because it declared `has_many :order_details`.
+    # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
+    sig { returns(::OrderDetail::PrivateCollectionProxy) }
+    def order_details; end
+
+    sig { params(value: T::Enumerable[::OrderDetail]).void }
+    def order_details=(value); end
+
+    sig { returns(T::Array[T.untyped]) }
+    def order_ids; end
+
+    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
+    def order_ids=(ids); end
+
+    # This method is created by ActiveRecord on the `Part` class because it declared `has_many :orders, through: :order_details`.
+    # 🔗 [Rails guide for `has_many_through` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-through-association)
+    sig { returns(::Order::PrivateCollectionProxy) }
+    def orders; end
+
+    sig { params(value: T::Enumerable[::Order]).void }
+    def orders=(value); end
+
+    sig { returns(T::Array[T.untyped]) }
     def parts_product_ids; end
 
     sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
@@ -410,6 +472,9 @@ class Part
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def annotate(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def catalog(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def create_with(*args, &blk); end
@@ -548,6 +613,12 @@ class Part
     def rewhere(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def search_results(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def search_results_with_order(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def select(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
@@ -588,6 +659,9 @@ class Part
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def with_attached_files(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def with_attached_images(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def with_product(*args, &blk); end
@@ -912,6 +986,51 @@ class Part
     sig { void }
     def json_attributes_will_change!; end
 
+    sig { returns(T.nilable(::BigDecimal)) }
+    def length; end
+
+    sig { params(value: T.nilable(::BigDecimal)).returns(T.nilable(::BigDecimal)) }
+    def length=(value); end
+
+    sig { returns(T::Boolean) }
+    def length?; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def length_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def length_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def length_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def length_change; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def length_change_to_be_saved; end
+
+    sig { params(from: T.nilable(::BigDecimal), to: T.nilable(::BigDecimal)).returns(T::Boolean) }
+    def length_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def length_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def length_previous_change; end
+
+    sig { params(from: T.nilable(::BigDecimal), to: T.nilable(::BigDecimal)).returns(T::Boolean) }
+    def length_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def length_previously_was; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def length_was; end
+
+    sig { void }
+    def length_will_change!; end
+
     sig { returns(T::Boolean) }
     def manual_price; end
 
@@ -1069,6 +1188,9 @@ class Part
     def restore_json_attributes!; end
 
     sig { void }
+    def restore_length!; end
+
+    sig { void }
     def restore_manual_price!; end
 
     sig { void }
@@ -1078,10 +1200,16 @@ class Part
     def restore_price!; end
 
     sig { void }
+    def restore_sku!; end
+
+    sig { void }
     def restore_updated_at!; end
 
     sig { void }
     def restore_weight!; end
+
+    sig { void }
+    def restore_width!; end
 
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def saved_change_to_created_at; end
@@ -1125,6 +1253,12 @@ class Part
     sig { returns(T::Boolean) }
     def saved_change_to_json_attributes?; end
 
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def saved_change_to_length; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_length?; end
+
     sig { returns(T.nilable([T::Boolean, T::Boolean])) }
     def saved_change_to_manual_price; end
 
@@ -1143,6 +1277,12 @@ class Part
     sig { returns(T::Boolean) }
     def saved_change_to_price?; end
 
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_sku; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_sku?; end
+
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def saved_change_to_updated_at; end
 
@@ -1154,6 +1294,57 @@ class Part
 
     sig { returns(T::Boolean) }
     def saved_change_to_weight?; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def saved_change_to_width; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_width?; end
+
+    sig { returns(T.nilable(::String)) }
+    def sku; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def sku=(value); end
+
+    sig { returns(T::Boolean) }
+    def sku?; end
+
+    sig { returns(T.nilable(::String)) }
+    def sku_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def sku_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def sku_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def sku_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def sku_change_to_be_saved; end
+
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def sku_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def sku_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def sku_previous_change; end
+
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def sku_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def sku_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def sku_was; end
+
+    sig { void }
+    def sku_will_change!; end
 
     sig { returns(::ActiveSupport::TimeWithZone) }
     def updated_at; end
@@ -1245,6 +1436,51 @@ class Part
     sig { void }
     def weight_will_change!; end
 
+    sig { returns(T.nilable(::BigDecimal)) }
+    def width; end
+
+    sig { params(value: T.nilable(::BigDecimal)).returns(T.nilable(::BigDecimal)) }
+    def width=(value); end
+
+    sig { returns(T::Boolean) }
+    def width?; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def width_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def width_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def width_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def width_change; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def width_change_to_be_saved; end
+
+    sig { params(from: T.nilable(::BigDecimal), to: T.nilable(::BigDecimal)).returns(T::Boolean) }
+    def width_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def width_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
+    def width_previous_change; end
+
+    sig { params(from: T.nilable(::BigDecimal), to: T.nilable(::BigDecimal)).returns(T::Boolean) }
+    def width_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def width_previously_was; end
+
+    sig { returns(T.nilable(::BigDecimal)) }
+    def width_was; end
+
+    sig { void }
+    def width_will_change!; end
+
     sig { returns(T::Boolean) }
     def will_save_change_to_created_at?; end
 
@@ -1267,6 +1503,9 @@ class Part
     def will_save_change_to_json_attributes?; end
 
     sig { returns(T::Boolean) }
+    def will_save_change_to_length?; end
+
+    sig { returns(T::Boolean) }
     def will_save_change_to_manual_price?; end
 
     sig { returns(T::Boolean) }
@@ -1276,10 +1515,16 @@ class Part
     def will_save_change_to_price?; end
 
     sig { returns(T::Boolean) }
+    def will_save_change_to_sku?; end
+
+    sig { returns(T::Boolean) }
     def will_save_change_to_updated_at?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_weight?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_width?; end
   end
 
   module GeneratedRelationMethods
@@ -1291,6 +1536,9 @@ class Part
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def annotate(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def catalog(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def create_with(*args, &blk); end
@@ -1395,6 +1643,12 @@ class Part
     def rewhere(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def search_results(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def search_results_with_order(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def select(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
@@ -1417,6 +1671,9 @@ class Part
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def with_attached_files(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def with_attached_images(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def with_product(*args, &blk); end
