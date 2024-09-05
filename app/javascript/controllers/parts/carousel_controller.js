@@ -3,10 +3,6 @@ import { Controller } from "@hotwired/stimulus";
 export default class extends Controller {
   connect() {
     this.swiper = new Swiper(this.element, {
-      // Auto Swipe
-      autoplay: {
-        delay: 3000,
-      },
       pagination: {
         el: ".swiper-pagination",
       },
