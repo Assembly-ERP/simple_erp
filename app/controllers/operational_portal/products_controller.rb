@@ -58,7 +58,7 @@ module OperationalPortal
 
     def product_params
       params.require(:product).permit(
-        :name, :description, :price,
+        :name, :description, :price, :sku,
         parts_products_attributes: %i[id name part_id quantity _destroy]
       )
     end
