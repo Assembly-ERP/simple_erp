@@ -36,6 +36,10 @@ export default class extends Controller {
     });
   }
 
+  onEnter(e) {
+    e.preventDefault();
+  }
+
   add(e) {
     e.preventDefault();
 

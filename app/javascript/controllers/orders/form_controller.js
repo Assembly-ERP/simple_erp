@@ -298,6 +298,12 @@ export default class extends Controller {
         .then((res) => res.text())
         .then((html) => Turbo.renderStreamMessage(html));
     }, 400);
+
+    return false;
+  }
+
+  onEnter(e) {
+    e.preventDefault();
   }
 
   searchBy(e) {
