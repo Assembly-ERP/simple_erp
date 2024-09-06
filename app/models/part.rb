@@ -18,6 +18,7 @@ class Part < ApplicationRecord
   end
 
   # Scopes
+  scope :not_voided, -> { where(voided_at: nil) }
   scope :search_results, lambda {
     select("parts.id, parts.name, parts.price, parts.weight, 'part' AS type")
   }
@@ -86,6 +87,7 @@ end
 #  name            :string           not null
 #  price           :decimal(10, 2)   default(0.0)
 #  sku             :string
+#  voided_at       :datetime
 #  weight          :decimal(10, 2)   default(0.0)
 #  width           :decimal(10, 2)   default(0.0)
 #  created_at      :datetime         not null

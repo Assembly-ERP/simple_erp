@@ -37,7 +37,12 @@ module OperationalPortal
     end
 
     def destroy
-      @part.destroy!
+      respond_to do |format|
+        if @part.update(voided_at: Time.zone.now)
+          format.html { redirect_to operational_portal_catalog_index_path, notice: 'Part was successfully voied.' }
+        end
+        format.turbo_stream
+      end
     end
 
     private

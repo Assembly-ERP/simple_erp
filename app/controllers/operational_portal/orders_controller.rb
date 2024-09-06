@@ -61,6 +61,7 @@ module OperationalPortal
 
     def search_results
       @results = params[:search_by] == 'parts' ? Part.all : Product.all
+      @results = @results.not_voided
       @results = @results.order(id: params[:sort]) if params[:sort].present?
       @results = @results.search_results
 
