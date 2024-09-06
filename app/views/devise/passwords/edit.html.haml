@@ -1,19 +1,18 @@
-%h2 Change your password
-= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f|
-  = render "devise/shared/error_messages", resource: resource
-  = f.hidden_field :reset_password_token
-  .field
-    = f.label :password, "New password"
-    %br/
-    - if @minimum_password_length
-      %em
-        (#{@minimum_password_length} characters minimum)
-      %br/
-    = f.password_field :password, autofocus: true, autocomplete: "new-password"
-  .field
-    = f.label :password_confirmation, "Confirm new password"
-    %br/
-    = f.password_field :password_confirmation, autocomplete: "new-password"
-  .actions
-    = f.submit "Change my password"
-= render "devise/shared/links"
+.grid.place-items-center.py-10
+  .grid.gap-3.p-7.bg-white.shadow-lg.border.rounded-md{class: "w-[370px]"}
+    %h2.font-medium Change your password
+    = form_for(resource, as: resource_name, url: password_path(resource_name), html: {class: "grid gap-4", method: :put}) do |f|
+      = render "devise/shared/error_messages", resource: resource
+      = f.hidden_field :reset_password_token
+      .field
+        = f.label :password, "New password"
+        = f.password_field :password, autocomplete: "new-password", class: "input-primary"
+      .field
+        = f.label :password_confirmation, "Confirm new password"
+        = f.password_field :password_confirmation, autocomplete: "new-password", class: "input-primary"
+      .actions
+        = f.submit "Change my password", class: "w-full btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"
+    .flex.flex-col
+      = render "devise/shared/confirm_instruction"
+      = render "devise/shared/login"
+      = render "devise/shared/signup"
