@@ -1,9 +1,13 @@
-%h2 Forgot your password?
-= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f|
-  = render "devise/shared/error_messages", resource: resource
-  .field.grid
-    = f.label :email
-    = f.email_field :email, autofocus: true, autocomplete: "email"
-  .actions
-    = f.submit "Send me reset password instructions"
-= render "devise/shared/links"
+.grid.place-items-center.py-10
+  .grid.gap-3.p-7.bg-white.shadow-lg.border.rounded-md{class: "w-[360px]"}
+    %h2 Forgot your password?
+    = form_for(resource, as: resource_name, url: password_path(resource_name), html: {class: "grid gap-4", method: :post }) do |f|
+      = render "devise/shared/error_messages", resource: resource
+      .field
+        = f.label :email
+        = f.email_field :email, autocomplete: "email", class: "input-primary"
+      .actions
+        = f.submit "Send me reset password instructions", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"
+    .flex.flex-col
+      = render "devise/shared/login"
+      = render "devise/shared/signup"
