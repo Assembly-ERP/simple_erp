@@ -77,6 +77,7 @@ end
 #
 #  index_orders_on_customer_id      (customer_id)
 #  index_orders_on_order_status_id  (order_status_id)
+#  index_orders_on_voided_at        (voided_at)
 #
 # Foreign Keys
 #

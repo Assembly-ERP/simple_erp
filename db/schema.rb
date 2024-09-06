@@ -142,6 +142,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_31_044932) do
     t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_orders_on_customer_id"
     t.index ["order_status_id"], name: "index_orders_on_order_status_id"
+    t.index ["voided_at"], name: "index_orders_on_voided_at"
   end
 
   create_table "parts", force: :cascade do |t|
@@ -159,6 +160,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_31_044932) do
     t.datetime "voided_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["voided_at"], name: "index_parts_on_voided_at"
   end
 
   create_table "parts_products", force: :cascade do |t|
@@ -194,6 +196,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_31_044932) do
     t.datetime "voided_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["voided_at"], name: "index_products_on_voided_at"
   end
 
   create_table "settings", force: :cascade do |t|

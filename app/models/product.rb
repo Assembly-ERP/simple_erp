@@ -86,3 +86,7 @@ end
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
+# Indexes
+#
+#  index_products_on_voided_at  (voided_at)
+#
