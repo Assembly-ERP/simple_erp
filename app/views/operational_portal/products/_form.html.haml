@@ -1,12 +1,29 @@
 = form_with(model: @product, url:, html: {data: {is_new: @product.new_record?, controller: "products--form"}, class: "grid gap-3"}) do |form|
   - if @product.errors.any?
     = render ErrorCardComponent.new errors: @product.errors.full_messages, label: "Validations"
-  .field
-    = form.label :name
-    = form.text_field :name, required: true, class: "input-primary"
-  .field
-    = form.label :description
-    = form.text_area :description, required: true, class: "input-primary", rows: 4
+  .grid.grid-cols-2.gap-5
+    .flex.flex-col.gap-3
+      .field
+        = form.label :name
+        = form.text_field :name, required: true, class: "input-primary"
+      .field
+        = form.label :sku
+        = form.text_field :sku, required: true, class: "input-primary"
+      .flex.gap-2.items-center.mt-2
+        .text-lg.font-medium.uppercase
+          Weight:
+        .font-bold.text-lg
+          = number_with_precision(form.object.weight, precision: 2)
+          lbs
+      .flex.gap-2.items-center
+        .text-lg.font-medium.uppercase
+          Price:
+        .font-bold.text-lg
+          = number_to_currency(form.object.price, unit: "$", precision: 2)
+    .block
+      .field
+        = form.label :description
+        = form.text_area :description, required: true, class: "input-primary", rows: 8
   = render "search_parts", form:
   = render "form_parts", form:
   .mt-1
