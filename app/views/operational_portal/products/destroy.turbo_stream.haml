@@ -1,0 +1,7 @@
+- if @product.errors.blank?
+  = turbo_stream.prepend "notification-container" do
+    = render NotificationComponent.new notif_type: "success", message: "Product was successfully voided."
+  = turbo_stream.remove dom_id(@product)
+- else 
+  = turbo_stream.prepend "notification-container" do
+    = render NotificationComponent.new notif_type: "error", message: "Something went wrong."

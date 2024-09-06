@@ -1,0 +1,7 @@
+- if @part.errors.blank?
+  = turbo_stream.prepend "notification-container" do
+    = render NotificationComponent.new notif_type: "success", message: "Part was successfully voided."
+  = turbo_stream.remove dom_id(@part)
+- else 
+  = turbo_stream.prepend "notification-container" do
+    = render NotificationComponent.new notif_type: "error", message: "Something went wrong."

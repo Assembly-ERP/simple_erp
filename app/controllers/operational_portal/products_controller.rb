@@ -33,12 +33,16 @@ module OperationalPortal
     end
 
     def destroy
-      @product.destroy!
-      redirect_to operational_portal_catalog_index_path, notice: 'Product was successfully deleted.'
+      respond_to do |format|
+        if @product.update(voided_at: Time.zone.now)
+          format.html { redirect_to operational_portal_catalog_index_path, notice: 'Product was successfully voied.' }
+        end
+        format.turbo_stream
+      end
     end
 
     def search_part_results
-      @parts = Part.all
+      @parts = Part.not_voided
       @parts = @parts.order(id: params[:sort]) if params[:sort].present?
       @parts = @parts.with_product(params[:product_id]) if params[:product_id].present?
 

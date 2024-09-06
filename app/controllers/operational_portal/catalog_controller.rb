@@ -5,8 +5,8 @@ module OperationalPortal
     authorize_resource class: false
 
     def index
-      products = Product.catalog
-      parts = Part.catalog
+      products = Product.catalog.not_voided
+      parts = Part.catalog.not_voided
 
       @items = Product.from("(#{products.to_sql} UNION #{parts.to_sql}) products").order(created_at: :desc)
     end

@@ -1,4 +1,4 @@
-.relative{data: {controller: "dialog", action: "click->dialog#backdropClose"}}
+.relative{id: "#{item.type}_#{item.id}", data: {controller: "dialog", action: "click->dialog#backdropClose"}}
   = render "item_modal", item: item
   .cursor-pointer.flex.w-full.flex.flex-col.md:flex-row.md:items-center.p-3.md:gap-6.hover:bg-gray-50.bg-white.border.border-gray-200.rounded-lg.shadow{data: {action: "click->dialog#open"}}
     = image_tag "thumbnail.png", class: "w-20 h-20 rounded object-cover"

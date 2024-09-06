@@ -156,6 +156,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_31_044932) do
     t.json "json_attributes"
     t.boolean "manual_price", default: false, null: false
     t.boolean "inventory", default: false, null: false
+    t.datetime "voided_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -190,6 +191,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_31_044932) do
     t.decimal "weight", precision: 10, scale: 2, default: "0.0"
     t.boolean "available", default: false, null: false
     t.json "json_attributes"
+    t.datetime "voided_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
