@@ -1,9 +1,12 @@
 - search_path = search_results_operational_portal_orders_path(format: :turbo_stream, order_id: @order.id)
 .flex.gap-3.py-4.bg-white.rounded.border.border-gray-300.flex-col
   .flex.gap-4.items-center.px-4
-    .relative{class: "w-[40%]"}
-      %input.py-2.w-full.rounded-xl.border.h-fit.pr-4.pl-11.border-gray-300.focus:outline-0.focus:ring-4.focus:ring-gray-200{placeholder: "Search products", data: {"orders--form-target": "searchInput", action: "orders--form#search", url: search_path}}
-      = icon("fa-solid", "magnifying-glass", class: "text-gray-500 text-lg absolute top-3 left-4")
+    .flex
+      .relative
+        %input.text-sm.border.border-gray-300.rounded-l-lg.pl-10.pr-4.w-96{class: "py-2.5 focus:outline-[color:var(--primary)]", placeholder: "Search products", data: {"orders--form-target": "searchInput", action: "orders--form#search keydown.enter->orders--form#onEnter", url: search_path}}
+        = icon("fa-solid", "magnifying-glass", class: "text-sm absolute top-3.5 left-3.5 text-gray-400")
+      %button.rounded-r-lg.px-5.text-white.-ml-1.z-10{type: "button", class: "bg-[color:var(--primary)]"}
+        search
     .relative{data: {controller: "dropdown"}}
       %button.py-2.flex.gap-2.items-center.justify-center.px-4.font-medium.text-gray-900.focus:outline-none.bg-white.rounded-xl.border.border-gray-300.hover:bg-gray-100.focus:z-10.focus:ring-4.focus:ring-gray-200{type: "button", data: {action: "dropdown#toggle click@window->dropdown#hide"}}
         = icon("fa-solid", "filter", class: "text-gray-400")
