@@ -6,15 +6,15 @@
       = type
   %td
     %span= "x#{quantity}"
-  %td.gap-1.items-center
+  %td
     %span $
     = f.number_field :price, value: item_price.kind_of?(String) ? item_price : number_with_precision(item_price, precision: 2), class: "rounded border border-gray-300 w-[80px] px-0 py-0 text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none", data: {"orders--item-target": "itemPrice", action: "input->orders--item#priceInput input->orders--form#calculateSummary change->orders--form#calculateSummary change->orders--item#priceChange"}, step: :any
   %td.font-semibold{data: {"orders--item-target": "total"}}
     = price.kind_of?(String) ? "$#{price}" : number_to_currency(quantity * price.to_f, unit: "$", precision: 2)
   %td
-  %td.pr-3
-    %button.text-gray-400.hover:text-red-500{type: "button", data: {pid: item_id, type: type, action: "orders--form#remove"}}
-      = icon("fa-solid", "trash-can", class: "pointer-events-none")
+    .flex.justify-end.w-full
+      %button.text-gray-400.hover:text-red-500{type: "button", data: {pid: item_id, type: type, action: "orders--form#remove"}}
+        = icon("fa-solid", "trash-can", class: "pointer-events-none")
   = f.hidden_field :id, value: id
   = f.hidden_field :part_id, value: part_id
   = f.hidden_field :product_id, value: product_id
