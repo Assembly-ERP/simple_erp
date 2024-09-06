@@ -9,6 +9,11 @@ class Product < ApplicationRecord
 
   accepts_nested_attributes_for :parts_products, allow_destroy: true
 
+  # Attachments
+  has_many_attached :images do |attachable|
+    attachable.variant :thumb, resize_to_limit: [320, 320]
+  end
+
   # Scopes
   scope :search_results, lambda {
     select("products.id, products.name, products.price, products.weight, 'product' AS type")

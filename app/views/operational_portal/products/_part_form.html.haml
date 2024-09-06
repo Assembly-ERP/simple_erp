@@ -1,23 +1,19 @@
-%table.added-part.w-full.text-left.text-base.text-gray-900.nested-form-wrapper{id: "part-form-#{part_id}", data: {"new-record": f.object.new_record?.to_s, qty: quantity}}
-  %body
-    %tr
-      %td#name.w-80.min-w-56.whitespace-nowrap.px-3= name
-      %td#weight
-        %span.font-medium.text-gray-600 weight:
-        %span= weight
-      %td#quantity
-        %span.font-medium.text-gray-600 qty:
-        %span= quantity
-      %td#price-per-item
-        %span.font-medium.text-gray-600 price:
-        %span= price.kind_of?(String) ? "$#{price_per_item}" : number_to_currency(price_per_item, unit: "$", precision: 2)
-      %td#total-price.font-semibold
-        %span.font-medium.text-gray-600 total:
-        %span= price.kind_of?(String) ? "$#{price}" : number_to_currency(quantity * price.to_f, unit: "$", precision: 2)
-      %td#icon.pr-3
-        %button.text-gray-400.hover:text-red-500{type: "button", data: {part_id: part_id, action: "products--form#remove"}}
-          = icon("fa-solid", "trash-can", class: "pointer-events-none")
-      = f.hidden_field :id, value: id
-      = f.hidden_field :part_id, value: part_id
-      = f.hidden_field :quantity, value: quantity
-      = f.hidden_field :_destroy
+%tr.nested-form-wrapper{id: "part-form-#{part_id}", data: {"new-record": f.object.new_record?.to_s, qty: quantity, price: price_per_item, weight: weight}}
+  %td#name.w-80.min-w-56.whitespace-nowrap.px-3= name
+  %td#sku
+    = sku
+  %td#weight
+    %span= weight.kind_of?(String) ? weight : number_with_precision(weight, precision: 2)
+    lbs
+  %td#quantity
+    %span x
+    %span= quantity
+  %td#total-price.font-semibold
+    %span= price.kind_of?(String) ? "$#{price}" : number_to_currency(quantity * price.to_f, unit: "$", precision: 2)
+  %td#icon.pr-3
+    %button.text-gray-400.hover:text-red-500{type: "button", data: {part_id: part_id, action: "products--form#remove"}}
+      = icon("fa-solid", "trash-can", class: "pointer-events-none")
+  = f.hidden_field :id, value: id
+  = f.hidden_field :part_id, value: part_id
+  = f.hidden_field :quantity, value: quantity
+  = f.hidden_field :_destroy
