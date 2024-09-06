@@ -1,7 +1,6 @@
 - search_path = search_results_operational_portal_orders_path(format: :turbo_stream, order_id: @order.id)
-
-.flex.gap-3.p-4.bg-white.rounded.border.border-gray-300.flex-col
-  .flex.gap-4.items-center
+.flex.gap-3.py-4.bg-white.rounded.border.border-gray-300.flex-col
+  .flex.gap-4.items-center.px-4
     .relative{class: "w-[40%]"}
       %input.py-2.w-full.rounded-xl.border.h-fit.pr-4.pl-11.border-gray-300.focus:outline-0.focus:ring-4.focus:ring-gray-200{placeholder: "Search products", data: {"orders--form-target": "searchInput", action: "orders--form#search", url: search_path}}
       = icon("fa-solid", "magnifying-glass", class: "text-gray-500 text-lg absolute top-3 left-4")
