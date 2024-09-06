@@ -1,7 +1,7 @@
 - search_path = search_part_results_operational_portal_products_path(format: :turbo_stream, product_id: @product.id)
 
-.grid.gap-3.mt-2.bg-white.p-4.rounded.border.border-gray-300
-  .flex.gap-4.items-center
+.grid.gap-3.mt-2.bg-white.py-4.rounded.border.border-gray-300
+  .flex.gap-4.items-center.px-4
     .flex
       .relative
         %input.text-sm.border.border-gray-300.rounded-l-lg.pl-10.pr-4.w-96{class: "py-2.5 focus:outline-[color:var(--primary)]", placeholder: "Search parts", data: {"products--form-target": "searchInput", action: "input->products--form#search", url: search_path}}
