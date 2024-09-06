@@ -1,8 +1,11 @@
 .flex.justify-between.gap-4.flex-col.md:flex-row
   .flex.gap-3
-    .relative.w-full
-      %input.text-sm.border.border-gray-300.rounded-lg.pl-10.pr-4.w-full.md:w-80.lg:w-96{class: "py-2.5 focus:outline-[color:var(--primary)]", placeholder: "Search..."}
-      = icon("fa-solid", "magnifying-glass", class: "text-sm absolute top-3.5 left-3.5 text-gray-400")
+    .flex
+      .relative
+        %input.text-sm.border.border-gray-300.rounded-l-lg.pl-10.pr-4.w-96{class: "py-2.5 focus:outline-[color:var(--primary)]", placeholder: "Search.."}
+        = icon("fa-solid", "magnifying-glass", class: "text-sm absolute top-3.5 left-3.5 text-gray-400")
+      %button.rounded-r-lg.px-5.text-white.-ml-1.z-10{class: "bg-[color:var(--primary)]"}
+        search
     %button.btn-sm.border.border-gray-300.h-fit.flex.gap-2.items-center.bg-white.hover:bg-foreground.focus:ring-4.focus:ring-gray-200
       = icon("fa-solid", "filter", class: "text-sm text-gray-400")
       Filter
