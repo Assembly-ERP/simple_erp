@@ -18,5 +18,7 @@ class CreateParts < ActiveRecord::Migration[7.1]
 
       t.timestamps
     end
+
+    add_index :parts, :voided_at
   end
 end

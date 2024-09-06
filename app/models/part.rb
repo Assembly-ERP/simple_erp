@@ -93,3 +93,7 @@ end
 #  created_at      :datetime         not null
 #  updated_at      :datetime         not null
 #
+# Indexes
+#
+#  index_parts_on_voided_at  (voided_at)
+#
