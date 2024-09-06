@@ -14,6 +14,7 @@ class CreateParts < ActiveRecord::Migration[7.1]
       t.json :json_attributes
       t.boolean :manual_price, default: false, null: false
       t.boolean :inventory, default: false, null: false
+      t.datetime :voided_at
 
       t.timestamps
     end
