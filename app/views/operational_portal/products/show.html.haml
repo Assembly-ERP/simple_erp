@@ -12,9 +12,12 @@
           .h-72.w-80.relative
             .swiper{data: {controller: "products--carousel"}}
               .swiper-wrapper
-                - @product.images.each do |image|
-                  .swiper-slide 
-                    = image_tag image.variant(:thumb), class: "w-80 h-72 object-cover rounded-md"
+                - if  @product.images.attached?
+                  - @product.images.each do |image|
+                    .swiper-slide 
+                      = image_tag image.variant(:thumb), class: "w-80 h-72 object-cover rounded-md"
+                - else
+                  = image_tag "thumbnail.png", class: "w-80 h-72"
               .swiper-pagination
               .swiper-button-prev
               .swiper-button-next

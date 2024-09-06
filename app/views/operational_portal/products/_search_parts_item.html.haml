@@ -25,7 +25,7 @@
         = button_tag class: "increment transition-colors duration-200", type: "button", data: {action: "products--search-item#increment"} do
           = icon("fa-solid", "plus")
   %td.py-4.pr-4
-    %button.ml-auto.block.text-white.rounded.px-4.text-sm{id: "search-part-btn-#{part.id}", type: "button", class: "py-1.5 #{(params[:product_id].present? && part.product_id.present?) ? "bg-[color:var(--secondary)]" : "bg-[color:var(--primary)]"} disabled:bg-gray-400", data: {name: part.name, quantity: quantity, price: part.price, part_id: part.id, weight: part.weight, "item_id": params[:product_id].present? ? part.item_id : "", "products--search-item-target": "add", action: "products--form#add"}}
+    %button.ml-auto.block.text-white.rounded.px-4.text-sm{id: "search-part-btn-#{part.id}", type: "button", class: "py-1.5 #{(params[:product_id].present? && part.product_id.present?) ? "bg-[color:var(--secondary)]" : "bg-[color:var(--primary)]"} disabled:bg-gray-400", data: {name: part.name, sku: part.sku, quantity: quantity, price: part.price, part_id: part.id, weight: part.weight, "item_id": params[:product_id].present? ? part.item_id : "", "products--search-item-target": "add", action: "products--form#add"}}
       - if params[:product_id].present? && part.product_id.present?
         Update
       - else

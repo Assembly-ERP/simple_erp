@@ -11,6 +11,8 @@ export default class extends Controller {
     "summaryTotalSum",
     "summaryDiscount",
     "searchInput",
+    "staticWeight",
+    "staticPrice",
   ];
 
   static values = {
@@ -43,19 +45,22 @@ export default class extends Controller {
       maximumFractionDigits: 2,
     });
 
-    let template = this.templateTarget.innerHTML
-      .replace(/NEW_RECORD/g, new Date().getTime().toString())
-      .replace("{{id}}", dataset.itemId || "")
-      .replace("{{name}}", dataset.name)
+    let template = this.templateTarget.content
+      .querySelector("tbody")
+      .innerHTML.replace(/NEW_RECORD/g, new Date().getTime().toString())
+      .replace(/{{id}}/g, dataset.itemId || "")
+      .replace(/{{name}}/g, dataset.name)
+      .replace(/{{sku}}/g, dataset.sku || "N/A")
       .replace(/{{quantity}}/g, dataset.quantity)
-      .replace("{{price}}", totalPrice)
-      .replace("{{price-per-item}}", Number(dataset.price).toFixed(2))
-      .replace("{{weight}}", dataset.weight)
+      .replace(/{{price}}/g, totalPrice)
+      .replace(/{{price-per-item}}/g, Number(dataset.price).toFixed(2))
+      .replace(/{{weight}}/g, Number(dataset.weight).toFixed(2))
       .replace(/{{part-id}}/g, dataset.partId);
 
-    if (!replaceEl)
-      this.targetTarget.insertAdjacentHTML("beforebegin", template);
-    else replaceEl.outerHTML = template;
+    if (!replaceEl) {
+      this.targetTarget.insertAdjacentHTML("beforeend", template);
+    } else replaceEl.outerHTML = template;
+
     this.hideAndShowEmpty();
   }
 

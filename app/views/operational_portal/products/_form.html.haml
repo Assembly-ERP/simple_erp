@@ -7,24 +7,26 @@
         = form.label :name
         = form.text_field :name, required: true, class: "input-primary"
       .field
-        = form.label :sku
-        = form.text_field :sku, required: true, class: "input-primary"
+        = form.label :sku, class: "uppercase"
+        = form.text_field :sku, class: "input-primary"
       .flex.gap-2.items-center.mt-2
         .text-lg.font-medium.uppercase
           Weight:
         .font-bold.text-lg
-          = number_with_precision(form.object.weight, precision: 2)
+          %span{"products--form-target": "staticweight"}
+            = number_with_precision(form.object.weight, precision: 2)
           lbs
       .flex.gap-2.items-center
         .text-lg.font-medium.uppercase
           Price:
         .font-bold.text-lg
-          = number_to_currency(form.object.price, unit: "$", precision: 2)
+          %span{"products--form-target": "staticPrice"}
+            = number_to_currency(form.object.price, unit: "$", precision: 2)
     .block
       .field
         = form.label :description
-        = form.text_area :description, required: true, class: "input-primary", rows: 8
+        = form.text_area :description, class: "input-primary", rows: 8
   = render "search_parts", form:
   = render "form_parts", form:
-  .mt-1
+  .mt-3
     = form.submit @product.new_record? ? "Save Product" : "Update Product", class: 'btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]'
