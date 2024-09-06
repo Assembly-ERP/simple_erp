@@ -14,5 +14,7 @@ class CreateProducts < ActiveRecord::Migration[7.1]
 
       t.timestamps
     end
+
+    add_index :products, :voided_at
   end
 end

@@ -14,5 +14,7 @@ class CreateOrders < ActiveRecord::Migration[7.1]
 
       t.timestamps
     end
+
+    add_index :orders, :voided_at
   end
 end
