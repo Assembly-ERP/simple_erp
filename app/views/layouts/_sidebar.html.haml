@@ -3,11 +3,6 @@
     %h2.text-xl.font-semibold.text-gray-600.px-2.mb-2 Manage
     %ul.space-y-1
       %li
-        = link_to operational_root_path, class: "flex items-center p-2 text-base font-normal rounded-lg hover:bg-gray-100 cursor-pointer hover:text-[color:var(--primary)] text-gray-600" do
-          .w-6.flex.justify-center
-            = icon("fa-solid", "gauge", class: "text-xl")
-          %span.ml-3.font-medium Dashboard
-      %li
         = link_to operational_portal_users_path, class: "flex items-center p-2 text-base font-normal rounded-lg hover:bg-gray-100 cursor-pointer hover:text-[color:var(--primary)] text-gray-600" do
           .w-6.flex.justify-center
             = icon("fa-solid", "user", class: "text-xl")
