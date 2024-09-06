@@ -3,62 +3,70 @@
     #show-alert
     .flex.flex-col.gap-5
       = render "show_cards"
-      .border.rounded-lg.shadow.py-2.bg-white
-        .relative.overflow-x-auto
-          %table.w-full.text-left.font-medium.text-gray-900
-            %tbody.divide-y.divide-gray-200
-              - @order.order_details.with_part_and_product.each do |item|
-                %tr
-                  %td.whitespace-nowrap.py-4{class: "md:w-[384px]"}
-                    - if item.product_name
-                      = item.product_name
-                    - elsif item.part_name
-                      = item.part_name
-                  %td.p-4.text-base.text-gray-900
-                    - if item.product_id
-                      .product-type-tag
-                        Product
-                    - elsif item.part_id
-                      .part-type-tag
-                        Part
-                  %td.p-4.text-right.text-base.text-gray-900
-                    = "x#{item.quantity}"
-                  %td.p-4.text-right.text-base.text-gray-900
-                    = number_to_currency(item.price, precision: 2)
-                  %td.p-4.text-right.text-base.font-bold.text-gray-900
-                    = number_to_currency(item.subtotal)
-      .space-y-3.border.rounded-lg.shadow.px-4.py-5.bg-white
-        %h4.text-xl.font-semibold.text-gray-900 Order summary
-        .space-y-3
-          .space-y-2
-            %dl.flex.items-center.justify-between.gap-4
-              %dt.text-gray-500 Base price
-              %dd.text-base.font-medium.text-gray-900                
-                = number_to_currency(@order.price, precision: 2)
-            - discount_value = value_from_percentage(@order.price, @order.discount_percentage)
-            %dl.flex.items-center.justify-between.gap-4
-              %dt.text-gray-500 
-                = "Discount (#{number_with_precision(@order.discount_percentage, precision: 2)}%)"
-              %dd.text-base.font-medium.text-green-500
-                = "-#{number_to_currency(discount_value, precision: 2)}"
-            %dl.flex.items-center.justify-between.gap-4
-              %dt.text-gray-500 Tax
-              %dd.text-base.font-medium.text-gray-900
-                = number_to_currency(@order.tax, precision: 2)
-            - subtotal = @order.price - discount_value + @order.tax.to_f
-            %dl.flex.items-center.justify-between.gap-4
-              %dt.text-gray-500 Subtotal
-              %dd.text-base.font-medium.text-gray-900
-                = number_to_currency(subtotal, precision: 2)
-          .border-t.border-gray-200.pt-3.space-y-2
-            %dl.flex.items-center.justify-between.gap-4
-              %dt.text-gray-500 Shipping
-              %dd.text-base.font-medium.text-gray-900
-                = number_to_currency(@order.shipping_price, precision: 2)
-            %dl.flex.items-center.justify-between.gap-4
-              %dt.text-lg.font-bold.text-gray-900 Total
-              %dd.text-lg.font-bold.text-gray-900
-                = number_to_currency(@order.total_amount, precision: 2)
+      .grid.grid-cols-3.gap-5
+        .border.border-gray-300.rounded-lg.py-2.bg-white.w-full.h-fit.col-span-2
+          .relative.overflow-x-auto
+            %table.w-full.text-left.font-medium.text-gray-900
+              %thead.border-b.sticky.top-0{class: "bg-gray-50"}
+                %tr.uppercase.text-sm
+                  %th Name
+                  %th Category
+                  %th Quantity
+                  %th Base Price
+                  %th Total Price
+              %tbody.divide-y.divide-gray-200
+                - @order.order_details.with_part_and_product.each do |item|
+                  %tr
+                    %td
+                      - if item.product_name
+                        = item.product_name
+                      - elsif item.part_name
+                        = item.part_name
+                    %td.text-base.text-gray-900
+                      - if item.product_id
+                        .product-type-tag
+                          Product
+                      - elsif item.part_id
+                        .part-type-tag
+                          Part
+                    %td.text-base.text-gray-900
+                      = "x#{item.quantity}"
+                    %td.text-base.text-gray-900
+                      = number_to_currency(item.price, precision: 2)
+                    %td.text-base.font-bold.text-gray-900
+                      = number_to_currency(item.subtotal)
+        .space-y-3.border.border-gray-300.rounded-lg.px-4.py-5.bg-white.h-fit
+          %h4.text-xl.font-semibold.text-gray-900 Order summary
+          .space-y-3
+            .space-y-2
+              %dl.flex.items-center.justify-between.gap-4
+                %dt.text-gray-500 Base price
+                %dd.text-base.font-medium.text-gray-900                
+                  = number_to_currency(@order.price, precision: 2)
+              - discount_value = value_from_percentage(@order.price, @order.discount_percentage)
+              %dl.flex.items-center.justify-between.gap-4
+                %dt.text-gray-500 
+                  = "Discount (#{number_with_precision(@order.discount_percentage, precision: 2)}%)"
+                %dd.text-base.font-medium.text-green-500
+                  = "-#{number_to_currency(discount_value, precision: 2)}"
+              %dl.flex.items-center.justify-between.gap-4
+                %dt.text-gray-500 Tax
+                %dd.text-base.font-medium.text-gray-900
+                  = number_to_currency(@order.tax, precision: 2)
+              - subtotal = @order.price - discount_value + @order.tax.to_f
+              %dl.flex.items-center.justify-between.gap-4
+                %dt.text-gray-500 Subtotal
+                %dd.text-base.font-medium.text-gray-900
+                  = number_to_currency(subtotal, precision: 2)
+            .border-t.border-gray-200.pt-3.space-y-2
+              %dl.flex.items-center.justify-between.gap-4
+                %dt.text-gray-500 Shipping
+                %dd.text-base.font-medium.text-gray-900
+                  = number_to_currency(@order.shipping_price, precision: 2)
+              %dl.flex.items-center.justify-between.gap-4
+                %dt.text-lg.font-bold.text-gray-900 Total
+                %dd.text-lg.font-bold.text-gray-900
+                  = number_to_currency(@order.total_amount, precision: 2)
       .flex.gap-3{class: params[:modal] == "true" ? "sticky bottom-0 w-full bg-white py-4 border-t" : ""}
         = link_to 'Edit Order', edit_operational_portal_order_path(@order), target: :_top, class: 'w-fit btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]'
         = button_to operational_portal_order_path(@order), method: :delete, class: "flex items-center gap-2 w-fit btn-md bg-red-600 text-white", form: {data: {turbo_confirm: 'Are you sure to void this order?'}} do
