@@ -1,7 +1,7 @@
 %template{data: {"parts--form-target": "iconTemplate"}}
   = icon("fa-solid", "trash-can", class: "text-red-500 pointer-events-none")
 .grid.gap-3
-  %h2 Product Images
+  %h2 Part Images
   .block{class: form.object.images.attached? ? "" : "hidden", data: {"parts--form-target": "uploadingContainer"}}
     .flex.flex-wrap.gap-4{data: {"parts--form-target": "uploading"}}
       - form.object.images.each do |image|

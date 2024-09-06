@@ -10,16 +10,16 @@
         = form.label :sku, class: "uppercase"
         = form.text_field :sku, class: "input-primary"
       .flex.gap-2.items-center.mt-2
-        .text-lg.font-medium.uppercase
+        .font-medium.uppercase
           Weight:
-        .font-bold.text-lg
+        .font-bold
           %span{"products--form-target": "staticweight"}
             = number_with_precision(form.object.weight, precision: 2)
           lbs
       .flex.gap-2.items-center
-        .text-lg.font-medium.uppercase
+        .font-medium.uppercase
           Price:
-        .font-bold.text-lg
+        .font-bold
           %span{"products--form-target": "staticPrice"}
             = number_to_currency(form.object.price, unit: "$", precision: 2)
     .block
