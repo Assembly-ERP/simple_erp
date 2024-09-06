@@ -200,8 +200,9 @@ export default class extends Controller {
       maximumFractionDigits: 2,
     });
 
-    let template = this.templateTarget.innerHTML
-      .replace(/NEW_RECORD/g, new Date().getTime().toString())
+    let template = this.templateTarget.content
+      .querySelector("tbody")
+      .innerHTML.replace(/NEW_RECORD/g, new Date().getTime().toString())
       .replace(/{{id}}/g, dataset.itemId || "")
       .replace(/{{item-id}}/g, dataset.pid)
       .replace(/{{name}}/g, dataset.name)
@@ -215,8 +216,7 @@ export default class extends Controller {
         dataset.type === "product" ? dataset.pid : "",
       );
 
-    if (!replaceEl)
-      this.targetTarget.insertAdjacentHTML("beforebegin", template);
+    if (!replaceEl) this.targetTarget.insertAdjacentHTML("beforeend", template);
     else replaceEl.outerHTML = template;
     this.hideAndShowEmpty();
     this.calculateSummary();

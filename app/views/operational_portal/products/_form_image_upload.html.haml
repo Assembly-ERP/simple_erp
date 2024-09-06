@@ -1,7 +1,7 @@
 %template{data: {"products--form-target": "iconTemplate"}}
   = icon("fa-solid", "trash-can", class: "text-red-500 pointer-events-none")
 
-.grid.gap-3
+.grid.gap-3.h-fit
   %h2 Product Images
   .block{class: form.object.images.attached? ? "" : "hidden", data: {"products--form-target": "uploadingContainer"}}
     .flex.flex-wrap.gap-4{data: {"products--form-target": "uploading"}}

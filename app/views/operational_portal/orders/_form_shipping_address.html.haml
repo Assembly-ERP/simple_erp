@@ -4,13 +4,13 @@
     = form.fields_for :order_shipping_address, form.object.order_shipping_address.blank? ? OrderShippingAddress.new : form.object.order_shipping_address do |osa|
       .field
         = osa.label :street
-        = osa.text_field :street, class: "input-primary", placeholder: "Enter street"
+        = osa.text_field :street, class: "input-primary", placeholder: "Enter street", data: {action: "change->unsaved-changes#formIsChanged"}
       .field
         = osa.label :state
-        = osa.text_field :state, class: "input-primary", placeholder: "Enter state"
+        = osa.text_field :state, class: "input-primary", placeholder: "Enter state", data: {action: "change->unsaved-changes#formIsChanged"}
       .field
         = osa.label :city
-        = osa.text_field :city, class: "input-primary", placeholder: "Enter city"
+        = osa.text_field :city, class: "input-primary", placeholder: "Enter city", data: {action: "change->unsaved-changes#formIsChanged"}
       .field
         = osa.label :zip_code, "Postal Code"
-        = osa.text_field :zip_code, class: "input-primary", placeholder: "Enter postal code"
+        = osa.text_field :zip_code, class: "input-primary", placeholder: "Enter postal code", data: {action: "change->unsaved-changes#formIsChanged"}
