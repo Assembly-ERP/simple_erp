@@ -9,9 +9,9 @@
       %p
         %strong Order Date:
         %span= @order.created_at.strftime("%B %d, %Y %I:%M %p")
-      .flex.gap-2.items-center
-        %strong Status:
-        = form.collection_select :customer_id, Customer.all, :id, :name, {}, {"data-orders--show-form-target": "customer"}
+      .flex.gap-2.items-center{data: {controller: "choices"}}
+        %strong Status:      
+        = form.collection_select :order_status_id, OrderStatus.all, :id, :name, {prompt: 'Select Status'}, {required: true, "data-choices-target": "select"}
   .bg-white.rounded-lg.border.px-4.py-5.border-gray-300
     .flex.gap-3.mb-1.items-center.mb-2
       %h6.font-normal.text-gray-500
@@ -23,7 +23,7 @@
       .flex.gap-2
         %strong.mt-3 Assignees:
         .w-full
-          = form.collection_select :user_ids, form.object.customer.users, :id, :name, {prompt: 'Select User'}, {multiple: true, "data-orders--show-form-target": "assignee", "data-action": "change->unsaved-changes#formIsChanged", "data-url": users_operational_portal_customer_url(id: ":id"), disabled: form.object.new_record? ? true :false}
+          = form.collection_select :user_ids, form.object.customer.users, :id, :name, {prompt: 'Select User'}, {multiple: true, "data-orders--show-form-target": "assignee", "data-url": users_operational_portal_customer_url(id: ":id"), disabled: form.object.new_record? ? true :false}
   .bg-white.rounded-lg.border.px-4.py-5.border-gray-300
     .flex.gap-3.mb-1.items-center.mb-1
       %h6.font-normal.text-gray-500
