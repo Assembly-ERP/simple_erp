@@ -9,7 +9,9 @@ class OrderAssignee < ApplicationRecord
   private
 
   def user_must_under_customer
-    errors.add(:user, 'must be from the order customer') unless user&.customer_id == order.customer_id
+    return unless (order.customer_id.present? && user&.customer_id.present?) && order.customer_id != user.customer_id
+
+    errors.add(:user, 'must be from the order customer')
   end
 end
 

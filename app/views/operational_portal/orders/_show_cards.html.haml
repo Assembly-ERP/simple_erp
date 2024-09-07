@@ -1,31 +1,29 @@
-.grid.grid-cols-3.gap-5
+= form_with(model: @order, url: operational_portal_order_path, html: {data: {controller: "orders--show-form"}, class: "grid grid-cols-3 gap-5"}) do |form|
   .bg-white.rounded-lg.border.px-4.py-5.border-gray-300
-    %h6.font-normal.text-gray-500.mb-1
+    %h6.font-normal.text-gray-500.mb-2
       Order Details
-    .grid.gap-1
+    .grid.gap-2
       %p
         %strong Order ID:
         = @order.id
       %p
         %strong Order Date:
         %span= @order.created_at.strftime("%B %d, %Y %I:%M %p")
-      %p
-        %strong Status
-        %span= @order.order_status.name
+      .flex.gap-2.items-center
+        %strong Status:
+        = form.collection_select :customer_id, Customer.all, :id, :name, {}, {"data-orders--show-form-target": "customer"}
   .bg-white.rounded-lg.border.px-4.py-5.border-gray-300
-    .flex.gap-3.mb-1.items-center.mb-1
+    .flex.gap-3.mb-1.items-center.mb-2
       %h6.font-normal.text-gray-500
         Customer Details
-    .grid.gap-1
+    .grid.gap-2
       %p
         %strong Customer:
         = @order.customer.name
-      %p
-        %strong Assignee:
-        - if @order.order_assignee.present?
-          %span= @order.order_assignee.user.name
-        - else
-          %span N/A
+      .flex.gap-2
+        %strong.mt-3 Assignees:
+        .w-full
+          = form.collection_select :user_ids, form.object.customer.users, :id, :name, {prompt: 'Select User'}, {multiple: true, "data-orders--show-form-target": "assignee", "data-action": "change->unsaved-changes#formIsChanged", "data-url": users_operational_portal_customer_url(id: ":id"), disabled: form.object.new_record? ? true :false}
   .bg-white.rounded-lg.border.px-4.py-5.border-gray-300
     .flex.gap-3.mb-1.items-center.mb-1
       %h6.font-normal.text-gray-500
