@@ -22,8 +22,6 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    return session[:return_to] if session[:return_to].present?
-
     if resource.operational_user?
       operational_root_path
     elsif resource.customer_user?

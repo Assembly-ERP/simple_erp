@@ -15,4 +15,4 @@ pin "stimulus-use" # @0.52.2
 pin "@stimulus-components/dropdown", to: "@stimulus-components--dropdown.js" # @3.0.0
 pin "@stimulus-components/dialog", to: "@stimulus-components--dialog.js" # @1.0.1
 pin "@stimulus-components/rails-nested-form", to: "@stimulus-components--rails-nested-form.js" # @5.0.0
-pin "slim-select" # @2.8.2
+pin "choices.js" # @11.0.2

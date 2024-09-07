@@ -1,0 +1,31 @@
+.border.border-gray-300.rounded-lg.py-2.bg-white.w-full.h-fit.col-span-2
+  .relative.overflow-x-auto
+    %table.w-full.text-left.font-medium.text-gray-900
+      %thead.border-b.sticky.top-0{class: "bg-gray-50"}
+        %tr.uppercase.text-sm
+          %th Name
+          %th Category
+          %th Quantity
+          %th Base Price
+          %th Total Price
+      %tbody.divide-y.divide-gray-200
+        - @order.order_details.with_part_and_product.each do |item|
+          %tr
+            %td
+              - if item.product_name
+                = item.product_name
+              - elsif item.part_name
+                = item.part_name
+            %td.text-base.text-gray-900
+              - if item.product_id
+                .product-type-tag
+                  Product
+              - elsif item.part_id
+                .part-type-tag
+                  Part
+            %td.text-base.text-gray-900
+              = "x#{item.quantity}"
+            %td.text-base.text-gray-900
+              = number_to_currency(item.price, precision: 2)
+            %td.text-base.font-bold.text-gray-900
+              = number_to_currency(item.subtotal)

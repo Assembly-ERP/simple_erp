@@ -1,0 +1,32 @@
+.space-y-3.border.border-gray-300.rounded-lg.px-4.py-5.bg-white.h-fit
+  %h4.text-xl.font-semibold.text-gray-900 Order summary
+  .space-y-3
+    .space-y-2
+      %dl.flex.items-center.justify-between.gap-4
+        %dt.text-gray-500 Base price
+        %dd.text-base.font-medium.text-gray-900                
+          = number_to_currency(@order.price, precision: 2)
+      - discount_value = value_from_percentage(@order.price, @order.discount_percentage)
+      %dl.flex.items-center.justify-between.gap-4
+        %dt.text-gray-500 
+          = "Discount (#{number_with_precision(@order.discount_percentage, precision: 2)}%)"
+        %dd.text-base.font-medium.text-green-500
+          = "-#{number_to_currency(discount_value, precision: 2)}"
+      %dl.flex.items-center.justify-between.gap-4
+        %dt.text-gray-500 Tax
+        %dd.text-base.font-medium.text-gray-900
+          = number_to_currency(@order.tax, precision: 2)
+      - subtotal = @order.price - discount_value + @order.tax.to_f
+      %dl.flex.items-center.justify-between.gap-4
+        %dt.text-gray-500 Subtotal
+        %dd.text-base.font-medium.text-gray-900
+          = number_to_currency(subtotal, precision: 2)
+    .border-t.border-gray-200.pt-3.space-y-2
+      %dl.flex.items-center.justify-between.gap-4
+        %dt.text-gray-500 Shipping
+        %dd.text-base.font-medium.text-gray-900
+          = number_to_currency(@order.shipping_price, precision: 2)
+      %dl.flex.items-center.justify-between.gap-4
+        %dt.text-lg.font-bold.text-gray-900 Total
+        %dd.text-lg.font-bold.text-gray-900
+          = number_to_currency(@order.total_amount, precision: 2)
