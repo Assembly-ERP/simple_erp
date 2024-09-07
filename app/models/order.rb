@@ -5,8 +5,9 @@ class Order < ApplicationRecord
   belongs_to :customer
   belongs_to :order_status
 
-  has_one :order_assignee, dependent: :destroy
   has_one :order_shipping_address, dependent: :destroy
+  has_many :order_assignees, dependent: :destroy
+  has_many :users, through: :order_assignees
   has_many :order_details, dependent: :destroy
   has_many :products, through: :order_details
   has_many :parts, through: :order_details
@@ -14,7 +15,6 @@ class Order < ApplicationRecord
 
   accepts_nested_attributes_for :order_details, allow_destroy: true
   accepts_nested_attributes_for :order_shipping_address, reject_if: :all_blank
-  accepts_nested_attributes_for :order_assignee, allow_destroy: true, reject_if: :all_blank
 
   # Scopes
   scope :not_voided, -> { where(voided_at: nil) }

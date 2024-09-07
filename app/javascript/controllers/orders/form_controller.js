@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
-import SlimSelect from "slim-select";
+import Choices from "choices.js";
 
 export default class extends Controller {
   static targets = [
@@ -26,24 +26,19 @@ export default class extends Controller {
   };
 
   connect() {
-    this.customerSlim = new SlimSelect({ select: this.customerSelectTarget });
-    this.userAssigneeSlim = new SlimSelect({
-      select: this.userAssigneeTarget,
+    this.customerSlim = new Choices(this.customerSelectTarget);
+    this.userAssigneeSlim = new Choices(this.userAssigneeTarget, {
+      shouldSort: false,
+      removeItemButton: true,
     });
-
-    // this.customerSelectTarget.style = "opacity: 0; height: 65px;";
-    // this.customerSelectTarget.classList.add("absolute", "top-0");
-    // this.customerSelectTarget.removeAttribute("aria-hidden");
     this.calculateSummary(true);
   }
 
   customerChange(e) {
     this.userAssigneeSlim.disable();
-
-    if (!e.target.value) {
-      this.userAssigneeSlim.setData([{ text: "Select User", value: "" }]);
-      return;
-    }
+    this.userAssigneeSlim.clearStore();
+    this.userAssigneeSlim.setChoiceByValue("");
+    this.userAssigneeTarget.value = "";
 
     const customerUserPath = this.userAssigneeTarget.dataset.url;
     const path = customerUserPath.replace(":id", e.target.value);
@@ -68,9 +63,9 @@ export default class extends Controller {
 
   addAssigneeOptions(users) {
     if (!users.length > 0) return;
-    let data = [{ text: "Select User", value: "" }];
-    for (const user of users) data.push({ value: user.id, text: user.name });
-    this.userAssigneeSlim.setData(data);
+    let data = [];
+    for (const user of users) data.push({ value: user.id, label: user.name });
+    this.userAssigneeSlim.setValue(data);
   }
 
   clearAssigneeOptions() {

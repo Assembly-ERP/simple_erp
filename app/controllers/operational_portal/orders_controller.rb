@@ -86,7 +86,7 @@ module OperationalPortal
         :status, :customer_id, :order_status_id, :shipping_price, :discount_percentage, :tax,
         order_details_attributes: %i[id product_id part_id quantity price override _destroy],
         order_shipping_address_attributes: %i[id state street city zip_code],
-        order_assignee_attributes: %i[id user_id _destroy]
+        user_ids: []
       )
     end
   end
