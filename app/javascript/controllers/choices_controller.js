@@ -2,15 +2,13 @@ import { Controller } from "@hotwired/stimulus";
 import Choices from "choices.js";
 
 export default class extends Controller {
-  static targets = ["assignee"];
+  static targets = ["select"];
 
   connect() {
-    this.assigneeInput = new Choices(this.assigneeTarget, {
-      removeItemButton: true,
-    });
+    this.choices = new Choices(this.selectTarget, { shouldSort: false });
   }
 
   disconnect() {
-    this.assigneeInput.destroy();
+    this.choices.destroy();
   }
 }
