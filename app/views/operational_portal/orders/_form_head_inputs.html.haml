@@ -8,6 +8,6 @@
   - if @order.new_record?
     = form.hidden_field :order_status_id, value: OrderStatus.operation_default_id
   - else 
-    .field
+    .field{data: {controller: "choices"}}
       = form.label :order_status_id, "Status"
-      = form.collection_select :order_status_id, OrderStatus.all, :id, :name, {prompt: 'Select Status'}, {required: true, "data-action": "change->unsaved-changes#formIsChanged"}
+      = form.collection_select :order_status_id, OrderStatus.all, :id, :name, {prompt: 'Select Status'}, {required: true, "data-action": "change->unsaved-changes#formIsChanged", "data-choices-target": "select"}
