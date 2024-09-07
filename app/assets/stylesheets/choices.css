@@ -31,7 +31,11 @@
 }
 
 .choices [hidden] {
-	display: none !important
+	/* display: none !important; */
+  position: absolute;
+  opacity: 0;
+  bottom: 0;
+  right: 0;
 }
 
 .choices[data-type*=select-one] {
