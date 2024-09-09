@@ -16,7 +16,8 @@
               %button.font-medium.text-gray-900.hover:underline{type: "button", data: {action: "dialog#open"}, type: "button"}
                 = "Order ##{order.id}"
           %td= order.customer_name
-          %td{id: "list-order-status-#{order.order_status_id}"}= order.status
+          %td{id: "list-order-status-#{order.id}"}
+            = order.status
           %td= number_to_currency(order.total_amount, unit: "$", precision: 2)
           %td= order.created_at
     - else
