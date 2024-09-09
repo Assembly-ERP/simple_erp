@@ -328,6 +328,9 @@ module GeneratedUrlHelpersModule
   def update_rails_disk_service_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def update_shipping_operational_portal_order_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def upload_file_operational_portal_part_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
