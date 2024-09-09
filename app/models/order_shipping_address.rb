@@ -2,8 +2,6 @@
 
 class OrderShippingAddress < ApplicationRecord
   belongs_to :order
-
-  validates :zip_code, length: { maximum: 10 }, if: :zip_code
 end
 
 # == Schema Information
@@ -11,9 +9,9 @@ end
 # Table name: order_shipping_addresses
 #
 #  id         :bigint           not null, primary key
-#  city       :string           default("")
-#  state      :string           default("")
-#  street     :string           default("")
+#  city       :string           not null
+#  state      :string           not null
+#  street     :string           not null
 #  zip_code   :string           default("")
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
