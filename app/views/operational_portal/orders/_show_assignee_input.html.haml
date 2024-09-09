@@ -1,0 +1,3 @@
+.w-full{id: "show-assignee-input-#{@order.id}", data: {controller: "choices"}}
+  = form.collection_select :user_ids, form.object.customer.users, :id, :name, {}, {multiple: true, "data-choices-target": "select", "data-action": "change->orders--show-form#submitOnChange", "data-url": users_operational_portal_customer_url(id: ":id"), disabled: cannot?(:update, @order)}
+

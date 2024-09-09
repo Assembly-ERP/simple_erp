@@ -1,4 +1,4 @@
-= form_with(model: @order, url: operational_portal_order_path, html: {data: {controller: "orders--show-form"}, class: "grid grid-cols-3 gap-5"}) do |form|
+= form_with(model: @order, url: operational_portal_order_path(modal: true, show: true), html: {data: {controller: "orders--show-form"}, class: "grid grid-cols-3 gap-5"}) do |form|
   .bg-white.rounded-lg.border.px-4.py-5.border-gray-300
     %h6.font-normal.text-gray-500.mb-2
       Order Details
@@ -9,9 +9,9 @@
       %p
         %strong Order Date:
         %span= @order.created_at.strftime("%B %d, %Y %I:%M %p")
-      .flex.gap-2.items-center{data: {controller: "choices"}}
-        %strong Status:      
-        = form.collection_select :order_status_id, OrderStatus.all, :id, :name, {prompt: 'Select Status'}, {required: true, "data-choices-target": "select"}
+      .flex.gap-2.items-center
+        %strong Status:
+        = render "show_status_input", form: form
   .bg-white.rounded-lg.border.px-4.py-5.border-gray-300
     .flex.gap-3.mb-1.items-center.mb-2
       %h6.font-normal.text-gray-500
@@ -23,7 +23,7 @@
       .flex.gap-2
         %strong.mt-3 Assignees:
         .w-full
-          = form.collection_select :user_ids, form.object.customer.users, :id, :name, {prompt: 'Select User'}, {multiple: true, "data-orders--show-form-target": "assignee", "data-url": users_operational_portal_customer_url(id: ":id"), disabled: form.object.new_record? ? true :false}
+          = render "show_assignee_input", form: form
   .bg-white.rounded-lg.border.px-4.py-5.border-gray-300
     .flex.gap-3.mb-1.items-center.mb-1
       %h6.font-normal.text-gray-500
