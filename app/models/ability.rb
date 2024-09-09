@@ -24,7 +24,7 @@ class Ability
     can :manage, Part
 
     # Order
-    can %i[read new create], Order
+    can %i[read new create update_shipping], Order
     can %i[update destroy edit], Order, voided_at: nil, order_status: { locked: false }
     can :search_results, :order
 
