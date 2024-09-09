@@ -1,14 +1,22 @@
 # frozen_string_literal: true
 
 class OrderStatus < ApplicationRecord
+  # Relations
   has_many :orders, dependent: :destroy
 
-  def self.operation_default_id
-    find_by(operation_default: true).id
+  # Validations
+  validate :only_on_locked_reversed
+
+  def self.default_id
+    find_by(default: true)&.id
   end
 
-  def self.customer_default_id
-    find_by(customer_default: true).id
+  private
+
+  def only_on_locked_reversed
+    return unless !locked && reversed
+
+    errors.add(:reversed, 'must be allong with locked')
   end
 end
 
@@ -16,13 +24,11 @@ end
 #
 # Table name: order_statuses
 #
-#  id                :bigint           not null, primary key
-#  customer_default  :boolean          default(FALSE), not null
-#  inventory         :boolean          default(FALSE), not null
-#  locked            :boolean          default(FALSE), not null
-#  name              :string           not null
-#  operation_default :boolean          default(FALSE), not null
-#  reversed          :boolean          default(FALSE), not null
-#  created_at        :datetime         not null
-#  updated_at        :datetime         not null
+#  id         :bigint           not null, primary key
+#  default    :boolean          default(FALSE), not null
+#  locked     :boolean          default(FALSE), not null
+#  name       :string           not null
+#  reversed   :boolean          default(FALSE), not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
 #
