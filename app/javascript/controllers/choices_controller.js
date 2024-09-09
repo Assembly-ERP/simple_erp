@@ -5,7 +5,10 @@ export default class extends Controller {
   static targets = ["select"];
 
   connect() {
-    this.choices = new Choices(this.selectTarget, { shouldSort: false });
+    this.choices = new Choices(this.selectTarget, {
+      shouldSort: false,
+      removeItemButton: this.selectTarget.multiple,
+    });
   }
 
   disconnect() {

@@ -1,0 +1,2 @@
+.w-full{id: "show-status-input-#{@order.id}", data: {controller: "choices"}}
+  = form.collection_select :order_status_id, OrderStatus.all, :id, :name, {prompt: 'Select Status'}, {required: true, "data-choices-target": "select", "data-action": "change->orders--show-form#submitOnChange", disabled: cannot?(:update, @order)}

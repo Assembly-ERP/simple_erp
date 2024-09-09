@@ -12,3 +12,13 @@
   - else
     = turbo_stream.prepend "show-alert" do
       = render AlertComponent.new notif_type: :error, message: "Something went wrong."
+
+- if params[:show] = "true"
+  = form_with(model: @order, url: operational_portal_order_path) do |form|
+    = turbo_stream.replace "show-status-input-#{@order.id}" do
+      = render "show_status_input", form: form
+    = turbo_stream.replace "show-assignee-input-#{@order.id}" do
+      = render "show_assignee_input", form: form
+  - if cannot?(:update, @order)
+    = turbo_stream.remove "order-link-#{@order.id}"
+    = turbo_stream.remove "order-remove-#{@order.id}"

@@ -6,7 +6,7 @@
     = form.label :user_ids, "Assignees"
     = form.collection_select :user_ids, form.object.new_record? ? [] : form.object.customer.users, :id, :name, {}, {class: "h-12", multiple: true, "data-orders--form-target": "userAssignee", "data-action": "change->unsaved-changes#formIsChanged", "data-url": users_operational_portal_customer_url(id: ":id"), disabled: form.object.new_record? ? true :false}
   - if @order.new_record?
-    = form.hidden_field :order_status_id, value: OrderStatus.operation_default_id
+    = form.hidden_field :order_status_id, value: OrderStatus.default_id
   - else 
     .field{data: {controller: "choices"}}
       = form.label :order_status_id, "Status"

@@ -1,16 +1,10 @@
 import { Controller } from "@hotwired/stimulus";
-import Choices from "choices.js";
 
 export default class extends Controller {
-  static targets = ["assignee"];
+  static targets = ["assignee", "status"];
 
-  connect() {
-    this.assigneeInput = new Choices(this.assigneeTarget, {
-      removeItemButton: true,
-    });
-  }
-
-  disconnect() {
-    this.assigneeInput.destroy();
+  submitOnChange(event) {
+    event.target.form.requestSubmit();
+    event.target.disabled = true;
   }
 }
