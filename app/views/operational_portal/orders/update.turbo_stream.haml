@@ -22,3 +22,7 @@
   - if cannot?(:update, @order)
     = turbo_stream.remove "order-link-#{@order.id}"
     = turbo_stream.remove "order-remove-#{@order.id}"
+
+  = turbo_stream.replace "list-order-status-#{@order.id}" do
+    %td{id: "list-order-status-#{@order.id}"}
+      = @order.order_status.name

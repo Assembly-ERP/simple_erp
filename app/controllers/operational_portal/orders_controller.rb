@@ -6,7 +6,7 @@ module OperationalPortal
     authorize_resource class: false, only: :search_results
 
     def index
-      @orders = Order.with_customer.with_order_status.not_voided
+      @orders = Order.with_customer.with_order_status.not_voided.order(id: :desc)
                      .accessible_by(current_ability)
     end
 
