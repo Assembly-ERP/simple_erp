@@ -2,11 +2,6 @@
 
 class OrderShippingAddress < ApplicationRecord
   belongs_to :order
-
-  validates :street, presence: true
-  validates :city, presence: true
-  validates :state, presence: true
-  validates :zip_code, length: { maximum: 10 }, if: :zip_code
 end
 
 # == Schema Information

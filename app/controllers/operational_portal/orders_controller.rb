@@ -40,6 +40,12 @@ module OperationalPortal
       end
     end
 
+    def update_shipping
+      respond_to do |format|
+        format.turbo_stream
+      end
+    end
+
     def sync_price
       respond_to do |format|
         if @order.update(updated_at: Time.zone.now)
@@ -88,6 +94,10 @@ module OperationalPortal
         order_shipping_address_attributes: %i[id state street city zip_code],
         user_ids: []
       )
+    end
+
+    def order_shipping_params
+      params.require(:order).permit(order_shipping_address_attributes: %i[id state street city zip_code])
     end
   end
 end
