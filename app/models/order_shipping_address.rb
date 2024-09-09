@@ -3,9 +3,6 @@
 class OrderShippingAddress < ApplicationRecord
   belongs_to :order
 
-  validates :street, presence: true
-  validates :city, presence: true
-  validates :state, presence: true
   validates :zip_code, length: { maximum: 10 }, if: :zip_code
 end
 
@@ -14,9 +11,9 @@ end
 # Table name: order_shipping_addresses
 #
 #  id         :bigint           not null, primary key
-#  city       :string           not null
-#  state      :string           not null
-#  street     :string           not null
+#  city       :string           default("")
+#  state      :string           default("")
+#  street     :string           default("")
 #  zip_code   :string           default("")
 #  created_at :datetime         not null
 #  updated_at :datetime         not null

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_09_063621) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_31_044932) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -109,22 +109,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_09_063621) do
 
   create_table "order_shipping_addresses", force: :cascade do |t|
     t.bigint "order_id", null: false
-    t.string "street", null: false
-    t.string "city", null: false
-    t.string "state", null: false
+    t.string "street", default: ""
+    t.string "city", default: ""
+    t.string "state", default: ""
     t.string "zip_code", default: ""
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["order_id"], name: "index_order_shipping_addresses_on_order_id"
-  end
-
-  create_table "order_status_trails", force: :cascade do |t|
-    t.bigint "order_id", null: false
-    t.bigint "order_status_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["order_id"], name: "index_order_status_trails_on_order_id"
-    t.index ["order_status_id"], name: "index_order_status_trails_on_order_status_id"
   end
 
   create_table "order_statuses", force: :cascade do |t|
@@ -290,8 +281,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_09_063621) do
   add_foreign_key "order_details", "parts"
   add_foreign_key "order_details", "products"
   add_foreign_key "order_shipping_addresses", "orders"
-  add_foreign_key "order_status_trails", "order_statuses"
-  add_foreign_key "order_status_trails", "orders"
   add_foreign_key "orders", "customers"
   add_foreign_key "orders", "order_statuses"
   add_foreign_key "parts_products", "parts"

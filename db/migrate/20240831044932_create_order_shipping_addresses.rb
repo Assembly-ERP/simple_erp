@@ -4,9 +4,9 @@ class CreateOrderShippingAddresses < ActiveRecord::Migration[7.1]
   def change
     create_table :order_shipping_addresses do |t|
       t.references :order, null: false, foreign_key: true
-      t.string :street, null: false
-      t.string :city, null: false
-      t.string :state, null: false
+      t.string :street, default: ''
+      t.string :city, default: ''
+      t.string :state, default: ''
       t.string :zip_code, default: ''
 
       t.timestamps

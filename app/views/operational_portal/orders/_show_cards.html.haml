@@ -30,9 +30,25 @@
         Shipping Details
       .block{"data-action" => "click->dialog#backdropClose", "data-controller" => "dialog"}
         %dialog{"data-dialog-target" => "dialog"}
-          .bg-white.p-5.w-80
-            %p The modal's content here
-            %button{autofocus: "", "data-action" => "dialog#close", type: "button"} Cancel
+          .bg-white.p-5.w-96.grid.gap-4
+            = form.fields_for :order_shipping_address, form.object.order_shipping_address.blank? ? OrderShippingAddress.new : form.object.order_shipping_address do |osa|
+              .grid.gap-3
+                %h2.text-lg.font-semibold Shipping Details
+                .field
+                  = osa.label :street
+                  = osa.text_field :street, class: "input-primary", placeholder: "Enter street"
+                .field
+                  = osa.label :state
+                  = osa.text_field :state, class: "input-primary", placeholder: "Enter state"
+                .field
+                  = osa.label :city
+                  = osa.text_field :city, class: "input-primary", placeholder: "Enter city"
+                .field
+                  = osa.label :zip_code, "Postal Code"
+                  = osa.text_field :zip_code, class: "input-primary", placeholder: "Enter postal code"
+            .flex.gap-3.justify-end
+              = form.submit "Update", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]", data: {action: "dialog#close"}
+              %button.btn-md.bg-gray-500.text-white.flex.items-center.gap-2{autofocus: "", "data-action" => "dialog#close", type: "button"} Cancel
         %button.text-gray-400.transition-colors{data: {action: "dialog#open"}, type: "button", class: "hover:text-[var(--primary)]"}
           = icon("fa-solid", "pen-to-square")
     .flex.gap-2.items-start
