@@ -327,9 +327,6 @@ class Order
     sig { params(args: T.untyped, blk: T.untyped).returns(::Customer) }
     def build_customer(*args, &blk); end
 
-    sig { params(args: T.untyped, blk: T.untyped).returns(::OrderAssignee) }
-    def build_order_assignee(*args, &blk); end
-
     sig { params(args: T.untyped, blk: T.untyped).returns(::OrderShippingAddress) }
     def build_order_shipping_address(*args, &blk); end
 
@@ -341,12 +338,6 @@ class Order
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::Customer) }
     def create_customer!(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(::OrderAssignee) }
-    def create_order_assignee(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(::OrderAssignee) }
-    def create_order_assignee!(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::OrderShippingAddress) }
     def create_order_shipping_address(*args, &blk); end
@@ -372,14 +363,19 @@ class Order
     sig { returns(T::Boolean) }
     def customer_previously_changed?; end
 
-    sig { returns(T.nilable(::OrderAssignee)) }
-    def order_assignee; end
+    sig { returns(T::Array[T.untyped]) }
+    def order_assignee_ids; end
 
-    sig { params(value: T.nilable(::OrderAssignee)).void }
-    def order_assignee=(value); end
+    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
+    def order_assignee_ids=(ids); end
 
-    sig { params(attributes: T.untyped).returns(T.untyped) }
-    def order_assignee_attributes=(attributes); end
+    # This method is created by ActiveRecord on the `Order` class because it declared `has_many :order_assignees`.
+    # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
+    sig { returns(::OrderAssignee::PrivateCollectionProxy) }
+    def order_assignees; end
+
+    sig { params(value: T::Enumerable[::OrderAssignee]).void }
+    def order_assignees=(value); end
 
     sig { returns(T::Array[T.untyped]) }
     def order_detail_ids; end
@@ -464,9 +460,6 @@ class Order
     sig { returns(T.nilable(::Customer)) }
     def reload_customer; end
 
-    sig { returns(T.nilable(::OrderAssignee)) }
-    def reload_order_assignee; end
-
     sig { returns(T.nilable(::OrderShippingAddress)) }
     def reload_order_shipping_address; end
 
@@ -477,13 +470,24 @@ class Order
     def reset_customer; end
 
     sig { void }
-    def reset_order_assignee; end
-
-    sig { void }
     def reset_order_shipping_address; end
 
     sig { void }
     def reset_order_status; end
+
+    sig { returns(T::Array[T.untyped]) }
+    def user_ids; end
+
+    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
+    def user_ids=(ids); end
+
+    # This method is created by ActiveRecord on the `Order` class because it declared `has_many :users, through: :order_assignees`.
+    # 🔗 [Rails guide for `has_many_through` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-through-association)
+    sig { returns(::User::PrivateCollectionProxy) }
+    def users; end
+
+    sig { params(value: T::Enumerable[::User]).void }
+    def users=(value); end
   end
 
   module GeneratedAssociationRelationMethods
