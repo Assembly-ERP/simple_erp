@@ -31,6 +31,8 @@ class Ability
     can :manage, SupportTicket
     can :manage, User
     can :manage, Customer
+    can :manage, Setting
+    can :manage, OrderPriceScheduler
   end
 
   def customer_portal(_user)

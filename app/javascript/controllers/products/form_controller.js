@@ -58,6 +58,24 @@ export default class extends Controller {
     this.appendPart(dataset);
   }
 
+  calculateSummary() {
+    let totalSum = 0;
+    let totalWeight = 0;
+
+    for (const el of this.addedParts) {
+      totalSum += Number(el.dataset.price) * Number(el.dataset.qty);
+      totalWeight += Number(el.dataset.weight) * Number(el.dataset.qty);
+    }
+
+    console.log(totalSum, totalWeight);
+    this.staticPriceTarget.innerHtml = totalSum.toFixed(2);
+    this.staticWeightTarget.innerHTML = totalWeight.toFixed(2);
+  }
+
+  get addedParts() {
+    return this.addedPartsTarget.querySelectorAll(".added-part:not(.hidden)");
+  }
+
   appendPart(dataset, replaceEl = null) {
     const totalPrice = (
       Number(dataset.price) * Number(dataset.quantity)
@@ -83,6 +101,7 @@ export default class extends Controller {
     } else replaceEl.outerHTML = template;
 
     this.hideAndShowEmpty();
+    this.calculateSummary();
   }
 
   remove(e) {
@@ -137,10 +156,6 @@ export default class extends Controller {
 
   checkSearchPart(id) {
     return this.searchPartsTarget.querySelector(`[id='search-part-${id}']`);
-  }
-
-  get addedParts() {
-    return this.addedPartsTarget.querySelectorAll(".added-part:not(.hidden)");
   }
 
   // search

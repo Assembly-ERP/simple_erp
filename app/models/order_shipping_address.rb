@@ -9,9 +9,9 @@ end
 # Table name: order_shipping_addresses
 #
 #  id         :bigint           not null, primary key
-#  city       :string           not null
-#  state      :string           not null
-#  street     :string           not null
+#  city       :string           default("")
+#  state      :string           default("")
+#  street     :string           default("")
 #  zip_code   :string           default("")
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
