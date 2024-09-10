@@ -42,11 +42,12 @@ class Order < ApplicationRecord
   after_save :calculate_total_amount, if: :calculate_total_amount_condition?
 
   def self.recalculate_price
-    orders = Order.joins(:order_status).where(order_status: { locked: false })
+    current_scheduler = OrderPriceScheduler.find_by(active: true)
+    return if current_scheduler.blank?
 
-    orders.each do |order|
-      order.order_details.map(&:calculate_price)
-      order.calculate_total_amount
+    case current_scheduler.code
+    when 'PER_MONTH'
+      Order.per_month_scheduler
     end
   end
 
@@ -57,6 +58,18 @@ class Order < ApplicationRecord
 
     update_column(:price, base_price)
     update_column(:total_amount, total_amount)
+  end
+
+  def self.per_month_scheduler
+    orders = Order.joins(:order_status)
+                  .where(order_status: { locked: false })
+                  .where('orders.last_scheduled <=?', 1.minute.ago)
+
+    orders.each do |order|
+      order.order_details.map(&:calculate_price)
+      order.calculate_total_amount
+      order.update_column(:last_scheduled, Time.zone.now)
+    end
   end
 
   private
@@ -72,6 +85,7 @@ end
 #
 #  id                  :bigint           not null, primary key
 #  discount_percentage :decimal(5, 2)    default(0.0)
+#  last_scheduled      :datetime
 #  price               :decimal(10, 2)   default(0.0)
 #  shipping_price      :decimal(10, 2)   default(0.0)
 #  tax                 :decimal(10, 2)   default(0.0)
