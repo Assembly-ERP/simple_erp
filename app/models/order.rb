@@ -62,7 +62,7 @@ class Order < ApplicationRecord
 
   def self.per_month_scheduler
     orders = Order.joins(:order_status)
-                  .where(order_status: { locked: false })
+                  .where(voided_at: nil, order_status: { locked: false })
                   .where('orders.last_scheduled <=?', 1.month.ago)
 
     orders.each do |order|
