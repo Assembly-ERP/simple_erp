@@ -67,8 +67,7 @@ export default class extends Controller {
       totalWeight += Number(el.dataset.weight) * Number(el.dataset.qty);
     }
 
-    console.log(totalSum, totalWeight);
-    this.staticPriceTarget.innerHtml = totalSum.toFixed(2);
+    this.staticPriceTarget.innerHTML = totalSum.toFixed(2);
     this.staticWeightTarget.innerHTML = totalWeight.toFixed(2);
   }
 
@@ -118,6 +117,7 @@ export default class extends Controller {
 
     this.resetSearchPart(e.target.dataset.partId);
     this.hideAndShowEmpty();
+    this.calculateSummary();
   }
 
   resetSearchPart(id) {
