@@ -63,7 +63,7 @@ class Order < ApplicationRecord
   def self.per_month_scheduler
     orders = Order.joins(:order_status)
                   .where(order_status: { locked: false })
-                  .where('orders.last_scheduled <=?', 1.minute.ago)
+                  .where('orders.last_scheduled <=?', 1.month.ago)
 
     orders.each do |order|
       order.order_details.map(&:calculate_price)
