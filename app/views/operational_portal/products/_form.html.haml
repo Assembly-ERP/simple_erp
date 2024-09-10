@@ -13,14 +13,14 @@
         .font-medium.uppercase
           Weight:
         .font-bold
-          %span{"products--form-target": "staticweight"}
+          %span{data: {"products--form-target": "staticWeight"}}
             = number_with_precision(form.object.weight, precision: 2)
           lbs
       .flex.gap-2.items-center
         .font-medium.uppercase
           Price:
         .font-bold
-          %span{"products--form-target": "staticPrice"}
+          %span{data: {"products--form-target": "staticPrice"}}
             = number_to_currency(form.object.price, unit: "$", precision: 2)
     .block
       .field

@@ -41,7 +41,14 @@ class Order < ApplicationRecord
   # Generators
   after_save :calculate_total_amount, if: :calculate_total_amount_condition?
 
-  private
+  def self.recalculate_price
+    orders = Order.joins(:order_status).where(order_status: { locked: false })
+
+    orders.each do |order|
+      order.order_details.map(&:calculate_price)
+      order.calculate_total_amount
+    end
+  end
 
   def calculate_total_amount
     base_price = order_details.map { |od| od.price.to_f * od.quantity.to_i }.sum
@@ -51,6 +58,8 @@ class Order < ApplicationRecord
     update_column(:price, base_price)
     update_column(:total_amount, total_amount)
   end
+
+  private
 
   def calculate_total_amount_condition?
     new_record? || !order_status.locked

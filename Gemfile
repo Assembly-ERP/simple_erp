@@ -111,3 +111,6 @@ gem 'active_storage_validations', '~> 1.1'
 
 # S3
 gem 'aws-sdk-s3', require: false
+
+# Cron
+gem 'whenever', '~> 1.0'
