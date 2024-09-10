@@ -19,9 +19,10 @@
       .flex.gap-2.items-center
         .font-medium.uppercase
           Price:
-        .font-bold
+        .font-bold.flex
+          %span $
           %span{data: {"products--form-target": "staticPrice"}}
-            = number_to_currency(form.object.price, unit: "$", precision: 2)
+            = number_with_precision(form.object.price, precision: 2)
     .block
       .field
         = form.label :description
