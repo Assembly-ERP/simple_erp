@@ -17,6 +17,8 @@ class Order < ApplicationRecord
   accepts_nested_attributes_for :order_shipping_address, reject_if: :all_blank
 
   # Scopes
+  scope :sort_asc, -> { order(id: :asc) }
+  scope :sort_desc, -> { order(id: :desc) }
   scope :not_voided, -> { where(voided_at: nil) }
   scope :with_order_status,
         lambda {
