@@ -41,6 +41,15 @@ class Order < ApplicationRecord
   # Generators
   after_save :calculate_total_amount, if: :calculate_total_amount_condition?
 
+  def calculate_total_amount
+    base_price = order_details.map { |od| od.price.to_f * od.quantity.to_i }.sum
+    discount_amount = base_price.to_f * (discount_percentage.to_f / 100).to_f
+    total_amount = base_price.to_f - discount_amount.to_f + shipping_price.to_f + tax.to_f
+
+    update_column(:price, base_price)
+    update_column(:total_amount, total_amount)
+  end
+
   def self.recalculate_price
     current_scheduler = OrderPriceScheduler.find_by(active: true)
     return if current_scheduler.blank?
@@ -49,15 +58,6 @@ class Order < ApplicationRecord
     when 'PER_MONTH'
       Order.per_month_scheduler
     end
-  end
-
-  def calculate_total_amount
-    base_price = order_details.map { |od| od.price.to_f * od.quantity.to_i }.sum
-    discount_amount = base_price.to_f * (discount_percentage.to_f / 100).to_f
-    total_amount = base_price.to_f - discount_amount.to_f + shipping_price.to_f + tax.to_f
-
-    update_column(:price, base_price)
-    update_column(:total_amount, total_amount)
   end
 
   def self.per_month_scheduler
