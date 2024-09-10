@@ -17,5 +17,6 @@ class CreateOrders < ActiveRecord::Migration[7.1]
     end
 
     add_index :orders, :voided_at
+    add_index :orders, :last_scheduled
   end
 end

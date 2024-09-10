@@ -41,6 +41,15 @@ class Order < ApplicationRecord
   # Generators
   after_save :calculate_total_amount, if: :calculate_total_amount_condition?
 
+  def calculate_total_amount
+    base_price = order_details.map { |od| od.price.to_f * od.quantity.to_i }.sum
+    discount_amount = base_price.to_f * (discount_percentage.to_f / 100).to_f
+    total_amount = base_price.to_f - discount_amount.to_f + shipping_price.to_f + tax.to_f
+
+    update_column(:price, base_price)
+    update_column(:total_amount, total_amount)
+  end
+
   def self.recalculate_price
     current_scheduler = OrderPriceScheduler.find_by(active: true)
     return if current_scheduler.blank?
@@ -51,18 +60,9 @@ class Order < ApplicationRecord
     end
   end
 
-  def calculate_total_amount
-    base_price = order_details.map { |od| od.price.to_f * od.quantity.to_i }.sum
-    discount_amount = base_price.to_f * (discount_percentage.to_f / 100).to_f
-    total_amount = base_price.to_f - discount_amount.to_f + shipping_price.to_f + tax.to_f
-
-    update_column(:price, base_price)
-    update_column(:total_amount, total_amount)
-  end
-
   def self.per_month_scheduler
     orders = Order.joins(:order_status)
-                  .where(order_status: { locked: false })
+                  .where(voided_at: nil, order_status: { locked: false })
                   .where('orders.last_scheduled <=?', 1.month.ago)
 
     orders.each do |order|
@@ -99,6 +99,7 @@ end
 # Indexes
 #
 #  index_orders_on_customer_id      (customer_id)
+#  index_orders_on_last_scheduled   (last_scheduled)
 #  index_orders_on_order_status_id  (order_status_id)
 #  index_orders_on_voided_at        (voided_at)
 #
