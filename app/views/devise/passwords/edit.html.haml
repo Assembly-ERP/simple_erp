@@ -11,8 +11,4 @@
         = f.label :password_confirmation, "Confirm new password"
         = f.password_field :password_confirmation, autocomplete: "new-password", class: "input-primary"
       .actions
-        = f.submit "Change my password", class: "w-full btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"
-    .flex.flex-col
-      = render "devise/shared/confirm_instruction"
-      = render "devise/shared/login"
-      = render "devise/shared/signup"
+        = f.submit "Update your password", class: "w-full btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"
