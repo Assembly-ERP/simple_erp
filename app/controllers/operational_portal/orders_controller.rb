@@ -6,7 +6,8 @@ module OperationalPortal
     authorize_resource class: false, only: :search_results
 
     def index
-      @orders = Order.with_customer.with_order_status.not_voided.order(id: :desc)
+      @orders = Order.with_customer.with_order_status
+                     .not_voided.sort_desc
                      .accessible_by(current_ability)
     end
 
@@ -37,22 +38,6 @@ module OperationalPortal
         end
 
         format.turbo_stream
-      end
-    end
-
-    def update_shipping
-      respond_to do |format|
-        format.turbo_stream
-      end
-    end
-
-    def sync_price
-      respond_to do |format|
-        if @order.update(updated_at: Time.zone.now)
-          format.html { render :edit, status: :ok }
-        else
-          format.html { render :edit, status: :unprocessable_entity }
-        end
       end
     end
 

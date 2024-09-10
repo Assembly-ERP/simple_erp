@@ -128,7 +128,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_10_111153) do
 
   create_table "order_statuses", force: :cascade do |t|
     t.string "name", null: false
-    t.boolean "locked", default: false, null: false
+    t.boolean "customer_locked", default: false, null: false
+    t.boolean "operation_locked", default: false, null: false
     t.boolean "reversed", default: false, null: false
     t.boolean "default", default: false, null: false
     t.datetime "created_at", null: false

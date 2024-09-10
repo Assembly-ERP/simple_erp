@@ -16,19 +16,22 @@ class Ability
     can :index, :dashboard
     can :index, :catalog
 
-    # product
+    # Product
     can :manage, Product
     can :search_part_results, :product
 
-    # part
+    # Part
     can :manage, Part
 
     # Order
-    can %i[read new create update_shipping], Order
-    can %i[update destroy edit], Order, voided_at: nil, order_status: { locked: false }
+    can %i[read new create], Order
+    can %i[update destroy edit], Order, voided_at: nil, order_status: { operation_locked: false }
     can :search_results, :order
 
+    # Support Ticket
     can :manage, SupportTicket
+
+    # Manage Pages
     can :manage, User
     can :manage, Customer
     can :manage, Setting
