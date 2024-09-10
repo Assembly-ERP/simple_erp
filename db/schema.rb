@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_31_044932) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_10_111153) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -107,6 +107,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_31_044932) do
     t.check_constraint "product_id IS NOT NULL OR part_id IS NOT NULL", name: "product_or_part_present_check"
   end
 
+  create_table "order_price_schedulers", force: :cascade do |t|
+    t.string "code"
+    t.string "name"
+    t.boolean "active", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "order_shipping_addresses", force: :cascade do |t|
     t.bigint "order_id", null: false
     t.string "street", default: ""
@@ -136,6 +144,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_31_044932) do
     t.decimal "price", precision: 10, scale: 2, default: "0.0"
     t.decimal "tax", precision: 10, scale: 2, default: "0.0"
     t.datetime "voided_at"
+    t.datetime "last_scheduled", default: -> { "now()" }
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_orders_on_customer_id"

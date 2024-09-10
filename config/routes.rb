@@ -56,6 +56,7 @@ Rails.application.routes.draw do
       end
     end
     resources :settings, only: %i[index edit update]
+    resources :order_price_schedulers, only: %i[index]
     resources :users
     resources :customers do
       member do
@@ -166,6 +167,7 @@ end
 #                        edit_operational_portal_setting GET    /operational_portal/settings/:id/edit(.:format)                                                   operational_portal/settings#edit
 #                             operational_portal_setting PATCH  /operational_portal/settings/:id(.:format)                                                        operational_portal/settings#update
 #                                                        PUT    /operational_portal/settings/:id(.:format)                                                        operational_portal/settings#update
+#              operational_portal_order_price_schedulers GET    /operational_portal/order_price_schedulers(.:format)                                              operational_portal/order_price_schedulers#index
 #                               operational_portal_users GET    /operational_portal/users(.:format)                                                               operational_portal/users#index
 #                                                        POST   /operational_portal/users(.:format)                                                               operational_portal/users#create
 #                            new_operational_portal_user GET    /operational_portal/users/new(.:format)                                                           operational_portal/users#new

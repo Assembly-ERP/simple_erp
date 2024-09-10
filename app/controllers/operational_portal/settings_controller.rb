@@ -2,19 +2,15 @@
 
 module OperationalPortal
   class SettingsController < OperationalPortal::AdminOperationController
-    before_action :authenticate_user!
-    before_action :ensure_admin_user
+    load_and_authorize_resource
 
     def index
-      @settings = Setting.all
+      @settings = Setting.accessible_by(current_ability)
     end
 
-    def edit
-      @setting = Setting.find(params[:id])
-    end
+    def edit; end
 
     def update
-      @setting = Setting.find(params[:id])
       if @setting.update(setting_params)
         redirect_to operational_portal_settings_path, notice: "#{@setting.key} updated successfully."
       else
@@ -26,16 +22,6 @@ module OperationalPortal
 
     def setting_params
       params.require(:setting).permit(:value)
-    end
-
-    def ensure_admin_user
-      return if admin_user?
-
-      redirect_to root_path, alert: 'You are not authorized to access this section.'
-    end
-
-    def admin_user?
-      current_user.role == 'admin'
     end
   end
 end
