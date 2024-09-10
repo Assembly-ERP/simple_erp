@@ -22,7 +22,7 @@ class Order < ApplicationRecord
   scope :not_voided, -> { where(voided_at: nil) }
   scope :with_order_status,
         lambda {
-          select('orders.*, order_statuses.name AS status, order_statuses.locked AS status_locked')
+          select('orders.*, order_statuses.name AS status')
             .joins(:order_status)
         }
   scope :with_customer,
@@ -77,7 +77,7 @@ class Order < ApplicationRecord
   private
 
   def calculate_total_amount_condition?
-    new_record? || !order_status.locked
+    new_record? || !order_status.customer_locked
   end
 end
 
