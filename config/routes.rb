@@ -136,8 +136,6 @@ end
 #                                                        PATCH  /operational_portal/parts/:id(.:format)                                                           operational_portal/parts#update
 #                                                        PUT    /operational_portal/parts/:id(.:format)                                                           operational_portal/parts#update
 #                                                        DELETE /operational_portal/parts/:id(.:format)                                                           operational_portal/parts#destroy
-#                    sync_price_operational_portal_order POST   /operational_portal/orders/:id/sync_price(.:format)                                               operational_portal/orders#sync_price
-#               update_shipping_operational_portal_order PUT    /operational_portal/orders/:id/update_shipping(.:format)                                          operational_portal/orders#update_shipping
 #               search_results_operational_portal_orders GET    /operational_portal/orders/search_results(.:format)                                               operational_portal/orders#search_results
 #                              operational_portal_orders GET    /operational_portal/orders(.:format)                                                              operational_portal/orders#index
 #                                                        POST   /operational_portal/orders(.:format)                                                              operational_portal/orders#create

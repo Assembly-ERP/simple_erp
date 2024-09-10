@@ -4,7 +4,8 @@ class CreateOrderStatuses < ActiveRecord::Migration[7.1]
   def change
     create_table :order_statuses do |t|
       t.string :name, null: false
-      t.boolean :locked, null: false, default: false
+      t.boolean :customer_locked, null: false, default: false
+      t.boolean :operation_locked, null: false, default: false
       t.boolean :reversed, null: false, default: false
       t.boolean :default, null: false, default: false
 
@@ -13,11 +14,11 @@ class CreateOrderStatuses < ActiveRecord::Migration[7.1]
 
     reversible do |dir|
       dir.up do
-        OrderStatus.create(name: 'Pre Order', locked: false, default: true)
-        OrderStatus.create(name: 'New', locked: false)
-        OrderStatus.create(name: 'Submitted', locked: true)
-        OrderStatus.create(name: 'Cancelled', locked: true, reversed: true)
-        OrderStatus.create(name: 'Returned', locked: true, reversed: true)
+        OrderStatus.create(name: 'Pre Order', default: true)
+        OrderStatus.create(name: 'New', customer_locked: true, operation_locked: false)
+        OrderStatus.create(name: 'Submitted', customer_locked: true, operation_locked: true)
+        OrderStatus.create(name: 'Cancelled', customer_locked: true, operation_locked: true)
+        OrderStatus.create(name: 'Returned', customer_locked: true, operation_locked: true)
       end
     end
   end

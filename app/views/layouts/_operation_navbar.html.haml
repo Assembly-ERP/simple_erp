@@ -6,7 +6,7 @@
         = icon("fa-solid", "magnifying-glass")
         %span Search Products, Parts, etc..
     .flex.gap-3.items-center
-      .bg-white.rounded-lg.hover:bg-gray-100.py-2.px-3.cursor-pointer
+      .hidden.bg-white.rounded-lg.hover:bg-gray-100.py-2.px-3.cursor-pointer
         = icon("fa-solid", "bell", class: "text-gray-500 text-xl")
       .relative{data: {controller: "dropdown"}}
         %button{type: "button", data: {action: "dropdown#toggle click@window->dropdown#hide"}}
