@@ -18,11 +18,13 @@ class Ability
     can :manage, :profile
 
     # Product
-    can :manage, Product
+    can %i[read new create], Product
+    can %i[update destroy edit], Product, voided_at: nil
     can :search_part_results, :product
 
     # Part
-    can :manage, Part
+    can %i[read new create], Part
+    can %i[update destroy edit], Part, voided_at: nil
 
     # Order
     can %i[read new create], Order
