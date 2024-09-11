@@ -53,10 +53,10 @@ class Order < ApplicationRecord
   end
 
   def self.recalculate_price
-    current_scheduler = OrderPriceScheduler.find_by(active: true)
-    return if current_scheduler.blank?
+    active_scheduler = OrderPriceScheduler.find_by(active: true)
+    return if active_scheduler.blank?
 
-    case current_scheduler.code
+    case active_scheduler.code
     when 'PER_MONTH'
       Order.per_month_scheduler
     end
