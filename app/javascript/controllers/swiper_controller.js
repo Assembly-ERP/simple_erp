@@ -1,4 +1,5 @@
 import { Controller } from "@hotwired/stimulus";
+import Swiper from "swiper";
 
 export default class extends Controller {
   connect() {
@@ -11,5 +12,9 @@ export default class extends Controller {
         prevEl: ".swiper-button-prev",
       },
     });
+  }
+
+  disconnect() {
+    this.swiper.destroy(true, true);
   }
 }
