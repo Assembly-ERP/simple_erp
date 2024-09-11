@@ -81,10 +81,10 @@ module OperationalPortal
       parts = parts.search_results
       parts = parts.search_results_with_order(params[:order_id]) if params[:order_id].present?
 
-      if params[:search].present?
+      if params[:filter_by].present? && params[:search].present?
         case params[:filter_by]
         when 'name'
-          parts = parts.where('name ILIKE ?', "%#{params[:search]}%")
+          parts.where('name ILIKE ?', "%#{params[:search]}%")
         end
       end
 
@@ -97,7 +97,7 @@ module OperationalPortal
       products = products.search_results
       products = products.search_results_with_order(params[:order_id]) if params[:order_id].present?
 
-      if params[:search].present?
+      if params[:filter_by].present? && params[:search].present?
         case params[:filter_by]
         when 'name'
           products = products.where('name ILIKE ?', "%#{params[:search]}%")
