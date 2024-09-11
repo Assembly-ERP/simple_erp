@@ -15,8 +15,11 @@
           = f.label :email
           = f.email_field :email, autocomplete: "email", class: "input-primary", placeholder: "Enter your email", required: true
         .field
-          = f.label :name
-          = f.text_field :name, class: "input-primary", placeholder: "Enter your name", required: true
+          = f.label :first_name
+          = f.text_field :first_name, class: "input-primary", placeholder: "Enter your first name", required: true
+        .field
+          = f.label :last_name
+          = f.text_field :first_name, class: "input-primary", placeholder: "Enter your last name", required: true
         = f.fields_for :customer do |cf|
           .field
             = cf.label :phone, 'Customer Phone'

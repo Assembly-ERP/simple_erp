@@ -10,7 +10,8 @@ class ConsolidatedUsersMigration < ActiveRecord::Migration[7.1]
       ## Additional fields
       t.references :customer, foreign_key: true, null: true
       t.string :role, null: false
-      t.string :name, null: false
+      t.string :first_name, null: false
+      t.string :last_name, null: false
       t.string :phone
 
       ## Devise recoverable
