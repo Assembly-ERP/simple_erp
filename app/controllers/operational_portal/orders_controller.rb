@@ -51,11 +51,12 @@ module OperationalPortal
     end
 
     def search_results
-      @results = if params[:search_by].blank? || params[:search_by] == 'all'
-                   Product.from("(#{search_parts.to_sql} UNION #{search_products.to_sql}) products")
-                 else
-                   params[:search_by] == 'parts' ? search_parts : search_products
-                 end
+      @results =
+        (if params[:search_by].blank? || params[:search_by] == 'all'
+           Product.from("(#{search_parts.to_sql} UNION #{search_products.to_sql}) products")
+         else
+           params[:search_by] == 'parts' ? search_parts : search_products
+         end)
 
       @results = @results.order(created_at: :desc)
 
