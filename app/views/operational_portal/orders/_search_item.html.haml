@@ -2,7 +2,7 @@
   %td.w-96.min-w-56.py-4{class: "text-[16px]"}
     = result.name
   %td.p-4
-    .rounded-md.w-fit.text-sm.text-white.px-3.bg-gray-500{class: "py-0.5"}
+    %div{class: "py-0.5 #{result.type}-type-tag"}
       = result.type
   %td.p-4.text-base.text-gray-500
     = result.weight
