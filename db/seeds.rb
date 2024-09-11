@@ -6,7 +6,8 @@ User.create(
   password: 'password',
   password_confirmation: 'password',
   role: 'admin',
-  name: 'Tim Smith',
+  first_name: 'Tim',
+  last_name: 'Smith',
   confirmed_at: Time.now.utc
 )
 
@@ -34,7 +35,8 @@ if Rails.env.development? || ENV['FORCE_MIGRATE'] == 'true'
 
   # Create some customer users
   customer_user1 = User.create(
-    name: 'Admin Customer',
+    first_name: 'John',
+    last_name: 'Doe',
     email: 'cxadmin@fake.com',
     password: 'password',
     password_confirmation: 'password',
@@ -44,7 +46,8 @@ if Rails.env.development? || ENV['FORCE_MIGRATE'] == 'true'
   )
 
   customer_user2 = User.create(
-    name: 'Regular Customer',
+    first_name: 'Jane',
+    last_name: 'Smith',
     email: 'cxregular@fake.com',
     password: 'password',
     password_confirmation: 'password',

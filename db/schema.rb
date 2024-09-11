@@ -251,7 +251,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_10_111153) do
     t.string "encrypted_password", default: "", null: false
     t.bigint "customer_id"
     t.string "role", null: false
-    t.string "name", null: false
+    t.string "first_name", null: false
+    t.string "last_name", null: false
     t.string "phone"
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
