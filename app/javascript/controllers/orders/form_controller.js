@@ -302,8 +302,8 @@ export default class extends Controller {
   }
 
   searchBy(e) {
-    this.searchInputTarget.placeholder = `Search ${e.target.value}`;
     this.searchInputTarget.value = "";
+    this.searchInputTarget.placeholder = `Search ${e.target.value == "all" ? "products and parts" : e.target.value}`;
     this.search();
   }
 
