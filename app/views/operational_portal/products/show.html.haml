@@ -16,7 +16,7 @@
                   - if  @product.images.attached?
                     - @product.images.each do |image|
                       .swiper-slide 
-                        = image_tag image.variant(:thumb), class: "w-80 h-72 object-cover rounded-md"
+                        = image_tag image, class: "w-80 h-72 object-cover rounded-md"
                   - else
                     = image_tag "thumbnail.png", class: "w-80 h-72"
                 .swiper-pagination
@@ -44,8 +44,12 @@
           %tbody.divide-y.divide-gray-200{data: {"products--form-target": "searchParts"}}
             - @product.parts_products.each do |pp|
               %tr
-                %td
-                  = pp.part.name
+                %td.flex.gap-2.items-center
+                  - if pp.part.images.first.present?
+                    = image_tag pp.part.images.first.variant(:thumb), class: "w-12 h-12 object-cover border rounded-sm"
+                  - else
+                    = image_tag "thumbnail.png", class: "w-12 h-12 rounded"
+                  %span= pp.part.name
                 %td
                   = pp.part.sku.present? ? pp.part.sku : "N/A"
                 %td

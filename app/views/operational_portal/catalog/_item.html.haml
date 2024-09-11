@@ -1,7 +1,17 @@
 .relative{id: "#{item.type}_#{item.id}", data: {controller: "dialog", action: "click->dialog#backdropClose"}}
   = render "item_modal", item: item
   .cursor-pointer.flex.w-full.flex.flex-col.md:flex-row.md:items-center.p-3.md:gap-6.hover:bg-gray-50.bg-white.border.border-gray-200.rounded-lg.shadow{data: {action: "click->dialog#open"}}
-    = image_tag "thumbnail.png", class: "w-20 h-20 rounded object-cover"
+    - if item.type == "part"
+      - item_part = item.becomes(Part)
+      - if item_part.images.first.present?
+        = image_tag item_part.images.first.variant(:thumb), class: "w-20 h-20 object-cover border rounded-sm"
+      - else
+        = image_tag "thumbnail.png", class: "w-20 h-20 rounded object-cover"
+    - else 
+      - if item.images.first.present?
+        = image_tag item.images.first.variant(:thumb), class: "w-20 h-20 object-cover border rounded-sm"
+      - else
+        = image_tag "thumbnail.png", class: "w-20 h-20 rounded object-cover"
     .flex.flex-col.md:justify-between.w-full{class: "md:w-[70%] lg:w-[50%]"}
       .grid.grid-cols-2.lg:grid-cols-8.w-full.gap-4
         .flex.flex-col.justify-between.h-full.col-span-4
