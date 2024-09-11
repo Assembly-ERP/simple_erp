@@ -37,6 +37,10 @@ class User < ApplicationRecord
     super.nil? ? true : super
   end
 
+  def name
+    "#{first_name} #{last_name}"
+  end
+
   def operational_user?
     role == 'admin' || role == 'manager' || role == 'regular'
   end
@@ -62,7 +66,8 @@ end
 #  confirmed_at           :datetime
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
-#  name                   :string           not null
+#  first_name             :string           not null
+#  last_name              :string           not null
 #  phone                  :string
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
