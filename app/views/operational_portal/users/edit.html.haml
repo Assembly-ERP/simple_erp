@@ -15,7 +15,7 @@
       = form.text_field :name
     .field
       = form.label :email
-      = form.email_field :email, autofocus: true
+      = form.email_field :email
     .field
       = form.label :phone
       = form.telephone_field :phone, value: format_phone_number(@user.phone)
@@ -27,12 +27,12 @@
     %div
       %ul#customer-list
     = form.submit "Update User", class: "btn btn-primary"
-  = form_with(url: search_customers_operational_portal_customers_path, local: true, method: :get, id: 'customer-search-form') do
+  = form_with(url: "/", local: true, method: :get, id: 'customer-search-form') do
     = text_field_tag :query, params[:query], id: 'customer-search-input', placeholder: 'Search Customers'
   %ul#customer-list
   = link_to 'New Customer', new_operational_portal_customer_path
   = link_to 'Back', operational_portal_users_path, class: 'btn btn-secondary'
-  / New Customer Modal
+
   #new-customer-modal{:style => "display: none;"}
     %div{:style => "background-color: #fff; border: 1px solid #ccc; padding: 15px;"}
       %h2 Add New Customer

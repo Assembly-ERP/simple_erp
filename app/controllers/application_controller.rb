@@ -3,24 +3,6 @@
 class ApplicationController < ActionController::Base
   include Pagy::Backend
 
-  def ensure_operational_user
-    return if current_user&.operational_user?
-
-    redirect_to root_path, alert: 'You do not have access to this section.'
-  end
-
-  def ensure_admin
-    return if current_user.admin?
-
-    redirect_to root_path, alert: 'You are not authorized to access this page.'
-  end
-
-  def ensure_manager_or_admin
-    return if current_user.manager? || current_user.admin?
-
-    redirect_to root_path, alert: 'You are not authorized to access this page.'
-  end
-
   def after_sign_in_path_for(resource)
     if resource.operational_user?
       operational_root_path
