@@ -51,19 +51,13 @@ module OperationalPortal
     end
 
     def search_results
-      @results = params[:search_by] == 'parts' ? Part.all : Product.all
-      @results = @results.not_voided
-      @results = @results.order(id: params[:sort]) if params[:sort].present?
-      @results = @results.search_results
+      @results = if params[:search_by].blank? || params[:search_by] == 'all'
+                   Product.from("(#{search_parts.to_sql} UNION #{search_products.to_sql}) products")
+                 else
+                   params[:search_by] == 'parts' ? search_parts : search_products
+                 end
 
-      @results = @results.search_results_with_order(params[:order_id]) if params[:order_id].present?
-
-      if params[:search].present?
-        case params[:filter_by]
-        when 'name'
-          @results = @results.where('name ILIKE ?', "%#{params[:search]}%")
-        end
-      end
+      @results = @results.order(created_at: :desc)
 
       respond_to do |format|
         format.turbo_stream
@@ -81,8 +75,36 @@ module OperationalPortal
       )
     end
 
-    def order_shipping_params
-      params.require(:order).permit(order_shipping_address_attributes: %i[id state street city zip_code])
+    def search_parts
+      parts = Part.all
+      parts = parts.not_voided
+      parts = parts.search_results
+      parts = parts.search_results_with_order(params[:order_id]) if params[:order_id].present?
+
+      if params[:search].present?
+        case params[:filter_by]
+        when 'name'
+          parts = parts.where('name ILIKE ?', "%#{params[:search]}%")
+        end
+      end
+
+      parts
+    end
+
+    def search_products
+      products = Product.all
+      products = products.not_voided
+      products = products.search_results
+      products = products.search_results_with_order(params[:order_id]) if params[:order_id].present?
+
+      if params[:search].present?
+        case params[:filter_by]
+        when 'name'
+          products = products.where('name ILIKE ?', "%#{params[:search]}%")
+        end
+      end
+
+      products
     end
   end
 end
