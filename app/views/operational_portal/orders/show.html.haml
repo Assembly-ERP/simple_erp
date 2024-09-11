@@ -9,7 +9,7 @@
       .flex.gap-3{class: params[:modal] == "true" ? "sticky bottom-0 w-full bg-white py-4 border-t" : ""}
         - if can?(:update, @order)
           = link_to 'Edit Order', edit_operational_portal_order_path(@order), id: "order-link-#{@order.id}", target: :_top, class: 'w-fit btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]'
-          = button_to operational_portal_order_path(@order), id: "order-remove-#{@order.id}", method: :delete, class: "flex items-center gap-2 w-fit btn-md bg-red-600 text-white", form: {data: {turbo_confirm: 'Are you sure to void this order?'}} do
+          = button_to operational_portal_order_path(@order), id: "order-remove-#{@order.id}", method: :delete, class: "flex items-center gap-2 w-fit btn-md bg-red-600 text-white", form: {data: {turbo_confirm: 'Are you sure to archive this order?'}} do
             = icon("fa-solid", "box-archive")
             Archive
         - if params[:modal] == "true"
