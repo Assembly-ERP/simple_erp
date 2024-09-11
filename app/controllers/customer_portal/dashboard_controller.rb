@@ -9,10 +9,6 @@ module CustomerPortal
     def index
       @orders = current_user.customer.orders if current_user.customer
       @support_tickets = current_user.customer.support_tickets if current_user.customer
-      # else
-      # Rails.logger.debug "Current user does not have an associated customer"
-      # @orders = []
-      # @support_tickets = []
     end
 
     private
