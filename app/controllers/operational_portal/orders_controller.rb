@@ -51,11 +51,12 @@ module OperationalPortal
     end
 
     def search_results
-      @results = if params[:search_by].blank? || params[:search_by] == 'all'
-                   Product.from("(#{search_parts.to_sql} UNION #{search_products.to_sql}) products")
-                 else
-                   params[:search_by] == 'parts' ? search_parts : search_products
-                 end
+      @results =
+        (if params[:search_by].blank? || params[:search_by] == 'all'
+           Product.from("(#{search_parts.to_sql} UNION #{search_products.to_sql}) products")
+         else
+           params[:search_by] == 'parts' ? search_parts : search_products
+         end)
 
       @results = @results.order(created_at: :desc)
 
@@ -81,10 +82,10 @@ module OperationalPortal
       parts = parts.search_results
       parts = parts.search_results_with_order(params[:order_id]) if params[:order_id].present?
 
-      if params[:search].present?
+      if params[:filter_by].present? && params[:search].present?
         case params[:filter_by]
         when 'name'
-          parts = parts.where('name ILIKE ?', "%#{params[:search]}%")
+          parts.where('name ILIKE ?', "%#{params[:search]}%")
         end
       end
 
@@ -97,7 +98,7 @@ module OperationalPortal
       products = products.search_results
       products = products.search_results_with_order(params[:order_id]) if params[:order_id].present?
 
-      if params[:search].present?
+      if params[:filter_by].present? && params[:search].present?
         case params[:filter_by]
         when 'name'
           products = products.where('name ILIKE ?', "%#{params[:search]}%")
