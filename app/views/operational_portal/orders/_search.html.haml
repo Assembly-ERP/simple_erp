@@ -17,11 +17,14 @@
           .flex.flex-col
             %label.text-sm.text-gray-500 Search by
             .flex.items-center.gap-2
-              = radio_button("search", "item", "products", {checked: true, data: {"orders--form-target": "searchByRadio", action: "orders--form#searchBy"}})
-              %label{for: "search_item_products"} product
+              = radio_button("search", "item", "all", {checked: true, data: {"orders--form-target": "searchByRadio", action: "orders--form#searchBy"}})
+              %label{for: "search_item_products"} All
+            .flex.items-center.gap-2
+              = radio_button("search", "item", "products", {data: {"orders--form-target": "searchByRadio", action: "orders--form#searchBy"}})
+              %label{for: "search_item_products"} Product
             .flex.items-center.gap-2
               = radio_button("search", "item", "parts", {data: {"orders--form-target": "searchByRadio", action: "orders--form#searchBy"}})
-              %label{for: "search_item_parts"} part
+              %label{for: "search_item_parts"} Part
   .h-72.overflow-y-auto.w-full.relative.overscroll-contain
     = turbo_frame_tag "search-results", src: search_path, loading: :lazy do
       = render "loading_template"
