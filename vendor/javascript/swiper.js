@@ -1,4 +1,4 @@
-var Swiper = (function () {
+export default (function () {
   "use strict";
   function e(e) {
     return (
