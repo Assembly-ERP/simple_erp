@@ -1,32 +1,37 @@
-.grid.gap-3{data: {controller: "users--form"}}
-  - if resource.errors.any?
-    = render ErrorCardComponent.new errors: resource.errors.full_messages, label: "validations"
+.grid.gap-3
+  = render "operational_portal/users/form_error"
   .grid.grid-cols-2.gap-x-4.gap-y-3
     .field
       = form.label :first_name
-      = form.text_field :first_name, placeholder: "First Name", class: "input-primary"
+      = form.text_field :first_name, placeholder: "First Name", class: "input-primary", required: true, data: {"users--form-target": "firstName"}
     .field
       = form.label :last_name
-      = form.text_field :last_name, placeholder: "Last Name", class: "input-primary", required: true
+      = form.text_field :last_name, placeholder: "Last Name", class: "input-primary", required: true, data: {"users--form-target": "lastName"}
     .field
       = form.label :email
-      = form.email_field :email, placeholder: "email@example.com", class: "input-primary", required: true
+      = form.email_field :email, placeholder: "email@example.com", class: "input-primary", required: true, data: {"users--form-target": "email"}
     .field
       = form.label :phone
-      = form.telephone_field :phone, placeholder: "Phone", class: "input-primary"
+      = form.telephone_field :phone, placeholder: "Phone", class: "input-primary", data: {"users--form-target": "phone"}
   .flex.flex-col.gap-1.mt-2
     %h1.font-medium Assign Role
     .flex.gap-8.items-center
       - User::ROLES.each_with_index do |role, index|
         .flex.gap-1.items-center
-          = radio_button("user", "role", role, {checked: index.zero?, class: "bg-foreground", "data-action": role.include?( "customer") ? "users--form#showCustomerInput" : "users--form#hideCustomerInput"})
+          = radio_button("user", "role", role, {checked: index.zero?, class: "bg-foreground", "data-action": role.include?( "customer") ? "users--form#showCustomerInput" : "users--form#hideCustomerInput", "data-users--form-target": "role"})
           = label_tag "user_role_#{role}", role.humanize
-  .grid.grid-cols-2.gap-x-4.gap-y-3
-    .field{class: form.object.customer_user? ? "" : "hidden", data: {"users--form-target": "customerDisplay"}}
+  .grid.grid-cols-2.gap-x-4.gap-y-3{class: form.object.customer_user? ? "" : "hidden", data: {"users--form-target": "customerDisplay"}}
+    .field
       = form.label :customer_id
       = form.select :customer_id, Customer.all.map { |customer| [customer.name, customer.id] }, {prompt: 'Select a customer'}, {"data-users--form-target": "select", required: form.object.role&.include?( "customer")}
-  .block.flex.gap-4
-    = form.submit resource.new_record? ? "Save User" : "Update User", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"
-    - if params[:modal] == "true"
-      %button.btn-md.bg-white.border.border-gray-300.font-medium{type: :button, data: {action: "dialog#close"}}
+  .block.flex.gap-3.mt-2.justify-between
+    .flex.gap-3
+      %button.flex.gap-2.items-center.btn-md.disabled:bg-gray-400.disabled:cursor-not-allowed{data: {"users--form-target": "submit"}, class: "bg-[color:var(--primary)] text-[color:var(--primary-text)]"}
+        %span
+          = resource.new_record? ? "Save User" : "Update User"
+        .hidden#spinner{data: {"users--form-target": "spinner"}}
+          = icon("fa-solid", "spinner", class: "animate-spin")
+      %button.btn-md.bg-white.border.border-gray-300.font-medium{class: params[:modal] == "true" ? "" : "hidden", type: :button, data: {action: "dialog#close", "users--form-target": "cancel"}}
         Cancel
+    %button.btn-md.bg-white.border.border-gray-300.font-medium.disabled:cursor-not-allowed{class: resource.new_record? ? "" : "hidden", type: :button, "data-action": "users--form#reset", "data-users--form-target": "reset"}
+      Reset

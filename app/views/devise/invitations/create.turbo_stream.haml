@@ -1,0 +1,6 @@
+- if resource.errors.any?
+  = turbo_stream.replace "users-error" do
+    = render "operational_portal/users/form_error", resource:
+- else
+  = turbo_stream.prepend "notification-container" do
+    = render NotificationComponent.new notif_type: "success", message: t("devise.invitations.send_instructions", email: resource.email)

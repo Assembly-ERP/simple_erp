@@ -1,0 +1,5 @@
+#new-user-action{data: {controller: "dialog", action: "click->dialog#backdropClose"}}
+  = render "operational_portal/users/new_user_modal"
+  %button.flex.gap-3.items-center.btn-sm{class: "bg-[color:var(--primary)] text-[color:var(--primary-text)]", type: "button", data: {action: "dialog#open"}, type: "button"}
+    = icon("fa-solid", "plus", class: "text-sm")
+    New User
