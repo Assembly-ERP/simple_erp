@@ -21,9 +21,10 @@
         .flex.gap-1.items-center
           = radio_button("user", "role", role, {checked: index.zero?, class: "bg-foreground", "data-action": role.include?( "customer") ? "users--form#showCustomerInput" : "users--form#hideCustomerInput"})
           = label_tag "user_role_#{role}", role.humanize
-  .field{class: form.object.customer_user? ? "" : "hidden", data: {"users--form-target": "customerDisplay"}}
-    = form.label :customer_id
-    = form.select :customer_id, Customer.all.map { |customer| [customer.name, customer.id] }, {prompt: 'Select a customer'}, {"data-users--form-target": "select", required: form.object.role&.include?( "customer")}
+  .grid.grid-cols-2.gap-x-4.gap-y-3
+    .field{class: form.object.customer_user? ? "" : "hidden", data: {"users--form-target": "customerDisplay"}}
+      = form.label :customer_id
+      = form.select :customer_id, Customer.all.map { |customer| [customer.name, customer.id] }, {prompt: 'Select a customer'}, {"data-users--form-target": "select", required: form.object.role&.include?( "customer")}
   .block.mt-2.flex.gap-4
     = form.submit resource.new_record? ? "Save User" : "Update User", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"
     - if params[:modal] == "true"
