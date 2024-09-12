@@ -1,0 +1,3 @@
+.w-full#users-error{class: resource.errors.any? ? "" : "hidden"}
+  - if resource.errors.any?
+    = render ErrorCardComponent.new errors: resource.errors.full_messages, label: "validations"

@@ -1,7 +1,7 @@
-%dialog.relative{class: "xl:max-w-[800px] w-full overflow-y-auto", "data-dialog-target": "dialog"}
+%dialog.relative{class: "xl:max-w-[800px] w-full overflow-y-auto min-h-[350px]", "data-dialog-target": "dialog"}
   .flex.px-8.py-3.gap-4.items-center.sticky.top-0.bg-white.z-10.border-b.relative
     %h2.text-xl.font-semibold Add New User
   .px-8.pb-1{class: "w-full"}
     = turbo_frame_tag "user_invitation", src: new_user_invitation_path(modal: true), loading: :lazy do
-      .flex.items-center.justify-center.w-full{class: "h-full"}
+      .flex.items-center.justify-center.w-full.mt-2{class: "h-full"}
         = icon("fa-solid", "spinner", class: "animate-spin text-4xl text-gray-400")
