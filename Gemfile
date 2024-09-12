@@ -114,3 +114,9 @@ gem 'aws-sdk-s3', require: false
 
 # Cron
 gem 'whenever', '~> 1.0'
+
+# Devise Invitation
+gem 'devise_invitable'
+
+# Sengrid
+gem 'sendgrid-ruby'

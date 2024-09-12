@@ -1,0 +1,19 @@
+%table
+  %thead.bg-gray-50
+    %tr.uppercase.text-sm
+      %th User Email
+      %th Name
+      %th Customer Name
+      %th Role
+  %tbody
+    - if @users.present?
+      - @users.each do |user|
+        %tr
+          %td.hover:underline
+            = link_to user.email, operational_portal_user_path(user)
+          %td= user.name
+          %td= user.customer_name
+          %td= user.role.humanize
+    - else
+      %tr
+        %td No Users found

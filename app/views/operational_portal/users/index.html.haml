@@ -1,28 +1,4 @@
 .flex.flex-col.gap-5.py-8
-  .flex.justify-between.gap-2.items-center
-    %h1.font-semibold.text-2xl Manage Users
-    .actions
-      = link_to new_operational_portal_user_path, class: "flex gap-3 items-center btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]" do
-        = icon("fa-solid", "plus")
-        New User
   .table-primary
-    %table
-      %thead
-        %tr
-          %th User Email
-          %th Name
-          %th Role
-          %th Action
-      %tbody
-        - if @users.present?
-          - @users.each do |user|
-            %tr.order-row
-              %td= link_to user.email, operational_portal_user_path(user)
-              %td= user.name
-              %td= user.role.humanize
-              %td
-                = link_to 'Edit', edit_operational_portal_user_path(user)
-                = link_to 'Delete', operational_portal_user_path(user), method: :delete, data: { confirm: 'Are you sure?' }
-        - else
-          %tr
-            %td No Users found
+    = render "table_actions"
+    = render "table"

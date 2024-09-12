@@ -354,6 +354,18 @@ class User
     sig { returns(T::Boolean) }
     def customer_previously_changed?; end
 
+    sig { returns(T.untyped) }
+    def invited_by; end
+
+    sig { params(value: T.untyped).void }
+    def invited_by=(value); end
+
+    sig { returns(T::Boolean) }
+    def invited_by_changed?; end
+
+    sig { returns(T::Boolean) }
+    def invited_by_previously_changed?; end
+
     sig { returns(T::Array[T.untyped]) }
     def order_ids; end
 
@@ -385,8 +397,14 @@ class User
     sig { returns(T.nilable(::Customer)) }
     def reload_customer; end
 
+    sig { returns(T.untyped) }
+    def reload_invited_by; end
+
     sig { void }
     def reset_customer; end
+
+    sig { void }
+    def reset_invited_by; end
 
     sig { returns(T::Array[T.untyped]) }
     def support_ticket_ids; end
@@ -415,6 +433,9 @@ class User
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def create_with(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def created_by_invite(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def customer_users(*args, &blk); end
@@ -490,6 +511,12 @@ class User
     def invert_where(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def invitation_accepted(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def invitation_not_accepted(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def joins(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
@@ -506,6 +533,9 @@ class User
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def merge(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def no_active_invitation(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def none(*args, &blk); end
@@ -590,6 +620,9 @@ class User
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def with(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def with_customer(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def without(*args, &blk); end
@@ -931,6 +964,51 @@ class User
     sig { void }
     def encrypted_password_will_change!; end
 
+    sig { returns(::String) }
+    def first_name; end
+
+    sig { params(value: ::String).returns(::String) }
+    def first_name=(value); end
+
+    sig { returns(T::Boolean) }
+    def first_name?; end
+
+    sig { returns(T.nilable(::String)) }
+    def first_name_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def first_name_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def first_name_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def first_name_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def first_name_change_to_be_saved; end
+
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def first_name_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def first_name_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def first_name_previous_change; end
+
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def first_name_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def first_name_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def first_name_was; end
+
+    sig { void }
+    def first_name_will_change!; end
+
     sig { returns(::Integer) }
     def id; end
 
@@ -1021,50 +1099,440 @@ class User
     sig { void }
     def id_will_change!; end
 
-    sig { returns(::String) }
-    def name; end
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def invitation_accepted_at; end
 
-    sig { params(value: ::String).returns(::String) }
-    def name=(value); end
+    sig { params(value: T.nilable(::ActiveSupport::TimeWithZone)).returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def invitation_accepted_at=(value); end
 
     sig { returns(T::Boolean) }
-    def name?; end
+    def invitation_accepted_at?; end
 
-    sig { returns(T.nilable(::String)) }
-    def name_before_last_save; end
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def invitation_accepted_at_before_last_save; end
 
     sig { returns(T.untyped) }
-    def name_before_type_cast; end
+    def invitation_accepted_at_before_type_cast; end
 
     sig { returns(T::Boolean) }
-    def name_came_from_user?; end
+    def invitation_accepted_at_came_from_user?; end
 
-    sig { returns(T.nilable([::String, ::String])) }
-    def name_change; end
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def invitation_accepted_at_change; end
 
-    sig { returns(T.nilable([::String, ::String])) }
-    def name_change_to_be_saved; end
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def invitation_accepted_at_change_to_be_saved; end
 
-    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
-    def name_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+    sig do
+      params(
+        from: T.nilable(::ActiveSupport::TimeWithZone),
+        to: T.nilable(::ActiveSupport::TimeWithZone)
+      ).returns(T::Boolean)
+    end
+    def invitation_accepted_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
-    sig { returns(T.nilable(::String)) }
-    def name_in_database; end
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def invitation_accepted_at_in_database; end
 
-    sig { returns(T.nilable([::String, ::String])) }
-    def name_previous_change; end
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def invitation_accepted_at_previous_change; end
 
-    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
-    def name_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+    sig do
+      params(
+        from: T.nilable(::ActiveSupport::TimeWithZone),
+        to: T.nilable(::ActiveSupport::TimeWithZone)
+      ).returns(T::Boolean)
+    end
+    def invitation_accepted_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
-    sig { returns(T.nilable(::String)) }
-    def name_previously_was; end
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def invitation_accepted_at_previously_was; end
 
-    sig { returns(T.nilable(::String)) }
-    def name_was; end
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def invitation_accepted_at_was; end
 
     sig { void }
-    def name_will_change!; end
+    def invitation_accepted_at_will_change!; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def invitation_created_at; end
+
+    sig { params(value: T.nilable(::ActiveSupport::TimeWithZone)).returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def invitation_created_at=(value); end
+
+    sig { returns(T::Boolean) }
+    def invitation_created_at?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def invitation_created_at_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def invitation_created_at_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def invitation_created_at_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def invitation_created_at_change; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def invitation_created_at_change_to_be_saved; end
+
+    sig do
+      params(
+        from: T.nilable(::ActiveSupport::TimeWithZone),
+        to: T.nilable(::ActiveSupport::TimeWithZone)
+      ).returns(T::Boolean)
+    end
+    def invitation_created_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def invitation_created_at_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def invitation_created_at_previous_change; end
+
+    sig do
+      params(
+        from: T.nilable(::ActiveSupport::TimeWithZone),
+        to: T.nilable(::ActiveSupport::TimeWithZone)
+      ).returns(T::Boolean)
+    end
+    def invitation_created_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def invitation_created_at_previously_was; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def invitation_created_at_was; end
+
+    sig { void }
+    def invitation_created_at_will_change!; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def invitation_limit; end
+
+    sig { params(value: T.nilable(::Integer)).returns(T.nilable(::Integer)) }
+    def invitation_limit=(value); end
+
+    sig { returns(T::Boolean) }
+    def invitation_limit?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def invitation_limit_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def invitation_limit_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def invitation_limit_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def invitation_limit_change; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def invitation_limit_change_to_be_saved; end
+
+    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    def invitation_limit_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def invitation_limit_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def invitation_limit_previous_change; end
+
+    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    def invitation_limit_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def invitation_limit_previously_was; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def invitation_limit_was; end
+
+    sig { void }
+    def invitation_limit_will_change!; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def invitation_sent_at; end
+
+    sig { params(value: T.nilable(::ActiveSupport::TimeWithZone)).returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def invitation_sent_at=(value); end
+
+    sig { returns(T::Boolean) }
+    def invitation_sent_at?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def invitation_sent_at_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def invitation_sent_at_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def invitation_sent_at_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def invitation_sent_at_change; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def invitation_sent_at_change_to_be_saved; end
+
+    sig do
+      params(
+        from: T.nilable(::ActiveSupport::TimeWithZone),
+        to: T.nilable(::ActiveSupport::TimeWithZone)
+      ).returns(T::Boolean)
+    end
+    def invitation_sent_at_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def invitation_sent_at_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def invitation_sent_at_previous_change; end
+
+    sig do
+      params(
+        from: T.nilable(::ActiveSupport::TimeWithZone),
+        to: T.nilable(::ActiveSupport::TimeWithZone)
+      ).returns(T::Boolean)
+    end
+    def invitation_sent_at_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def invitation_sent_at_previously_was; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def invitation_sent_at_was; end
+
+    sig { void }
+    def invitation_sent_at_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def invitation_token; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def invitation_token=(value); end
+
+    sig { returns(T::Boolean) }
+    def invitation_token?; end
+
+    sig { returns(T.nilable(::String)) }
+    def invitation_token_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def invitation_token_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def invitation_token_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def invitation_token_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def invitation_token_change_to_be_saved; end
+
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def invitation_token_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def invitation_token_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def invitation_token_previous_change; end
+
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def invitation_token_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def invitation_token_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def invitation_token_was; end
+
+    sig { void }
+    def invitation_token_will_change!; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def invitations_count; end
+
+    sig { params(value: T.nilable(::Integer)).returns(T.nilable(::Integer)) }
+    def invitations_count=(value); end
+
+    sig { returns(T::Boolean) }
+    def invitations_count?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def invitations_count_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def invitations_count_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def invitations_count_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def invitations_count_change; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def invitations_count_change_to_be_saved; end
+
+    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    def invitations_count_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def invitations_count_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def invitations_count_previous_change; end
+
+    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    def invitations_count_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def invitations_count_previously_was; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def invitations_count_was; end
+
+    sig { void }
+    def invitations_count_will_change!; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def invited_by_id; end
+
+    sig { params(value: T.nilable(::Integer)).returns(T.nilable(::Integer)) }
+    def invited_by_id=(value); end
+
+    sig { returns(T::Boolean) }
+    def invited_by_id?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def invited_by_id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def invited_by_id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def invited_by_id_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def invited_by_id_change; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def invited_by_id_change_to_be_saved; end
+
+    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    def invited_by_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def invited_by_id_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def invited_by_id_previous_change; end
+
+    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    def invited_by_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def invited_by_id_previously_was; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def invited_by_id_was; end
+
+    sig { void }
+    def invited_by_id_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def invited_by_type; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def invited_by_type=(value); end
+
+    sig { returns(T::Boolean) }
+    def invited_by_type?; end
+
+    sig { returns(T.nilable(::String)) }
+    def invited_by_type_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def invited_by_type_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def invited_by_type_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def invited_by_type_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def invited_by_type_change_to_be_saved; end
+
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def invited_by_type_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def invited_by_type_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def invited_by_type_previous_change; end
+
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def invited_by_type_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def invited_by_type_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def invited_by_type_was; end
+
+    sig { void }
+    def invited_by_type_will_change!; end
+
+    sig { returns(::String) }
+    def last_name; end
+
+    sig { params(value: ::String).returns(::String) }
+    def last_name=(value); end
+
+    sig { returns(T::Boolean) }
+    def last_name?; end
+
+    sig { returns(T.nilable(::String)) }
+    def last_name_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def last_name_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def last_name_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def last_name_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def last_name_change_to_be_saved; end
+
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def last_name_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def last_name_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def last_name_previous_change; end
+
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def last_name_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def last_name_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def last_name_was; end
+
+    sig { void }
+    def last_name_will_change!; end
 
     sig { returns(T.nilable(::String)) }
     def phone; end
@@ -1288,13 +1756,40 @@ class User
     def restore_encrypted_password!; end
 
     sig { void }
+    def restore_first_name!; end
+
+    sig { void }
     def restore_id!; end
 
     sig { void }
     def restore_id_value!; end
 
     sig { void }
-    def restore_name!; end
+    def restore_invitation_accepted_at!; end
+
+    sig { void }
+    def restore_invitation_created_at!; end
+
+    sig { void }
+    def restore_invitation_limit!; end
+
+    sig { void }
+    def restore_invitation_sent_at!; end
+
+    sig { void }
+    def restore_invitation_token!; end
+
+    sig { void }
+    def restore_invitations_count!; end
+
+    sig { void }
+    def restore_invited_by_id!; end
+
+    sig { void }
+    def restore_invited_by_type!; end
+
+    sig { void }
+    def restore_last_name!; end
 
     sig { void }
     def restore_phone!; end
@@ -1404,6 +1899,12 @@ class User
     sig { returns(T::Boolean) }
     def saved_change_to_encrypted_password?; end
 
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_first_name; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_first_name?; end
+
     sig { returns(T.nilable([::Integer, ::Integer])) }
     def saved_change_to_id; end
 
@@ -1416,11 +1917,59 @@ class User
     sig { returns(T::Boolean) }
     def saved_change_to_id_value?; end
 
-    sig { returns(T.nilable([::String, ::String])) }
-    def saved_change_to_name; end
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def saved_change_to_invitation_accepted_at; end
 
     sig { returns(T::Boolean) }
-    def saved_change_to_name?; end
+    def saved_change_to_invitation_accepted_at?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def saved_change_to_invitation_created_at; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_invitation_created_at?; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def saved_change_to_invitation_limit; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_invitation_limit?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def saved_change_to_invitation_sent_at; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_invitation_sent_at?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_invitation_token; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_invitation_token?; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def saved_change_to_invitations_count; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_invitations_count?; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def saved_change_to_invited_by_id; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_invited_by_id?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_invited_by_type; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_invited_by_type?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_last_name; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_last_name?; end
 
     sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def saved_change_to_phone; end
@@ -1576,13 +2125,40 @@ class User
     def will_save_change_to_encrypted_password?; end
 
     sig { returns(T::Boolean) }
+    def will_save_change_to_first_name?; end
+
+    sig { returns(T::Boolean) }
     def will_save_change_to_id?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_id_value?; end
 
     sig { returns(T::Boolean) }
-    def will_save_change_to_name?; end
+    def will_save_change_to_invitation_accepted_at?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_invitation_created_at?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_invitation_limit?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_invitation_sent_at?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_invitation_token?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_invitations_count?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_invited_by_id?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_invited_by_type?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_last_name?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_phone?; end
@@ -1618,6 +2194,9 @@ class User
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def create_with(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def created_by_invite(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def customer_users(*args, &blk); end
@@ -1659,6 +2238,12 @@ class User
     def invert_where(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def invitation_accepted(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def invitation_not_accepted(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def joins(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
@@ -1675,6 +2260,9 @@ class User
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def merge(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def no_active_invitation(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def none(*args, &blk); end
@@ -1741,6 +2329,9 @@ class User
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def with(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def with_customer(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def without(*args, &blk); end

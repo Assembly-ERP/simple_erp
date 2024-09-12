@@ -5,7 +5,7 @@ module OperationalPortal
     load_and_authorize_resource
 
     def index
-      @users = User.all
+      @users = User.with_customer.accessible_by(current_ability)
     end
 
     def show; end
@@ -72,7 +72,8 @@ module OperationalPortal
     end
 
     def user_params
-      params.require(:user).permit(:email, :name, :phone, :role, :password, :password_confirmation, :customer_id)
+      params.require(:user).permit(:email, :first_name, :last_name, :phone, :role, :password, :password_confirmation,
+                                   :customer_id)
     end
 
     def user_update_params

@@ -15,6 +15,6 @@
     = @user.role
   %p
     %strong Customer:
-    = @user.customer.name
+    = @user.customer&.name
   = link_to 'Edit', edit_operational_portal_user_path(@user), class: "btn btn-primary"
   = link_to 'Back', operational_portal_users_path, class: 'btn btn-secondary'
