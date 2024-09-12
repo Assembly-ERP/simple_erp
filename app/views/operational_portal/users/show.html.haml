@@ -1,20 +1,31 @@
-/ app/views/operational_portal/users/show.html.erb
-.container.py-8
-  %h1 User Details
-  %p
-    %strong Name:
-    = @user.name
-  %p
-    %strong Email:
-    = @user.email
-  %p
-    %strong Phone:
-    = format_phone_number(@user.phone)
-  %p
-    %strong Role:
-    = @user.role
-  %p
-    %strong Customer:
-    = @user.customer&.name
-  = link_to 'Edit', edit_operational_portal_user_path(@user), class: "btn btn-primary"
-  = link_to 'Back', operational_portal_users_path, class: 'btn btn-secondary'
+= turbo_frame_tag "user_show" do
+  .w-full.py-5
+    .grid.grid-cols-2.gap-x-4.gap-y-5
+      %p.grid
+        %strong Name
+        = @user.name
+      %p.grid
+        %strong Email
+        = @user.email
+      %p.grid
+        %strong Phone Number
+        - if @user.phone.present?
+          = format_phone_number(@user.phone)
+        - else
+          N/A
+      %p.grid
+        %strong Role
+        = @user.role.humanize
+      - if @user.customer.present?
+        %p.grid
+          %strong Customer
+          = @user.customer.name
+    .mt-5.flex.gap-3
+      = link_to 'Edit User', edit_operational_portal_user_path(@user), target: :_top, class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"
+      = button_to edit_operational_portal_user_path(@user), method: :delete, class: "flex items-center gap-2 w-fit btn-md bg-red-600 text-white", form: {data: {turbo_confirm: 'Are you sure to delete this user?'}} do
+        = icon("fa-solid", "trash")
+        Delete
+      - if params[:modal] == "true"
+        %button.btn-md.bg-gray-500.text-white.flex.items-center.gap-2{data: {action: "dialog#close"}}
+          = icon("fa-solid", "xmark", class: "text-lg")
+          Close
