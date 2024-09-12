@@ -15,7 +15,7 @@
     = form.select :customer_id, Customer.all.pluck(:name, :id), {prompt: "--Select customer--"}, {data: {action: "change->support_tickets--form#customerChanged"}, class: "input-primary"}
   .field
     = form.label :user_id, "Assign to Customer User"
-    = render "user_select_input", form:, users: form.object.customer_id ? form.object.customer.users.pluck(:name, :id) : User.all.pluck(:name, :id)
+    = render "user_select_input", form:, users: form.object.customer_id ? form.object.customer.users.map { |user| [user.name, user.id]} : User.all.map { |user| [user.name, user.id]}
   .field
     = form.label :files
     = form.file_field :files, multiple: true

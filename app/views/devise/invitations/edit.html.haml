@@ -1,0 +1,17 @@
+.w-full.py-5.h-full.grid.place-items-center.h-full
+  = form_for(resource, as: resource_name, url: invitation_path(resource_name), html: { method: :put }) do |f|
+    .bg-white.p-5.border.border-gray-300.rounded-lg.grid.gap-3.w-96
+      %h2.font-medium.text-xl.mb-2
+        = t "devise.invitations.edit.header"
+      - if resource.errors.any?
+        = render errorcardcomponent.new errors: resource.errors.full_messages, label: "validations"
+      - if f.object.class.require_password_on_accepting
+        .field
+          = f.label :password
+          = f.password_field :password, class: "input-primary"
+        .field
+          = f.label :password_confirmation
+          = f.password_field :password_confirmation, class: "input-primary"
+      = f.hidden_field :invitation_token, readonly: true
+      .actions.mt-2.flex
+        = f.submit t("devise.invitations.edit.submit_button"), class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"

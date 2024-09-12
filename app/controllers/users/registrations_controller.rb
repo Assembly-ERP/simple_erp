@@ -15,13 +15,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   def configure_permitted_parameters
     devise_parameter_sanitizer
       .permit(
-        :sign_up, keys: [:email, :password, :password_confirmation, :first_name, :last_name, { customer_attributes: }]
+        :sign_up, keys: [:email, :phone, :password, :password_confirmation, :first_name, :last_name,
+                         { customer_attributes: }]
       )
   end
 
   def sign_up_params
     params.require(resource_name).permit(
-      :email, :password, :password_confirmation, :first_name, :last_name, { customer_attributes: }
+      :email, :phone, :password, :password_confirmation, :first_name, :last_name, { customer_attributes: }
     )
   end
 

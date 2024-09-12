@@ -10,6 +10,9 @@ module GeneratedPathHelpersModule
   include ::ActionDispatch::Routing::PolymorphicRoutes
 
   sig { params(args: T.untyped).returns(String) }
+  def accept_user_invitation_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def add_item_customer_portal_cart_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -136,6 +139,9 @@ module GeneratedPathHelpersModule
   def new_user_confirmation_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def new_user_invitation_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def new_user_password_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -164,6 +170,9 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def operational_portal_order_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def operational_portal_order_price_schedulers_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def operational_portal_orders_path(*args); end
@@ -304,6 +313,9 @@ module GeneratedPathHelpersModule
   def rails_storage_redirect_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def remove_user_invitation_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def root_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -311,9 +323,6 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def search_results_operational_portal_orders_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def sync_price_operational_portal_order_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def turbo_recede_historical_location_path(*args); end
@@ -328,13 +337,13 @@ module GeneratedPathHelpersModule
   def update_rails_disk_service_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def update_shipping_operational_portal_order_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def upload_file_operational_portal_part_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def user_confirmation_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def user_invitation_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def user_password_path(*args); end

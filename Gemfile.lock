@@ -133,6 +133,9 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise_invitable (2.0.9)
+      actionmailer (>= 5.0)
+      devise (>= 4.6)
     dotenv (3.1.2)
     dotenv-rails (3.1.2)
       dotenv (= 3.1.2)
@@ -315,6 +318,7 @@ GEM
     ruby-vips (2.2.2)
       ffi (~> 1.12)
       logger
+    ruby_http_client (3.5.5)
     ruby_parser (3.21.0)
       racc (~> 1.5)
       sexp_processor (~> 4.16)
@@ -327,6 +331,8 @@ GEM
       rexml (~> 3.2, >= 3.2.5)
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
+    sendgrid-ruby (6.7.0)
+      ruby_http_client (~> 3.4)
     sexp_processor (4.17.1)
     sorbet (0.5.11514)
       sorbet-static (= 0.5.11514)
@@ -428,6 +434,7 @@ DEPENDENCIES
   capybara
   debug
   devise (~> 4.9)
+  devise_invitable
   dotenv-rails (~> 3.1)
   font-awesome-sass (~> 6.4.0)
   haml-rails (~> 2.1)
@@ -444,6 +451,7 @@ DEPENDENCIES
   rubocop-rails
   ruby-vips
   selenium-webdriver
+  sendgrid-ruby
   sorbet
   sorbet-runtime
   sprockets-rails
