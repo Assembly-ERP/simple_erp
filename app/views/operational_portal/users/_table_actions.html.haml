@@ -16,8 +16,4 @@
         = icon("fa-solid", "filter", class: "text-sm text-gray-400")
         Filter
         = icon("fa-solid", "chevron-down", class: "text-sm text-gray-400")
-    .block{data: {controller: "dialog", action: "click->dialog#backdropClose"}}
-      = render "new_user_modal"
-      %button.flex.gap-3.items-center.btn-sm{class: "bg-[color:var(--primary)] text-[color:var(--primary-text)]", type: "button", data: {action: "dialog#open"}, type: "button"}
-        = icon("fa-solid", "plus", class: "text-sm")
-        New User
+    = render "table_actions_new"
