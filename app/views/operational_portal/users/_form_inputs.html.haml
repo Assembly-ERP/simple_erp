@@ -31,7 +31,7 @@
           = resource.new_record? ? "Save User" : "Update User"
         .hidden#spinner{data: {"users--form-target": "spinner"}}
           = icon("fa-solid", "spinner", class: "animate-spin")
-      %button.btn-md.bg-white.border.border-gray-300.font-medium{class: params[:modal] == "true" ? "" : "hidden", type: :button, data: {action: "dialog#close", "users--form-target": "cancel"}}
+      %button.btn-md.bg-white.border.border-gray-300.font-medium{class: params[:modal] == "true" ? "" : "hidden", type: :button, data: {action: "dialog#close users--form#reset", "users--form-target": "cancel"}}
         Cancel
     %button.btn-md.bg-white.border.border-gray-300.font-medium.disabled:cursor-not-allowed{class: resource.new_record? ? "" : "hidden", type: :button, "data-action": "users--form#reset", "data-users--form-target": "reset"}
       Reset

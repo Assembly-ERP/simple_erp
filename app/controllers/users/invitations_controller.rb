@@ -24,11 +24,11 @@ class Users::InvitationsController < Devise::InvitationsController
             respond_with resource, location: after_invite_path_for(current_inviter, resource)
           end
         end
+        format.turbo_stream { render :create, status: :ok }
       else
         format.html { respond_with(resource) }
+        format.turbo_stream { render :create, status: :unprocessable_entity }
       end
-
-      format.turbo_stream { render :create, status: resource_invited ? :ok : :unprocessable_entity }
     end
   end
 
