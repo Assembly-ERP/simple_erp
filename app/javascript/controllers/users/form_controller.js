@@ -14,6 +14,7 @@ export default class extends Controller {
     "role",
     "submit",
     "reset",
+    "error",
   ];
 
   connect() {
@@ -60,6 +61,7 @@ export default class extends Controller {
     this.roleTargets[0].checked = true;
     this.customerDisplayTarget.classList.add("hidden");
     this.selectTarget.required = false;
+    this.errorTarget.innerHTML = "";
   }
 
   disconnect() {
