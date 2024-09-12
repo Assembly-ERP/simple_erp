@@ -643,6 +643,12 @@ class Order
     def select(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def sort_asc(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def sort_desc(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def strict_loading(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
@@ -914,6 +920,61 @@ class Order
     sig { void }
     def id_will_change!; end
 
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def last_scheduled; end
+
+    sig { params(value: T.nilable(::ActiveSupport::TimeWithZone)).returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def last_scheduled=(value); end
+
+    sig { returns(T::Boolean) }
+    def last_scheduled?; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def last_scheduled_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def last_scheduled_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def last_scheduled_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def last_scheduled_change; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def last_scheduled_change_to_be_saved; end
+
+    sig do
+      params(
+        from: T.nilable(::ActiveSupport::TimeWithZone),
+        to: T.nilable(::ActiveSupport::TimeWithZone)
+      ).returns(T::Boolean)
+    end
+    def last_scheduled_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def last_scheduled_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def last_scheduled_previous_change; end
+
+    sig do
+      params(
+        from: T.nilable(::ActiveSupport::TimeWithZone),
+        to: T.nilable(::ActiveSupport::TimeWithZone)
+      ).returns(T::Boolean)
+    end
+    def last_scheduled_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def last_scheduled_previously_was; end
+
+    sig { returns(T.nilable(::ActiveSupport::TimeWithZone)) }
+    def last_scheduled_was; end
+
+    sig { void }
+    def last_scheduled_will_change!; end
+
     sig { returns(::Integer) }
     def order_status_id; end
 
@@ -1020,6 +1081,9 @@ class Order
     def restore_id_value!; end
 
     sig { void }
+    def restore_last_scheduled!; end
+
+    sig { void }
     def restore_order_status_id!; end
 
     sig { void }
@@ -1069,6 +1133,12 @@ class Order
 
     sig { returns(T::Boolean) }
     def saved_change_to_id_value?; end
+
+    sig { returns(T.nilable([T.nilable(::ActiveSupport::TimeWithZone), T.nilable(::ActiveSupport::TimeWithZone)])) }
+    def saved_change_to_last_scheduled; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_last_scheduled?; end
 
     sig { returns(T.nilable([::Integer, ::Integer])) }
     def saved_change_to_order_status_id; end
@@ -1363,6 +1433,9 @@ class Order
     def will_save_change_to_id_value?; end
 
     sig { returns(T::Boolean) }
+    def will_save_change_to_last_scheduled?; end
+
+    sig { returns(T::Boolean) }
     def will_save_change_to_order_status_id?; end
 
     sig { returns(T::Boolean) }
@@ -1501,6 +1574,12 @@ class Order
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def select(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def sort_asc(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def sort_desc(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def strict_loading(*args, &blk); end
