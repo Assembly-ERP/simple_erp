@@ -14,7 +14,7 @@
     .field
       = form.label :phone
       = form.telephone_field :phone, placeholder: "Phone", class: "input-primary"
-  .flex.flex-col.gap-1
+  .flex.flex-col.gap-1.mt-2
     %h1.font-medium Assign Role
     .flex.gap-8.items-center
       - User::ROLES.each_with_index do |role, index|
@@ -25,7 +25,7 @@
     .field{class: form.object.customer_user? ? "" : "hidden", data: {"users--form-target": "customerDisplay"}}
       = form.label :customer_id
       = form.select :customer_id, Customer.all.map { |customer| [customer.name, customer.id] }, {prompt: 'Select a customer'}, {"data-users--form-target": "select", required: form.object.role&.include?( "customer")}
-  .block.mt-2.flex.gap-4
+  .block.flex.gap-4
     = form.submit resource.new_record? ? "Save User" : "Update User", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"
     - if params[:modal] == "true"
       %button.btn-md.bg-white.border.border-gray-300.font-medium{type: :button, data: {action: "dialog#close"}}
