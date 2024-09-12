@@ -2,10 +2,10 @@
 %html.h-full
   %head
     = render "layouts/head"
-  %body.h-full{style: theme}
+  %body{style: theme}
     = render FlashComponent.new
     = render "layouts/operation_navbar"
     %main.flex.ml-64
       = render "layouts/sidebar"
-      .h-full.margin-max-screen.overflow-auto
+      .h-full.margin-max-screen
         = yield
