@@ -1,2 +1,2 @@
-= form_with(model: @user, url: path, html: {data: {controller: "users--form"}}) do |form|
+= form_with(model: @user, url: path, html: {data: {controller: "users--form", is_new: @user.new_record?.to_s}}) do |form|
   = render "form_inputs", resource: @user, form:

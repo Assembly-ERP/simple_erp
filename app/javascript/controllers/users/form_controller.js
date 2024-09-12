@@ -23,6 +23,16 @@ export default class extends Controller {
       removeItemButton: this.selectTarget.multiple,
       position: "top",
     });
+    this.collectInitData();
+  }
+
+  collectInitData() {
+    this.firstNameInit = this.firstNameTarget.value;
+    this.lastNameInit = this.lastNameTarget.value;
+    this.phoneInit = this.phoneTarget.value;
+    this.emailInit = this.emailTarget.value;
+    this.customerInit = this.selectTarget.value;
+    this.roleIndexInit = this.roleTargets.findIndex((target) => target.checked);
   }
 
   showCustomerInput() {
@@ -49,21 +59,27 @@ export default class extends Controller {
     this.cancelTarget.disabled = false;
 
     if (event.detail.success) {
-      this.cancelTarget.click();
+      if (this.element.dataset.isNew == "true") {
+        this.cancelTarget.click();
+      } else {
+        this.collectInitData();
+      }
       this.reset();
     }
   }
 
   reset() {
-    this.firstNameTarget.value = "";
-    this.lastNameTarget.value = "";
-    this.phoneTarget.value = "";
-    this.emailTarget.value = "";
-    this.selectTarget.value = "";
-    this.roleTargets[0].checked = true;
-    this.customerDisplayTarget.classList.add("hidden");
-    this.selectTarget.required = false;
+    this.firstNameTarget.value = this.firstNameInit;
+    this.lastNameTarget.value = this.lastNameInit;
+    this.phoneTarget.value = this.phoneInit;
+    this.emailTarget.value = this.emailInit;
+    this.selectTarget.value = this.customerInit;
+    this.roleTargets[this.roleIndexInit].checked = true;
     this.errorTarget.classList.add("hidden");
+
+    if (!this.roleTargets[this.roleIndexInit].value.includes("customer")) {
+      this.hideCustomerInput();
+    }
   }
 
   disconnect() {

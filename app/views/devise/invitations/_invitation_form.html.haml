@@ -1,2 +1,2 @@
-= form_for(resource, as: resource_name, url: invitation_path(resource_name), html: {data: {controller: "users--form", action: "turbo:submit-start->users--form#submitStart turbo:submit-end->users--form#submitEnd"}, method: :post}) do |form|
+= form_for(resource, as: resource_name, url: invitation_path(resource_name), html: {data: {controller: "users--form", action: "turbo:submit-start->users--form#submitStart turbo:submit-end->users--form#submitEnd", is_new: resource.new_record?.to_s}, method: :post}) do |form|
   = render "operational_portal/users/form_inputs", resource:, form:
