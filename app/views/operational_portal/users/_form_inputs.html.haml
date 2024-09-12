@@ -26,7 +26,7 @@
       = form.select :customer_id, Customer.all.map { |customer| [customer.name, customer.id] }, {prompt: 'Select a customer'}, {"data-users--form-target": "select", required: form.object.role&.include?( "customer")}
   .block.flex.gap-3.mt-2.justify-between
     .flex.gap-3
-      %button.flex.gap-2.items-center.btn-md.disabled:bg-gray-400.disabled:cursor-not-allowed{data: {"users--form-target": "submit"}, class: "bg-[color:var(--primary)] text-[color:var(--primary-text)]"}
+      %button.flex.gap-2.items-center.btn-md.disabled:bg-gray-400.disabled:cursor-not-allowed.transition-colors{data: {"users--form-target": "submit"}, class: "bg-[color:var(--primary)] text-[color:var(--primary-text)]"}
         %span
           = resource.new_record? ? "Save User" : "Update User"
         .hidden#spinner{data: {"users--form-target": "spinner"}}
