@@ -21,11 +21,11 @@
         .flex.gap-1.items-center
           = radio_button("user", "role", role, {checked: index.zero?, class: "bg-foreground", "data-action": role.include?( "customer") ? "users--form#showCustomerInput" : "users--form#hideCustomerInput"})
           = label_tag "user_role_#{role}", role.humanize
-  .grid.grid-cols-2.gap-x-4.gap-y-3
-    .field{class: form.object.customer_user? ? "" : "hidden", data: {"users--form-target": "customerDisplay"}}
+  .grid.grid-cols-2.gap-x-4.gap-y-3{class: form.object.customer_user? ? "" : "hidden", data: {"users--form-target": "customerDisplay"}}
+    .field
       = form.label :customer_id
       = form.select :customer_id, Customer.all.map { |customer| [customer.name, customer.id] }, {prompt: 'Select a customer'}, {"data-users--form-target": "select", required: form.object.role&.include?( "customer")}
-  .block.flex.gap-4
+  .block.flex.gap-4.mt-2
     = form.submit resource.new_record? ? "Save User" : "Update User", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"
     - if params[:modal] == "true"
       %button.btn-md.bg-white.border.border-gray-300.font-medium{type: :button, data: {action: "dialog#close"}}
