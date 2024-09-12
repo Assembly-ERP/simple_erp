@@ -39,12 +39,14 @@ export default class extends Controller {
     this.spinnerTarget.classList.remove("hidden");
     this.submitTarget.disabled = true;
     this.resetTarget.disabled = true;
+    this.cancelTarget.disabled = true;
   }
 
   submitEnd(event) {
     this.spinnerTarget.classList.add("hidden");
     this.submitTarget.disabled = false;
     this.resetTarget.disabled = false;
+    this.cancelTarget.disabled = false;
 
     if (event.detail.success) {
       this.cancelTarget.click();
@@ -61,7 +63,7 @@ export default class extends Controller {
     this.roleTargets[0].checked = true;
     this.customerDisplayTarget.classList.add("hidden");
     this.selectTarget.required = false;
-    this.errorTarget.innerHTML = "";
+    this.errorTarget.classList.add("hidden");
   }
 
   disconnect() {
