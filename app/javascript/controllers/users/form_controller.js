@@ -78,8 +78,7 @@ export default class extends Controller {
     this.errorTarget.classList.add("hidden");
 
     if (!this.roleTargets[this.roleIndexInit].value.includes("customer")) {
-      this.customerDisplayTarget.classList.add("hidden");
-      this.selectTarget.required = false;
+      this.hideCustomerInput();
     }
   }
 
