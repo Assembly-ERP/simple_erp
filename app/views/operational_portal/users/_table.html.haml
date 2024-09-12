@@ -10,7 +10,10 @@
       - @users.each do |user|
         %tr
           %td.hover:underline
-            = link_to user.email, operational_portal_user_path(user)
+            .block{data: {controller: "dialog", action: "click->dialog#backdropClose"}}
+              = render "show_modal", user: user
+              %button.hover:underline{type: "button", data: {action: "dialog#open"}, type: "button"}
+                = user.email
           %td= user.name
           %td= user.customer_name
           %td= user.role.humanize
