@@ -1,5 +1,5 @@
 .grid.gap-3
-  = render "operational_portal/users/form_error"
+  = render "operational_portal/users/form_error", resource:
   .grid.grid-cols-2.gap-x-4.gap-y-3
     .field
       = form.label :first_name
@@ -18,9 +18,9 @@
     .flex.gap-8.items-center
       - User::ROLES.each_with_index do |role, index|
         .flex.gap-1.items-center
-          = radio_button("user", "role", role, {checked: index.zero?, class: "bg-foreground", "data-action": role.include?( "customer") ? "users--form#showCustomerInput" : "users--form#hideCustomerInput", "data-users--form-target": "role"})
+          = radio_button("user", "role", role, {checked: form.object.role === role || index.zero?, class: "bg-foreground", "data-action": role.include?( "customer") ? "users--form#showCustomerInput" : "users--form#hideCustomerInput", "data-users--form-target": "role"})
           = label_tag "user_role_#{role}", role.humanize
-  .grid.grid-cols-2.gap-x-4.gap-y-3{class: form.object.customer_user? ? "" : "hidden", data: {"users--form-target": "customerDisplay"}}
+  .grid.grid-cols-2.gap-x-4.gap-y-3{class: resource.customer_user? ? "" : "hidden", data: {"users--form-target": "customerDisplay"}}
     .field
       = form.label :customer_id
       = form.select :customer_id, Customer.all.map { |customer| [customer.name, customer.id] }, {prompt: 'Select a customer'}, {"data-users--form-target": "select", required: form.object.role&.include?( "customer")}
