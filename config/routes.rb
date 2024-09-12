@@ -13,7 +13,8 @@ Rails.application.routes.draw do
 
   # Auth
   devise_for :users, controllers: {
-    registrations: 'users/registrations'
+    registrations: 'users/registrations',
+    invitations: 'users/invitations'
   }
 
   # Dashboards
@@ -113,6 +114,12 @@ end
 #                                  new_user_confirmation GET    /users/confirmation/new(.:format)                                                                 devise/confirmations#new
 #                                      user_confirmation GET    /users/confirmation(.:format)                                                                     devise/confirmations#show
 #                                                        POST   /users/confirmation(.:format)                                                                     devise/confirmations#create
+#                                 accept_user_invitation GET    /users/invitation/accept(.:format)                                                                devise/invitations#edit
+#                                 remove_user_invitation GET    /users/invitation/remove(.:format)                                                                devise/invitations#destroy
+#                                    new_user_invitation GET    /users/invitation/new(.:format)                                                                   devise/invitations#new
+#                                        user_invitation PATCH  /users/invitation(.:format)                                                                       devise/invitations#update
+#                                                        PUT    /users/invitation(.:format)                                                                       devise/invitations#update
+#                                                        POST   /users/invitation(.:format)                                                                       devise/invitations#create
 #                                       operational_root GET    /operational_portal(.:format)                                                                     operational_portal/dashboard#index
 #                                          customer_root GET    /customer(.:format)                                                                               customer_portal/dashboard#index
 #                              operational_portal_manage GET    /operational_portal/manage(.:format)                                                              redirect(301, /operational_portal/users)

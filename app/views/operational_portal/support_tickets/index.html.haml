@@ -1,32 +1,4 @@
-/ app/views/operational_portal/support_tickets/index.html.erb
-.py-5.flex.flex-col.gap-5
-  .flex.justify-between.gap-2.items-center
-    %h1.font-semibold.text-2xl Support Tickets
-    .actions
-      = link_to new_operational_portal_support_ticket_path, class: "flex gap-3 items-center btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]" do
-        = icon("fa-solid", "plus")
-        New Support Ticket
+.py-5.flex.flex-col.gap-4
   .table-primary
-    %table
-      %thead
-        %tr
-          %th Ticket Title
-          %th Customer Name
-          %th Status
-          %th Created Date
-          %th Actions
-      %tbody
-        - if @support_tickets.present?
-          - @support_tickets.each do |ticket|
-            %tr
-              %td= link_to ticket.title, operational_portal_support_ticket_path(ticket)
-              %td= ticket.customer_name
-              %td= ticket.status
-              %td= ticket.created_at
-              %td.flex.gap-1
-                = link_to 'View', operational_portal_support_ticket_path(ticket)
-                = link_to 'Edit', edit_operational_portal_support_ticket_path(ticket)
-                = button_to 'Delete', operational_portal_support_ticket_path(ticket), method: :delete, form: {data: {turbo_confirm: 'Are you sure to delete this support ticket?'}}
-        - else
-          %tr
-            %td{:colspan => "5"} No Support Tickets found
+    = render "table_actions"
+    = render "table"

@@ -35,7 +35,11 @@
   }
 
   .field {
-    @apply grid gap-0.5 w-full;
+    @apply grid gap-1 w-full;
+  }
+
+  .field label {
+    @apply font-medium;
   }
 
   .field:has(input[required]) label:after {
@@ -63,7 +67,7 @@
   }
 
   .btn-md {
-    @apply py-[11px] px-5 cursor-pointer rounded-lg text-[15px];
+    @apply py-3 px-6 cursor-pointer rounded-lg text-[15px];
   }
 
   .btn-sm {
