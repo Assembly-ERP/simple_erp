@@ -28,7 +28,7 @@ class Users::InvitationsController < Devise::InvitationsController
         format.html { respond_with(resource) }
       end
 
-      format.turbo_stream
+      format.turbo_stream { render :create, status: resource_invited ? :ok : :unprocessable_entity }
     end
   end
 
