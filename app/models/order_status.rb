@@ -12,6 +12,10 @@ class OrderStatus < ApplicationRecord
     find_by(default: true)&.id
   end
 
+  def self.cancel_status
+    find_by(name: 'Cancelled')
+  end
+
   private
 
   def only_on_locked_reversed

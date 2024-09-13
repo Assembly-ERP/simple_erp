@@ -1,56 +1,32 @@
-/ app/views/operational_portal/customers/new.html.erb
-.container.py-8
-  %h1 New Customer
+.w-full.py-5
+  %h1.text-2xl.font-medium.mb-4 New Customer
   = form_with(model: @customer, url: operational_portal_customers_path, local: true) do |form|
     - if @customer.errors.any?
-      #error_explanation
-        %h2
-          = pluralize(@customer.errors.count, "error")
-          prohibited this customer from being saved:
-        %ul
-          - @customer.errors.full_messages.each do |message|
-            %li= message
-    .field
-      = form.label :name
-      = form.text_field :name
-    .field
-      = form.label :phone
-      = form.telephone_field :phone
-    .field
-      = form.label :street
-      = form.text_field :street
-    .field
-      = form.label :city
-      = form.text_field :city
-    .field
-      = form.label :state
-      = form.text_field :state
-    .field
-      = form.label :postal_code
-      = form.text_field :postal_code
+      = render ErrorCardComponent.new errors: @customer.errors.full_messages, label: "Validations"
+    .grid.grid-cols-2.gap-3
+      .field
+        = form.label :name
+        = form.text_field :name
+      .field
+        = form.label :phone
+        = form.telephone_field :phone
+    .block
+      %h2 Address
+      .grid.grid-cols-2.gap-3
+        .field
+          = form.label :street
+          = form.text_field :street
+        .field
+          = form.label :city
+          = form.text_field :city
+        .field
+          = form.label :state
+          = form.text_field :state
+        .field
+          = form.label :postal_code
+          = form.text_field :postal_code
     .field
       = form.label :discount, "Discount %"
       = form.number_field :discount, value: format('%.2f', @customer.discount.to_f), step: '0.01'
-    %div
+    .block
       = form.submit "Save Customer", class: "btn"
-      = link_to 'Back', operational_portal_customers_path, class: "btn btn-secondary"
-:javascript
-  document.addEventListener("DOMContentLoaded", () => {
-    const phoneInput = document.querySelector('input[type="tel"]');
-  
-    if (phoneInput) {
-      phoneInput.addEventListener("input", formatPhoneNumber);
-    }
-  });
-  
-  function formatPhoneNumber(event) {
-    const input = event.target;
-    let value = input.value.replace(/\D/g, '');
-  
-    if (value.length > 10) {
-      value = value.slice(0, 10);
-    }
-  
-    const formattedValue = value.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
-    input.value = formattedValue;
-  }

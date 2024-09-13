@@ -1,0 +1,84 @@
+!!!
+%html{lang: "en"}
+  %head
+    %meta{content: "text/html; charset=UTF-8", "http-equiv" => "Content-Type"}/
+    %meta{charset: "UTF-8"}/
+    %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}/
+    = stylesheet_link_tag "quote_invoice"
+  %body
+    .container
+      .header
+        .logo= @order.customer.name
+      .invoice-details
+        .invoice-number 
+          = "#{@is_quote ? 'Quote' : 'Invoice'} ##{@order.id}"
+        .date
+          = @order.created_at.strftime("%m/%d/%Y")
+      - osa = @order.order_shipping_address
+      - if osa.present?
+        .billing-shipping
+          .shipping
+            .section-title Ship To:
+            .address
+              = osa.street
+              %br/
+              = "#{osa.state}, #{osa.city} #{osa.zip_code}"
+              -# %br/
+              -# +1-244-443-9883
+      .table-container
+        %table.table
+          %thead
+            %tr
+              %th Name
+              %th Type
+              %th QTY
+              %th Price
+              %th TOTAL PRICE
+          %tbody
+            - @order.order_details.with_part_and_product.each do |item|
+              %tr
+                %td
+                  - if item.product_id.present?
+                    = item.product_name
+                  - else
+                    = item.part_name
+                %td
+                  - if item.product_id.present?
+                    Product
+                  - else
+                    Part
+                %td
+                  = "x#{item.quantity}"
+                %td
+                  = number_to_currency(item.price, precision: 2)
+                %td
+                  = number_to_currency(item.subtotal)
+      .order-summary
+        .summary-title Order summary
+        .summary-row
+          %span.summary-label Base Price
+          %span.summary-value           
+            = number_to_currency(@order.price, precision: 2)
+        - discount_value = value_from_percentage(@order.price, @order.discount_percentage)
+        .summary-row
+          %span.summary-label
+            = "Discount (#{number_with_precision(@order.discount_percentage, precision: 2)}%)"
+          %span.summary-value{style: "color: green;"}
+            = "-#{number_to_currency(discount_value, precision: 2)}"
+        .summary-row
+          %span.summary-label Tax
+          %span.summary-value           
+            = number_to_currency(@order.tax, precision: 2)
+        - subtotal = @order.price - discount_value + @order.tax.to_f
+        .summary-row
+          %span.summary-label Subtotal
+          %span.summary-value
+            = number_to_currency(subtotal, precision: 2)
+        .summary-row
+          %span.summary-label Shipping
+          %span.summary-value
+            = number_to_currency(@order.shipping_price, precision: 2)
+        .summary-row.total-row
+          %span Order total
+          %span{style: "margin-left: 8px;"}
+            = number_to_currency(@order.total_amount, precision: 2)

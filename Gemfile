@@ -120,3 +120,6 @@ gem 'devise_invitable'
 
 # Sengrid
 gem 'sendgrid-ruby'
+
+# Action mailer css
+gem 'premailer-rails'

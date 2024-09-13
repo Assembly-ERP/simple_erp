@@ -1,27 +1,4 @@
-/ app/views/operational_portal/customers/index.html.erb
-.py-8.flex.flex-col.gap-5
-  .flex.justify-between.gap-2.items-center
-    %h1.font-semibold.text-2xl Manage Customers
-    .actions
-      = link_to new_operational_portal_customer_path, class: "flex gap-3 items-center btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]" do
-        = icon("fa-solid", "plus")
-        New Customer
+.py-5.flex.flex-col.gap-4
   .table-primary
-    %table
-      %thead
-        %tr
-          %th Customer Name
-          %th Phone
-          %th Action
-      %tbody
-        - if @customers.present?
-          - @customers.each do |customer|
-            %tr.order-row
-              %td= link_to customer.name, operational_portal_customer_path(customer)
-              %td= format_phone_number(customer.phone)
-              %td
-                = link_to 'Edit', edit_operational_portal_customer_path(customer)
-                = link_to 'Delete', operational_portal_customer_path(customer), method: :delete, data: { confirm: 'Are you sure?' }
-        - else
-          %tr
-            %td{:colspan => "5"} No customers found
+    = render "table_actions"
+    = render "table"

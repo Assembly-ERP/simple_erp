@@ -12,6 +12,7 @@ class CreateOrders < ActiveRecord::Migration[7.1]
       t.decimal :tax, precision: 10, scale: 2, default: 0.0
       t.datetime :voided_at
       t.datetime :last_scheduled, default: -> { 'now()' }
+      t.boolean :send_quote_assignees, null: false, default: true
 
       t.timestamps
     end
