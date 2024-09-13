@@ -117,6 +117,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_12_072116) do
 
   create_table "order_shipping_addresses", force: :cascade do |t|
     t.bigint "order_id", null: false
+    t.string "name", default: ""
+    t.string "phone", default: ""
     t.string "street", default: ""
     t.string "city", default: ""
     t.string "state", default: ""

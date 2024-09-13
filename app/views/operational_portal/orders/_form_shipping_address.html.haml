@@ -1,7 +1,16 @@
-.grid.gap-2
-  %h2.font-medium Shipping Address
-  .grid.grid-cols-4.gap-4
-    = form.fields_for :order_shipping_address, form.object.order_shipping_address.blank? ? OrderShippingAddress.new : form.object.order_shipping_address do |osa|
+= form.fields_for :order_shipping_address, form.object.order_shipping_address.blank? ? OrderShippingAddress.new : form.object.order_shipping_address do |osa|
+  .grid.gap-2
+    %h2.text-lg.font-medium Point of Contact
+    .grid.grid-cols-2.gap-4
+      .field
+        = osa.label :name
+        = osa.text_field :name, class: "input-primary", placeholder: "Enter street", data: {action: "change->unsaved-changes#formIsChanged"}
+      .field
+        = osa.label :phone
+        = osa.text_field :name, class: "input-primary", placeholder: "Enter state", data: {action: "change->unsaved-changes#formIsChanged"}
+  .grid.gap-2
+    %h2.text-lg.font-medium Shipping Address
+    .grid.grid-cols-4.gap-4
       .field
         = osa.label :street
         = osa.text_field :street, class: "input-primary", placeholder: "Enter street", data: {action: "change->unsaved-changes#formIsChanged"}
