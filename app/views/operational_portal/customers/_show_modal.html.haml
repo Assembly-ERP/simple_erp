@@ -1,0 +1,7 @@
+%dialog{class: "lg:max-w-[800px] w-full min-h-[250px]", "data-dialog-target": "dialog"}
+  .flex.px-8.py-3.gap-4.items-center.sticky.top-0.bg-white.z-10.border-b.relative
+    %h2.text-xl.font-semibold Customer Details
+  .px-8{class: "w-full"}
+    = turbo_frame_tag "customer_show", src: operational_portal_customer_path(customer, modal: true), loading: :lazy do
+      .flex.items-center.justify-center.w-full.mt-2{class: "h-full"}
+        = icon("fa-solid", "spinner", class: "animate-spin text-4xl text-gray-400")

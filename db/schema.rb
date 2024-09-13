@@ -146,6 +146,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_12_072116) do
     t.decimal "tax", precision: 10, scale: 2, default: "0.0"
     t.datetime "voided_at"
     t.datetime "last_scheduled", default: -> { "now()" }
+    t.boolean "send_quote_assignees", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_orders_on_customer_id"

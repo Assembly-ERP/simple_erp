@@ -1,25 +1,26 @@
-%table#orders-table
-  %thead.border-b-0{class: "bg-gray-50"}
-    %tr.uppercase.text-sm
-      %th ID
-      %th Customer Name
-      %th Status
-      %th Total Amount
-      %th Created Date
-  %tbody
+.table
+  .table-header-group{class: "bg-gray-50"}
+    .table-row
+      .table-cell ID
+      .table-cell Customer Name
+      .table-cell Status
+      .table-cell Total Amount
+      .table-cell Created Date
+  .table-row-group
     - if @orders.present?
       - @orders.each do |order|
-        %tr{id: dom_id(order)}
-          %td
-            .block{data: {controller: "dialog", action: "click->dialog#backdropClose"}}
-              = render "order_modal", order: order
-              %button.font-medium.text-gray-900.hover:underline{type: "button", data: {action: "dialog#open"}, type: "button"}
-                = "Order ##{order.id}"
-          %td= order.customer_name
-          %td{id: "list-order-status-#{order.id}"}
+        .table-row.cursor-pointer{id: dom_id(order), data: {controller: "dialog", action: "click->dialog#backdropClose"}}
+          = render "order_modal", order: order
+          .table-cell{data: {action: "click->dialog#open"}}
+            = "Order ##{order.id}"
+          .table-cell{data: {action: "click->dialog#open"}}
+            = order.customer_name
+          .table-cell{id: "list-order-status-#{order.id}", data: {action: "click->dialog#open"}}
             = order.status
-          %td= number_to_currency(order.total_amount, unit: "$", precision: 2)
-          %td= order.created_at
+          .table-cell{data: {action: "click->dialog#open"}}
+            = number_to_currency(order.total_amount, unit: "$", precision: 2)
+          .table-cell{data: {action: "click->dialog#open"}}
+            = order.created_at
     - else
-      %tr
-        %td No orders found
+      .table-row
+        .table-cell No orders found

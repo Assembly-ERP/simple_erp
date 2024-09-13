@@ -41,15 +41,22 @@ class Order < ApplicationRecord
   }
 
   # Generators
-  after_save :calculate_total_amount, if: :calculate_total_amount_condition?
+  before_save :calculate_total_amount_before, if: :calculate_total_amount_condition?
+  after_save :send_quote_or_invoice, if: :send_quote_or_invoice_condition?
 
   def calculate_total_amount
+    base_price, total_amount = price_calculation
+
+    update_column(:price, base_price)
+    update_column(:total_amount, total_amount)
+  end
+
+  def price_calculation
     base_price = order_details.map { |od| od.price.to_f * od.quantity.to_i }.sum
     discount_amount = base_price.to_f * (discount_percentage.to_f / 100).to_f
     total_amount = base_price.to_f - discount_amount.to_f + shipping_price.to_f + tax.to_f
 
-    update_column(:price, base_price)
-    update_column(:total_amount, total_amount)
+    [base_price, total_amount]
   end
 
   def self.recalculate_price
@@ -76,8 +83,23 @@ class Order < ApplicationRecord
 
   private
 
+  def calculate_total_amount_before
+    base_price, total_amount = price_calculation
+
+    self.price = base_price
+    self.total_amount = total_amount
+  end
+
   def calculate_total_amount_condition?
     new_record? || !order_status.customer_locked
+  end
+
+  def send_quote_or_invoice_condition?
+    send_quote_assignees && (total_amount_previously_changed? || order_status_previously_changed?)
+  end
+
+  def send_quote_or_invoice
+    OrderMailer.send_quote_or_invoice(self).deliver_later
   end
 end
 
@@ -85,18 +107,19 @@ end
 #
 # Table name: orders
 #
-#  id                  :bigint           not null, primary key
-#  discount_percentage :decimal(5, 2)    default(0.0)
-#  last_scheduled      :datetime
-#  price               :decimal(10, 2)   default(0.0)
-#  shipping_price      :decimal(10, 2)   default(0.0)
-#  tax                 :decimal(10, 2)   default(0.0)
-#  total_amount        :decimal(10, 2)   default(0.0)
-#  voided_at           :datetime
-#  created_at          :datetime         not null
-#  updated_at          :datetime         not null
-#  customer_id         :bigint           not null
-#  order_status_id     :bigint           not null
+#  id                   :bigint           not null, primary key
+#  discount_percentage  :decimal(5, 2)    default(0.0)
+#  last_scheduled       :datetime
+#  price                :decimal(10, 2)   default(0.0)
+#  send_quote_assignees :boolean          default(TRUE), not null
+#  shipping_price       :decimal(10, 2)   default(0.0)
+#  tax                  :decimal(10, 2)   default(0.0)
+#  total_amount         :decimal(10, 2)   default(0.0)
+#  voided_at            :datetime
+#  created_at           :datetime         not null
+#  updated_at           :datetime         not null
+#  customer_id          :bigint           not null
+#  order_status_id      :bigint           not null
 #
 # Indexes
 #

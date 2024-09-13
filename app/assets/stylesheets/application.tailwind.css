@@ -96,27 +96,27 @@
     @apply bg-white rounded border shadow;
   }
 
-  table {
+  table, .table {
     @apply w-full;
   }
 
-  table thead {
-    @apply border-b;
+  table thead, .table .table-header-group {
+    @apply border-b bg-gray-50;
   }
 
-  table tbody {
+  table tbody, .table .table-row-group {
     @apply divide-y;
   }
 
-  table thead tr th {
-    @apply px-4 py-3 text-start font-medium;
+  table thead tr th, .table .table-header-group .table-row .table-cell {
+    @apply px-4 py-3 text-start font-medium text-sm uppercase; 
   }
 
-  table tbody tr {
+  table tbody tr, .table .table-row-group .table-row {
     @apply hover:bg-gray-50;
   }
 
-  table tbody tr td {
+  table tbody tr td, .table .table-row-group .table-row .table-cell {
     @apply px-4 py-3;
   }
 

@@ -25,6 +25,9 @@ module GeneratedPathHelpersModule
   def add_message_operational_portal_support_ticket_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def cancel_operational_portal_order_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def cancel_user_registration_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }

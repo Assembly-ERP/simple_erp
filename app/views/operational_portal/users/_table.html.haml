@@ -9,7 +9,7 @@
     - if @users.present?
       - @users.each do |user|
         %tr
-          %td.hover:underline
+          %td
             .block{data: {controller: "dialog", action: "click->dialog#backdropClose"}}
               = render "show_modal", user: user
               %button.hover:underline{type: "button", data: {action: "dialog#open"}, type: "button"}

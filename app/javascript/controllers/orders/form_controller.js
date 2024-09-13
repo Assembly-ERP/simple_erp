@@ -64,7 +64,11 @@ export default class extends Controller {
   addAssigneeOptions(users) {
     if (!users.length > 0) return;
     let data = [];
-    for (const user of users) data.push({ value: user.id, label: user.name });
+    for (const user of users)
+      data.push({
+        value: user.id,
+        label: `${user.first_name} ${user.last_name}`,
+      });
     this.userAssigneeSlim.setValue(data);
   }
 
