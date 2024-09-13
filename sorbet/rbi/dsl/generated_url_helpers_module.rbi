@@ -25,6 +25,9 @@ module GeneratedUrlHelpersModule
   def add_message_operational_portal_support_ticket_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def cancel_operational_portal_order_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def cancel_user_registration_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }

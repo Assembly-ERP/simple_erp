@@ -1090,6 +1090,9 @@ class Order
     def restore_price!; end
 
     sig { void }
+    def restore_send_quote_assignees!; end
+
+    sig { void }
     def restore_shipping_price!; end
 
     sig { void }
@@ -1152,6 +1155,12 @@ class Order
     sig { returns(T::Boolean) }
     def saved_change_to_price?; end
 
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def saved_change_to_send_quote_assignees; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_send_quote_assignees?; end
+
     sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
     def saved_change_to_shipping_price; end
 
@@ -1181,6 +1190,51 @@ class Order
 
     sig { returns(T::Boolean) }
     def saved_change_to_voided_at?; end
+
+    sig { returns(T::Boolean) }
+    def send_quote_assignees; end
+
+    sig { params(value: T::Boolean).returns(T::Boolean) }
+    def send_quote_assignees=(value); end
+
+    sig { returns(T::Boolean) }
+    def send_quote_assignees?; end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def send_quote_assignees_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def send_quote_assignees_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def send_quote_assignees_came_from_user?; end
+
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def send_quote_assignees_change; end
+
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def send_quote_assignees_change_to_be_saved; end
+
+    sig { params(from: T::Boolean, to: T::Boolean).returns(T::Boolean) }
+    def send_quote_assignees_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def send_quote_assignees_in_database; end
+
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def send_quote_assignees_previous_change; end
+
+    sig { params(from: T::Boolean, to: T::Boolean).returns(T::Boolean) }
+    def send_quote_assignees_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def send_quote_assignees_previously_was; end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def send_quote_assignees_was; end
+
+    sig { void }
+    def send_quote_assignees_will_change!; end
 
     sig { returns(T.nilable(::BigDecimal)) }
     def shipping_price; end
@@ -1440,6 +1494,9 @@ class Order
 
     sig { returns(T::Boolean) }
     def will_save_change_to_price?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_send_quote_assignees?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_shipping_price?; end
