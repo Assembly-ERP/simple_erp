@@ -1,25 +1,17 @@
-/ app/views/operational_portal/customers/show.html.erb
-.py-8
-  = turbo_frame_tag "customer_show" do
-    .grid.gap-1
-      %h1 Customer Details
-      %p
-        %strong Name:
+= turbo_frame_tag "customer_show" do
+  .w-full.py-5
+    .grid.grid-cols-2.gap-x-4.gap-y-5
+      %p.grid
+        %strong Name
         = @customer.name
-      %p
-        %strong Phone:
+      %p.grid
+        %strong Address
+        = "#{@customer.street}, #{@customer.city}, #{@customer.state}, #{@customer.postal_code}"
+      %p.grid
+        %strong Phone
         = format_phone_number(@customer.phone)
-      %p
-        %strong Street:
-        = @customer.street
-      %p
-        %strong City:
-        = @customer.city
-      %p
-        %strong State:
-        = @customer.state
-      %p
-        %strong Postal Code:
-        = @customer.postal_code
-  = link_to 'Edit', edit_operational_portal_customer_path(@customer), class: "btn"
-  = link_to 'Back', operational_portal_customers_path, class: "btn"
+    .mt-5.flex.gap-3
+      = link_to 'Edit Customer', edit_operational_portal_customer_path(@customer), target: :_top, class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"
+      = button_to operational_portal_customer_path(@customer), method: :delete, class: "flex items-center gap-2 w-fit btn-md bg-red-600 text-white", form: {data: {turbo_confirm: 'Are you sure to delete this customer?'}} do
+        = icon("fa-solid", "trash")
+        Delete

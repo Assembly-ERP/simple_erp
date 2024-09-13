@@ -8,5 +8,8 @@
     = render "form_order_items", form: form
     = render "form_order_summary", form: form
   - if @order.new_record? || can?(:update, @order)
-    .block
+    .flex.gap-6.items-center
       = form.submit @order.new_record? ? "Save Order" : "Update Order", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]", "data-action": "unsaved-changes#reset"
+      .flex.gap-2.items-center
+        = form.check_box :send_quote_assignees, class: "checkbox-primary"
+        = form.label :send_quote_assignees, "Send quote to assignees"

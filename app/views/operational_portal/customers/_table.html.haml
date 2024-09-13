@@ -1,0 +1,22 @@
+%table
+  %thead
+    %tr
+      %th Customer Name
+      %th Phone
+      %th City
+      %th State
+  %tbody
+    - if @customers.present?
+      - @customers.each do |customer|
+        %tr.order-row
+          %td
+            .block{data: {controller: "dialog", action: "click->dialog#backdropClose"}}
+              = render "show_modal", customer:
+              %button.hover:underline{type: "button", data: {action: "dialog#open"}, type: "button"}
+                = customer.name
+          %td= format_phone_number(customer.phone)
+          %td= customer.city
+          %td= customer.state
+    - else
+      %tr
+        %td No customers found

@@ -38,6 +38,9 @@ Rails.application.routes.draw do
       end
     end
     resources :orders do
+      member do
+        delete :cancel
+      end
       collection do
         get :search_results
       end
@@ -114,12 +117,12 @@ end
 #                                  new_user_confirmation GET    /users/confirmation/new(.:format)                                                                 devise/confirmations#new
 #                                      user_confirmation GET    /users/confirmation(.:format)                                                                     devise/confirmations#show
 #                                                        POST   /users/confirmation(.:format)                                                                     devise/confirmations#create
-#                                 accept_user_invitation GET    /users/invitation/accept(.:format)                                                                devise/invitations#edit
-#                                 remove_user_invitation GET    /users/invitation/remove(.:format)                                                                devise/invitations#destroy
-#                                    new_user_invitation GET    /users/invitation/new(.:format)                                                                   devise/invitations#new
-#                                        user_invitation PATCH  /users/invitation(.:format)                                                                       devise/invitations#update
-#                                                        PUT    /users/invitation(.:format)                                                                       devise/invitations#update
-#                                                        POST   /users/invitation(.:format)                                                                       devise/invitations#create
+#                                 accept_user_invitation GET    /users/invitation/accept(.:format)                                                                users/invitations#edit
+#                                 remove_user_invitation GET    /users/invitation/remove(.:format)                                                                users/invitations#destroy
+#                                    new_user_invitation GET    /users/invitation/new(.:format)                                                                   users/invitations#new
+#                                        user_invitation PATCH  /users/invitation(.:format)                                                                       users/invitations#update
+#                                                        PUT    /users/invitation(.:format)                                                                       users/invitations#update
+#                                                        POST   /users/invitation(.:format)                                                                       users/invitations#create
 #                                       operational_root GET    /operational_portal(.:format)                                                                     operational_portal/dashboard#index
 #                                          customer_root GET    /customer(.:format)                                                                               customer_portal/dashboard#index
 #                              operational_portal_manage GET    /operational_portal/manage(.:format)                                                              redirect(301, /operational_portal/users)
@@ -143,6 +146,7 @@ end
 #                                                        PATCH  /operational_portal/parts/:id(.:format)                                                           operational_portal/parts#update
 #                                                        PUT    /operational_portal/parts/:id(.:format)                                                           operational_portal/parts#update
 #                                                        DELETE /operational_portal/parts/:id(.:format)                                                           operational_portal/parts#destroy
+#                        cancel_operational_portal_order DELETE /operational_portal/orders/:id/cancel(.:format)                                                   operational_portal/orders#cancel
 #               search_results_operational_portal_orders GET    /operational_portal/orders/search_results(.:format)                                               operational_portal/orders#search_results
 #                              operational_portal_orders GET    /operational_portal/orders(.:format)                                                              operational_portal/orders#index
 #                                                        POST   /operational_portal/orders(.:format)                                                              operational_portal/orders#create

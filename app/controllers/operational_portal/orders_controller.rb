@@ -33,11 +33,11 @@ module OperationalPortal
       respond_to do |format|
         if @order.update(order_params)
           format.html { redirect_to operational_portal_orders_path, notice: 'Order updated successfully.' }
+          format.turbo_stream
         else
           format.html { render :edit, status: :unprocessable_entity }
+          format.turbo_stream { render status: :unprocessable_entity }
         end
-
-        format.turbo_stream
       end
     end
 
@@ -45,8 +45,23 @@ module OperationalPortal
       respond_to do |format|
         if @order.update(voided_at: Time.zone.now)
           format.html { redirect_to operational_portal_orders_path, notice: 'Order was successfully voided.' }
+          format.turbo_stream
+        else
+          format.html { redirect_to operational_portal_orders_path, error: 'Something went wrong' }
+          format.turbo_stream { render status: :unprocessable_entity }
         end
-        format.turbo_stream
+      end
+    end
+
+    def cancel
+      respond_to do |format|
+        if @order.update(order_status: OrderStatus.cancel_status)
+          format.html { redirect_to operational_portal_orders_path, notice: 'Order was successfully voided.' }
+          format.turbo_stream { render :update }
+        else
+          format.html { redirect_to operational_portal_orders_path, error: 'Something went wrong' }
+          format.turbo_stream { render :update, status: :unprocessable_entity }
+        end
       end
     end
 
@@ -69,7 +84,7 @@ module OperationalPortal
 
     def order_params
       params.require(:order).permit(
-        :status, :customer_id, :order_status_id, :shipping_price, :discount_percentage, :tax,
+        :status, :customer_id, :order_status_id, :shipping_price, :discount_percentage, :tax, :send_quote_assignees,
         order_details_attributes: %i[id product_id part_id quantity price override _destroy],
         order_shipping_address_attributes: %i[id state street city zip_code],
         user_ids: []
