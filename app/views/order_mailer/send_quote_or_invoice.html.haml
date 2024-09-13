@@ -20,11 +20,13 @@
           .shipping
             .section-title Ship To:
             .address
+              = osa.name
+              %br/
               = osa.street
               %br/
               = "#{osa.state}, #{osa.city} #{osa.zip_code}"
-              -# %br/
-              -# +1-244-443-9883
+              %br/
+              = osa.phone
       .table-container
         %table.table
           %thead
