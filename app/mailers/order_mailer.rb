@@ -6,9 +6,6 @@ class OrderMailer < ApplicationMailer
 
   def send_quote_or_invoice(order)
     @order = order
-
-    return if @order.users.blank?
-
     @is_quote = !@order.order_status.customer_locked
 
     @order.users.each do |user|

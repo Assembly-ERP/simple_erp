@@ -4,22 +4,22 @@
     .grid.grid-cols-2.gap-4
       .field
         = osa.label :name
-        = osa.text_field :name, class: "input-primary", placeholder: "Enter street", data: {action: "change->unsaved-changes#formIsChanged"}
+        = osa.text_field :name, class: "input-primary", placeholder: "Name", data: {action: "change->unsaved-changes#formIsChanged"}
       .field
         = osa.label :phone
-        = osa.text_field :name, class: "input-primary", placeholder: "Enter state", data: {action: "change->unsaved-changes#formIsChanged"}
+        = osa.text_field :phone, class: "input-primary", placeholder: "Phone", data: {action: "change->unsaved-changes#formIsChanged"}
   .grid.gap-2
     %h2.text-lg.font-medium Shipping Address
     .grid.grid-cols-4.gap-4
       .field
         = osa.label :street
-        = osa.text_field :street, class: "input-primary", placeholder: "Enter street", data: {action: "change->unsaved-changes#formIsChanged"}
+        = osa.text_field :street, class: "input-primary", placeholder: "Street", data: {action: "change->unsaved-changes#formIsChanged"}
       .field
         = osa.label :state
-        = osa.text_field :state, class: "input-primary", placeholder: "Enter state", data: {action: "change->unsaved-changes#formIsChanged"}
+        = osa.text_field :state, class: "input-primary", placeholder: "State", data: {action: "change->unsaved-changes#formIsChanged"}
       .field
         = osa.label :city
-        = osa.text_field :city, class: "input-primary", placeholder: "Enter city", data: {action: "change->unsaved-changes#formIsChanged"}
+        = osa.text_field :city, class: "input-primary", placeholder: "City", data: {action: "change->unsaved-changes#formIsChanged"}
       .field
         = osa.label :zip_code, "Postal Code"
-        = osa.text_field :zip_code, class: "input-primary", placeholder: "Enter postal code", data: {action: "change->unsaved-changes#formIsChanged"}
+        = osa.text_field :zip_code, class: "input-primary", placeholder: "Postal code", data: {action: "change->unsaved-changes#formIsChanged"}
