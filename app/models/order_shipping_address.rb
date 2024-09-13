@@ -10,6 +10,8 @@ end
 #
 #  id         :bigint           not null, primary key
 #  city       :string           default("")
+#  name       :string           default("")
+#  phone      :string           default("")
 #  state      :string           default("")
 #  street     :string           default("")
 #  zip_code   :string           default("")

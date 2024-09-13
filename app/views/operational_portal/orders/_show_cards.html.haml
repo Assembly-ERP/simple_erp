@@ -25,7 +25,7 @@
         .w-full
           = render "show_assignee_input", form: form
   .bg-white.rounded-lg.border.px-4.py-5.border-gray-300
-    .flex.gap-3.mb-1.items-center.mb-1
+    .flex.gap-3.mb-1.items-center.mb-2
       %h6.font-normal.text-gray-500
         Shipping Details
       .block{"data-action" => "click->dialog#backdropClose", "data-controller" => "dialog"}
@@ -33,16 +33,24 @@
           .bg-white.p-5.w-96.grid.gap-4
             = form.fields_for :order_shipping_address, form.object.order_shipping_address.blank? ? OrderShippingAddress.new : form.object.order_shipping_address do |osa|
               .grid.gap-3
+                %h2.text-lg.font-semibold Point of Contact
+                .field
+                  = osa.label :name
+                  = osa.text_field :name, class: "input-primary", placeholder: "Name"
+                .field
+                  = osa.label :phone
+                  = osa.text_field :phone, class: "input-primary", placeholder: "Phone"
+              .grid.gap-3
                 %h2.text-lg.font-semibold Shipping Details
                 .field
                   = osa.label :street
-                  = osa.text_field :street, class: "input-primary", placeholder: "Enter street"
+                  = osa.text_field :street, class: "input-primary", placeholder: "Street"
                 .field
                   = osa.label :state
-                  = osa.text_field :state, class: "input-primary", placeholder: "Enter state"
+                  = osa.text_field :state, class: "input-primary", placeholder: "State"
                 .field
                   = osa.label :city
-                  = osa.text_field :city, class: "input-primary", placeholder: "Enter city"
+                  = osa.text_field :city, class: "input-primary", placeholder: "City"
                 .field
                   = osa.label :zip_code, "Postal Code"
                   = osa.text_field :zip_code, class: "input-primary", placeholder: "Enter postal code"
@@ -51,10 +59,27 @@
               %button.btn-md.bg-gray-500.text-white.flex.items-center.gap-2{autofocus: "", "data-action" => "dialog#close", type: "button"} Cancel
         %button.text-gray-400.transition-colors{data: {action: "dialog#open"}, type: "button", class: "hover:text-[var(--primary)]"}
           = icon("fa-solid", "pen-to-square")
-    .flex.gap-2.items-start
-      = icon("fa-solid", "location-dot", class: "text-gray-600 mt-1")
-      %span.font-medium.text-gray-900
-        - if @order.order_shipping_address.present?
-          = order_readable_shipping_address(shipping_address: @order.order_shipping_address)
-        - else
-          N/A
+    .flex.gap-1.flex-col
+      - osa = @order.order_shipping_address
+      .flex.gap-1
+        %strong Name:
+        %span.font-medium.text-gray-900
+          - if osa&.name.present?
+            = osa.name
+          - else
+            N/A
+      .flex.gap-1
+        %strong Phone:
+        %span.font-medium.text-gray-900
+          - if osa&.phone.present?
+            = osa.phone
+          - else
+            N/A
+      .flex.gap-1
+        %strong 
+          Address:
+        %span.font-medium.text-gray-900
+          - if @order.order_shipping_address.present?
+            = order_readable_shipping_address(shipping_address: @order.order_shipping_address)
+          - else
+            N/A

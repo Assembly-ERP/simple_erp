@@ -86,7 +86,7 @@ module OperationalPortal
       params.require(:order).permit(
         :status, :customer_id, :order_status_id, :shipping_price, :discount_percentage, :tax, :send_quote_assignees,
         order_details_attributes: %i[id product_id part_id quantity price override _destroy],
-        order_shipping_address_attributes: %i[id state street city zip_code],
+        order_shipping_address_attributes: %i[id name phone state street city zip_code],
         user_ids: []
       )
     end
