@@ -54,7 +54,7 @@
                 %td
                   = number_to_currency(item.subtotal)
       .order-summary
-        .summary-title Order summary
+        .summary-title Order Summary
         .summary-row
           %span.summary-label Base Price
           %span.summary-value           
@@ -75,10 +75,14 @@
           %span.summary-value
             = number_to_currency(subtotal, precision: 2)
         .summary-row
-          %span.summary-label Shipping
+          %span.summary-label 
+            Shipping
           %span.summary-value
-            = number_to_currency(@order.shipping_price, precision: 2)
+            - if @is_quote
+              TBD
+            - else
+              = number_to_currency(@order.shipping_price, precision: 2)
         .summary-row.total-row
-          %span Order total
+          %span Order Total
           %span{style: "margin-left: 8px;"}
             = number_to_currency(@order.total_amount, precision: 2)
