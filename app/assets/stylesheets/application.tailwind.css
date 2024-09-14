@@ -101,7 +101,7 @@
   }
 
   table thead, .table .table-header-group {
-    @apply border-b bg-gray-50;
+    @apply bg-gray-50;
   }
 
   table tbody, .table .table-row-group {
