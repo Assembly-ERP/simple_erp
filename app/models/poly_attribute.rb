@@ -2,7 +2,7 @@
 
 class PolyAttribute < ApplicationRecord
   # Constants
-  INPUT_TYPES = %w[text number decimal].freeze
+  INPUT_TYPES = %w[text number decimal color].freeze
 
   # Relationships
   belongs_to :attributable, polymorphic: true
