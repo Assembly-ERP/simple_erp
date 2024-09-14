@@ -101,7 +101,7 @@
   }
 
   table thead, .table .table-header-group {
-    @apply border-b bg-gray-50;
+    @apply bg-gray-50;
   }
 
   table tbody, .table .table-row-group {
@@ -109,11 +109,11 @@
   }
 
   table thead tr th, .table .table-header-group .table-row .table-cell {
-    @apply px-4 py-3 text-start font-medium text-sm uppercase; 
+    @apply px-4 py-3 font-medium text-sm uppercase text-start; 
   }
 
   table tbody tr, .table .table-row-group .table-row {
-    @apply hover:bg-gray-50;
+    @apply hover:bg-gray-100 odd:bg-white even:bg-gray-50;
   }
 
   table tbody tr td, .table .table-row-group .table-row .table-cell {
