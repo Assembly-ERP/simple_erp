@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_12_072116) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_14_055501) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -107,6 +107,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_12_072116) do
     t.check_constraint "product_id IS NOT NULL OR part_id IS NOT NULL", name: "product_or_part_present_check"
   end
 
+  create_table "order_id_formats", force: :cascade do |t|
+    t.string "format", null: false
+    t.boolean "active", default: false, null: false
+    t.string "example"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["format"], name: "index_order_id_formats_on_format", unique: true
+  end
+
   create_table "order_price_schedulers", force: :cascade do |t|
     t.string "code"
     t.string "name"
@@ -149,9 +158,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_12_072116) do
     t.datetime "voided_at"
     t.datetime "last_scheduled", default: -> { "now()" }
     t.boolean "send_quote_assignees", default: true, null: false
+    t.integer "holder_id"
+    t.string "formatted_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_orders_on_customer_id"
+    t.index ["formatted_id"], name: "index_orders_on_formatted_id", unique: true
     t.index ["last_scheduled"], name: "index_orders_on_last_scheduled"
     t.index ["order_status_id"], name: "index_orders_on_order_status_id"
     t.index ["voided_at"], name: "index_orders_on_voided_at"

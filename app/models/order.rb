@@ -41,6 +41,7 @@ class Order < ApplicationRecord
   }
 
   # Generators
+  before_save :format_id, if: :new_record?
   before_save :calculate_total_amount_before, if: :calculate_total_amount_condition?
   after_save :send_quote_or_invoice, if: :send_quote_or_invoice_condition?
 
@@ -81,7 +82,23 @@ class Order < ApplicationRecord
     end
   end
 
+  def self.latest_yearly_holder
+    where('extract(year from created_at) = ?',
+          Time.zone.now.year).maximum(:holder_id)
+  end
+
   private
+
+  def format_id
+    case OrderIdFormat.active_format&.format
+    when 'yearly'
+      self.holder_id = (Order.latest_yearly_holder || 0) + 1
+      self.formatted_id = "#{Time.zone.now.year}-#{format('%04d', holder_id)}"
+    else
+      self.holder_id = id
+      self.formatted_id = id
+    end
+  end
 
   def calculate_total_amount_before
     base_price, total_amount = price_calculation
@@ -99,6 +116,8 @@ class Order < ApplicationRecord
   end
 
   def send_quote_or_invoice
+    return if users.count.zero?
+
     OrderMailer.send_quote_or_invoice(self).deliver_later
   end
 end
@@ -119,11 +138,14 @@ end
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  customer_id          :bigint           not null
+#  formatted_id         :string
+#  holder_id            :integer
 #  order_status_id      :bigint           not null
 #
 # Indexes
 #
 #  index_orders_on_customer_id      (customer_id)
+#  index_orders_on_formatted_id     (formatted_id) UNIQUE
 #  index_orders_on_last_scheduled   (last_scheduled)
 #  index_orders_on_order_status_id  (order_status_id)
 #  index_orders_on_voided_at        (voided_at)
