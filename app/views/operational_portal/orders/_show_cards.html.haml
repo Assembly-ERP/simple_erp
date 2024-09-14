@@ -5,7 +5,7 @@
     .grid.gap-2
       %p
         %strong Order ID:
-        = @order.id
+        = "##{@order.formatted_id}"
       %p
         %strong Order Date:
         %span= @order.created_at.strftime("%B %d, %Y %I:%M %p")

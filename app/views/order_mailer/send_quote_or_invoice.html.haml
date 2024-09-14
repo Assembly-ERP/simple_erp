@@ -11,7 +11,7 @@
         .logo= @order.customer.name
       .invoice-details
         .invoice-number 
-          = "#{@is_quote ? 'Quote' : 'Invoice'} ##{@order.id}"
+          = "#{@is_quote ? 'Quote' : 'Invoice'} ##{@order.formatted_id}"
         .date
           = @order.created_at.strftime("%m/%d/%Y")
       - osa = @order.order_shipping_address
