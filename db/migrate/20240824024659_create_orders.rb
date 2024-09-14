@@ -14,7 +14,7 @@ class CreateOrders < ActiveRecord::Migration[7.1]
       t.datetime :last_scheduled, default: -> { 'now()' }
       t.boolean :send_quote_assignees, null: false, default: true
       t.integer :holder_id
-      t.string :formatted_id
+      t.string :formatted_id, null: false
 
       t.timestamps
     end
