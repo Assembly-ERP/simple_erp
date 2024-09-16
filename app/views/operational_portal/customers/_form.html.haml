@@ -1,0 +1,31 @@
+= form_with(model: @customer, url: operational_portal_customers_path, local: true) do |form|
+  .grid.gap-3
+    - if @customer.errors.any?
+      = render ErrorCardComponent.new errors: @customer.errors.full_messages, label: "Validations"
+    .grid.grid-cols-2.gap-3
+      .field
+        = form.label :name
+        = form.text_field :name, class: "input-primary", placeholder: "Name"
+      .field
+        = form.label :phone
+        = form.telephone_field :phone, class: "input-primary", placeholder: "Phone number"
+    .grid.gap-2
+      %h2.font-semibold Address
+      .grid.grid-cols-2.gap-3
+        .field
+          = form.label :street
+          = form.text_field :street, class: "input-primary", placeholder: "Street"
+        .field
+          = form.label :city
+          = form.text_field :city, class: "input-primary", placeholder: "City"
+        .field
+          = form.label :state
+          = form.text_field :state, class: "input-primary", placeholder: "State"
+        .field
+          = form.label :postal_code
+          = form.text_field :postal_code, class: "input-primary", placeholder: "Postal code"
+    .field
+      = form.label :discount, "Discount %"
+      = form.number_field :discount, value: format('%.2f', @customer.discount.to_f), step: '0.01', class: "input-primary"
+  .mt-5
+    = form.submit "Save Customer", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"
