@@ -1,6 +1,4 @@
 .py-5.flex.flex-col.gap-5
   .rounded-md.p-4.bg-white.border.shadow.flex.flex-col.gap-4
     = render "items_header"
-    .flex.flex-col.gap-4
-      - @items.each do |item|
-        = render "item", item: item
+    = render "item_list"
