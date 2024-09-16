@@ -20,7 +20,8 @@ class Product < ApplicationRecord
   # Scopes
   scope :not_voided, -> { where(voided_at: nil) }
   scope :search_results, lambda {
-    select("products.id, products.name, products.price, products.weight, products.sku, 'product' AS type, products.created_at")
+    select("products.id, products.name, products.price, products.weight, products.sku, 'product' AS type," \
+           'products.created_at')
   }
   scope :catalog, lambda {
     select('products.id, products.name, products.description, products.price, products.weight, products.sku, ' \
