@@ -1,0 +1,6 @@
+- if @setting.errors.blank?
+  = turbo_stream.prepend "notification-container" do
+    = render NotificationComponent.new notif_type: "success", message: "#{@setting.key} updated successfully."
+- else 
+  = turbo_stream.prepend "notification-container" do
+    = render NotificationComponent.new notif_type: "error", message: "Something went wrong."

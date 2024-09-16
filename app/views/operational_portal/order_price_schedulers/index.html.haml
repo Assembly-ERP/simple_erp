@@ -1,13 +1,14 @@
 .py-8.flex.flex-col.gap-5
   %h1.font-semibold.text-2xl Order Price Scheduler
-  .table-primary
-    %table
-      %thead
-        %tr
-          %th Name
-          %th Status
-      %tbody
-        - @order_price_schedulers.each do |ops|
-          %tr
-            %td= ops.name
-            %td= ops.active ? "Active" : "Inactive"
+  = turbo_frame_tag "order_price_schedulers" do
+    .table-primary
+      %table
+        %tbody
+          - @order_price_schedulers.each do |ops|
+            %tr
+              %td
+                .flex.gap-3.items-center
+                  = ops.name
+                  - if ops.active
+                    .active
+                      active

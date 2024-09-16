@@ -11,10 +11,14 @@ module OperationalPortal
     def edit; end
 
     def update
-      if @setting.update(setting_params)
-        redirect_to operational_portal_settings_path, notice: "#{@setting.key} updated successfully."
-      else
-        render :edit
+      respond_to do |format|
+        if @setting.update(setting_params)
+          format.html { redirect_to operational_portal_settings_path, notice: "#{@setting.key} updated successfully." }
+          format.turbo_stream
+        else
+          format.html { render :edit }
+          format.turbo_stream { render status: :unprocessable_entity }
+        end
       end
     end
 
