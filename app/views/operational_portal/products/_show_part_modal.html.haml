@@ -1,8 +1,8 @@
-%dialog{class: "xl:max-w-[1100px] w-full overflow-y-auto h-[70%]", "data-dialog-target": "dialog"}
+%dialog{class: "xl:max-w-[1100px] w-full overflow-y-auto h-[65%]", "data-dialog-target": "dialog"}
   .h-full
     .flex.px-8.py-3.gap-4.items-center.sticky.top-0.bg-white.z-10.border-b.relative
       %h2.text-xl.font-semibold
-        Part
+        Part Details
     .py-1.px-8.w-full
       = turbo_frame_tag "part_show", src: operational_portal_part_path(part, modal: true), loading: :lazy do
         .flex.items-center.justify-center.w-full{class: "h-full"}
