@@ -205,6 +205,7 @@ export default class extends Controller {
       .replace(/{{id}}/g, dataset.itemId || "")
       .replace(/{{item-id}}/g, dataset.pid)
       .replace(/{{name}}/g, dataset.name)
+      .replace(/{{sku}}/g, dataset.sku)
       .replace(/{{quantity}}/g, dataset.quantity)
       .replace(/{{type}}/g, dataset.type)
       .replace(/{{item-price}}/g, itemPrice)
