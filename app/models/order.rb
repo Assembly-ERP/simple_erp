@@ -138,7 +138,7 @@ end
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #  customer_id          :bigint           not null
-#  formatted_id         :string
+#  formatted_id         :string           not null
 #  holder_id            :integer
 #  order_status_id      :bigint           not null
 #

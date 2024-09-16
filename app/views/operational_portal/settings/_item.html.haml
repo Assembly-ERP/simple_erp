@@ -1,0 +1,16 @@
+%tr.border.border-gray-300.hover:bg-white
+  %td
+    .flex.gap-3.items-center
+      %span
+        = setting.key
+      - if setting.active
+        .active
+          active
+  %td.flex.justify-end
+    = form_with(model: setting, url: operational_portal_setting_path(setting), html: {data: {controller: "settings--item", action: "turbo:submit-end->settings--item#submitted"}}) do |form|
+      .flex.gap-3
+        .relative
+          %span.absolute.left-3{class: "top-[6px]"} $
+          = form.number_field :value, step: 0.01, value: number_with_precision(form.object.value, precision: 2), class: "input-primary pl-7 pr-3 py-1.5 rounded-md w-40", data: {action: "input->settings--item#editing"}
+        %button{disabled: true, class: "py-1.5 px-10 rounded-md bg-[color:var(--primary)] text-[color:var(--primary-text)] disabled:bg-gray-400 disabled:cursor-not-allowed", data: {"settings--item-target": "submitBtn"}}
+          Save
