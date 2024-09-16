@@ -93,7 +93,7 @@ class Order < ApplicationRecord
     case OrderIdFormat.active_format&.format
     when 'yearly'
       self.holder_id = (Order.latest_yearly_holder || 0) + 1
-      self.formatted_id = "#{Time.zone.now.year}-#{format('%04d', holder_id)}"
+      self.formatted_id = "#{Time.zone.now.strftime('%y')}-#{format('%04d', holder_id)}"
     else
       self.holder_id = id
       self.formatted_id = id
