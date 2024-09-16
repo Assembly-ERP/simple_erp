@@ -1,14 +1,16 @@
 %template{data: {"orders--form-target": "template"}}
   %tbody
     = form.fields_for :order_details, OrderDetail.new, child_index: 'NEW_RECORD' do |od_form|
-      = render "form_item", name: "{{name}}", quantity: "{{quantity}}", price: "{{price}}", part_id: "{{part-id}}", product_id: "{{product-id}}", type: "{{type}}", id: "{{id}}", item_id: "{{item-id}}", item_price: "{{item-price}}", f: od_form
+      = render "form_item", name: "{{name}}", quantity: "{{quantity}}", price: "{{price}}", part_id: "{{part-id}}", product_id: "{{product-id}}", type: "{{type}}", id: "{{id}}", item_id: "{{item-id}}", sku: "{{sku}}", item_price: "{{item-price}}", f: od_form
+
 - order_details = @order.order_details.with_part_and_product
 
-.py-5.w-full.min-h-80.border.border-gray-300.rounded.bg-white.w-full{data: { "orders--form-target": "addedItems"}}
-  %table.w-full.text-left.text-base.text-gray-900
-    %thead.bg-gray-50
-      %tr.uppercase.text-sm
+.w-full.min-h-80.border.border-gray-300.bg-white.w-full.rounded{class: "pt-0.5", data: { "orders--form-target": "addedItems"}}
+  %table
+    %thead
+      %tr
         %th Name
+        %th SKU
         %th Type
         %th Quantity
         %th Price
@@ -16,7 +18,7 @@
         %th
     %tbody{data: {"orders--form-target": "target"}}
       = form.fields_for :order_details do |od_form|
-        = render "form_item", name: od_form.object.product_id ? od_form.object.product.name : od_form.object.part.name , quantity: od_form.object.quantity, price: od_form.object.price, part_id: od_form.object.part_id, product_id: od_form.object.product_id, id: od_form.object.id, item_id: od_form.object.product_id || od_form.object.part_id, type: od_form.object.product_id ? "product" : "part", item_price: od_form.object.price, f: od_form
+        = render "form_item", name: od_form.object.product_id ? od_form.object.product.name : od_form.object.part.name , quantity: od_form.object.quantity, price: od_form.object.price, part_id: od_form.object.part_id, product_id: od_form.object.product_id, id: od_form.object.id, item_id: od_form.object.product_id || od_form.object.part_id, type: od_form.object.product_id ? "product" : "part", sku: od_form.object.product_id ? od_form.object.product.sku || "N/A" : od_form.object.part.sku || "N/A", item_price: od_form.object.price, f: od_form
   .grid.w-full.h-64.place-items-center{data: {"orders--form-target": "empty"}, class: order_details.present? ? "hidden" : "" }
     .flex.flex-col.gap-1.items-center.text-gray-400
       = icon("fa-solid", "box-open", class: "text-5xl")

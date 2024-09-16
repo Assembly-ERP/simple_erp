@@ -20,10 +20,10 @@ class Part < ApplicationRecord
   # Scopes
   scope :not_voided, -> { where(voided_at: nil) }
   scope :search_results, lambda {
-    select("parts.id, parts.name, parts.price, parts.weight, 'part' AS type, parts.created_at")
+    select("parts.id, parts.name, parts.price, parts.weight, parts.sku, 'part' AS type, parts.created_at")
   }
   scope :catalog, lambda {
-    select('parts.id, parts.name, parts.description, parts.price, parts.weight, ' \
+    select('parts.id, parts.name, parts.description, parts.price, parts.weight, parts.sku, ' \
            "'part' AS type, parts.in_stock, parts.created_at, FALSE AS available, " \
            'parts.inventory')
   }

@@ -1,17 +1,19 @@
-.border.border-gray-300.rounded-lg.py-2.bg-white.w-full.h-fit.col-span-2
-  .relative.overflow-x-auto
-    %table.w-full.text-left.font-medium.text-gray-900
-      %thead.border-b.sticky.top-0{class: "bg-gray-50"}
-        %tr.uppercase.text-sm
-          %th Name
-          %th Type
-          %th Quantity
-          %th Base Price
-          %th Total Price
-      %tbody.divide-y.divide-gray-200
-        - @order.order_details.with_part_and_product.each do |item|
-          %tr
-            %td.flex.gap-2.items-center
+.border.border-gray-300.rounded-lg.py-1.bg-white.w-full.h-fit.col-span-2
+  .table
+    .table-header-group
+      .table-row
+        .table-cell Name
+        .table-cell SKU
+        .table-cell Type
+        .table-cell Quantity
+        .table-cell Base Price
+        .table-cell Total Price
+    .table-row-group
+      - @order.order_details.with_part_and_product.each do |item|
+        .table-row{data: {controller: "dialog", action: "click->dialog#backdropClose"}}
+          = render "show_order_list_modal", item:
+          .table-cell{data: {action: "click->dialog#open"}}
+            .flex.gap-2.items-center
               - if item.product_id.present? && item.product.images.first.present?
                 = image_tag item.product.images.first.variant(:thumb), class: "w-12 h-12 object-cover border rounded-sm"
               - elsif item.part_id.present? && item.part.images.first.present?
@@ -23,16 +25,31 @@
                   = item.product_name
                 - else
                   = item.part_name
-            %td.text-base.text-gray-900
+          .table-cell{data: {action: "click->dialog#open"}}
+            .flex.items-center
+              .h-12
+              - if item.product_id.present?
+                = item.product_sku || "N/A"
+              - else
+                = item.part_sku || "N/A"
+          .table-cell{data: {action: "click->dialog#open"}}
+            .flex.items-center
+              .h-12
               - if item.product_id.present?
                 .product-type-tag
                   Product
               - else
                 .part-type-tag
                   Part
-            %td.text-base.text-gray-900
+          .table-cell{data: {action: "click->dialog#open"}}
+            .flex.items-center
+              .h-12
               = "x#{item.quantity}"
-            %td.text-base.text-gray-900
+          .table-cell{data: {action: "click->dialog#open"}}
+            .flex.items-center
+              .h-12
               = number_to_currency(item.price, precision: 2)
-            %td.text-base.font-bold.text-gray-900
+          .table-cell.font-bold.text-gray-900{data: {action: "click->dialog#open"}}
+            .flex.items-center
+              .h-12
               = number_to_currency(item.subtotal)
