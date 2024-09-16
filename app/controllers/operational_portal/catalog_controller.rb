@@ -5,9 +5,10 @@ module OperationalPortal
     authorize_resource class: false
 
     def index
-      @items =
-        Product.from("(#{catalog(Product).to_sql} UNION #{catalog(Part).to_sql}) products")
-               .order(created_at: :desc)
+      query_instance = Product.from("(#{catalog(Product).to_sql} UNION #{catalog(Part).to_sql}) products")
+                              .order(created_at: :desc)
+
+      @pagy, @items = pagy(query_instance)
 
       respond_to do |format|
         format.html
