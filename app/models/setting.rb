@@ -2,7 +2,6 @@
 
 class Setting < ApplicationRecord
   # Validations
-  validates :key, presence: true, uniqueness: true
   validates :value, presence: true
   validates :value, numericality: { greater_than_or_equal_to: 0, only_float: true }
 
