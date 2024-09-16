@@ -109,7 +109,7 @@
   }
 
   table thead tr th, .table .table-header-group .table-row .table-cell {
-    @apply px-4 py-3 font-semibold text-sm uppercase text-start; 
+    @apply px-4 py-3 font-semibold text-sm uppercase text-start bg-gray-50; 
   }
 
   table tbody tr, .table .table-row-group .table-row {
