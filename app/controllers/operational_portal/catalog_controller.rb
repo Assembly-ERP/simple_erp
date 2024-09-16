@@ -5,10 +5,31 @@ module OperationalPortal
     authorize_resource class: false
 
     def index
-      products = Product.catalog.not_voided
-      parts = Part.catalog.not_voided
+      @items =
+        Product.from("(#{catalog(Product).to_sql} UNION #{catalog(Part).to_sql}) products")
+               .order(created_at: :desc)
 
-      @items = Product.from("(#{products.to_sql} UNION #{parts.to_sql}) products").order(created_at: :desc)
+      respond_to do |format|
+        format.html
+        format.turbo_stream
+      end
+    end
+
+    private
+
+    def catalog(model)
+      instance = model.catalog.not_voided
+
+      if params[:search].present? && params[:search_by].present?
+        if params[:search_by].include?('name')
+          instance = instance.where('name ILIKE :search', search: "%#{params[:search]}%")
+        end
+        if params[:search_by].include?('description')
+          instance = instance.where('description ILIKE :search', search: "%#{params[:search]}%")
+        end
+      end
+
+      instance
     end
   end
 end
