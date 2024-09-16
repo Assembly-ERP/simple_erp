@@ -4,6 +4,7 @@
       %thead.border-b.sticky.top-0{class: "bg-gray-50"}
         %tr.uppercase.text-sm
           %th Name
+          %th SKU
           %th Type
           %th Quantity
           %th Base Price
@@ -23,16 +24,21 @@
                   = item.product_name
                 - else
                   = item.part_name
-            %td.text-base.text-gray-900
+            %td
+              - if item.product_id.present?
+                = item.product_sku || "N/A"
+              - else
+                = item.part_sku || "N/A"
+            %td
               - if item.product_id.present?
                 .product-type-tag
                   Product
               - else
                 .part-type-tag
                   Part
-            %td.text-base.text-gray-900
+            %td
               = "x#{item.quantity}"
-            %td.text-base.text-gray-900
+            %td
               = number_to_currency(item.price, precision: 2)
             %td.text-base.font-bold.text-gray-900
               = number_to_currency(item.subtotal)
