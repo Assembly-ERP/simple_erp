@@ -159,7 +159,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_14_055501) do
     t.datetime "last_scheduled", default: -> { "now()" }
     t.boolean "send_quote_assignees", default: true, null: false
     t.integer "holder_id"
-    t.string "formatted_id"
+    t.string "formatted_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["customer_id"], name: "index_orders_on_customer_id"
@@ -225,10 +225,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_14_055501) do
 
   create_table "settings", force: :cascade do |t|
     t.string "key", null: false
-    t.text "value", null: false
+    t.string "code", null: false
+    t.decimal "value", precision: 10, scale: 2, default: "0.0"
+    t.boolean "active", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["key"], name: "index_settings_on_key", unique: true
+    t.index ["key", "code"], name: "index_settings_on_key_and_code", unique: true
   end
 
   create_table "support_ticket_messages", force: :cascade do |t|

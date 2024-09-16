@@ -53,7 +53,7 @@ class Part < ApplicationRecord
   private
 
   def calculate_price
-    price_per_pound = Setting.price_per_pound
+    price_per_pound = Setting.active_pricing
     weight.to_f * price_per_pound
   end
 

@@ -1,15 +1,20 @@
 .py-8.flex.flex-col.gap-5
-  %h1.font-semibold.text-2xl Settings
-  .table-primary
-    %table
-      %thead
-        %tr
-          %th Key
-          %th Value
-          %th Actions
-      %tbody
-        - @settings.each do |setting|
-          %tr
-            %td= setting.key
-            %td= number_to_currency(setting.value, unit: "$", precision: 2)
-            %td= link_to 'Edit', edit_operational_portal_setting_path(setting)
+  .bg-white.border-x.border-gray-300
+    .grid.w-full{data: {controller: "accordion"}}
+      %button.font-medium.px-4.py-2.bg-white.border-y.border-gray-300.flex.justify-between.gap-3.items-center{type: "button", data: {action: "click->accordion#toggle"}}
+        Price Calculation
+        = icon("fa-solid", "chevron-down", data: {"accordion-target": "iconDown"})
+      .w-full.py-4.px-4{data: {"accordion-target": "content"}}
+        .w-full
+          %table
+            %tbody
+              - @settings.each do |setting|
+                = render "item", setting:
+    .grid.w-full{data: {controller: "accordion", open: "false"}}
+      %button.font-medium.px-4.py-2.bg-white.border-y.border-gray-300.flex.justify-between.gap-3.items-center{type: "button", data: {action: "click->accordion#toggle"}}
+        Order Price Scheduler
+        = icon("fa-solid", "chevron-down", data: {"accordion-target": "iconDown"})
+      .w-full.py-4.px-4.hidden.border-b.border-gray-300{data: {"accordion-target": "content"}}
+        = turbo_frame_tag "order_price_schedulers", src: operational_portal_order_price_schedulers_path, loading: :lazy do
+          .flex.items-center.justify-center.w-full{class: "h-full"}
+            = icon("fa-solid", "spinner", class: "animate-spin text-4xl text-gray-400")
