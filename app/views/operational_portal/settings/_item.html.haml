@@ -4,7 +4,7 @@
       %span
         = setting.key
       - if setting.active
-        .active
+        .active-status
           active
   %td.flex.justify-end
     = form_with(model: setting, url: operational_portal_setting_path(setting), html: {data: {controller: "settings--item", action: "turbo:submit-end->settings--item#submitted"}}) do |form|

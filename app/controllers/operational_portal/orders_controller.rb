@@ -6,10 +6,30 @@ module OperationalPortal
     authorize_resource class: false, only: :search_results
 
     def index
-      @orders =
+      query_instance =
         Order.with_customer.with_order_status
              .not_voided.sort_desc
-             .accessible_by(current_ability)
+
+      if params[:search].present? && params[:search_by].present?
+        search_query = ''
+        search_query += 'customers.name ILIKE :search' if params[:search_by].include?('customer')
+        search_query += "#{more_q(search_query)}orders.formatted_id ILIKE :search" if params[:search_by].include?('id')
+
+        query_instance = query_instance.where(search_query, search: "%#{params[:search]}%")
+      end
+
+      if params[:order_status].present? && params[:order_status] != 'all'
+        query_instance = query_instance.where(order_status_id: params[:order_status])
+      end
+
+      query_instance = query_instance.accessible_by(current_ability)
+
+      @pagy, @orders = pagy(query_instance)
+
+      respond_to do |format|
+        format.html
+        format.turbo_stream
+      end
     end
 
     def show; end

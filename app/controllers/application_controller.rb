@@ -19,6 +19,10 @@ class ApplicationController < ActionController::Base
 
   private
 
+  def more_q(query)
+    query.present? ? ' OR ' : ' '
+  end
+
   def customer_document(customer)
     {
       id: customer.id.to_s,
