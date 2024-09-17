@@ -1,16 +1,5 @@
 # frozen_string_literal: true
 
-# Create an admin user
-User.create(
-  email: 'admin@example.com',
-  password: 'password',
-  password_confirmation: 'password',
-  role: 'admin',
-  first_name: 'Tim',
-  last_name: 'Smith',
-  confirmed_at: Time.now.utc
-)
-
 if Rails.env.development? || ENV['FORCE_MIGRATE'] == 'true'
   # Create customers
   customer1 = Customer.create(
