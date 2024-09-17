@@ -143,6 +143,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_14_055501) do
     t.boolean "operation_locked", default: false, null: false
     t.boolean "reversed", default: false, null: false
     t.boolean "default", default: false, null: false
+    t.boolean "allow_change", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -36,6 +36,7 @@ end
 # Table name: order_statuses
 #
 #  id               :bigint           not null, primary key
+#  allow_change     :boolean          default(TRUE), not null
 #  customer_locked  :boolean          default(FALSE), not null
 #  default          :boolean          default(FALSE), not null
 #  name             :string           not null
