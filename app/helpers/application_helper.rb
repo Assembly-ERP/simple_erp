@@ -4,7 +4,10 @@ module ApplicationHelper
   include Pagy::Frontend
 
   def theme
-    '--primary: #214290; --primary-text: #fff; --secondary: #589245; --secondary-text: #fff;'
+    branding = Branding.client
+
+    "--primary: #{branding.primary_color}; --primary-text: #{branding.primary_text_color}; " \
+      "--secondary: #{branding.secondary_color}; --secondary-text: #{branding.secondary_text_color};"
   end
 
   def value_from_percentage(value, percentage)
