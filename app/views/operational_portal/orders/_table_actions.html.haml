@@ -26,9 +26,9 @@
     %span Status:
     .flex.gap-4.items-center
       .flex.gap-1.items-center
-        = radio_button("order", "status", "all", {checked: true, class: "bg-foreground", data: {"orders--query-search-target": "statusRadio", action: "orders--query-search#searchExec" }})
+        = radio_button("order", "status", "all", {checked: true, class: "bg-foreground radio-primary", data: {"orders--query-search-target": "statusRadio", action: "orders--query-search#searchExec" }})
         = label_tag "order_status_all", "All" 
       - OrderStatus.all.each do |os|
         .flex.gap-1.items-center
-          = radio_button("order", "status", os.id, {class: "bg-foreground", data: {"orders--query-search-target": "statusRadio", action: "orders--query-search#searchExec"}})
+          = radio_button("order", "status", os.id, {class: "radio-primary", data: {"orders--query-search-target": "statusRadio", action: "orders--query-search#searchExec"}})
           = label_tag "order_status_#{os.id}", os.name 
