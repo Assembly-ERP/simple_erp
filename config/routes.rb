@@ -147,6 +147,7 @@ end
 #                                                        PATCH  /operational_portal/parts/:id(.:format)                                                           operational_portal/parts#update
 #                                                        PUT    /operational_portal/parts/:id(.:format)                                                           operational_portal/parts#update
 #                                                        DELETE /operational_portal/parts/:id(.:format)                                                           operational_portal/parts#destroy
+#                update_summary_operational_portal_order PUT    /operational_portal/orders/:id/update_summary(.:format)                                           operational_portal/orders#update_summary
 #                        cancel_operational_portal_order DELETE /operational_portal/orders/:id/cancel(.:format)                                                   operational_portal/orders#cancel
 #               search_results_operational_portal_orders GET    /operational_portal/orders/search_results(.:format)                                               operational_portal/orders#search_results
 #                              operational_portal_orders GET    /operational_portal/orders(.:format)                                                              operational_portal/orders#index

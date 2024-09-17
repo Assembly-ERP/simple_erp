@@ -91,6 +91,10 @@
     @apply w-[18px] h-[18px] rounded-sm text-[color:var(--secondary)] border border-gray-400 focus:ring-0 disabled:bg-stone-200 disabled:text-gray-200 disabled:cursor-not-allowed cursor-pointer;
   }
 
+  .radio-primary {
+    @apply bg-foreground text-[color:var(--primary)] focus:ring-0;
+  }
+
   /* table */
   .table-primary {
     @apply bg-white rounded border shadow;
