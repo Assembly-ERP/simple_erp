@@ -6,9 +6,7 @@ module OperationalPortal
     authorize_resource class: false, only: :search_results
 
     def index
-      query_instance =
-        Order.with_customer.with_order_status
-             .not_voided.sort_desc
+      query_instance = Order.with_customer.with_order_status.not_voided.sort_desc
 
       if params[:search].present? && params[:search_by].present?
         search_query = ''
