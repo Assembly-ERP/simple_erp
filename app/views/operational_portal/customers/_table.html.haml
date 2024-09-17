@@ -1,26 +1,33 @@
-.table
-  .table-header-group
-    .table-row
-      .table-cell Customer Name
-      .table-cell Phone
-      .table-cell City
-      .table-cell State
-  .table-row-group
-    - if @customers.present?
-      - @customers.each do |customer|
-        .table-row.cursor-pointer{data: {controller: "dialog", action: "click->dialog#backdropClose"}}
-          = render "show_modal", customer:
-          .table-cell{data: {action: "click->dialog#open"}}
-            = customer.name
-          .table-cell{data: {action: "click->dialog#open"}}
-            = format_phone_number(customer.phone)
-          .table-cell{data: {action: "click->dialog#open"}}
-            = customer.city
-          .table-cell{data: {action: "click->dialog#open"}}
-            = customer.state
-    - else
+#customer-list
+  .table
+    .table-header-group
       .table-row
-        .table-cell No customers found
-        .table-cell
-        .table-cell
-        .table-cell
+        .table-cell Customer Name
+        .table-cell Phone
+        .table-cell City
+        .table-cell State
+    .table-row-group
+      - if @customers.present?
+        - @customers.each do |customer|
+          .table-row.cursor-pointer{data: {controller: "dialog", action: "click->dialog#backdropClose"}}
+            = render "show_modal", customer:
+            .table-cell{data: {action: "click->dialog#open"}}
+              = customer.name
+            .table-cell{data: {action: "click->dialog#open"}}
+              = format_phone_number(customer.phone)
+            .table-cell{data: {action: "click->dialog#open"}}
+              = customer.city
+            .table-cell{data: {action: "click->dialog#open"}}
+              = customer.state
+      - else
+        .table-row
+          .table-cell No customers found
+          .table-cell
+          .table-cell
+          .table-cell
+
+  - if @pagy.pages > 1      
+    .flex.gap-3.items-center.w-full.justify-between.px-4.py-3
+      != pagy_nav(@pagy, link_extra: 'data-turbo-stream="true"')
+      != pagy_info(@pagy)
+
