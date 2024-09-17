@@ -29,6 +29,7 @@
           .table-cell
           .table-cell
           .table-cell
+
   - if @pagy.pages > 1          
     .flex.gap-3.items-center.w-full.justify-between.px-4.py-3
       != pagy_nav(@pagy, link_extra: 'data-turbo-stream="true"')

@@ -19,7 +19,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-  def more_q(query)
+  def or_q(query)
     query.present? ? ' OR ' : ' '
   end
 
