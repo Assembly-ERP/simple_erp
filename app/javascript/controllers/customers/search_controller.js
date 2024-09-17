@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["input", "statusRadio"];
+  static targets = ["input"];
 
   search() {
     clearTimeout(this.timeout);
@@ -18,11 +18,10 @@ export default class extends Controller {
     if (path.includes("?")) path += `&search=${searchValue}`;
     else path += `?search=${searchValue}`;
 
-    path += `&search_by[]=customer_name`;
-    path += `&search_by[]=id`;
-
-    // order status
-    path += `&order_status=${this.activeStatusRadio.value}`;
+    path += `&search_by[]=name`;
+    path += `&search_by[]=phone`;
+    path += `&search_by[]=city`;
+    path += `&search_by[]=state`;
 
     fetch(path, {
       method: "GET",
@@ -35,9 +34,5 @@ export default class extends Controller {
     })
       .then((res) => res.text())
       .then((html) => Turbo.renderStreamMessage(html));
-  }
-
-  get activeStatusRadio() {
-    return this.statusRadioTargets.find((radio) => radio.checked);
   }
 }

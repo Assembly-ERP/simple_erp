@@ -1,26 +1,32 @@
-.table
-  .table-header-group
-    .table-row
-      .table-cell User Email
-      .table-cell Name
-      .table-cell Customer Name
-      .table-cell Role
-  .table-row-group
-    - if @users.present?
-      - @users.each do |user|
-        .table-row.cursor-pointer{data: {controller: "dialog", action: "click->dialog#backdropClose"}}
-          = render "show_modal", user: user
-          .table-cell{data: {action: "click->dialog#open"}}
-            = user.email
-          .table-cell{data: {action: "click->dialog#open"}}
-            = user.name
-          .table-cell{data: {action: "click->dialog#open"}}
-            = user.customer_name
-          .table-cell{data: {action: "click->dialog#open"}}
-            = user.role.humanize
-    - else
+#user-list
+  .table
+    .table-header-group
       .table-row
-        .table-cell No Users found
-        .table-cell
-        .table-cell
-        .table-cell
+        .table-cell User Email
+        .table-cell Name
+        .table-cell Customer Name
+        .table-cell Role
+    .table-row-group
+      - if @users.present?
+        - @users.each do |user|
+          .table-row.cursor-pointer{data: {controller: "dialog", action: "click->dialog#backdropClose"}}
+            = render "show_modal", user: user
+            .table-cell{data: {action: "click->dialog#open"}}
+              = user.email
+            .table-cell{data: {action: "click->dialog#open"}}
+              = user.name
+            .table-cell{data: {action: "click->dialog#open"}}
+              = user.customer_name
+            .table-cell{data: {action: "click->dialog#open"}}
+              = user.role.humanize
+      - else
+        .table-row
+          .table-cell No Users found
+          .table-cell
+          .table-cell
+          .table-cell
+
+  - if @pagy.pages > 1          
+    .flex.gap-3.items-center.w-full.justify-between.px-4.py-3
+      != pagy_nav(@pagy, link_extra: 'data-turbo-stream="true"')
+      != pagy_info(@pagy)

@@ -39,6 +39,7 @@ Rails.application.routes.draw do
     end
     resources :orders do
       member do
+        put :update_summary
         delete :cancel
       end
       collection do

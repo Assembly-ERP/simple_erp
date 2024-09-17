@@ -29,6 +29,7 @@ class Ability
     # Order
     can %i[read new create], Order
     can %i[update destroy edit cancel], Order, voided_at: nil, order_status: { operation_locked: false }
+    can :update_summary, Order
     can :search_results, :order
 
     # Support Ticket
