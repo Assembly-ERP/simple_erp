@@ -5,7 +5,23 @@ module OperationalPortal
     load_and_authorize_resource
 
     def index
-      @users = User.with_customer.accessible_by(current_ability)
+      query_instance = User.with_customer
+
+      if params[:search].present? && params[:search_by].present?
+        search_query = ''
+        search_query += 'first_name ILIKE :search OR last_name ILIKE :search' if params[:search_by].include?('name')
+        search_query += "#{or_q(search_query)}email ILIKE :search" if params[:search_by].include?('name')
+        search_query += "#{or_q(search_query)}role ILIKE :search" if params[:search_by].include?('role')
+        if params[:search_by].include?('customer_name')
+          search_query += "#{or_q(search_query)}customers.name ILIKE :search"
+        end
+
+        query_instance = query_instance.where(search_query, search: "%#{params[:search]}%")
+      end
+
+      query_instance = query_instance.accessible_by(current_ability)
+
+      @pagy, @users = pagy(query_instance)
     end
 
     def show; end

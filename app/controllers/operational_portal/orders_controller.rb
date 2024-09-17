@@ -10,8 +10,8 @@ module OperationalPortal
 
       if params[:search].present? && params[:search_by].present?
         search_query = ''
-        search_query += 'customers.name ILIKE :search' if params[:search_by].include?('customer')
-        search_query += "#{more_q(search_query)}orders.formatted_id ILIKE :search" if params[:search_by].include?('id')
+        search_query += 'customers.name ILIKE :search' if params[:search_by].include?('customer_name')
+        search_query += "#{or_q(search_query)}orders.formatted_id ILIKE :search" if params[:search_by].include?('id')
 
         query_instance = query_instance.where(search_query, search: "%#{params[:search]}%")
       end
@@ -23,11 +23,6 @@ module OperationalPortal
       query_instance = query_instance.accessible_by(current_ability)
 
       @pagy, @orders = pagy(query_instance)
-
-      respond_to do |format|
-        format.html
-        format.turbo_stream
-      end
     end
 
     def show; end
@@ -55,6 +50,16 @@ module OperationalPortal
           format.turbo_stream
         else
           format.html { render :edit, status: :unprocessable_entity }
+          format.turbo_stream { render status: :unprocessable_entity }
+        end
+      end
+    end
+
+    def update_summary
+      respond_to do |format|
+        if @order.update(update_summary_params)
+          format.turbo_stream
+        else
           format.turbo_stream { render status: :unprocessable_entity }
         end
       end
@@ -110,9 +115,12 @@ module OperationalPortal
       )
     end
 
+    def update_summary_params
+      params.require(:order).permit(:shipping_price, :discount_percentage, :tax)
+    end
+
     def search_parts
-      parts = Part.all
-      parts = parts.not_voided
+      parts = Part.not_voided
       parts = parts.search_results
       parts = parts.search_results_with_order(params[:order_id]) if params[:order_id].present?
 
@@ -127,8 +135,7 @@ module OperationalPortal
     end
 
     def search_products
-      products = Product.all
-      products = products.not_voided
+      products = Product.not_voided
       products = products.search_results
       products = products.search_results_with_order(params[:order_id]) if params[:order_id].present?
 

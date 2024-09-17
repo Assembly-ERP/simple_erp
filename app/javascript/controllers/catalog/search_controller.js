@@ -19,7 +19,7 @@ export default class extends Controller {
     else path += `?search=${searchValue}`;
 
     path += `&search_by[]=name`;
-    path += `&search_by[]=description`;
+    // path += `&search_by[]=description`;
 
     fetch(path, {
       method: "GET",
