@@ -17,3 +17,4 @@ pin "@stimulus-components/dialog", to: "@stimulus-components--dialog.js" # @1.0.
 pin "@stimulus-components/rails-nested-form", to: "@stimulus-components--rails-nested-form.js" # @5.0.0
 pin "choices.js" # @11.0.2
 pin "swiper" # @11.1.12
+pin "cropperjs" # @1.6.2

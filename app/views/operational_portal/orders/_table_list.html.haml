@@ -13,7 +13,7 @@
           .table-row.cursor-pointer{id: dom_id(order), data: {controller: "dialog", action: "click->dialog#backdropClose"}}
             = render "order_modal", order: order
             .table-cell{data: {action: "click->dialog#open"}}
-              = "#{order.formatted_id}"
+              = order.formatted_id
             .table-cell{data: {action: "click->dialog#open"}}
               = order.customer_name
             .table-cell{id: "list-order-status-#{order.id}", data: {action: "click->dialog#open"}}
