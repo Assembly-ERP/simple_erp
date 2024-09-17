@@ -20,7 +20,7 @@
             - if @orders.present?
               - @orders.each do |order|
                 %tr
-                  %td= link_to "Order ##{order.formatted_id}", operational_portal_order_path(order)
+                  %td= link_to order.formatted_id, operational_portal_order_path(order)
                   %td= order.customer_name
                   %td= order.status
                   %td= number_to_currency(order.total_amount, unit: "$", precision: 2)

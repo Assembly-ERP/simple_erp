@@ -8,6 +8,7 @@ class CreateOrderStatuses < ActiveRecord::Migration[7.1]
       t.boolean :operation_locked, null: false, default: false
       t.boolean :reversed, null: false, default: false
       t.boolean :default, null: false, default: false
+      t.boolean :allow_change, null: false, default: true
 
       t.timestamps
     end
@@ -17,8 +18,12 @@ class CreateOrderStatuses < ActiveRecord::Migration[7.1]
         OrderStatus.create(name: 'Quote', default: true)
         OrderStatus.create(name: 'New', customer_locked: true, operation_locked: false)
         OrderStatus.create(name: 'Submitted', customer_locked: true, operation_locked: true)
-        OrderStatus.create(name: 'Cancelled', customer_locked: true, operation_locked: true, reversed: true)
-        OrderStatus.create(name: 'Returned', customer_locked: true, operation_locked: true, reversed: true)
+        OrderStatus.create(
+          name: 'Cancelled', customer_locked: true, operation_locked: true, reversed: true, allow_change: false
+        )
+        OrderStatus.create(
+          name: 'Returned', customer_locked: true, operation_locked: true, reversed: true, allow_change: false
+        )
       end
     end
   end
