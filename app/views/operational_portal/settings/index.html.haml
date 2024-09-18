@@ -1,28 +1,29 @@
 .py-8
   .bg-white.border-x.border-gray-300
-    .grid.w-full{data: {controller: "accordion"}}
-      %button.font-medium.px-4.py-2.bg-white.border-t.border-gray-300.flex.justify-between.gap-3.items-center{type: "button", data: {action: "click->accordion#toggle"}}
+    .accordion.group{data: {controller: "accordion"}}
+      %button.accordion-btn{type: "button", data: {action: "click->accordion#toggle"}}
         Price Calculation
         = icon("fa-solid", "chevron-down", data: {"accordion-target": "iconDown"})
-      .w-full.py-4.px-4.border-t.border-gray-300{data: {"accordion-target": "content"}}
+      .accordion-content{data: {"accordion-target": "content"}}
         .w-full
           %table
             %tbody
               - @settings.each do |setting|
                 = render "item", setting:
-    .grid.w-full{data: {controller: "accordion", open: "false"}}
-      %button.font-medium.px-4.py-2.bg-white.border-t.border-gray-300.flex.justify-between.gap-3.items-center{type: "button", data: {action: "click->accordion#toggle"}}
+    .accordion.group{data: {controller: "accordion", open: "false"}}
+      %button.accordion-btn{type: "button", data: {action: "click->accordion#toggle"}}
         Order Price Scheduler
         = icon("fa-solid", "chevron-down", data: {"accordion-target": "iconDown"})
-      .w-full.py-4.px-4.hidden.border-t.border-gray-300{data: {"accordion-target": "content"}}
+      .accordion-content.hidden{data: {"accordion-target": "content"}}
         = turbo_frame_tag "order_price_schedulers", src: operational_portal_order_price_schedulers_path, loading: :lazy do
           .flex.items-center.justify-center.w-full{class: "h-full"}
             = icon("fa-solid", "spinner", class: "animate-spin text-4xl text-gray-400")
-    .grid.w-full{data: {controller: "accordion", open: params[:accordion]&.include?("branding") ? "true" : "false"}}
-      %button.font-medium.px-4.py-2.bg-white.border-y.border-gray-300.flex.justify-between.gap-3.items-center{type: "button", data: {action: "click->accordion#toggle"}}
-        Branding
-        = icon("fa-solid", "chevron-down", data: {"accordion-target": "iconDown"})
-      .w-full.py-4.px-4.border-b.border-gray-300{class: params[:accordion]&.include?("branding") ? "" : "hidden" ,data: {"accordion-target": "content"}}
-        = turbo_frame_tag "branding", src: operational_portal_brandings_path, loading: :lazy do
-          .flex.items-center.justify-center.w-full.h-96{class: "h-full"}
-            = icon("fa-solid", "spinner", class: "animate-spin text-4xl text-gray-400")
+    - if current_user.role == "admin"
+      .accordion.group{data: {controller: "accordion", open: params[:accordion]&.include?("branding") ? "true" : "false"}}
+        %button.accordion-btn{type: "button", data: {action: "click->accordion#toggle"}}
+          Branding
+          = icon("fa-solid", "chevron-down", data: {"accordion-target": "iconDown"})
+        .accordion-content{class: params[:accordion]&.include?("branding") ? "" : "hidden" ,data: {"accordion-target": "content"}}
+          = turbo_frame_tag "branding", src: operational_portal_brandings_path, loading: :lazy do
+            .flex.items-center.justify-center.w-full.h-96{class: "h-full"}
+              = icon("fa-solid", "spinner", class: "animate-spin text-4xl text-gray-400")
