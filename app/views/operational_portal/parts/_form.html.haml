@@ -1,62 +1,63 @@
 = form_with(model:, url:, html: {class: "grid gap-5", data: {controller: "parts--form", price_per_pound: Setting.active_pricing}}) do |form|
   - if @part.errors.any?
     = render ErrorCardComponent.new errors: @part.errors.full_messages, label: "Validations"
-  .grid
-    .grid{data: {controller: "accordion"}}
-      %button.px-4.py-2.bg-white.border.border-gray-300.flex.justify-between.gap-3.items-center{type: "button", data: {action: "click->accordion#toggle"}}
+  .accordion-container
+    .accordion.group{data: {controller: "accordion"}}
+      .accordion-btn{type: "button", data: {action: "click->accordion#toggle"}}
         General Information
         = icon("fa-solid", "chevron-down", data: {"accordion-target": "iconDown"})
-      .flex.gap-5.w-full.py-4{data: {"accordion-target": "content"}}
-        .flex.flex-col.gap-3{class: "w-1/2"}
-          .field
-            = form.label :name
-            = form.text_field :name, class: "input-primary", required: true
-          .field
-            = form.label :sku, class: "uppercase"
-            = form.text_field :sku, class: "input-primary"
-          .field
-            = form.label :description
-            = form.text_area :description, class: "input-primary", rows: 9
-        .flex.flex-col.gap-5.mt-6{class: "w-1/2"}
-          .flex.gap-3.items-center
-            .field.flex.items-center{class: "w-1/2"}
-              = form.label :price, "Price:", class: "w-14"
-              .relative{data: {"parts--form-target": "priceContainer"}, class: "#{form.object.manual_price ? "" : "hidden"}"}
-                = form.number_field :price, value: number_with_precision(form.object.price, precision: 2), placeholder: "0.00", step: 0.01, class: "pl-8 input-primary w-44 col-span-2 h-fit", disabled: !form.object.manual_price, required: form.object.manual_price, data: {"parts--form-target": "price"}
-                %span.absolute.left-4{class: "top-3"} $
-              .font-semibold{class: "#{form.object.manual_price ? "hidden" : ""}", data: {"parts--form-target": "staticPrice"}}
-                = number_to_currency(form.object.price, unit: "$", precision: 2)
-            .field.flex.items-center.gap-3{class: "w-1/2"}
-              %label.switch
-                = form.check_box :manual_price, data: {"parts--form-target": "manualPrice", action: "parts--form#overrideToggle"}
-                %span.slider
-              = form.label :manual_price, "Override Price"
-          .flex.gap-3.items-center
-            .field.flex.items-center{class: "w-1/2"}
-              = form.label :in_stock, "Stock:", class: "w-14"
-              = form.number_field :in_stock, disabled: !form.object.inventory, placeholder: "0", class: "#{form.object.inventory ? "" : "hidden"} input-primary w-44 h-fit", data: {"parts--form-target": "instock"}
-              .font-semibold{class: "#{form.object.inventory ? "hidden" : ""}", data: {"parts--form-target": "staticInstock"}}
-                = "N/A"
-            .field.flex.items-center.gap-3{class: "w-1/2"}
-              %label.switch
-                = form.check_box :inventory, data: {"parts--form-target": "inventory", action: "input->parts--form#inventoryToggle"}
-                %span.slider
-              = form.label :inventory
-          .grid.grid-cols-3.gap-3
+      .accordion-content{data: {"accordion-target": "content"}}
+        .flex.gap-5.w-full
+          .flex.flex-col.gap-3{class: "w-1/2"}
             .field
-              = form.label :weight, "Weight (lbs)"
-              = form.number_field :weight, value: number_with_precision(form.object.weight, precision: 2), placeholder: "0.0", step: :any, class: "input-primary", data: {"parts--form-target": "weight", action: "input->parts--form#calcByWeight"}
+              = form.label :name
+              = form.text_field :name, class: "input-primary", required: true
             .field
-              = form.label :length, "Length (cm)"
-              = form.number_field :length, value: number_with_precision(form.object.length, precision: 2), placeholder: "0.0", step: :any, class: "input-primary"
+              = form.label :sku, class: "uppercase"
+              = form.text_field :sku, class: "input-primary"
             .field
-              = form.label :width, "Width (cm)"
-              = form.number_field :width, value: number_with_precision(form.object.width, precision: 2), placeholder: "0.0", step: :any, class: "input-primary"
-          = render "form_image_upload", form: form
-    .grid{data: {controller: "accordion", open: "false"}}
-      %button.px-4.py-2.bg-white.border.border-gray-300.flex.justify-between.gap-3.items-center{type: "button", data: {action: "click->accordion#toggle"}}
+              = form.label :description
+              = form.text_area :description, class: "input-primary", rows: 9
+          .flex.flex-col.gap-5.mt-6{class: "w-1/2"}
+            .flex.gap-3.items-center
+              .field.flex.items-center{class: "w-1/2"}
+                = form.label :price, "Price:", class: "w-14"
+                .relative{data: {"parts--form-target": "priceContainer"}, class: "#{form.object.manual_price ? "" : "hidden"}"}
+                  = form.number_field :price, value: number_with_precision(form.object.price, precision: 2), placeholder: "0.00", step: 0.01, class: "pl-8 input-primary w-44 col-span-2 h-fit", disabled: !form.object.manual_price, required: form.object.manual_price, data: {"parts--form-target": "price"}
+                  %span.absolute.left-4{class: "top-3"} $
+                .font-semibold{class: "#{form.object.manual_price ? "hidden" : ""}", data: {"parts--form-target": "staticPrice"}}
+                  = number_to_currency(form.object.price, unit: "$", precision: 2)
+              .field.flex.items-center.gap-3{class: "w-1/2"}
+                %label.switch
+                  = form.check_box :manual_price, data: {"parts--form-target": "manualPrice", action: "parts--form#overrideToggle"}
+                  %span.slider
+                = form.label :manual_price, "Override Price"
+            .flex.gap-3.items-center
+              .field.flex.items-center{class: "w-1/2"}
+                = form.label :in_stock, "Stock:", class: "w-14"
+                = form.number_field :in_stock, disabled: !form.object.inventory, placeholder: "0", class: "#{form.object.inventory ? "" : "hidden"} input-primary w-44 h-fit", data: {"parts--form-target": "instock"}
+                .font-semibold{class: "#{form.object.inventory ? "hidden" : ""}", data: {"parts--form-target": "staticInstock"}}
+                  = "N/A"
+              .field.flex.items-center.gap-3{class: "w-1/2"}
+                %label.switch
+                  = form.check_box :inventory, data: {"parts--form-target": "inventory", action: "input->parts--form#inventoryToggle"}
+                  %span.slider
+                = form.label :inventory
+            .grid.grid-cols-3.gap-3
+              .field
+                = form.label :weight, "Weight (lbs)"
+                = form.number_field :weight, value: number_with_precision(form.object.weight, precision: 2), placeholder: "0.0", step: :any, class: "input-primary", data: {"parts--form-target": "weight", action: "input->parts--form#calcByWeight"}
+              .field
+                = form.label :length, "Length (cm)"
+                = form.number_field :length, value: number_with_precision(form.object.length, precision: 2), placeholder: "0.0", step: :any, class: "input-primary"
+              .field
+                = form.label :width, "Width (cm)"
+                = form.number_field :width, value: number_with_precision(form.object.width, precision: 2), placeholder: "0.0", step: :any, class: "input-primary"
+            = render "form_image_upload", form: form
+    .accordion.group{data: {controller: "accordion", open: "false"}}
+      .accordion-btn{type: "button", data: {action: "click->accordion#toggle"}}
         Custom Attribute
         = icon("fa-solid", "chevron-down", data: {"accordion-target": "iconDown"})
-      .flex.gap-5.w-full.py-4{data: {"accordion-target": "content"}, class: "hidden"}
+      .accordion-content{data: {"accordion-target": "content"}, class: "hidden"}
   .mt-2
     = form.submit btn_text, class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"
