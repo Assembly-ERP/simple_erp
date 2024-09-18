@@ -79,7 +79,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_17_162344) do
 
   create_table "customers", force: :cascade do |t|
     t.string "name", null: false
-    t.string "phone", null: false
+    t.string "phone"
+    t.string "ein"
     t.string "street"
     t.string "city"
     t.string "state"

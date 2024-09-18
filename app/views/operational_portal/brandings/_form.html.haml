@@ -5,7 +5,7 @@
     .grid.grid-cols-3.gap-4
       .field
         = form.label :name
-        = form.text_field :name, class: "input-primary", placeholder: "Name"
+        = form.text_field :name, class: "input-primary", placeholder: "Name", required: true
       .field
         = form.label :ein, "EIN"
         = form.text_field :ein, class: "input-primary", placeholder: "EIN"
