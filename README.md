@@ -14,7 +14,8 @@ Run Postgres docker instance
 docker compose up -d
 ```
 
-> Assuming that you have already install rails in your machine
+> Assuming that you have already install rails in your machine.
+
 > Highly recommend to use any linux distros(Ubuntu, etc..) or use WSL(if you use windows)
 
 Initiate DB
