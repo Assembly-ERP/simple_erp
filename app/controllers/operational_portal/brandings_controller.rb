@@ -11,7 +11,10 @@ module OperationalPortal
     def update
       respond_to do |format|
         if @branding.update(branding_params)
-          format.html { redirect_to operational_portal_settings_path, notice: 'Branding updated successfully.' }
+          format.html do
+            redirect_to operational_portal_settings_path(accordion: ['branding']),
+                        notice: 'Branding updated successfully.'
+          end
           format.turbo_stream
         else
           format.html { render :index, status: :unprocessable_entity }
