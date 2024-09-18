@@ -287,11 +287,6 @@ input:checked + .slider:before {
   transform: translateX(21px);
 }
 
-/* Dynamic */
-.turbo-progress-bar {
-  background: var(--primary);
-}
-
 /* Customize the dialog backdrop */
 dialog {
   box-shadow: 0 0 0 100vw rgb(0 0 0 / 0.2);
@@ -327,4 +322,9 @@ dialog[data-dialog-target='dialog'][closing] {
 
 body:has(dialog[data-dialog-target='dialog'][open]) {
   overflow: hidden
+}
+
+/* Turbo */
+.turbo-progress-bar {
+  background: var(--primary) !important;
 }
