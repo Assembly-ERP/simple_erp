@@ -44,7 +44,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_17_162344) do
 
   create_table "brandings", force: :cascade do |t|
     t.string "name", null: false
-    t.string "address"
+    t.string "street"
+    t.string "city"
     t.string "state"
     t.string "postal_code"
     t.string "ein"

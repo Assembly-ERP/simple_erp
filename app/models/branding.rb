@@ -13,7 +13,7 @@ end
 # Table name: brandings
 #
 #  id                   :bigint           not null, primary key
-#  address              :string
+#  city                 :string
 #  ein                  :string
 #  name                 :string           not null
 #  phone                :string
@@ -23,6 +23,7 @@ end
 #  secondary_color      :string           not null
 #  secondary_text_color :string           not null
 #  state                :string
+#  street               :string
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #

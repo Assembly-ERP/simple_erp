@@ -59,6 +59,7 @@ Rails.application.routes.draw do
     resources :settings, only: %i[index edit update]
     resources :order_price_schedulers, only: %i[index]
     resources :users
+    resources :brandings, path: 'branding', only: %i[index update]
     resources :customers do
       member do
         get :users
@@ -183,6 +184,9 @@ end
 #                                                        PATCH  /operational_portal/users/:id(.:format)                                                           operational_portal/users#update
 #                                                        PUT    /operational_portal/users/:id(.:format)                                                           operational_portal/users#update
 #                                                        DELETE /operational_portal/users/:id(.:format)                                                           operational_portal/users#destroy
+#                           operational_portal_brandings GET    /operational_portal/branding(.:format)                                                            operational_portal/brandings#index
+#                            operational_portal_branding PATCH  /operational_portal/branding/:id(.:format)                                                        operational_portal/brandings#update
+#                                                        PUT    /operational_portal/branding/:id(.:format)                                                        operational_portal/brandings#update
 #                      users_operational_portal_customer GET    /operational_portal/customers/:id/users(.:format)                                                 operational_portal/customers#users
 #                           operational_portal_customers GET    /operational_portal/customers(.:format)                                                           operational_portal/customers#index
 #                                                        POST   /operational_portal/customers(.:format)                                                           operational_portal/customers#create
