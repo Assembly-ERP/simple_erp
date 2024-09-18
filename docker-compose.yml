@@ -23,7 +23,33 @@ services:
       - "3010:3010"
     command: postgres -c config_file=/var/lib/pgsql/data/postgresql.conf
     restart: always 
-  
+
+  # erpweb:
+  #   build:
+  #     context: .
+  #     dockerfile: ${APP_DOCKERFILE}
+  #   volumes:
+  #     - erpweb_data:/app
+  #     - ./:/app
+  #   image: v1-erpweb
+  #   container_name: v1-erpweb-1
+  #   environment:
+  #     - SECRET_KEY_BASE=${SECRET_KEY_BASE}
+  #     - DB_HOST=postgres
+  #     - DB_PORT=${DB_PORT}
+  #     - POSTGRES_USER=${POSTGRES_USER}
+  #     - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+  #     - POSTGRES_DB=${POSTGRES_DB}
+  #   networks:
+  #     erpweb_network:
+  #       ipv4_address: 172.30.0.10
+  #   ports:
+  #     - "3000:3000"
+  #   depends_on:
+  #     - postgres
+  #   command: sh -c "rm -f tmp/pids/server.pid && bundle exec rails s -b '0.0.0.0'"
+  #   restart: always 
+
   pgadmin:
     build:
       context: ./pgadmin
@@ -44,6 +70,7 @@ services:
 volumes:
   postgres_data:
   pgadmin_data:
+  # erpweb_data:
 
 networks:
   erpweb_network:

@@ -38,6 +38,7 @@ bundle exec rails db:seed
 crontab -l | { cat; echo ""; } | crontab -
 crontab -r
 whenever --update-crontab
+whenever
 
 # Then exec the container's main process (what's set as CMD in the Dockerfile).
 exec "$@"
