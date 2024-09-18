@@ -33,7 +33,6 @@ rm -f /app/tmp/pids/server.pid
 bundle exec rails db:create
 bundle exec rails db:migrate
 bundle exec rails db:seed
-bundle exec rails assets:precompile
 
 # Run cron scheduler
 crontab -l | { cat; echo ""; } | crontab -
