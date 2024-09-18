@@ -1,0 +1,50 @@
+= form_with(model: @branding, url: operational_portal_branding_path(@branding), data: {turbo: "false"}) do |form|
+  .grid.gap-4
+    - if @branding.errors.any?
+      = render ErrorCardComponent.new errors: @branding.errors.full_messages, label: "Validations"
+    .grid.grid-cols-3.gap-4
+      .field
+        = form.label :name
+        = form.text_field :name, class: "input-primary", placeholder: "Name"
+      .field
+        = form.label :ein, "EIN"
+        = form.text_field :ein, class: "input-primary", placeholder: "EIN"
+      .field
+        = form.label :phone
+        = form.text_field :phone, class: "input-primary", placeholder: "Phone"
+    .grid.gap-2
+      %h1.font-semibold Address
+      .grid.grid-cols-4.gap-4
+        .field
+          = form.label :street
+          = form.text_field :street, class: "input-primary", placeholder: "Name"
+        .field
+          = form.label :city
+          = form.text_field :city, class: "input-primary", placeholder: "City"
+        .field
+          = form.label :state
+          = form.text_field :state, class: "input-primary", placeholder: "State"
+        .field
+          = form.label :postal_code
+          = form.text_field :postal_code, class: "input-primary", placeholder: "Postal code"
+    .h-24
+      %h1.font-semibold Theme
+      .grid.grid-cols-4.gap-4.mt-1
+        .field{data: {controller: "color-picker"}}
+          = form.label :primary_color
+          = form.hidden_field :primary_color, data: {"color-picker-target": "input"}
+          .block{data: {"color-picker-target": "button"}}
+        .field{data: {controller: "color-picker"}}
+          = form.label :primary_text_color
+          = form.hidden_field :primary_text_color, data: {"color-picker-target": "input"}
+          .block{data: {"color-picker-target": "button"}}
+        .field{data: {controller: "color-picker"}}
+          = form.label :secondary_color
+          = form.hidden_field :secondary_color, data: {"color-picker-target": "input"}
+          .block{data: {"color-picker-target": "button"}}
+        .field{data: {controller: "color-picker"}}
+          = form.label :secondary_text_color
+          = form.hidden_field :secondary_text_color, data: {"color-picker-target": "input"}
+          .block{data: {"color-picker-target": "button"}}
+    .block
+      = form.submit "Save Branding", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"

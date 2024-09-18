@@ -12,7 +12,7 @@ class Ability
 
   private
 
-  def operational_portal(_user)
+  def operational_portal(user)
     can :index, :dashboard
     can :index, :catalog
     can :manage, :profile
@@ -31,6 +31,9 @@ class Ability
     can %i[update destroy edit cancel], Order, voided_at: nil, order_status: { operation_locked: false }
     can :update_summary, Order
     can :search_results, :order
+
+    # Branding
+    can :manage, Branding if user.role == 'admin'
 
     # Support Ticket
     can :manage, SupportTicket
