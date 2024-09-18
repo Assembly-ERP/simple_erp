@@ -12,7 +12,7 @@ class Ability
 
   private
 
-  def operational_portal(_user)
+  def operational_portal(user)
     can :index, :dashboard
     can :index, :catalog
     can :manage, :profile
@@ -33,7 +33,7 @@ class Ability
     can :search_results, :order
 
     # Branding
-    can :manage, Branding
+    can :manage, Branding if user.role == 'admin'
 
     # Support Ticket
     can :manage, SupportTicket
