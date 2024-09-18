@@ -1,11 +1,14 @@
 = form_with(model: @customer, url: operational_portal_customers_path, local: true) do |form|
-  .grid.gap-3
+  .grid.gap-4
     - if @customer.errors.any?
       = render ErrorCardComponent.new errors: @customer.errors.full_messages, label: "Validations"
     .grid.grid-cols-2.gap-3
       .field
         = form.label :name
-        = form.text_field :name, class: "input-primary", placeholder: "Name"
+        = form.text_field :name, class: "input-primary", placeholder: "Name", required: true
+      .field
+        = form.label :ein, "EIN"
+        = form.telephone_field :ein, class: "input-primary", placeholder: "EIN"
       .field
         = form.label :phone
         = form.telephone_field :phone, class: "input-primary", placeholder: "Phone number"

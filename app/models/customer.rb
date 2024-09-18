@@ -20,8 +20,9 @@ end
 #  id          :bigint           not null, primary key
 #  city        :string
 #  discount    :decimal(5, 2)    default(0.0)
+#  ein         :string
 #  name        :string           not null
-#  phone       :string           not null
+#  phone       :string
 #  postal_code :string
 #  state       :string
 #  street      :string
