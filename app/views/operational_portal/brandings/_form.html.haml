@@ -29,7 +29,7 @@
           = form.text_field :postal_code, class: "input-primary", placeholder: "Postal code"
     .h-24
       %h1.font-semibold Theme
-      .grid.grid-cols-4.gap-4.mt-1
+      .grid.grid-cols-6.gap-4.mt-1
         .field{data: {controller: "color-picker"}}
           = form.label :primary_color
           = form.hidden_field :primary_color, data: {"color-picker-target": "input"}
