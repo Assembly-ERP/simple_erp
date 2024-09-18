@@ -1,8 +1,8 @@
 !!!
-%html.h-full
+%html.h-full{style: theme}
   %head
     = render "layouts/head"
-  %body{style: theme}
+  %body
     = render FlashComponent.new
     = render "layouts/operation_navbar"
     %main.flex.ml-64
