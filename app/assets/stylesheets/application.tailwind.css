@@ -185,6 +185,22 @@
   .active-status {
     @apply bg-green-600/10 border border-green-600 text-green-600 rounded-md w-fit px-3 text-sm;
   }
+  
+  .accordion {
+    @apply grid w-full;
+  }
+
+  .accordion-btn {
+    @apply font-medium px-4 py-2 bg-white flex justify-between gap-3 items-center border-t border-gray-300 group-last:border-b;
+  }
+
+  .accordion-content {
+    @apply w-full py-4 px-4 border-t border-gray-300 group-last:border-b;
+  }
+
+  .accordion-content:not(.hidden) {
+    @apply group-last:border-t-0;
+  }
 }
 
 .pagy-nav {
