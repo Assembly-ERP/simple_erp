@@ -32,6 +32,9 @@ class Ability
     can :update_summary, Order
     can :search_results, :order
 
+    # Branding
+    can :manage, Branding
+
     # Support Ticket
     can :manage, SupportTicket
 

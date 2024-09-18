@@ -18,3 +18,5 @@ pin "@stimulus-components/rails-nested-form", to: "@stimulus-components--rails-n
 pin "choices.js" # @11.0.2
 pin "swiper" # @11.1.12
 pin "cropperjs" # @1.6.2
+pin "@stimulus-components/color-picker", to: "@stimulus-components--color-picker.js" # @2.0.0
+pin "@simonwep/pickr", to: "@simonwep--pickr.js" # @1.9.0

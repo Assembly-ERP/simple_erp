@@ -4,7 +4,8 @@ class CreateBrandings < ActiveRecord::Migration[7.1]
   def change
     create_table :brandings do |t|
       t.string :name, null: false
-      t.string :address
+      t.string :street
+      t.string :city
       t.string :state
       t.string :postal_code
       t.string :ein
