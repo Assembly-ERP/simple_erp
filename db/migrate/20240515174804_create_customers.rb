@@ -4,7 +4,8 @@ class CreateCustomers < ActiveRecord::Migration[7.1]
   def change
     create_table :customers do |t|
       t.string :name, null: false
-      t.string :phone, null: false
+      t.string :phone
+      t.string :ein
       t.string :street
       t.string :city
       t.string :state
