@@ -32,9 +32,6 @@ class Ability
     can :update_summary, Order
     can :search_results, :order
 
-    # Branding
-    can :manage, Branding if user.role == 'admin'
-
     # Support Ticket
     can :manage, SupportTicket
 
@@ -43,6 +40,9 @@ class Ability
     can :manage, Customer
     can :manage, Setting
     can :manage, OrderPriceScheduler
+
+    # Branding
+    can :manage, Branding if user.role == 'admin'
   end
 
   def customer_portal(_user)
