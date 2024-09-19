@@ -1,8 +1,8 @@
 !!!
-%html
+%html{style: theme}
   %head
     = render "layouts/head"
-  %body{style: theme}
+  %body
     = render FlashComponent.new
     = render "layouts/operation_navbar"
     %main.margin-max-screen

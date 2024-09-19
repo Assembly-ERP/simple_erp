@@ -56,7 +56,7 @@
             = render "form_image_upload", form: form
     .accordion.group{data: {controller: "accordion", open: "false"}}
       .accordion-btn{type: "button", data: {action: "click->accordion#toggle"}}
-        Custom Attribute
+        Custom Attributes
         = icon("fa-solid", "chevron-down", data: {"accordion-target": "iconDown"})
       .accordion-content{data: {"accordion-target": "content"}, class: "hidden"}
   .block

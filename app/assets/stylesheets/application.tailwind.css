@@ -186,6 +186,7 @@
     @apply bg-green-600/10 border border-green-600 text-green-600 rounded-md w-fit px-3 text-sm;
   }
   
+  /* Accordion */
   .accordion-container {
     @apply bg-white border-x border-gray-300;
   }
@@ -203,6 +204,7 @@
   }
 }
 
+/* Pagy Nav */
 .pagy-nav {
   @apply flex gap-2;
 }
@@ -231,7 +233,7 @@
   @apply text-gray-800;
 }
 
-/* Custom switch toggle*/
+/* Custom switch toggle */
 .switch {
   position: relative;
   display: inline-block;
@@ -285,11 +287,6 @@ input:checked + .slider:before {
   transform: translateX(21px);
 }
 
-/* Dynamic */
-.turbo-progress-bar {
-  @apply bg-[color:var(--primary)];
-}
-
 /* Customize the dialog backdrop */
 dialog {
   box-shadow: 0 0 0 100vw rgb(0 0 0 / 0.2);
@@ -325,4 +322,9 @@ dialog[data-dialog-target='dialog'][closing] {
 
 body:has(dialog[data-dialog-target='dialog'][open]) {
   overflow: hidden
+}
+
+/* Turbo */
+.turbo-progress-bar {
+  background: var(--primary) !important;
 }
