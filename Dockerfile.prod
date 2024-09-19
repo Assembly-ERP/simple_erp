@@ -19,9 +19,11 @@ RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
 # Set working directory
 WORKDIR /app
 
+# Rails ENV
 ENV RAILS_ENV production
 ENV RAILS_SERVE_STATIC_FILES true
 ENV RAILS_LOG_TO_STDOUT true
+ENV BUNDLER_WITHOUT 'development test'
 
 # Copy the rest of the application code
 COPY Gemfile Gemfile.lock   ./
@@ -38,7 +40,11 @@ COPY vendor                 vendor/
 COPY sorbet                 sorbet/
 
 RUN gem install bundler
-RUN bundle install --without development test
+
+# Install gems
+RUN bundle install
+
+# Precompile Assets
 RUN SECRET_KEY_BASE=`bin/rails secret` bin/rake assets:precompile --trace
 
 # Expose port 3000

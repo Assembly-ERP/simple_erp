@@ -1,8 +1,8 @@
 !!!
-%html.min-h-screen
+%html.min-h-screen{style: theme}
   %head
     = render "layouts/head"
-  %body.min-h-screen.flex.flex-col{style: theme}
+  %body.min-h-screen.flex.flex-col
     = render FlashComponent.new
     = render "layouts/navbar"
     %main.flex-1.margin-max-screen.grid
