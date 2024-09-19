@@ -38,6 +38,7 @@ COPY app                    app/
 COPY public                 public/
 COPY vendor                 vendor/
 COPY sorbet                 sorbet/
+COPY Procfile.prod          Procfile.prod
 
 # Install Bundler
 RUN gem install bundler -v 2.5.10
