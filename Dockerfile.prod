@@ -39,7 +39,8 @@ COPY public                 public/
 COPY vendor                 vendor/
 COPY sorbet                 sorbet/
 
-RUN gem install bundler
+# Install Bundler
+RUN gem install bundler -v 2.5.10
 
 # Install gems
 RUN bundle install
