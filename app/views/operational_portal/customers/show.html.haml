@@ -8,6 +8,9 @@
         %strong Address
         = "#{@customer.street}, #{@customer.city}, #{@customer.state}, #{@customer.postal_code}"
       %p.grid
+        %strong EIN
+        = @customer.ein || "N/A"
+      %p.grid
         %strong Phone
         = format_phone_number(@customer.phone)
     .mt-5.flex.gap-3

@@ -80,6 +80,7 @@ Style/WordArray:
 Rails/Output:
   Exclude:
     - "db/seeds.rb"
+    - "db/seeds/**/**"
 
 Rails/I18nLocaleTexts:
   Enabled: false

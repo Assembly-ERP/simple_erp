@@ -3,7 +3,7 @@ name: simple_erp
 services:
   postgres:
     image: "postgres:15.3-bookworm"
-    container_name: erpweb
+    container_name: erpweb-db
     ports:
       - "3010:5432"
     environment:
