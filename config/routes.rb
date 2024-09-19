@@ -59,7 +59,7 @@ Rails.application.routes.draw do
     resources :settings, only: %i[index edit update]
     resources :order_price_schedulers, only: %i[index]
     resources :users
-    resources :brandings, path: 'branding', only: %i[index update]
+    resources :brandings, path: 'branding', only: %i[edit update]
     resources :customers do
       member do
         get :users

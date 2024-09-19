@@ -1,0 +1,9 @@
+- if @branding.errors.blank?
+  = turbo_stream.prepend "notification-container" do
+    = render NotificationComponent.new notif_type: "success", message: "Branding was successfully updated."
+- else 
+  = turbo_stream.prepend "notification-container" do
+    = render NotificationComponent.new notif_type: "error", message: "Branding validation error."
+
+= turbo_stream.replace "branding-form" do
+  = render "form"
