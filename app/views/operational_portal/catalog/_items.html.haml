@@ -1,5 +1,12 @@
-- @items.each do |item|
-  = render "item", item: item
+- if @items.present?
+  - @items.each do |item|
+    = render "item", item: item
+- else
+  .grid.w-full.h-64.place-items-center
+    .flex.flex-col.gap-1.items-center.text-gray-400
+      = icon("fa-solid", "box-open", class: "text-5xl")
+      %span
+        No results
 
 - if @pagy.next
   .flex.w-full.justify-center{id: "catalog-page-#{@pagy.next}"}
