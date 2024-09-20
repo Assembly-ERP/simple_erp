@@ -21,6 +21,15 @@ class ActionController::Base < ::ActionController::Metal
   # source://activesupport/7.1.3.4/lib/active_support/callbacks.rb#70
   def __callbacks?; end
 
+  # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#303
+  def _cancan_skipper; end
+
+  # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#303
+  def _cancan_skipper=(_arg0); end
+
+  # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#303
+  def _cancan_skipper?; end
+
   # source://actionpack/7.1.3.4/lib/abstract_controller/helpers.rb#12
   def _helper_methods; end
 
@@ -295,6 +304,15 @@ class ActionController::Base < ::ActionController::Metal
 
     # source://activesupport/7.1.3.4/lib/active_support/callbacks.rb#70
     def __callbacks?; end
+
+    # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#303
+    def _cancan_skipper; end
+
+    # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#303
+    def _cancan_skipper=(value); end
+
+    # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#303
+    def _cancan_skipper?; end
 
     # source://actionpack/7.1.3.4/lib/action_controller/form_builder.rb#33
     def _default_form_builder; end
@@ -601,6 +619,12 @@ module ActionController::Base::HelperMethods
   # source://actionpack/7.1.3.4/lib/action_controller/metal/flash.rb#39
   def alert(*args, **_arg1, &block); end
 
+  # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#302
+  def can?(*args, **_arg1, &block); end
+
+  # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#302
+  def cannot?(*args, **_arg1, &block); end
+
   # source://actionpack/7.1.3.4/lib/abstract_controller/caching/fragments.rb#33
   def combined_fragment_cache_key(*args, **_arg1, &block); end
 
@@ -612,6 +636,9 @@ module ActionController::Base::HelperMethods
 
   # source://actionpack/7.1.3.4/lib/action_controller/metal/cookies.rb#8
   def cookies(*args, **_arg1, &block); end
+
+  # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#302
+  def current_ability(*args, **_arg1, &block); end
 
   # source://devise/4.9.4/lib/devise/controllers/helpers.rb#13
   def devise_controller?(*args, **_arg1, &block); end

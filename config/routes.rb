@@ -1,9 +1,10 @@
+# typed: ignore
+
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
-    username == ENV.fetch('SIDEKIQ_USER', 'sidekiq') &&
-      password == ENV.fetch('SIDEKIQ_PASSWORD', 'password')
+    username == ENV.fetch('SIDEKIQ_PASSWORD', 'sidekiq') && password == ENV.fetch('SIDEKIQ_PASSWORD', 'sidekiq')
   end
 
   mount Sidekiq::Web => '/sidekiq'

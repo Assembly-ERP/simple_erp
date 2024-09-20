@@ -21,6 +21,15 @@ class ActionController::Base < ::ActionController::Metal
   # source://activesupport/7.1.3.4/lib/active_support/callbacks.rb#70
   def __callbacks?; end
 
+  # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#303
+  def _cancan_skipper; end
+
+  # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#303
+  def _cancan_skipper=(_arg0); end
+
+  # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#303
+  def _cancan_skipper?; end
+
   # source://actionpack/7.1.3.4/lib/abstract_controller/helpers.rb#12
   def _helper_methods; end
 
@@ -295,6 +304,15 @@ class ActionController::Base < ::ActionController::Metal
 
     # source://activesupport/7.1.3.4/lib/active_support/callbacks.rb#70
     def __callbacks?; end
+
+    # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#303
+    def _cancan_skipper; end
+
+    # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#303
+    def _cancan_skipper=(value); end
+
+    # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#303
+    def _cancan_skipper?; end
 
     # source://actionpack/7.1.3.4/lib/action_controller/form_builder.rb#33
     def _default_form_builder; end
