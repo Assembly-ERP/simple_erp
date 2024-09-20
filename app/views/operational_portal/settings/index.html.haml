@@ -18,7 +18,7 @@
         = turbo_frame_tag "order_price_schedulers", src: operational_portal_order_price_schedulers_path, loading: :lazy do
           .flex.items-center.justify-center.w-full
             = icon("fa-solid", "spinner", class: "animate-spin text-4xl text-gray-400")
-    - if current_user.role == "admin" 
+    - if can?(:manage, Branding.client) 
       .accordion.group{data: {controller: "accordion", open: params[:accordion]&.include?("branding") ? "true" : "false"}}
         .accordion-btn{type: "button", data: {action: "click->accordion#toggle"}}
           Branding
