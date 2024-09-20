@@ -8233,6 +8233,8 @@ class ActiveRecord::Base
   include ::ActiveRecord::Suppressor
   include ::ActiveRecord::Normalization
   include ::ActiveRecord::Marshalling::Methods
+  include ::CanCan::ModelAdditions
+  include ::ActiveStorageValidations
   include ::ActiveStorage::Attached::Model
   include ::ActiveStorage::Reflection::ActiveRecordExtensions
   include ::ActionText::Attribute
@@ -8296,6 +8298,7 @@ class ActiveRecord::Base
   extend ::ActiveRecord::Suppressor::ClassMethods
   extend ::ActiveRecord::Normalization::ClassMethods
   extend ::OrmAdapter::ToAdapter
+  extend ::CanCan::ModelAdditions::ClassMethods
   extend ::ActiveStorage::Attached::Model::ClassMethods
   extend ::ActiveStorage::Reflection::ActiveRecordExtensions::ClassMethods
   extend ::ActionText::Attribute::ClassMethods

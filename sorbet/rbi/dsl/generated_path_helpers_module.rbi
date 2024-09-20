@@ -73,6 +73,9 @@ module GeneratedPathHelpersModule
   def edit_customer_portal_support_ticket_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def edit_operational_portal_branding_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def edit_operational_portal_customer_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -110,6 +113,9 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def new_customer_portal_support_ticket_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def new_operational_portal_customer_import_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def new_operational_portal_customer_path(*args); end
@@ -154,10 +160,16 @@ module GeneratedPathHelpersModule
   def new_user_session_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def operational_portal_branding_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def operational_portal_cart_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def operational_portal_catalog_index_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def operational_portal_customer_imports_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def operational_portal_customer_path(*args); end
@@ -328,6 +340,9 @@ module GeneratedPathHelpersModule
   def search_results_operational_portal_orders_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def sidekiq_web_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def turbo_recede_historical_location_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -338,6 +353,9 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def update_rails_disk_service_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def update_summary_operational_portal_order_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def upload_file_operational_portal_part_path(*args); end

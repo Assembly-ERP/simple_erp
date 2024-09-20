@@ -1302,6 +1302,291 @@ end
 # source://activesupport//lib/active_support/cache.rb#41
 ActiveSupport::Cache::OPTION_ALIASES = T.let(T.unsafe(nil), Hash)
 
+# = Redis \Cache \Store
+#
+# Deployment note: Take care to use a <b>dedicated Redis cache</b> rather
+# than pointing this at a persistent Redis server (for example, one used as
+# an Active Job queue). Redis won't cope well with mixed usage patterns and it
+# won't expire cache entries by default.
+#
+# Redis cache server setup guide: https://redis.io/topics/lru-cache
+#
+# * Supports vanilla Redis, hiredis, and +Redis::Distributed+.
+# * Supports Memcached-like sharding across Redises with +Redis::Distributed+.
+# * Fault tolerant. If the Redis server is unavailable, no exceptions are
+#   raised. Cache fetches are all misses and writes are dropped.
+# * Local cache. Hot in-memory primary cache within block/middleware scope.
+# * +read_multi+ and +write_multi+ support for Redis mget/mset. Use
+#   +Redis::Distributed+ 4.0.1+ for distributed mget support.
+# * +delete_matched+ support for Redis KEYS globs.
+#
+# source://activesupport//lib/active_support/cache/redis_cache_store.rb#37
+class ActiveSupport::Cache::RedisCacheStore < ::ActiveSupport::Cache::Store
+  include ::ActiveSupport::Cache::Strategy::LocalCache
+
+  # Creates a new Redis cache store.
+  #
+  # There are four ways to provide the Redis client used by the cache: the
+  # +:redis+ param can be a Redis instance or a block that returns a Redis
+  # instance, or the +:url+ param can be a string or an array of strings
+  # which will be used to create a Redis instance or a +Redis::Distributed+
+  # instance.
+  #
+  #   Option  Class       Result
+  #   :redis  Proc    ->  options[:redis].call
+  #   :redis  Object  ->  options[:redis]
+  #   :url    String  ->  Redis.new(url: …)
+  #   :url    Array   ->  Redis::Distributed.new([{ url: … }, { url: … }, …])
+  #
+  # No namespace is set by default. Provide one if the Redis cache
+  # server is shared with other apps: <tt>namespace: 'myapp-cache'</tt>.
+  #
+  # Compression is enabled by default with a 1kB threshold, so cached
+  # values larger than 1kB are automatically compressed. Disable by
+  # passing <tt>compress: false</tt> or change the threshold by passing
+  # <tt>compress_threshold: 4.kilobytes</tt>.
+  #
+  # No expiry is set on cache entries by default. Redis is expected to
+  # be configured with an eviction policy that automatically deletes
+  # least-recently or -frequently used keys when it reaches max memory.
+  # See https://redis.io/topics/lru-cache for cache server setup.
+  #
+  # Race condition TTL is not set by default. This can be used to avoid
+  # "thundering herd" cache writes when hot cache entries are expired.
+  # See ActiveSupport::Cache::Store#fetch for more.
+  #
+  # Setting <tt>skip_nil: true</tt> will not cache nil results:
+  #
+  #   cache.fetch('foo') { nil }
+  #   cache.fetch('bar', skip_nil: true) { nil }
+  #   cache.exist?('foo') # => true
+  #   cache.exist?('bar') # => false
+  #
+  # @return [RedisCacheStore] a new instance of RedisCacheStore
+  #
+  # source://activesupport//lib/active_support/cache/redis_cache_store.rb#149
+  def initialize(error_handler: T.unsafe(nil), **redis_options); end
+
+  # Cache Store API implementation.
+  #
+  # Removes expired entries. Handled natively by Redis least-recently-/
+  # least-frequently-used expiry, so manual cleanup is not supported.
+  #
+  # source://activesupport//lib/active_support/cache/strategy/local_cache.rb#85
+  def cleanup(options = T.unsafe(nil)); end
+
+  # Clear the entire cache on all Redis servers. Safe to use on
+  # shared servers if the cache is namespaced.
+  #
+  # Failsafe: Raises errors.
+  #
+  # source://activesupport//lib/active_support/cache/strategy/local_cache.rb#79
+  def clear(options = T.unsafe(nil)); end
+
+  # Decrement a cached integer value using the Redis decrby atomic operator.
+  # Returns the updated value.
+  #
+  # If the key is unset or has expired, it will be set to +-amount+:
+  #
+  #   cache.decrement("foo") # => -1
+  #
+  # To set a specific value, call #write passing <tt>raw: true</tt>:
+  #
+  #   cache.write("baz", 5, raw: true)
+  #   cache.decrement("baz") # => 4
+  #
+  # Decrementing a non-numeric value, or a value written without
+  # <tt>raw: true</tt>, will fail and return +nil+.
+  #
+  # Failsafe: Raises errors.
+  #
+  # source://activesupport//lib/active_support/cache/strategy/local_cache.rb#108
+  def decrement(name, amount = T.unsafe(nil), options = T.unsafe(nil)); end
+
+  # Cache Store API implementation.
+  #
+  # Supports Redis KEYS glob patterns:
+  #
+  #   h?llo matches hello, hallo and hxllo
+  #   h*llo matches hllo and heeeello
+  #   h[ae]llo matches hello and hallo, but not hillo
+  #   h[^e]llo matches hallo, hbllo, ... but not hello
+  #   h[a-b]llo matches hallo and hbllo
+  #
+  # Use \ to escape special characters if you want to match them verbatim.
+  #
+  # See https://redis.io/commands/KEYS for more.
+  #
+  # Failsafe: Raises errors.
+  #
+  # source://activesupport//lib/active_support/cache/strategy/local_cache.rb#91
+  def delete_matched(matcher, options = T.unsafe(nil)); end
+
+  # Increment a cached integer value using the Redis incrby atomic operator.
+  # Returns the updated value.
+  #
+  # If the key is unset or has expired, it will be set to +amount+:
+  #
+  #   cache.increment("foo") # => 1
+  #   cache.increment("bar", 100) # => 100
+  #
+  # To set a specific value, call #write passing <tt>raw: true</tt>:
+  #
+  #   cache.write("baz", 5, raw: true)
+  #   cache.increment("baz") # => 6
+  #
+  # Incrementing a non-numeric value, or a value written without
+  # <tt>raw: true</tt>, will fail and return +nil+.
+  #
+  # Failsafe: Raises errors.
+  #
+  # source://activesupport//lib/active_support/cache/strategy/local_cache.rb#97
+  def increment(name, amount = T.unsafe(nil), options = T.unsafe(nil)); end
+
+  # source://activesupport//lib/active_support/cache/redis_cache_store.rb#164
+  def inspect; end
+
+  # Returns the value of attribute max_key_bytesize.
+  #
+  # source://activesupport//lib/active_support/cache/redis_cache_store.rb#109
+  def max_key_bytesize; end
+
+  # Cache Store API implementation.
+  #
+  # Read multiple values at once. Returns a hash of requested keys ->
+  # fetched values.
+  #
+  # source://activesupport//lib/active_support/cache/redis_cache_store.rb#172
+  def read_multi(*names); end
+
+  # Returns the value of attribute redis.
+  #
+  # source://activesupport//lib/active_support/cache/redis_cache_store.rb#110
+  def redis; end
+
+  # Get info from redis servers.
+  #
+  # source://activesupport//lib/active_support/cache/redis_cache_store.rb#295
+  def stats; end
+
+  private
+
+  # source://activesupport//lib/active_support/cache/redis_cache_store.rb#444
+  def change_counter(key, amount, options); end
+
+  # Delete an entry from the cache.
+  #
+  # source://activesupport//lib/active_support/cache/strategy/local_cache.rb#162
+  def delete_entry(key, **_arg1); end
+
+  # Deletes multiple entries in the cache. Returns the number of entries deleted.
+  #
+  # source://activesupport//lib/active_support/cache/redis_cache_store.rb#386
+  def delete_multi_entries(entries, **_options); end
+
+  # source://activesupport//lib/active_support/cache/redis_cache_store.rb#422
+  def deserialize_entry(payload, raw: T.unsafe(nil), **_arg2); end
+
+  # source://activesupport//lib/active_support/cache/redis_cache_store.rb#478
+  def failsafe(method, returning: T.unsafe(nil)); end
+
+  # Truncate keys that exceed 1kB.
+  #
+  # source://activesupport//lib/active_support/cache/redis_cache_store.rb#408
+  def normalize_key(key, options); end
+
+  # source://activesupport//lib/active_support/cache/redis_cache_store.rb#300
+  def pipeline_entries(entries, &block); end
+
+  # Store provider interface:
+  # Read an entry from the cache.
+  #
+  # source://activesupport//lib/active_support/cache/redis_cache_store.rb#314
+  def read_entry(key, **options); end
+
+  # source://activesupport//lib/active_support/cache/strategy/local_cache.rb#134
+  def read_multi_entries(names, **options); end
+
+  # source://activesupport//lib/active_support/cache/strategy/local_cache.rb#120
+  def read_serialized_entry(key, raw: T.unsafe(nil), **options); end
+
+  # source://activesupport//lib/active_support/cache/redis_cache_store.rb#438
+  def serialize_entries(entries, **options); end
+
+  # source://activesupport//lib/active_support/cache/redis_cache_store.rb#430
+  def serialize_entry(entry, raw: T.unsafe(nil), **options); end
+
+  # @return [Boolean]
+  #
+  # source://activesupport//lib/active_support/cache/redis_cache_store.rb#471
+  def supports_expire_nx?; end
+
+  # source://activesupport//lib/active_support/cache/redis_cache_store.rb#412
+  def truncate_key(key); end
+
+  # Write an entry to the cache.
+  #
+  # Requires Redis 2.6.12+ for extended SET options.
+  #
+  # source://activesupport//lib/active_support/cache/redis_cache_store.rb#351
+  def write_entry(key, entry, raw: T.unsafe(nil), **options); end
+
+  # Nonstandard store provider API to write multiple values at once.
+  #
+  # source://activesupport//lib/active_support/cache/redis_cache_store.rb#393
+  def write_multi_entries(entries, **options); end
+
+  # source://activesupport//lib/active_support/cache/strategy/local_cache.rb#153
+  def write_serialized_entry(key, payload, **_arg2); end
+
+  class << self
+    # Factory method to create a new Redis instance.
+    #
+    # Handles four options: :redis block, :redis instance, single :url
+    # string, and multiple :url strings.
+    #
+    #   Option  Class       Result
+    #   :redis  Proc    ->  options[:redis].call
+    #   :redis  Object  ->  options[:redis]
+    #   :url    String  ->  Redis.new(url: …)
+    #   :url    Array   ->  Redis::Distributed.new([{ url: … }, { url: … }, …])
+    #
+    # source://activesupport//lib/active_support/cache/redis_cache_store.rb#81
+    def build_redis(redis: T.unsafe(nil), url: T.unsafe(nil), **redis_options); end
+
+    # Advertise cache versioning support.
+    #
+    # @return [Boolean]
+    #
+    # source://activesupport//lib/active_support/cache/redis_cache_store.rb#63
+    def supports_cache_versioning?; end
+
+    private
+
+    # source://activesupport//lib/active_support/cache/redis_cache_store.rb#104
+    def build_redis_client(**redis_options); end
+
+    # source://activesupport//lib/active_support/cache/redis_cache_store.rb#98
+    def build_redis_distributed_client(urls:, **redis_options); end
+  end
+end
+
+# source://activesupport//lib/active_support/cache/redis_cache_store.rb#47
+ActiveSupport::Cache::RedisCacheStore::DEFAULT_ERROR_HANDLER = T.let(T.unsafe(nil), Proc)
+
+# source://activesupport//lib/active_support/cache/redis_cache_store.rb#41
+ActiveSupport::Cache::RedisCacheStore::DEFAULT_REDIS_OPTIONS = T.let(T.unsafe(nil), Hash)
+
+# Keys are truncated with the Active Support digest if they exceed 1kB
+#
+# source://activesupport//lib/active_support/cache/redis_cache_store.rb#39
+ActiveSupport::Cache::RedisCacheStore::MAX_KEY_BYTESIZE = T.let(T.unsafe(nil), Integer)
+
+# The maximum number of entries to receive per SCAN call.
+#
+# source://activesupport//lib/active_support/cache/redis_cache_store.rb#59
+ActiveSupport::Cache::RedisCacheStore::SCAN_BATCH_SIZE = T.let(T.unsafe(nil), Integer)
+
 # source://activesupport//lib/active_support/cache/serializer_with_fallback.rb#8
 module ActiveSupport::Cache::SerializerWithFallback
   # source://activesupport//lib/active_support/cache/serializer_with_fallback.rb#17
@@ -19534,6 +19819,8 @@ class Pathname
 end
 
 module Process
+  extend ::RedisClient::PIDCache::CoreExt
+  extend ::ConnectionPool::ForkTracker
   extend ::ActiveSupport::ForkTracker::ModernCoreExt
 
   class << self

@@ -123,3 +123,6 @@ gem 'sendgrid-ruby'
 
 # Action mailer css
 gem 'premailer-rails'
+
+# Background Job
+gem 'sidekiq', '~> 7.3'

@@ -320,6 +320,9 @@ class ActionDispatch::Routing::Mapper
   # source://devise//lib/devise/rails/routes.rb#390
   def devise_confirmation(mapping, controllers); end
 
+  # source://devise_invitable/2.0.9/lib/devise_invitable/routes.rb#6
+  def devise_invitation(mapping, controllers); end
+
   # source://devise//lib/devise/rails/routes.rb#421
   def devise_omniauth_callback(mapping, controllers); end
 
@@ -543,6 +546,12 @@ end
 
 # source://devise//lib/devise.rb#11
 module Devise
+  # source://devise_invitable/2.0.9/lib/devise_invitable.rb#78
+  def allow_insecure_sign_in_after_accept; end
+
+  # source://devise_invitable/2.0.9/lib/devise_invitable.rb#78
+  def allow_insecure_sign_in_after_accept=(val); end
+
   # source://devise//lib/devise.rb#138
   def allow_unconfirmed_access_for; end
 
@@ -629,6 +638,42 @@ module Devise
 
   # source://devise//lib/devise.rb#111
   def http_authentication_realm=(val); end
+
+  # source://devise_invitable/2.0.9/lib/devise_invitable.rb#40
+  def invitation_limit; end
+
+  # source://devise_invitable/2.0.9/lib/devise_invitable.rb#40
+  def invitation_limit=(val); end
+
+  # source://devise_invitable/2.0.9/lib/devise_invitable.rb#22
+  def invite_for; end
+
+  # source://devise_invitable/2.0.9/lib/devise_invitable.rb#22
+  def invite_for=(val); end
+
+  # source://devise_invitable/2.0.9/lib/devise_invitable.rb#49
+  def invite_key; end
+
+  # source://devise_invitable/2.0.9/lib/devise_invitable.rb#49
+  def invite_key=(val); end
+
+  # source://devise_invitable/2.0.9/lib/devise_invitable.rb#63
+  def invited_by_class_name; end
+
+  # source://devise_invitable/2.0.9/lib/devise_invitable.rb#63
+  def invited_by_class_name=(val); end
+
+  # source://devise_invitable/2.0.9/lib/devise_invitable.rb#73
+  def invited_by_counter_cache; end
+
+  # source://devise_invitable/2.0.9/lib/devise_invitable.rb#73
+  def invited_by_counter_cache=(val); end
+
+  # source://devise_invitable/2.0.9/lib/devise_invitable.rb#68
+  def invited_by_foreign_key; end
+
+  # source://devise_invitable/2.0.9/lib/devise_invitable.rb#68
+  def invited_by_foreign_key=(val); end
 
   # source://devise//lib/devise.rb#300
   def last_attempt_warning; end
@@ -737,6 +782,18 @@ module Devise
 
   # source://devise//lib/devise.rb#87
   def request_keys=(val); end
+
+  # source://devise_invitable/2.0.9/lib/devise_invitable.rb#84
+  def require_password_on_accepting; end
+
+  # source://devise_invitable/2.0.9/lib/devise_invitable.rb#84
+  def require_password_on_accepting=(val); end
+
+  # source://devise_invitable/2.0.9/lib/devise_invitable.rb#58
+  def resend_invitation; end
+
+  # source://devise_invitable/2.0.9/lib/devise_invitable.rb#58
+  def resend_invitation=(val); end
 
   # source://devise//lib/devise.rb#197
   def reset_password_keys; end
@@ -858,6 +915,12 @@ module Devise
   # source://devise//lib/devise.rb#185
   def unlock_strategy=(val); end
 
+  # source://devise_invitable/2.0.9/lib/devise_invitable.rb#32
+  def validate_on_invite; end
+
+  # source://devise_invitable/2.0.9/lib/devise_invitable.rb#32
+  def validate_on_invite=(val); end
+
   # source://devise//lib/devise.rb#291
   def warden_config; end
 
@@ -902,6 +965,12 @@ module Devise
     #
     # source://devise//lib/devise.rb#393
     def add_module(module_name, options = T.unsafe(nil)); end
+
+    # source://devise_invitable/2.0.9/lib/devise_invitable.rb#78
+    def allow_insecure_sign_in_after_accept; end
+
+    # source://devise_invitable/2.0.9/lib/devise_invitable.rb#78
+    def allow_insecure_sign_in_after_accept=(val); end
 
     # source://devise//lib/devise.rb#138
     def allow_unconfirmed_access_for; end
@@ -1012,6 +1081,42 @@ module Devise
     #
     # source://devise//lib/devise.rb#463
     def include_helpers(scope); end
+
+    # source://devise_invitable/2.0.9/lib/devise_invitable.rb#40
+    def invitation_limit; end
+
+    # source://devise_invitable/2.0.9/lib/devise_invitable.rb#40
+    def invitation_limit=(val); end
+
+    # source://devise_invitable/2.0.9/lib/devise_invitable.rb#22
+    def invite_for; end
+
+    # source://devise_invitable/2.0.9/lib/devise_invitable.rb#22
+    def invite_for=(val); end
+
+    # source://devise_invitable/2.0.9/lib/devise_invitable.rb#49
+    def invite_key; end
+
+    # source://devise_invitable/2.0.9/lib/devise_invitable.rb#49
+    def invite_key=(val); end
+
+    # source://devise_invitable/2.0.9/lib/devise_invitable.rb#63
+    def invited_by_class_name; end
+
+    # source://devise_invitable/2.0.9/lib/devise_invitable.rb#63
+    def invited_by_class_name=(val); end
+
+    # source://devise_invitable/2.0.9/lib/devise_invitable.rb#73
+    def invited_by_counter_cache; end
+
+    # source://devise_invitable/2.0.9/lib/devise_invitable.rb#73
+    def invited_by_counter_cache=(val); end
+
+    # source://devise_invitable/2.0.9/lib/devise_invitable.rb#68
+    def invited_by_foreign_key; end
+
+    # source://devise_invitable/2.0.9/lib/devise_invitable.rb#68
+    def invited_by_foreign_key=(val); end
 
     # source://devise//lib/devise.rb#300
     def last_attempt_warning; end
@@ -1149,6 +1254,18 @@ module Devise
     # source://devise//lib/devise.rb#87
     def request_keys=(val); end
 
+    # source://devise_invitable/2.0.9/lib/devise_invitable.rb#84
+    def require_password_on_accepting; end
+
+    # source://devise_invitable/2.0.9/lib/devise_invitable.rb#84
+    def require_password_on_accepting=(val); end
+
+    # source://devise_invitable/2.0.9/lib/devise_invitable.rb#58
+    def resend_invitation; end
+
+    # source://devise_invitable/2.0.9/lib/devise_invitable.rb#58
+    def resend_invitation=(val); end
+
     # source://devise//lib/devise.rb#197
     def reset_password_keys; end
 
@@ -1282,6 +1399,12 @@ module Devise
 
     # source://devise//lib/devise.rb#185
     def unlock_strategy=(val); end
+
+    # source://devise_invitable/2.0.9/lib/devise_invitable.rb#32
+    def validate_on_invite; end
+
+    # source://devise_invitable/2.0.9/lib/devise_invitable.rb#32
+    def validate_on_invite=(val); end
 
     # Sets warden configuration using a block that will be invoked on warden
     # initialization.
@@ -1724,6 +1847,12 @@ end
 # source://devise//lib/devise/controllers/url_helpers.rb#30
 module Devise::Controllers::UrlHelpers
   # source://devise//lib/devise/controllers/url_helpers.rb#49
+  def accept_invitation_path(resource_or_scope, *args); end
+
+  # source://devise//lib/devise/controllers/url_helpers.rb#49
+  def accept_invitation_url(resource_or_scope, *args); end
+
+  # source://devise//lib/devise/controllers/url_helpers.rb#49
   def cancel_registration_path(resource_or_scope, *args); end
 
   # source://devise//lib/devise/controllers/url_helpers.rb#49
@@ -1754,10 +1883,22 @@ module Devise::Controllers::UrlHelpers
   def edit_registration_url(resource_or_scope, *args); end
 
   # source://devise//lib/devise/controllers/url_helpers.rb#49
+  def invitation_path(resource_or_scope, *args); end
+
+  # source://devise//lib/devise/controllers/url_helpers.rb#49
+  def invitation_url(resource_or_scope, *args); end
+
+  # source://devise//lib/devise/controllers/url_helpers.rb#49
   def new_confirmation_path(resource_or_scope, *args); end
 
   # source://devise//lib/devise/controllers/url_helpers.rb#49
   def new_confirmation_url(resource_or_scope, *args); end
+
+  # source://devise//lib/devise/controllers/url_helpers.rb#49
+  def new_invitation_path(resource_or_scope, *args); end
+
+  # source://devise//lib/devise/controllers/url_helpers.rb#49
+  def new_invitation_url(resource_or_scope, *args); end
 
   # source://devise//lib/devise/controllers/url_helpers.rb#49
   def new_password_path(resource_or_scope, *args); end
@@ -2285,6 +2426,9 @@ class Devise::Mapping
 
   # source://devise//lib/devise/mapping.rb#102
   def fullpath; end
+
+  # source://devise//lib/devise/mapping.rb#115
+  def invitable?; end
 
   # source://devise//lib/devise/mapping.rb#115
   def lockable?; end
@@ -4680,6 +4824,9 @@ end
 
 # source://devise//lib/devise.rb#58
 Devise::URL_HELPERS = T.let(T.unsafe(nil), Hash)
+
+# source://devise//lib/devise/version.rb#4
+Devise::VERSION = T.let(T.unsafe(nil), String)
 
 module DeviseHelper
   def devise_error_messages!; end

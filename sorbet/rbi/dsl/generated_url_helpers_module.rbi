@@ -73,6 +73,9 @@ module GeneratedUrlHelpersModule
   def edit_customer_portal_support_ticket_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def edit_operational_portal_branding_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def edit_operational_portal_customer_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -110,6 +113,9 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def new_customer_portal_support_ticket_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def new_operational_portal_customer_import_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def new_operational_portal_customer_url(*args); end
@@ -154,10 +160,16 @@ module GeneratedUrlHelpersModule
   def new_user_session_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def operational_portal_branding_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def operational_portal_cart_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def operational_portal_catalog_index_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def operational_portal_customer_imports_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def operational_portal_customer_url(*args); end
@@ -328,6 +340,9 @@ module GeneratedUrlHelpersModule
   def search_results_operational_portal_orders_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def sidekiq_web_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def turbo_recede_historical_location_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -338,6 +353,9 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def update_rails_disk_service_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def update_summary_operational_portal_order_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def upload_file_operational_portal_part_url(*args); end

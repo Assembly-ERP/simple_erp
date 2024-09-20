@@ -1,4 +1,14 @@
+# typed: ignore
+
+require 'sidekiq/web'
+
 Rails.application.routes.draw do
+  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+    username == ENV.fetch('SIDEKIQ_PASSWORD', 'sidekiq') && password == ENV.fetch('SIDEKIQ_PASSWORD', 'sidekiq')
+  end
+
+  mount Sidekiq::Web => '/sidekiq'
+
   unauthenticated :user do
     root 'home#index'
   end
@@ -56,6 +66,7 @@ Rails.application.routes.draw do
         get :form_user_selection
       end
     end
+    resources :customer_imports, only: %i[index new create]
     resources :settings, only: %i[index edit update]
     resources :order_price_schedulers, only: %i[index]
     resources :users
@@ -98,6 +109,7 @@ end
 # == Route Map
 #
 #                                                 Prefix Verb   URI Pattern                                                                                       Controller#Action
+#                                            sidekiq_web        /sidekiq                                                                                          Sidekiq::Web
 #                                                   root GET    /                                                                                                 home#index
 #                                                        GET    /                                                                                                 redirect(301, /operational_portal)
 #                                                        GET    /                                                                                                 redirect(301, /customer)
@@ -184,7 +196,7 @@ end
 #                                                        PATCH  /operational_portal/users/:id(.:format)                                                           operational_portal/users#update
 #                                                        PUT    /operational_portal/users/:id(.:format)                                                           operational_portal/users#update
 #                                                        DELETE /operational_portal/users/:id(.:format)                                                           operational_portal/users#destroy
-#                           operational_portal_brandings GET    /operational_portal/branding(.:format)                                                            operational_portal/brandings#index
+#                       edit_operational_portal_branding GET    /operational_portal/branding/:id/edit(.:format)                                                   operational_portal/brandings#edit
 #                            operational_portal_branding PATCH  /operational_portal/branding/:id(.:format)                                                        operational_portal/brandings#update
 #                                                        PUT    /operational_portal/branding/:id(.:format)                                                        operational_portal/brandings#update
 #                      users_operational_portal_customer GET    /operational_portal/customers/:id/users(.:format)                                                 operational_portal/customers#users
