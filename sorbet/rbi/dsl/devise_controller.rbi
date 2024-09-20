@@ -28,6 +28,7 @@ class DeviseController
     include ::Api::V1::PartsHelper
     include ::Api::V1::SupportTicketsHelper
     include ::CartsHelper
+    include ::CatalogHelper
     include ::CustomerUsers::RegistrationsHelper
     include ::CustomersHelper
     include ::DashboardHelper

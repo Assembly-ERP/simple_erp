@@ -31,6 +31,7 @@ class Rails::Conductor::BaseController
     include ::Pagy::Frontend
     include ::ApplicationHelper
     include ::CartsHelper
+    include ::CatalogHelper
     include ::CustomerUsers::RegistrationsHelper
     include ::CustomersHelper
     include ::DashboardHelper

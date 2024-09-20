@@ -512,6 +512,96 @@ class Setting
   end
 
   module GeneratedAttributeMethods
+    sig { returns(T::Boolean) }
+    def active; end
+
+    sig { params(value: T::Boolean).returns(T::Boolean) }
+    def active=(value); end
+
+    sig { returns(T::Boolean) }
+    def active?; end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def active_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def active_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def active_came_from_user?; end
+
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def active_change; end
+
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def active_change_to_be_saved; end
+
+    sig { params(from: T::Boolean, to: T::Boolean).returns(T::Boolean) }
+    def active_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def active_in_database; end
+
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def active_previous_change; end
+
+    sig { params(from: T::Boolean, to: T::Boolean).returns(T::Boolean) }
+    def active_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def active_previously_was; end
+
+    sig { returns(T.nilable(T::Boolean)) }
+    def active_was; end
+
+    sig { void }
+    def active_will_change!; end
+
+    sig { returns(::String) }
+    def code; end
+
+    sig { params(value: ::String).returns(::String) }
+    def code=(value); end
+
+    sig { returns(T::Boolean) }
+    def code?; end
+
+    sig { returns(T.nilable(::String)) }
+    def code_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def code_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def code_came_from_user?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def code_change; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def code_change_to_be_saved; end
+
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def code_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def code_in_database; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def code_previous_change; end
+
+    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    def code_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def code_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def code_was; end
+
+    sig { void }
+    def code_will_change!; end
+
     sig { returns(::ActiveSupport::TimeWithZone) }
     def created_at; end
 
@@ -693,6 +783,12 @@ class Setting
     def key_will_change!; end
 
     sig { void }
+    def restore_active!; end
+
+    sig { void }
+    def restore_code!; end
+
+    sig { void }
     def restore_created_at!; end
 
     sig { void }
@@ -709,6 +805,18 @@ class Setting
 
     sig { void }
     def restore_value!; end
+
+    sig { returns(T.nilable([T::Boolean, T::Boolean])) }
+    def saved_change_to_active; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_active?; end
+
+    sig { returns(T.nilable([::String, ::String])) }
+    def saved_change_to_code; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_code?; end
 
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def saved_change_to_created_at; end
@@ -740,7 +848,7 @@ class Setting
     sig { returns(T::Boolean) }
     def saved_change_to_updated_at?; end
 
-    sig { returns(T.nilable([::String, ::String])) }
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
     def saved_change_to_value; end
 
     sig { returns(T::Boolean) }
@@ -791,16 +899,16 @@ class Setting
     sig { void }
     def updated_at_will_change!; end
 
-    sig { returns(::String) }
+    sig { returns(T.nilable(::BigDecimal)) }
     def value; end
 
-    sig { params(value: ::String).returns(::String) }
+    sig { params(value: T.nilable(::BigDecimal)).returns(T.nilable(::BigDecimal)) }
     def value=(value); end
 
     sig { returns(T::Boolean) }
     def value?; end
 
-    sig { returns(T.nilable(::String)) }
+    sig { returns(T.nilable(::BigDecimal)) }
     def value_before_last_save; end
 
     sig { returns(T.untyped) }
@@ -809,32 +917,38 @@ class Setting
     sig { returns(T::Boolean) }
     def value_came_from_user?; end
 
-    sig { returns(T.nilable([::String, ::String])) }
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
     def value_change; end
 
-    sig { returns(T.nilable([::String, ::String])) }
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
     def value_change_to_be_saved; end
 
-    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    sig { params(from: T.nilable(::BigDecimal), to: T.nilable(::BigDecimal)).returns(T::Boolean) }
     def value_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
-    sig { returns(T.nilable(::String)) }
+    sig { returns(T.nilable(::BigDecimal)) }
     def value_in_database; end
 
-    sig { returns(T.nilable([::String, ::String])) }
+    sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
     def value_previous_change; end
 
-    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    sig { params(from: T.nilable(::BigDecimal), to: T.nilable(::BigDecimal)).returns(T::Boolean) }
     def value_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
-    sig { returns(T.nilable(::String)) }
+    sig { returns(T.nilable(::BigDecimal)) }
     def value_previously_was; end
 
-    sig { returns(T.nilable(::String)) }
+    sig { returns(T.nilable(::BigDecimal)) }
     def value_was; end
 
     sig { void }
     def value_will_change!; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_active?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_code?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_created_at?; end
