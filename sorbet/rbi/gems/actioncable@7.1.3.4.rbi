@@ -2876,6 +2876,107 @@ class ActionCable::SubscriptionAdapter::PostgreSQL::Listener < ::ActionCable::Su
   def shutdown; end
 end
 
+# source://actioncable//lib/action_cable/subscription_adapter/redis.rb#10
+class ActionCable::SubscriptionAdapter::Redis < ::ActionCable::SubscriptionAdapter::Base
+  include ::ActionCable::SubscriptionAdapter::ChannelPrefix
+
+  # @return [Redis] a new instance of Redis
+  #
+  # source://actioncable//lib/action_cable/subscription_adapter/redis.rb#19
+  def initialize(*_arg0); end
+
+  # source://actioncable//lib/action_cable/subscription_adapter/channel_prefix.rb#6
+  def broadcast(channel, payload); end
+
+  # source://actioncable//lib/action_cable/subscription_adapter/redis.rb#41
+  def redis_connection_for_subscriptions; end
+
+  # source://actioncable//lib/action_cable/subscription_adapter/redis.rb#15
+  def redis_connector; end
+
+  # source://actioncable//lib/action_cable/subscription_adapter/redis.rb#15
+  def redis_connector=(val); end
+
+  # source://actioncable//lib/action_cable/subscription_adapter/redis.rb#37
+  def shutdown; end
+
+  # source://actioncable//lib/action_cable/subscription_adapter/channel_prefix.rb#11
+  def subscribe(channel, callback, success_callback = T.unsafe(nil)); end
+
+  # source://actioncable//lib/action_cable/subscription_adapter/channel_prefix.rb#16
+  def unsubscribe(channel, callback); end
+
+  private
+
+  # source://actioncable//lib/action_cable/subscription_adapter/redis.rb#60
+  def config_options; end
+
+  # source://actioncable//lib/action_cable/subscription_adapter/redis.rb#46
+  def listener; end
+
+  # source://actioncable//lib/action_cable/subscription_adapter/redis.rb#56
+  def redis_connection; end
+
+  # source://actioncable//lib/action_cable/subscription_adapter/redis.rb#50
+  def redis_connection_for_broadcasts; end
+
+  class << self
+    # source://actioncable//lib/action_cable/subscription_adapter/redis.rb#15
+    def redis_connector; end
+
+    # source://actioncable//lib/action_cable/subscription_adapter/redis.rb#15
+    def redis_connector=(val); end
+  end
+end
+
+# source://actioncable//lib/action_cable/subscription_adapter/redis.rb#64
+class ActionCable::SubscriptionAdapter::Redis::Listener < ::ActionCable::SubscriptionAdapter::SubscriberMap
+  # @return [Listener] a new instance of Listener
+  #
+  # source://actioncable//lib/action_cable/subscription_adapter/redis.rb#65
+  def initialize(adapter, config_options, event_loop); end
+
+  # source://actioncable//lib/action_cable/subscription_adapter/redis.rb#138
+  def add_channel(channel, on_success); end
+
+  # source://actioncable//lib/action_cable/subscription_adapter/redis.rb#152
+  def invoke_callback(*_arg0); end
+
+  # source://actioncable//lib/action_cable/subscription_adapter/redis.rb#86
+  def listen(conn); end
+
+  # source://actioncable//lib/action_cable/subscription_adapter/redis.rb#146
+  def remove_channel(channel); end
+
+  # source://actioncable//lib/action_cable/subscription_adapter/redis.rb#125
+  def shutdown; end
+
+  private
+
+  # source://actioncable//lib/action_cable/subscription_adapter/redis.rb#157
+  def ensure_listener_running; end
+
+  # source://actioncable//lib/action_cable/subscription_adapter/redis.rb#246
+  def extract_subscribed_client(conn); end
+
+  # source://actioncable//lib/action_cable/subscription_adapter/redis.rb#201
+  def reset; end
+
+  # source://actioncable//lib/action_cable/subscription_adapter/redis.rb#194
+  def resubscribe; end
+
+  # @return [Boolean]
+  #
+  # source://actioncable//lib/action_cable/subscription_adapter/redis.rb#182
+  def retry_connecting?; end
+
+  # source://actioncable//lib/action_cable/subscription_adapter/redis.rb#174
+  def when_connected(&block); end
+end
+
+# source://actioncable//lib/action_cable/subscription_adapter/redis.rb#244
+ActionCable::SubscriptionAdapter::Redis::Listener::ConnectionError = RedisClient::ConnectionError
+
 # source://actioncable//lib/action_cable/subscription_adapter/subscriber_map.rb#5
 class ActionCable::SubscriptionAdapter::SubscriberMap
   # @return [SubscriberMap] a new instance of SubscriberMap

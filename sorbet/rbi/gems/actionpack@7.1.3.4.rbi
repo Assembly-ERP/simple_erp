@@ -1275,6 +1275,8 @@ class ActionController::API < ::ActionController::Metal
   include ::ActionController::Instrumentation
   include ::ActionController::ParamsWrapper
   include ::ActionController::RespondWith
+  include ::CanCan::ControllerAdditions
+  include ::DeviseInvitable::Controllers::Helpers
   include ::Turbo::RequestIdTracking
   include ::Devise::Controllers::SignInOut
   include ::Devise::Controllers::StoreLocation
@@ -1293,6 +1295,7 @@ class ActionController::API < ::ActionController::Metal
   extend ::ActionController::Instrumentation::ClassMethods
   extend ::ActionController::ParamsWrapper::ClassMethods
   extend ::ActionController::RespondWith::ClassMethods
+  extend ::CanCan::ControllerAdditions::ClassMethods
   extend ::Devise::Controllers::Helpers::ClassMethods
 
   # source://activesupport/7.1.3.4/lib/active_support/callbacks.rb#70
@@ -1300,6 +1303,15 @@ class ActionController::API < ::ActionController::Metal
 
   # source://activesupport/7.1.3.4/lib/active_support/callbacks.rb#70
   def __callbacks?; end
+
+  # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#303
+  def _cancan_skipper; end
+
+  # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#303
+  def _cancan_skipper=(_arg0); end
+
+  # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#303
+  def _cancan_skipper?; end
 
   # source://activesupport/7.1.3.4/lib/active_support/callbacks.rb#963
   def _process_action_callbacks; end
@@ -1397,6 +1409,15 @@ class ActionController::API < ::ActionController::Metal
 
     # source://activesupport/7.1.3.4/lib/active_support/callbacks.rb#70
     def __callbacks?; end
+
+    # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#303
+    def _cancan_skipper; end
+
+    # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#303
+    def _cancan_skipper=(value); end
+
+    # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#303
+    def _cancan_skipper?; end
 
     # source://activesupport/7.1.3.4/lib/active_support/callbacks.rb#955
     def _process_action_callbacks; end
@@ -1751,6 +1772,8 @@ class ActionController::Base < ::ActionController::Metal
   include ::Turbo::Frames::FrameRequest
   include ::Turbo::Streams::TurboStreamsTagBuilder
   include ::ActionController::RespondWith
+  include ::CanCan::ControllerAdditions
+  include ::DeviseInvitable::Controllers::Helpers
   include ::Turbo::RequestIdTracking
   include ::Devise::Controllers::SignInOut
   include ::Devise::Controllers::StoreLocation
@@ -1785,6 +1808,7 @@ class ActionController::Base < ::ActionController::Metal
   extend ::ActionController::ParamsWrapper::ClassMethods
   extend ::Responders::ControllerMethod
   extend ::ActionController::RespondWith::ClassMethods
+  extend ::CanCan::ControllerAdditions::ClassMethods
   extend ::Devise::Controllers::Helpers::ClassMethods
 
   # source://activesupport/7.1.3.4/lib/active_support/callbacks.rb#70
@@ -1792,6 +1816,15 @@ class ActionController::Base < ::ActionController::Metal
 
   # source://activesupport/7.1.3.4/lib/active_support/callbacks.rb#70
   def __callbacks?; end
+
+  # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#303
+  def _cancan_skipper; end
+
+  # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#303
+  def _cancan_skipper=(_arg0); end
+
+  # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#303
+  def _cancan_skipper?; end
 
   # source://actionpack//lib/abstract_controller/helpers.rb#12
   def _helper_methods; end
@@ -2067,6 +2100,15 @@ class ActionController::Base < ::ActionController::Metal
 
     # source://activesupport/7.1.3.4/lib/active_support/callbacks.rb#70
     def __callbacks?; end
+
+    # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#303
+    def _cancan_skipper; end
+
+    # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#303
+    def _cancan_skipper=(value); end
+
+    # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#303
+    def _cancan_skipper?; end
 
     # source://actionpack//lib/action_controller/form_builder.rb#33
     def _default_form_builder; end
@@ -2388,6 +2430,12 @@ module ActionController::Base::HelperMethods
   # source://actionpack//lib/action_controller/metal/flash.rb#39
   def alert(*args, **_arg1, &block); end
 
+  # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#302
+  def can?(*args, **_arg1, &block); end
+
+  # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#302
+  def cannot?(*args, **_arg1, &block); end
+
   # source://actionpack//lib/abstract_controller/caching/fragments.rb#33
   def combined_fragment_cache_key(*args, **_arg1, &block); end
 
@@ -2399,6 +2447,9 @@ module ActionController::Base::HelperMethods
 
   # source://actionpack//lib/action_controller/metal/cookies.rb#8
   def cookies(*args, **_arg1, &block); end
+
+  # source://cancancan/3.6.1/lib/cancan/controller_additions.rb#302
+  def current_ability(*args, **_arg1, &block); end
 
   # source://devise/4.9.4/lib/devise/controllers/helpers.rb#13
   def devise_controller?(*args, **_arg1, &block); end
@@ -4312,17 +4363,17 @@ ActionController::Live::SSE::PERMITTED_OPTIONS = T.let(T.unsafe(nil), Array)
 class ActionController::LiveTestResponse < ::ActionController::Live::Response
   # Was there a server-side error?
   #
-  # source://rack/3.1.7/lib/rack/response.rb#187
+  # source://rack/2.2.9/lib/rack/response.rb#141
   def error?; end
 
   # Was the URL not found?
   #
-  # source://rack/3.1.7/lib/rack/response.rb#197
+  # source://rack/2.2.9/lib/rack/response.rb#151
   def missing?; end
 
   # Was the response successful?
   #
-  # source://rack/3.1.7/lib/rack/response.rb#184
+  # source://rack/2.2.9/lib/rack/response.rb#138
   def success?; end
 end
 
@@ -8995,34 +9046,34 @@ end
 # source://actionpack//lib/action_dispatch/constants.rb#6
 module ActionDispatch::Constants; end
 
-# source://actionpack//lib/action_dispatch/constants.rb#21
+# source://actionpack//lib/action_dispatch/constants.rb#10
 ActionDispatch::Constants::CONTENT_ENCODING = T.let(T.unsafe(nil), String)
 
-# source://actionpack//lib/action_dispatch/constants.rb#22
+# source://actionpack//lib/action_dispatch/constants.rb#11
 ActionDispatch::Constants::CONTENT_SECURITY_POLICY = T.let(T.unsafe(nil), String)
 
-# source://actionpack//lib/action_dispatch/constants.rb#23
+# source://actionpack//lib/action_dispatch/constants.rb#12
 ActionDispatch::Constants::CONTENT_SECURITY_POLICY_REPORT_ONLY = T.let(T.unsafe(nil), String)
 
-# source://actionpack//lib/action_dispatch/constants.rb#25
+# source://actionpack//lib/action_dispatch/constants.rb#14
 ActionDispatch::Constants::FEATURE_POLICY = T.let(T.unsafe(nil), String)
 
-# source://actionpack//lib/action_dispatch/constants.rb#24
+# source://actionpack//lib/action_dispatch/constants.rb#13
 ActionDispatch::Constants::LOCATION = T.let(T.unsafe(nil), String)
 
-# source://actionpack//lib/action_dispatch/constants.rb#28
+# source://actionpack//lib/action_dispatch/constants.rb#17
 ActionDispatch::Constants::SERVER_TIMING = T.let(T.unsafe(nil), String)
 
-# source://actionpack//lib/action_dispatch/constants.rb#29
+# source://actionpack//lib/action_dispatch/constants.rb#18
 ActionDispatch::Constants::STRICT_TRANSPORT_SECURITY = T.let(T.unsafe(nil), String)
 
-# source://actionpack//lib/action_dispatch/constants.rb#20
+# source://actionpack//lib/action_dispatch/constants.rb#9
 ActionDispatch::Constants::VARY = T.let(T.unsafe(nil), String)
 
-# source://actionpack//lib/action_dispatch/constants.rb#27
+# source://actionpack//lib/action_dispatch/constants.rb#16
 ActionDispatch::Constants::X_CASCADE = T.let(T.unsafe(nil), String)
 
-# source://actionpack//lib/action_dispatch/constants.rb#26
+# source://actionpack//lib/action_dispatch/constants.rb#15
 ActionDispatch::Constants::X_REQUEST_ID = T.let(T.unsafe(nil), String)
 
 # = Action Dispatch Content Security Policy
@@ -14651,7 +14702,7 @@ class ActionDispatch::Request
   # source://actionpack//lib/action_dispatch/http/request.rb#339
   def raw_post; end
 
-  # source://rack/3.1.7/lib/rack/request.rb#197
+  # source://rack/2.2.9/lib/rack/request.rb#157
   def raw_request_method; end
 
   # source://actionpack//lib/action_dispatch/http/request.rb#50
@@ -15408,11 +15459,11 @@ class ActionDispatch::Response
 
   # Aliasing these off because AD::Http::Cache::Response defines them.
   #
-  # source://rack/3.1.7/lib/rack/response.rb#290
+  # source://rack/2.2.9/lib/rack/response.rb#229
   def _cache_control; end
 
-  # source://rack/3.1.7/lib/rack/response.rb#294
-  def _cache_control=(value); end
+  # source://rack/2.2.9/lib/rack/response.rb#233
+  def _cache_control=(v); end
 
   # source://actionpack//lib/action_dispatch/http/response.rb#382
   def abort; end
@@ -15578,7 +15629,7 @@ class ActionDispatch::Response
 
   # The location header we'll be responding with.
   #
-  # source://rack/3.1.7/lib/rack/response.rb#262
+  # source://rack/2.2.9/lib/rack/response.rb#204
   def redirect_url; end
 
   # The request that the response is responding to.
@@ -15827,10 +15878,10 @@ end
 # To be deprecated:
 #
 # source://actionpack//lib/action_dispatch/http/response.rb#48
-ActionDispatch::Response::Header = Rack::Headers
+ActionDispatch::Response::Header = Rack::Utils::HeaderHash
 
-# source://actionpack//lib/action_dispatch/http/response.rb#40
-ActionDispatch::Response::Headers = Rack::Headers
+# source://actionpack//lib/action_dispatch/http/response.rb#44
+ActionDispatch::Response::Headers = Rack::Utils::HeaderHash
 
 # source://actionpack//lib/action_dispatch/http/response.rb#84
 ActionDispatch::Response::NO_CONTENT_CODES = T.let(T.unsafe(nil), Array)
@@ -16300,6 +16351,9 @@ class ActionDispatch::Routing::Mapper
 
   # source://devise/4.9.4/lib/devise/rails/routes.rb#390
   def devise_confirmation(mapping, controllers); end
+
+  # source://devise_invitable/2.0.9/lib/devise_invitable/routes.rb#6
+  def devise_invitation(mapping, controllers); end
 
   # source://devise/4.9.4/lib/devise/rails/routes.rb#421
   def devise_omniauth_callback(mapping, controllers); end
@@ -20676,7 +20730,10 @@ Mime::Type::MIME_REGEXP = T.let(T.unsafe(nil), Regexp)
 # source://actionpack//lib/action_dispatch.rb#34
 module Rack
   class << self
-    # source://rack/3.1.7/lib/rack/version.rb#18
+    # source://rack/2.2.9/lib/rack/version.rb#26
     def release; end
+
+    # source://rack/2.2.9/lib/rack/version.rb#19
+    def version; end
   end
 end

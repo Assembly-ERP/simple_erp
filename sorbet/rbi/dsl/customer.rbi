@@ -706,6 +706,51 @@ class Customer
     sig { void }
     def discount_will_change!; end
 
+    sig { returns(T.nilable(::String)) }
+    def ein; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def ein=(value); end
+
+    sig { returns(T::Boolean) }
+    def ein?; end
+
+    sig { returns(T.nilable(::String)) }
+    def ein_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def ein_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def ein_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def ein_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def ein_change_to_be_saved; end
+
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def ein_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def ein_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def ein_previous_change; end
+
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def ein_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def ein_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def ein_was; end
+
+    sig { void }
+    def ein_will_change!; end
+
     sig { returns(::Integer) }
     def id; end
 
@@ -841,10 +886,10 @@ class Customer
     sig { void }
     def name_will_change!; end
 
-    sig { returns(::String) }
+    sig { returns(T.nilable(::String)) }
     def phone; end
 
-    sig { params(value: ::String).returns(::String) }
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
     def phone=(value); end
 
     sig { returns(T::Boolean) }
@@ -859,22 +904,22 @@ class Customer
     sig { returns(T::Boolean) }
     def phone_came_from_user?; end
 
-    sig { returns(T.nilable([::String, ::String])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def phone_change; end
 
-    sig { returns(T.nilable([::String, ::String])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def phone_change_to_be_saved; end
 
-    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
     def phone_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
     def phone_in_database; end
 
-    sig { returns(T.nilable([::String, ::String])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def phone_previous_change; end
 
-    sig { params(from: ::String, to: ::String).returns(T::Boolean) }
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
     def phone_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::String)) }
@@ -941,6 +986,9 @@ class Customer
     def restore_discount!; end
 
     sig { void }
+    def restore_ein!; end
+
+    sig { void }
     def restore_id!; end
 
     sig { void }
@@ -982,6 +1030,12 @@ class Customer
     sig { returns(T::Boolean) }
     def saved_change_to_discount?; end
 
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_ein; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_ein?; end
+
     sig { returns(T.nilable([::Integer, ::Integer])) }
     def saved_change_to_id; end
 
@@ -1000,7 +1054,7 @@ class Customer
     sig { returns(T::Boolean) }
     def saved_change_to_name?; end
 
-    sig { returns(T.nilable([::String, ::String])) }
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
     def saved_change_to_phone; end
 
     sig { returns(T::Boolean) }
@@ -1173,6 +1227,9 @@ class Customer
 
     sig { returns(T::Boolean) }
     def will_save_change_to_discount?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_ein?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_id?; end
