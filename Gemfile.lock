@@ -345,6 +345,12 @@ GEM
     sendgrid-ruby (6.7.0)
       ruby_http_client (~> 3.4)
     sexp_processor (4.17.1)
+    sidekiq (7.3.2)
+      concurrent-ruby (< 2)
+      connection_pool (>= 2.3.0)
+      logger
+      rack (>= 2.2.4)
+      redis-client (>= 0.22.2)
     sorbet (0.5.11514)
       sorbet-static (= 0.5.11514)
     sorbet-runtime (0.5.11514)
@@ -464,6 +470,7 @@ DEPENDENCIES
   ruby-vips
   selenium-webdriver
   sendgrid-ruby
+  sidekiq (~> 7.3)
   sorbet
   sorbet-runtime
   sprockets-rails
