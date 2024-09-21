@@ -19,7 +19,9 @@ module OperationalPortal
 
       respond_to do |format|
         if @part.save
-          format.html { redirect_to operational_portal_part_path(@part), notice: 'Part was successfully created.' }
+          format.html do
+            redirect_to operational_portal_catalog_index_path, notice: 'Part was successfully created.'
+          end
         else
           format.html { render :new, status: :unprocessable_entity }
         end
@@ -29,7 +31,9 @@ module OperationalPortal
     def update
       respond_to do |format|
         if @part.update(part_params)
-          format.html { redirect_to operational_portal_part_path(@part), notice: 'Part was successfully updated.' }
+          format.html do
+            redirect_to operational_portal_catalog_index_path, notice: 'Part was successfully updated.'
+          end
         else
           format.html { render :edit }
         end
