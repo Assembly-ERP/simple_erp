@@ -2,17 +2,17 @@
   .overflow-y-auto.py-4.px-3.h-full.bg-white.mt-32
     %ul.space-y-1
       %li
-        = link_to operational_portal_users_path, class: "flex items-center p-2 text-base font-normal rounded-lg hover:bg-gray-100 cursor-pointer #{current_page?(operational_portal_users_path) ? "text-[color:var(--primary)]" : "hover:text-[color:var(--primary)] text-gray-600"}" do
+        = link_to operational_portal_users_path, class: "flex items-center p-2 text-base font-normal rounded-lg hover:bg-gray-100 cursor-pointer #{current_page?(operational_portal_users_path) ? "text-[color:var(--primary)]" : "hover:text-[color:var(--primary)] text-gray-500"}" do
           .w-6.flex.justify-center
             = icon("fa-solid", "user", class: "text-lg")
           %span.ml-3.font-medium Manage User
       %li
-        = link_to operational_portal_customers_path, class: "flex items-center p-2 text-base font-normal rounded-lg hover:bg-gray-100 cursor-pointer #{current_page?(operational_portal_customers_path) ? "text-[color:var(--primary)]" : "hover:text-[color:var(--primary)] text-gray-600"}" do
+        = link_to operational_portal_customers_path, class: "flex items-center p-2 text-base font-normal rounded-lg hover:bg-gray-100 cursor-pointer #{current_page?(operational_portal_customers_path) ? "text-[color:var(--primary)]" : "hover:text-[color:var(--primary)] text-gray-500"}" do
           .w-6.flex.justify-center
             = icon("fa-solid", "shop", class: "text-lg")
           %span.ml-3.font-medium Manage Customer
       %li
-        = link_to operational_portal_settings_path, class: "flex items-center p-2 text-base font-normal rounded-lg hover:bg-gray-100 cursor-pointer #{current_page?(operational_portal_settings_path) ? "text-[color:var(--primary)]" : "hover:text-[color:var(--primary)] text-gray-600"}" do
+        = link_to operational_portal_settings_path, class: "flex items-center p-2 text-base font-normal rounded-lg hover:bg-gray-100 cursor-pointer #{current_page?(operational_portal_settings_path) ? "text-[color:var(--primary)]" : "hover:text-[color:var(--primary)] text-gray-500"}" do
           .w-6.flex.justify-center
             = icon("fa-solid", "gear", class: "text-lg")
           %span.ml-3.font-medium Settings

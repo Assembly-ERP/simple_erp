@@ -40,7 +40,7 @@ module OperationalPortal
       if @customer.save
         redirect_to operational_portal_customers_path, notice: 'Customer was successfully created.'
       else
-        render :new
+        render :new, status: :unprocessable_entity
       end
     end
 
@@ -48,7 +48,7 @@ module OperationalPortal
       if @customer.update(customer_params)
         redirect_to operational_portal_customer_path(@customer), notice: 'Customer was successfully updated.'
       else
-        render :edit
+        render :edit, status: :unprocessable_entity
       end
     end
 
@@ -60,7 +60,7 @@ module OperationalPortal
     private
 
     def customer_params
-      params.require(:customer).permit(:name, :phone, :street, :city, :state, :postal_code, :discount)
+      params.require(:customer).permit(:name, :phone, :ein, :street, :city, :state, :postal_code, :discount)
     end
   end
 end
