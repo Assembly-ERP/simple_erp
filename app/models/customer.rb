@@ -9,7 +9,6 @@ class Customer < ApplicationRecord
 
   # Validations
   validates :name, presence: true, uniqueness: true
-  validates :phone, presence: true
   validates :discount, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
 end
 
