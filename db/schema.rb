@@ -210,8 +210,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_20_101220) do
     t.boolean "manual_price", default: false, null: false
     t.boolean "inventory", default: false, null: false
     t.datetime "voided_at"
+    t.string "nmfc"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["sku"], name: "index_parts_on_sku", unique: true
     t.index ["voided_at"], name: "index_parts_on_voided_at"
   end
 

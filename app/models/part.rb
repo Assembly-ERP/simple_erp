@@ -42,6 +42,7 @@ class Part < ApplicationRecord
 
   # Validations
   validates :name, presence: true
+  validates :sku, uniqueness: true, allow_blank: true
   validates :price, numericality: { greater_than_or_equal_to: 0, only_float: true }
   validates :weight, numericality: { greater_than_or_equal_to: 0 }
   validates :images, content_type: ALLOWED_IMAGE_TYPES
@@ -85,6 +86,7 @@ end
 #  length          :decimal(10, 2)   default(0.0)
 #  manual_price    :boolean          default(FALSE), not null
 #  name            :string           not null
+#  nmfc            :string
 #  price           :decimal(10, 2)   default(0.0)
 #  sku             :string
 #  voided_at       :datetime
@@ -95,5 +97,6 @@ end
 #
 # Indexes
 #
+#  index_parts_on_sku        (sku) UNIQUE
 #  index_parts_on_voided_at  (voided_at)
 #

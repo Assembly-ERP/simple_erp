@@ -15,10 +15,12 @@ class CreateParts < ActiveRecord::Migration[7.1]
       t.boolean :manual_price, default: false, null: false
       t.boolean :inventory, default: false, null: false
       t.datetime :voided_at
+      t.string :nmfc
 
       t.timestamps
     end
 
     add_index :parts, :voided_at
+    add_index :parts, :sku, unique: true
   end
 end

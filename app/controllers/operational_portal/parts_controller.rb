@@ -17,14 +17,10 @@ module OperationalPortal
     def create
       @part = Part.new(part_params)
 
-      respond_to do |format|
-        if @part.save
-          format.html do
-            redirect_to operational_portal_catalog_index_path, notice: 'Part was successfully created.'
-          end
-        else
-          format.html { render :new, status: :unprocessable_entity }
-        end
+      if @part.save
+        redirect_to operational_portal_catalog_index_path, notice: 'Part was successfully created.'
+      else
+        render :new, status: :unprocessable_entity
       end
     end
 

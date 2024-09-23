@@ -35,18 +35,17 @@ Rails.application.routes.draw do
   get '/operational_portal/manage', to: redirect('/operational_portal/users')
 
   namespace :operational_portal do
-    resources :catalog, only: [:index]
+    resources :catalog, only: [:index] do
+      collection do
+        get :search
+      end
+    end
     resources :products do
       collection do
         get :search_part_results
       end
     end
-    resources :parts do
-      member do
-        delete :delete_file
-        post :upload_file
-      end
-    end
+    resources :parts
     resources :orders do
       member do
         put :update_summary

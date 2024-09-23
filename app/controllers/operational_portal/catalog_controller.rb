@@ -5,18 +5,29 @@ module OperationalPortal
     authorize_resource class: false
 
     def index
-      query_instance = Product.from("(#{catalog(Product).to_sql} UNION #{catalog(Part).to_sql}) products")
-                              .order(created_at: :desc)
-
-      @pagy, @items = pagy(query_instance)
+      query
 
       respond_to do |format|
         format.html
-        format.turbo_stream
+      end
+    end
+
+    def search
+      query
+
+      respond_to do |format|
+        format.turbo_stream { render :stream }
       end
     end
 
     private
+
+    def query
+      query_instance = Product.from("(#{catalog(Product).to_sql} UNION #{catalog(Part).to_sql}) products")
+                              .order(created_at: :desc)
+
+      @pagy, @items = pagy(query_instance)
+    end
 
     def catalog(model)
       instance = model.catalog.not_voided
