@@ -28,6 +28,7 @@ end
 #  postal_code :string
 #  state       :string
 #  street      :string
+#  voided_at   :datetime
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #

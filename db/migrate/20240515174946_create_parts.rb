@@ -21,6 +21,7 @@ class CreateParts < ActiveRecord::Migration[7.1]
     end
 
     add_index :parts, :voided_at
+    add_index :parts, :name
     add_index :parts, :sku, unique: true
   end
 end

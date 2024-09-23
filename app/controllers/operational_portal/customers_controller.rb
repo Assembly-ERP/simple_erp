@@ -53,8 +53,13 @@ module OperationalPortal
     end
 
     def destroy
-      @customer.destroy
-      redirect_to operational_portal_customers_path, notice: 'Customer was successfully destroyed.'
+      respond_to do |format|
+        if @customer.update(voided_at: Time.zone.now)
+          format.html do
+            redirect_to operational_portal_customers_path, notice: 'Customer was successfully deleted.'
+          end
+        end
+      end
     end
 
     private

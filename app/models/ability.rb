@@ -40,7 +40,7 @@ class Ability
 
     # Manage Pages
     can :manage, User
-    can :manage, Customer
+    can :manage, Customer, voided_at: nil
     can :manage, Setting
     can :manage, OrderPriceScheduler
 
