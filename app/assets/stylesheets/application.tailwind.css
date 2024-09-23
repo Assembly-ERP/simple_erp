@@ -22,14 +22,6 @@
 }
 
 @layer components {
-  .product-type-tag {
-    @apply rounded-lg text-sm border border-purple-600 text-purple-600 w-fit px-2 bg-purple-50;
-  }
-
-  .part-type-tag {
-    @apply rounded-lg text-sm border border-orange-600 text-orange-600 w-fit px-2 bg-orange-50;
-  }
-
   .errors {
     @apply py-2 px-3 rounded border border-red-600 bg-red-600/10 text-red-600 text-[15px];
   }
@@ -202,6 +194,27 @@
   .accordion-content {
     @apply w-full py-4 px-4 border-t border-gray-300 group-last:border-b group-last:border-t-0;
   }
+}
+
+/* Tags */
+.product-type-tag {
+  @apply rounded-lg text-sm border border-purple-600 text-purple-600 w-fit px-2 bg-purple-50;
+}
+
+.part-type-tag {
+  @apply rounded-lg text-sm border border-orange-600 text-orange-600 w-fit px-2 bg-orange-50;
+}
+
+.pending-tag {
+  @apply rounded-lg text-sm border border-yellow-600 text-yellow-600 w-fit px-2 bg-yellow-50;
+}
+
+.success-tag {
+  @apply rounded-lg text-sm border border-green-600 text-green-600 w-fit px-2 bg-green-50;
+}
+
+.failed-tag {
+  @apply rounded-lg text-sm border border-red-600 text-red-600 w-fit px-2 bg-red-50;
 }
 
 /* Pagy Nav */

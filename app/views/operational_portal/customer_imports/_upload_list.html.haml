@@ -1,23 +1,24 @@
-#import-upload-list
-  .table-primary
-    .table
-      .table-row-group
-        - if @customer_imports.present?
-          - @customer_imports.each do |ci|
-            .table-row.cursor-pointer{id: dom_id(ci), data: {controller: "dialog", action: "click->dialog#backdropClose"}}
-              .table-cell{data: {action: "click->dialog#open"}}
-                = ci.created_at
-              .table-cell{data: {action: "click->dialog#open"}}
-                = "#{ci.create_by.first_name}, #{ci.last_name}"
-              .table-cell{id: "import-upload-#{ci.id}", data: {action: "click->dialog#open"}}
-                = ci.status
-        - else
-          .table-row
-            .table-cell No Imports Found
-            .table-cell
-            .table-cell
+.table-primary
+  = turbo_stream_from :import_upload_list
+  .table
+    .table-header-group
+      .table-row
+        .table-cell Id
+        .table-cell Uploaded At
+        .table-cell Uploaded By
+        .table-cell Status
+    #import-upload-rows.table-row-group
+      - if @customer_imports.present?
+        - @customer_imports.each do |ci|
+          = render "table_row", ci:
+      - else
+        .table-row
+          .table-cell No Imports Found
+          .table-cell
+          .table-cell
+          .table-cell
 
-    - if @pagy.pages > 1          
-      .flex.gap-3.items-center.w-full.justify-between.px-4.py-3
-        != pagy_nav(@pagy, link_extra: 'data-turbo-stream="true"')
-        != pagy_info(@pagy)
+  - if @pagy.pages > 1          
+    .flex.gap-3.items-center.w-full.justify-between.px-4.py-3
+      != pagy_nav(@pagy, link_extra: 'data-turbo-stream="true"')
+      != pagy_info(@pagy)
