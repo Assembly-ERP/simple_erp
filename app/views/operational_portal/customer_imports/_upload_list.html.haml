@@ -7,6 +7,7 @@
         .table-cell Uploaded At
         .table-cell Uploaded By
         .table-cell Status
+        .table-cell Log
     #import-upload-rows.table-row-group
       - if @customer_imports.present?
         - @customer_imports.each do |ci|
@@ -14,6 +15,7 @@
       - else
         #empty-customer-import.table-row
           .table-cell No Imports Found
+          .table-cell
           .table-cell
           .table-cell
           .table-cell
