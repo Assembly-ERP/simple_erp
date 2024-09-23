@@ -5,10 +5,10 @@ module OperationalPortal
     load_and_authorize_resource
 
     def index
-      query_instance = CustomerImport.accessible_by(current_ability)
-
-      @pagy, @customer_imports = pagy(query_instance)
+      @pagy, @customer_imports = pagy(CustomerImport.accessible_by(current_ability))
     end
+
+    def show; end
 
     def create
       @customer_import = current_user.customer_imports.new(customer_import_params)

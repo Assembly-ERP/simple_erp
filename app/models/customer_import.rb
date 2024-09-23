@@ -12,6 +12,9 @@ class CustomerImport < ApplicationRecord
   has_one_attached :sheet
   has_one_attached :log
 
+  # Scopes
+  default_scope { order(id: :desc) }
+
   # Validations
   validates :sheet, attached: true, content_type: ALLOWED_FILE_TYPES
 

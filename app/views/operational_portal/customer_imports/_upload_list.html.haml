@@ -1,10 +1,18 @@
 #import-upload-list
   .table-primary
     .table
+      .table-header-group
+        .table-row
+          .table-cell Id
+          .table-cell Uploaded At
+          .table-cell Uploaded By
+          .table-cell Status
       .table-row-group
         - if @customer_imports.present?
           - @customer_imports.each do |ci|
             .table-row.cursor-pointer{id: dom_id(ci), data: {controller: "dialog", action: "click->dialog#backdropClose"}}
+              .table-cell{data: {action: "click->dialog#open"}}
+                = ci.id
               .table-cell{data: {action: "click->dialog#open"}}
                 = ci.created_at
               .table-cell{data: {action: "click->dialog#open"}}
@@ -14,6 +22,7 @@
         - else
           .table-row
             .table-cell No Imports Found
+            .table-cell
             .table-cell
             .table-cell
 

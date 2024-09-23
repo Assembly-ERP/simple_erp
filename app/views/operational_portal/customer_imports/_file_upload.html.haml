@@ -1,7 +1,7 @@
 = form_with(model: CustomerImport.new, url: operational_portal_customer_imports_path, html: {controller: "customer-imports--upload"}) do |form|
   .flex.items-center.justify-center.w-full
     = form.file_field :images, id: "dropzone-file", data: {"customer-imports--upload-target": "upload", action: "input->parts--form#imageHandler"}, class: "hidden peer", accept: CustomerImport::ALLOWED_FILE_TYPES.join(", ")
-    %label{for: "dropzone-file", data: {"customer-imports--upload-target": "dropArea"}, class: "flex flex-col items-center justify-center w-full h-60 transition-colors duration-200 border-2 text-gray-500 peer-disabled:text-gray-500 border-gray-300 peer-disabled:border-gray-300 peer-disabled:cursor-not-allowed hover:text-[color:var(--primary)] hover:border-[color:var(--primary)] border-dashed rounded-md cursor-pointer bg-white"}
+    %label{for: "dropzone-file", data: {"customer-imports--upload-target": "dropArea"}, class: "flex flex-col items-center justify-center w-full h-56 transition-colors duration-200 border-2 text-gray-500 peer-disabled:text-gray-500 border-gray-300 peer-disabled:border-gray-300 peer-disabled:cursor-not-allowed hover:text-[color:var(--primary)] hover:border-[color:var(--primary)] border-dashed rounded-md cursor-pointer bg-white"}
       = icon("fa-solid", "upload", class: "text-4xl mb-3")
       %p.mb-1
         %span.font-semibold Click to upload
