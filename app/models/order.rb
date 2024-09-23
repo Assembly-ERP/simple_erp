@@ -117,7 +117,7 @@ class Order < ApplicationRecord
 
   def send_quote_or_invoice
     return if users.count.zero?
-    return if order_status.reversed
+    return unless order_status.allow_change
 
     OrderMailer.send_quote_or_invoice(self).deliver_later
   end

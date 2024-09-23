@@ -17,12 +17,13 @@ class CreateOrderStatuses < ActiveRecord::Migration[7.1]
       dir.up do
         OrderStatus.create(name: 'Quote', default: true)
         OrderStatus.create(name: 'New', customer_locked: true, operation_locked: false)
-        OrderStatus.create(name: 'Submitted', customer_locked: true, operation_locked: true)
+        OrderStatus.create(name: 'Scheduled', customer_locked: true, operation_locked: true)
+        OrderStatus.create(name: 'Completed', customer_locked: true, operation_locked: true)
+        OrderStatus.create(name: 'Shipped', customer_locked: true, operation_locked: true)
+        OrderStatus.create(name: 'Billed', customer_locked: true, operation_locked: true)
+        OrderStatus.create(name: 'Paid', customer_locked: true, operation_locked: true)
         OrderStatus.create(
           name: 'Cancelled', customer_locked: true, operation_locked: true, reversed: true, allow_change: false
-        )
-        OrderStatus.create(
-          name: 'Returned', customer_locked: true, operation_locked: true, reversed: true, allow_change: false
         )
       end
     end
