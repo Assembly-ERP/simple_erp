@@ -91,5 +91,6 @@ end
 #
 # Indexes
 #
+#  index_products_on_sku        (sku) UNIQUE
 #  index_products_on_voided_at  (voided_at)
 #

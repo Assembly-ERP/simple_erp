@@ -1,33 +1,28 @@
-/ app/views/operational_portal/profiles/edit.html.erb
-.container
-  %h1 Edit Profile
-  = form_with(model: @user, url: operational_portal_profile_path, local: true) do |form|
+.py-5
+  %h1.font-semibold.text-xl.mb-4 Edit Profile
+  = form_with(model: @user, url: operational_portal_profile_path) do |form|
     - if @user.errors.any?
-      #error_explanation
-        %h2
-          = pluralize(@user.errors.count, "error")
-          prohibited this profile from being saved:
-        %ul
-          - @user.errors.full_messages.each do |message|
-            %li= message
-    .field
-      = form.label :email
-      = form.email_field :email, autofocus: true
-    .field
-      = form.label :name
-      = form.text_field :name
-    .field
-      = form.label :phone
-      = form.telephone_field :phone
-    .field
-      = form.label :password
-      = form.password_field :password, autocomplete: "new-password"
-      - if @user.persisted?
-        %br/
-        %em (leave blank if you don't want to change it)
-    .field
-      = form.label :password_confirmation
-      = form.password_field :password_confirmation, autocomplete: "new-password"
-    .actions
-      = form.submit "Update Profile"
-  = link_to 'Back', operational_portal_profile_path, class: "btn"
+      = render ErrorCardComponent.new errors: @user.errors.full_messages, label: "Validations"
+    .grid.gap-4
+      .grid.grid-cols-3.gap-4
+        .field
+          = form.label :first_name
+          = form.text_field :first_name, class: "input-primary", required: true
+        .field
+          = form.label :last_name
+          = form.text_field :last_name, class: "input-primary", required: true
+        .field
+          = form.label :phone
+          = form.telephone_field :phone, class: "input-primary"
+      .field
+        = form.label :email
+        = form.email_field :email, class: "input-primary", required: true
+      .grid.grid-cols-2.gap-4
+        .field
+          = form.label :password
+          = form.password_field :password, autocomplete: "new-password", class: "input-primary"
+        .field
+          = form.label :password_confirmation
+          = form.password_field :password_confirmation, autocomplete: "new-password", class: "input-primary"
+      .actions.mt-1
+        = form.submit "Update Profile", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"

@@ -250,6 +250,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_20_101220) do
     t.datetime "voided_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["sku"], name: "index_products_on_sku", unique: true
     t.index ["voided_at"], name: "index_products_on_voided_at"
   end
 
