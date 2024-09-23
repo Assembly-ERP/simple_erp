@@ -8,3 +8,4 @@
         or drag and drop
       %p.text-sm.uppercase
         = CustomerImport::ALLOWED_FILE_TYPES.join(", ").gsub("image/", "")
+  .hidden{data: {"customer-imports--upload-target": "files"}}

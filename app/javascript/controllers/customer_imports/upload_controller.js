@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["upload", "dropArea"];
+  static targets = ["upload", "dropArea", "files"];
 
   connect() {
     ["dragenter", "dragover", "dragleave", "drop"].forEach((el) => {
@@ -51,7 +51,23 @@ export default class extends Controller {
       return;
     }
 
+    const uploadingEl = this.filesTarget;
+    const identity = new Date().valueOf();
+
+    const input = document.createElement("input");
+    input.setAttribute("type", "file");
+    input.setAttribute("class", "hidden");
+    input.setAttribute("id", identity);
+    input.setAttribute("name", "customer_import[sheet]");
+    input.files = files;
+
+    uploadingEl.innerHTML = "";
+    uploadingEl.appendChild(input);
+
     this.element.requestSubmit();
+
+    uploadingEl.innerHTML = "";
+    this.uploadTarget.value = "";
   }
 
   get allowedFileTypes() {

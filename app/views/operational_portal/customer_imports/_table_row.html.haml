@@ -1,0 +1,8 @@
+.table-row
+  .table-cell
+    = ci.id
+  .table-cell
+    = ci.created_at
+  .table-cell
+    = "#{ci.created_by.first_name} #{ci.created_by.last_name}"
+  = render "status_cell", ci:

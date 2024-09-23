@@ -39,5 +39,11 @@ class CustomerImportJob
     import.update_attribute(:status, 'success')
     import.update!(log: File.open(logger_path, filename: "customer_import_#{import_id}_log"))
     File.delete(logger_path)
+
+    Turbo::StreamsChannel.broadcast_render_to(
+      :import_upload_list,
+      template: 'operational_portal/customer_imports/update_status',
+      locals: { ci: import }
+    )
   end
 end

@@ -15,7 +15,7 @@ module OperationalPortal
 
       respond_to do |format|
         if @customer_import.save
-          format.turbo_stream
+          format.turbo_stream { render locals: { ci: @customer_import } }
         else
           format.turbo_stream { render status: :unprocessable_entity }
         end
