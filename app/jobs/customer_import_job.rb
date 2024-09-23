@@ -7,12 +7,13 @@ class CustomerImportJob
 
   def perform(import_id)
     import = CustomerImport.find(import_id)
-    filepath = ActiveStorage::Blob.service.send(:path_for, import.sheet.key)
     logger_path = Rails.root.join("log/customer_imports/customer_import_#{import_id}.log")
     logger = Logger.new(logger_path)
 
     downcase_converter = ->(header) { header.downcase }
-    table = CSV.open(filepath, headers: true, header_converters: downcase_converter)
+    table = CSV.parse(import.sheet.download, headers: true, header_converters: downcase_converter)
+
+    import.update_attribute(:total_rows, table.count)
 
     table.each do |row|
       name = row['customer']
@@ -42,7 +43,7 @@ class CustomerImportJob
 
     Turbo::StreamsChannel.broadcast_render_to(
       :import_upload_list,
-      template: 'operational_portal/customer_imports/update_status',
+      template: 'operational_portal/customer_imports/update',
       locals: { ci: import }
     )
   end
