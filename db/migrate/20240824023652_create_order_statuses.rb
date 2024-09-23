@@ -23,6 +23,9 @@ class CreateOrderStatuses < ActiveRecord::Migration[7.1]
         OrderStatus.create(name: 'Billed', customer_locked: true, operation_locked: true)
         OrderStatus.create(name: 'Paid', customer_locked: true, operation_locked: true)
         OrderStatus.create(
+          name: 'Returned', customer_locked: true, operation_locked: true, reversed: true, allow_change: false
+        )
+        OrderStatus.create(
           name: 'Cancelled', customer_locked: true, operation_locked: true, reversed: true, allow_change: false
         )
       end
