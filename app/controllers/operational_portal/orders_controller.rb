@@ -90,14 +90,16 @@ module OperationalPortal
     end
 
     def search_results
-      @results =
+      query_instance =
         (if params[:search_by].blank? || params[:search_by] == 'all'
            Product.from("(#{search_parts.to_sql} UNION #{search_products.to_sql}) products")
          else
            params[:search_by] == 'parts' ? search_parts : search_products
          end)
 
-      @results = @results.order(created_at: :desc)
+      query_instance = query_instance.order(created_at: :desc)
+
+      @pagy, @results = pagy(query_instance, items: 150)
 
       respond_to do |format|
         format.turbo_stream
@@ -127,7 +129,7 @@ module OperationalPortal
       if params[:filter_by].present? && params[:search].present?
         case params[:filter_by]
         when 'name'
-          parts.where('name ILIKE ?', "%#{params[:search]}%")
+          parts = parts.where('name ILIKE ?', "%#{params[:search]}%")
         end
       end
 
