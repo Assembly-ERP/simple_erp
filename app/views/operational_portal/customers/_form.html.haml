@@ -1,4 +1,4 @@
-= form_with(model: @customer, url: operational_portal_customers_path, html: {data: {turbo: "false"}}) do |form|
+= form_with(model: @customer, url: path) do |form|
   .grid.gap-4
     - if @customer.errors.any?
       = render ErrorCardComponent.new errors: @customer.errors.full_messages, label: "Validations"

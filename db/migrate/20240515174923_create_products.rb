@@ -16,5 +16,6 @@ class CreateProducts < ActiveRecord::Migration[7.1]
     end
 
     add_index :products, :voided_at
+    add_index :products, :sku, unique: true
   end
 end

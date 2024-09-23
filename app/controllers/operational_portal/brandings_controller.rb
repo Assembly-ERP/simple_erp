@@ -23,7 +23,8 @@ module OperationalPortal
     def branding_params
       params.require(:branding).permit(
         :name, :ein, :phone, :street, :city, :state, :postal_code,
-        :primary_color, :primary_text_color, :secondary_color, :secondary_text_color
+        :primary_color, :primary_text_color, :secondary_color, :secondary_text_color,
+        :logo
       )
     end
   end
