@@ -97,6 +97,7 @@ end
 #
 # Indexes
 #
+#  index_parts_on_name       (name)
 #  index_parts_on_sku        (sku) UNIQUE
 #  index_parts_on_voided_at  (voided_at)
 #

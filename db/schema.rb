@@ -96,6 +96,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_20_101220) do
     t.string "state"
     t.string "postal_code"
     t.decimal "discount", precision: 5, scale: 2, default: "0.0"
+    t.datetime "voided_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_customers_on_name", unique: true
@@ -213,6 +214,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_20_101220) do
     t.string "nmfc"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_parts_on_name"
     t.index ["sku"], name: "index_parts_on_sku", unique: true
     t.index ["voided_at"], name: "index_parts_on_voided_at"
   end
@@ -250,6 +252,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_20_101220) do
     t.datetime "voided_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_products_on_name"
     t.index ["sku"], name: "index_products_on_sku", unique: true
     t.index ["voided_at"], name: "index_products_on_voided_at"
   end

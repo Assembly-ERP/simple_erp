@@ -1,7 +1,7 @@
 .grid.gap-4{class: @order.new_record? ? "grid-cols-2" : "grid-cols-3"}
   .field.relative
     = form.label :customer_id, "Customer"
-    = form.collection_select :customer_id, Customer.all, :id, :name, {prompt: 'Select Customer'}, {required: true, "data-orders--form-target": "customerSelect", "data-action": "change->orders--form#customerChange change->unsaved-changes#formIsChanged"}
+    = form.collection_select :customer_id, Customer.where(voided_at: nil).or(Customer.where(id: form.object.customer_id)), :id, :name, {prompt: 'Select Customer'}, {required: true, "data-orders--form-target": "customerSelect", "data-action": "change->orders--form#customerChange change->unsaved-changes#formIsChanged"}
   .field
     = form.label :user_ids, "Assignees"
     = form.collection_select :user_ids, form.object.new_record? ? [] : form.object.customer.users, :id, :name, {}, {class: "h-12", multiple: true, "data-orders--form-target": "userAssignee", "data-action": "change->unsaved-changes#formIsChanged", "data-url": users_operational_portal_customer_url(id: ":id"), disabled: form.object.new_record? ? true :false}
