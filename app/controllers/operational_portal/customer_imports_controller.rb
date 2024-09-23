@@ -15,6 +15,8 @@ module OperationalPortal
 
       respond_to do |format|
         if @customer_import.save
+          CustomerImportJob.perform_async(@customer_import.id)
+
           format.turbo_stream { render locals: { ci: @customer_import } }
         else
           format.turbo_stream { render status: :unprocessable_entity }

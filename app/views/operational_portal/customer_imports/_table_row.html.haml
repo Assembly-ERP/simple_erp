@@ -1,8 +1,8 @@
-.table-row
+.table-row{id: dom_id(ci)}
   .table-cell
     = ci.id
   .table-cell
     = ci.created_at
   .table-cell
     = "#{ci.created_by.first_name} #{ci.created_by.last_name}"
-  = render "status_cell", ci:
+  = render "operational_portal/customer_imports/status_cell", ci:

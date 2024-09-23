@@ -17,13 +17,6 @@ class CustomerImport < ApplicationRecord
 
   # Validations
   validates :sheet, attached: true, content_type: ALLOWED_FILE_TYPES
-  after_create :process_sheet_import
-
-  private
-
-  def process_sheet_import
-    CustomerImportJob.perform_async(id)
-  end
 end
 
 # == Schema Information
