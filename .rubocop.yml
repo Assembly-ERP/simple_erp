@@ -90,3 +90,4 @@ Rails/SkipsModelValidations:
     - "app/models/order.rb"
     - "app/models/product.rb"
     - "app/models/order_detail.rb"
+    - "app/jobs/*"

@@ -11,7 +11,7 @@ module OperationalPortal
     def show; end
 
     def create
-      @customer_import = current_user.customer_imports.new(customer_import_params)
+      @customer_import = CustomerImport.new(customer_import_params.merge!(created_by: current_user))
 
       respond_to do |format|
         if @customer_import.save

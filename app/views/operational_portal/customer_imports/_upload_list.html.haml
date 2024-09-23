@@ -16,9 +16,10 @@
               .table-cell{data: {action: "click->dialog#open"}}
                 = ci.created_at
               .table-cell{data: {action: "click->dialog#open"}}
-                = "#{ci.create_by.first_name}, #{ci.last_name}"
+                = "#{ci.created_by.first_name} #{ci.created_by.last_name}"
               .table-cell{id: "import-upload-#{ci.id}", data: {action: "click->dialog#open"}}
-                = ci.status
+                %div{class: "#{ci.status}-tag"}
+                  = ci.status
         - else
           .table-row
             .table-cell No Imports Found

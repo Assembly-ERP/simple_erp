@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class Customer < ApplicationRecord
+  # Constants
+  IMPORT_HEADER = %w[name ein phone street city state zip_code].freeze
+
   # Relationships
   has_many :orders, dependent: :destroy
   has_many :support_tickets, dependent: :destroy

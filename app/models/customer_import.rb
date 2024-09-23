@@ -17,14 +17,13 @@ class CustomerImport < ApplicationRecord
 
   # Validations
   validates :sheet, attached: true, content_type: ALLOWED_FILE_TYPES
-
-  # Generators
-  after_save :process_sheet_import, :previously_new_record?
+  after_create :process_sheet_import
 
   private
 
-  # Run background job
-  def process_sheet_import; end
+  def process_sheet_import
+    CustomerImportJob.perform_async(id)
+  end
 end
 
 # == Schema Information
@@ -32,7 +31,9 @@ end
 # Table name: customer_imports
 #
 #  id            :bigint           not null, primary key
+#  current_row   :integer          default(0), not null
 #  status        :string           default("pending"), not null
+#  total_rows    :integer          default(0), not null
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
 #  created_by_id :bigint

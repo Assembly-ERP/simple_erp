@@ -80,6 +80,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_20_101220) do
   create_table "customer_imports", force: :cascade do |t|
     t.string "status", default: "pending", null: false
     t.bigint "created_by_id"
+    t.integer "total_rows", default: 0, null: false
+    t.integer "current_row", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["created_by_id"], name: "index_customer_imports_on_created_by_id"
