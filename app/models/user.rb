@@ -12,7 +12,8 @@ class User < ApplicationRecord
   # Relationship
   belongs_to :customer, optional: true
 
-  has_many :customer_imports, foreign_key: 'created_by_id', dependent: :destroy, inverse_of: :user
+  has_many :customer_imports, class_name: 'CustomerImport', foreign_key: 'created_by_id', dependent: :destroy,
+                              inverse_of: :user
   has_many :poly_attributes, as: :attributable, dependent: :destroy
   has_many :orders, foreign_key: 'customer_id', primary_key: 'customer_id', inverse_of: :customer, dependent: :destroy
   has_many :support_tickets, foreign_key: 'customer_id', primary_key: 'customer_id', inverse_of: :customer,

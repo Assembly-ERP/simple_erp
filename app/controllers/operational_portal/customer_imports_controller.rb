@@ -5,17 +5,17 @@ module OperationalPortal
     load_and_authorize_resource
 
     def index
-      query_instance = CustomerImport.accessible_by(current_ability)
-
-      @pagy, @customer_imports = pagy(query_instance)
+      @pagy, @customer_imports = pagy(CustomerImport.accessible_by(current_ability))
     end
 
+    def show; end
+
     def create
-      @customer_import = current_user.customer_imports.new(customer_import_params)
+      @customer_import = CustomerImport.new(customer_import_params.merge!(created_by: current_user))
 
       respond_to do |format|
         if @customer_import.save
-          format.turbo_stream
+          format.turbo_stream { render locals: { ci: @customer_import } }
         else
           format.turbo_stream { render status: :unprocessable_entity }
         end
