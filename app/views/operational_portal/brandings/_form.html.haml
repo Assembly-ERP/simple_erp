@@ -12,6 +12,9 @@
       .field
         = form.label :phone
         = form.text_field :phone, class: "input-primary", placeholder: "Phone"
+      .field
+        = form.label :logo
+        = form.file_field :logo, class: "input-primary"
     .grid.gap-2
       %h1.font-semibold Address
       .grid.grid-cols-4.gap-4

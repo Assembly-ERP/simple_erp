@@ -37,18 +37,5 @@ class ConsolidatedUsersMigration < ActiveRecord::Migration[7.1]
 
     ## Optional: Additional indexes
     add_index :users, :confirmation_token, unique: true
-
-    # Create an init admin user
-    reversible do |_dir|
-      User.create(
-        email: ENV.fetch('INIT_ADMIN_EMAIL', 'admin@example.com'),
-        password: ENV.fetch('INIT_ADMIN_PASSWORD', 'password'),
-        password_confirmation: ENV.fetch('INIT_ADMIN_PASSWORD', 'password'),
-        role: 'admin',
-        first_name: 'Super',
-        last_name: 'Admin',
-        confirmed_at: Time.now.utc
-      )
-    end
   end
 end

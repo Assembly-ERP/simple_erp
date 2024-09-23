@@ -23,7 +23,8 @@ module OperationalPortal
     private
 
     def user_update_params
-      params.require(:user).permit(:email, :name, :phone, :password, :password_confirmation).compact_blank!
+      params.require(:user).permit(:email, :first_name, :last_name, :phone, :password,
+                                   :password_confirmation).compact_blank!
     end
   end
 end

@@ -1,2 +1,5 @@
 .text-3xl.mr-6.font-bold{class: "text-[color:var(--primary)]"}
-  = Branding.client&.name || "Assembly ERP"
+  - if Branding.client.logo.attached?
+    = image_tag Branding.client.logo, class: "h-10 w-36 object-cover rounded"
+  - else
+    = Branding.client.name

@@ -35,18 +35,17 @@ Rails.application.routes.draw do
   get '/operational_portal/manage', to: redirect('/operational_portal/users')
 
   namespace :operational_portal do
-    resources :catalog, only: [:index]
+    resources :catalog, only: [:index] do
+      collection do
+        get :search
+      end
+    end
     resources :products do
       collection do
         get :search_part_results
       end
     end
-    resources :parts do
-      member do
-        delete :delete_file
-        post :upload_file
-      end
-    end
+    resources :parts
     resources :orders do
       member do
         put :update_summary
@@ -140,6 +139,7 @@ end
 #                                       operational_root GET    /operational_portal(.:format)                                                                     operational_portal/dashboard#index
 #                                          customer_root GET    /customer(.:format)                                                                               customer_portal/dashboard#index
 #                              operational_portal_manage GET    /operational_portal/manage(.:format)                                                              redirect(301, /operational_portal/users)
+#                search_operational_portal_catalog_index GET    /operational_portal/catalog/search(.:format)                                                      operational_portal/catalog#search
 #                       operational_portal_catalog_index GET    /operational_portal/catalog(.:format)                                                             operational_portal/catalog#index
 #        search_part_results_operational_portal_products GET    /operational_portal/products/search_part_results(.:format)                                        operational_portal/products#search_part_results
 #                            operational_portal_products GET    /operational_portal/products(.:format)                                                            operational_portal/products#index
@@ -150,8 +150,6 @@ end
 #                                                        PATCH  /operational_portal/products/:id(.:format)                                                        operational_portal/products#update
 #                                                        PUT    /operational_portal/products/:id(.:format)                                                        operational_portal/products#update
 #                                                        DELETE /operational_portal/products/:id(.:format)                                                        operational_portal/products#destroy
-#                    delete_file_operational_portal_part DELETE /operational_portal/parts/:id/delete_file(.:format)                                               operational_portal/parts#delete_file
-#                    upload_file_operational_portal_part POST   /operational_portal/parts/:id/upload_file(.:format)                                               operational_portal/parts#upload_file
 #                               operational_portal_parts GET    /operational_portal/parts(.:format)                                                               operational_portal/parts#index
 #                                                        POST   /operational_portal/parts(.:format)                                                               operational_portal/parts#create
 #                            new_operational_portal_part GET    /operational_portal/parts/new(.:format)                                                           operational_portal/parts#new

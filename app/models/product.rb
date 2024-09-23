@@ -36,6 +36,7 @@ class Product < ApplicationRecord
 
   # Validations
   validates :name, presence: true
+  validates :sku, uniqueness: true, allow_blank: true
   validates :images, content_type: ALLOWED_IMAGE_TYPES
   validates :price, numericality: { greater_than_or_equal_to: 0, only_float: true }
   # validates :parts_products, presence: { message: 'add at least one part' }
@@ -90,5 +91,6 @@ end
 #
 # Indexes
 #
+#  index_products_on_sku        (sku) UNIQUE
 #  index_products_on_voided_at  (voided_at)
 #
