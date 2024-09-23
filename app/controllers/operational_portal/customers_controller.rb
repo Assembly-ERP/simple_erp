@@ -38,7 +38,7 @@ module OperationalPortal
       @customer = Customer.new(customer_params)
 
       if @customer.save
-        redirect_to operational_portal_customers_path, notice: 'Customer was successfully created.'
+        redirect_to operational_portal_customer_path(@customer), notice: 'Customer was successfully created.'
       else
         render :new, status: :unprocessable_entity
       end

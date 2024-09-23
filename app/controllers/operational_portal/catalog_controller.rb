@@ -16,7 +16,7 @@ module OperationalPortal
       query
 
       respond_to do |format|
-        format.turbo_stream { render :stream }
+        format.turbo_stream
       end
     end
 
