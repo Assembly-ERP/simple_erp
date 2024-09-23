@@ -35,6 +35,9 @@ class Ability
     # Support Ticket
     can :manage, SupportTicket
 
+    # Imports
+    can :manage, CustomerImport
+
     # Manage Pages
     can :manage, User
     can :manage, Customer

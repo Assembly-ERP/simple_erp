@@ -4,7 +4,7 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
   Sidekiq::Web.use Rack::Auth::Basic do |username, password|
-    username == ENV.fetch('SIDEKIQ_PASSWORD', 'sidekiq') && password == ENV.fetch('SIDEKIQ_PASSWORD', 'sidekiq')
+    username == ENV.fetch('SIDEKIQ_PASSWORD', 'sidekiq') && password == ENV.fetch('SIDEKIQ_PASSWORD', 'password')
   end
 
   mount Sidekiq::Web => '/sidekiq'
@@ -66,7 +66,7 @@ Rails.application.routes.draw do
         get :form_user_selection
       end
     end
-    resources :customer_imports, only: %i[index new create]
+    resources :customer_imports, only: %i[index create]
     resources :settings, only: %i[index edit update]
     resources :order_price_schedulers, only: %i[index]
     resources :users
@@ -183,6 +183,8 @@ end
 #                                                        PATCH  /operational_portal/support_tickets/:id(.:format)                                                 operational_portal/support_tickets#update
 #                                                        PUT    /operational_portal/support_tickets/:id(.:format)                                                 operational_portal/support_tickets#update
 #                                                        DELETE /operational_portal/support_tickets/:id(.:format)                                                 operational_portal/support_tickets#destroy
+#                    operational_portal_customer_imports GET    /operational_portal/customer_imports(.:format)                                                    operational_portal/customer_imports#index
+#                                                        POST   /operational_portal/customer_imports(.:format)                                                    operational_portal/customer_imports#create
 #                            operational_portal_settings GET    /operational_portal/settings(.:format)                                                            operational_portal/settings#index
 #                        edit_operational_portal_setting GET    /operational_portal/settings/:id/edit(.:format)                                                   operational_portal/settings#edit
 #                             operational_portal_setting PATCH  /operational_portal/settings/:id(.:format)                                                        operational_portal/settings#update
