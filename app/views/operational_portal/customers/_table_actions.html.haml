@@ -1,9 +1,11 @@
 .mx-4.py-3{data: {controller: "customers--search", url: operational_portal_customers_path}}
   .flex.justify-between.gap-5.items-center
     %h1.font-semibold.text-lg Manage Customers
-    %button.hidden.btn-sm.border.border-gray-300.h-fit.flex.gap-2.items-center.bg-white.hover:bg-foreground.focus:ring-4.focus:ring-gray-200
-      = icon("fa-solid", "upload", class: "text-sm text-gray-400")
-      Export
+    .block{data: {controller: "dialog", action: "click->dialog#backdropClose"}}
+      = render "import_modal"
+      %button.btn-sm.border.border-gray-300.h-fit.flex.gap-2.items-center.bg-white.hover:bg-foreground{data: {action: "click->dialog#open"}}
+        = icon("fa-solid", "file-import", class: "text-sm text-gray-400")
+        Import
   .flex.gap-5.justify-between.items-end.border-b.py-3
     .flex.gap-4.items-center
       .flex
