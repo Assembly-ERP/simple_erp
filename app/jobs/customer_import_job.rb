@@ -15,7 +15,7 @@ class CustomerImportJob
 
     import.update_attribute(:total_rows, table.count)
 
-    table.each do |row|
+    table.each_with_index do |row, index|
       name = row['customer']
       ein = row['ein']
       phone = row['phone']
@@ -35,6 +35,8 @@ class CustomerImportJob
       else
         logger.warn "Failed to create customer: #{customer_import.errors.full_messages.join(', ')}"
       end
+
+      import.update_attribute(:current_row, index + 1)
     end
 
     import.update_attribute(:status, 'success')
