@@ -6,3 +6,7 @@
   .table-cell
     = "#{ci.created_by.first_name} #{ci.created_by.last_name}"
   = render "operational_portal/customer_imports/status_cell", ci:
+  .table-cell
+    - if ci.log.attached?
+      = link_to rails_blob_path(ci.log), target: "_blank" do
+        = icon("fa-solid", "download")
