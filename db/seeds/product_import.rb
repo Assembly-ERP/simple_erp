@@ -15,11 +15,6 @@ if ENV['USER_IMPORT_FILE'].present?
       length: row['length'], sku: row['sku']
     )
 
-    if product.valid?
-      product.save!
-      puts "Product saved: #{product.name}"
-    else
-      puts "Invalid product: #{product.errors.full_messages.join(', ')}"
-    end
+    product.save! if product.valid?
   end
 end
