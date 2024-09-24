@@ -19,7 +19,11 @@ module OperationalPortal
 
       query_instance = query_instance.accessible_by(current_ability)
 
-      @pagy, @customers = pagy(query_instance)
+      @pagy, @customers = pagy(query_instance, request_path: search_operational_portal_customers_path)
+    end
+
+    def search
+      index
     end
 
     def show; end
@@ -38,7 +42,7 @@ module OperationalPortal
       @customer = Customer.new(customer_params)
 
       if @customer.save
-        redirect_to operational_portal_customer_path(@customer), notice: 'Customer was successfully created.'
+        redirect_to operational_portal_customers_path, notice: 'Customer was successfully created.'
       else
         render :new, status: :unprocessable_entity
       end
@@ -46,7 +50,7 @@ module OperationalPortal
 
     def update
       if @customer.update(customer_params)
-        redirect_to operational_portal_customer_path(@customer), notice: 'Customer was successfully updated.'
+        redirect_to operational_portal_customers_path, notice: 'Customer was successfully updated.'
       else
         render :edit, status: :unprocessable_entity
       end

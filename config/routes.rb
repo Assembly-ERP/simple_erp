@@ -52,6 +52,7 @@ Rails.application.routes.draw do
         delete :cancel
       end
       collection do
+        get :search
         get :search_results
       end
     end
@@ -71,6 +72,9 @@ Rails.application.routes.draw do
     resources :users
     resources :brandings, path: 'branding', only: %i[edit update]
     resources :customers do
+      collection do
+        get :search
+      end
       member do
         get :users
       end
