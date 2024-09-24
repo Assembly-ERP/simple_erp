@@ -101,6 +101,13 @@ Rails.application.routes.draw do
   resources :products, only: %i[index show]
   resources :parts, only: %i[index show]
 
+  # # API
+  # namespace :api do
+  #   namespace :v1 do
+  #     resources :parts
+  #   end
+  # end
+
   # Health check route for application monitoring
   get 'up' => 'rails/health#show', as: :rails_health_check
 end
