@@ -17,7 +17,7 @@ if ENV.fetch('INIT_ADMIN_EMAIL', '').present? && ENV.fetch('INIT_ADMIN_PASSWORD'
     email: ENV.fetch('INIT_ADMIN_EMAIL', ''),
     password: ENV.fetch('INIT_ADMIN_PASSWORD', ''),
     password_confirmation: ENV.fetch('INIT_ADMIN_PASSWORD', ''),
-    role: 'super_user',
+    role: 'admin',
     first_name: ENV.fetch('INIT_ADMIN_FIRST_NAME', 'Admin'),
     last_name: ENV.fetch('INIT_ADMIN_LAST_NAME', 'User'),
     confirmed_at: Time.now.utc
@@ -29,7 +29,7 @@ if ENV.fetch('INIT_MANAGER_EMAIL', '').present? && ENV.fetch('INIT_MANAGER_PASSW
     email: ENV.fetch('INIT_MANAGER_EMAIL', ''),
     password: ENV.fetch('INIT_MANAGER_PASSWORD', ''),
     password_confirmation: ENV.fetch('INIT_MANAGER_PASSWORD', ''),
-    role: 'super_user',
+    role: 'manager',
     first_name: ENV.fetch('INIT_MANAGER_FIRST_NAME', 'Manager'),
     last_name: ENV.fetch('INIT_MANAGER_LAST_NAME', 'User'),
     confirmed_at: Time.now.utc
