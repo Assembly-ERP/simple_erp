@@ -22,7 +22,11 @@ module OperationalPortal
 
       query_instance = query_instance.accessible_by(current_ability)
 
-      @pagy, @orders = pagy(query_instance)
+      @pagy, @orders = pagy(query_instance, request_path: search_operational_portal_orders_path)
+    end
+
+    def search
+      index
     end
 
     def show; end
