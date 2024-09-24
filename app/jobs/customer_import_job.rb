@@ -33,7 +33,7 @@ class CustomerImportJob
         customer_import.save!
         logger.info "Created customer: #{customer_import.name}"
       else
-        logger.warn "Failed to create customer: #{customer_import.errors.full_messages.join(', ')}"
+        logger.warn "Failed to create customer: #{row['customer']}, #{customer_import.errors.full_messages.join(', ')}"
       end
 
       import.update_attribute(:current_row, index + 1)
