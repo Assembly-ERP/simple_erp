@@ -16,8 +16,8 @@ module OperationalPortal
         query_instance = query_instance.where(search_query, search: "%#{params[:search]}%")
       end
 
-      if params[:order_status].present? && params[:order_status] != 'all'
-        query_instance = query_instance.where(order_status_id: params[:order_status])
+      if params[:order_status_id].present? && params[:order_status_id] != 'all'
+        query_instance = query_instance.where(order_status_id: params[:order_status_id])
       end
 
       query_instance = query_instance.accessible_by(current_ability)
