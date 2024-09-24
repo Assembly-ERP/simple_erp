@@ -1,6 +1,27 @@
 # frozen_string_literal: true
 
 if Rails.env.development? || ENV['FORCE_MIGRATE'] == 'true'
+  # Create User
+  User.create(
+    email: ENV.fetch('INIT_ADMIN_EMAIL', 'admin@example.com'),
+    password: ENV.fetch('INIT_ADMIN_PASSWORD', 'password'),
+    password_confirmation: ENV.fetch('INIT_ADMIN_PASSWORD', 'password'),
+    role: 'admin',
+    first_name: ENV.fetch('INIT_ADMIN_FIRST_NAME', 'Admin'),
+    last_name: ENV.fetch('INIT_ADMIN_LAST_NAME', 'User'),
+    confirmed_at: Time.now.utc
+  )
+
+  User.create(
+    email: ENV.fetch('INIT_MANAGER_EMAIL', 'admin@example.com'),
+    password: ENV.fetch('INIT_MANAGER_PASSWORD', 'password'),
+    password_confirmation: ENV.fetch('INIT_MANAGER_PASSWORD', 'password'),
+    role: 'manager',
+    first_name: ENV.fetch('INIT_MANAGER_FIRST_NAME', 'Manager'),
+    last_name: ENV.fetch('INIT_MANAGER_LAST_NAME', 'User'),
+    confirmed_at: Time.now.utc
+  )
+
   # Create customers
   customer1 = Customer.create(
     name: 'Big Shop',
@@ -46,7 +67,7 @@ if Rails.env.development? || ENV['FORCE_MIGRATE'] == 'true'
   )
 
   # Create parts
-  part1 = Part.create!(
+  part1 = Part.create(
     name: 'Part One',
     description: 'This is part one',
     price: 100.00,
@@ -56,7 +77,7 @@ if Rails.env.development? || ENV['FORCE_MIGRATE'] == 'true'
     inventory: true
   )
 
-  part2 = Part.create!(
+  part2 = Part.create(
     name: 'Part Two',
     description: 'This is part two',
     price: 200.00,
@@ -67,7 +88,7 @@ if Rails.env.development? || ENV['FORCE_MIGRATE'] == 'true'
   )
 
   # Create products
-  product1 = Product.create!(
+  product1 = Product.create(
     name: 'Product One',
     description: 'This is product one',
     parts_products_attributes: [
@@ -76,7 +97,7 @@ if Rails.env.development? || ENV['FORCE_MIGRATE'] == 'true'
     ]
   )
 
-  product2 = Product.create!(
+  product2 = Product.create(
     name: 'Product Two',
     description: 'This is product two',
     parts_products_attributes: [

@@ -39,7 +39,7 @@ class Ability
     can :manage, CustomerImport
 
     # Manage Pages
-    can :manage, User
+    can :manage, User, role: User::ROLES
     can :manage, Customer, voided_at: nil
     can :manage, Setting
     can :manage, OrderPriceScheduler
