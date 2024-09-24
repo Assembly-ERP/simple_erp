@@ -11,17 +11,17 @@ class CreateParts < ActiveRecord::Migration[7.1]
       t.decimal :weight, precision: 10, scale: 2, default: 0.00
       t.decimal :length, precision: 10, scale: 2, default: 0.00
       t.decimal :width, precision: 10, scale: 2, default: 0.00
-      t.json :json_attributes
       t.boolean :manual_price, default: false, null: false
       t.boolean :inventory, default: false, null: false
       t.datetime :voided_at
       t.string :nmfc
+      t.string :category
 
       t.timestamps
     end
 
-    add_index :parts, :voided_at
     add_index :parts, :name
+    add_index :parts, :voided_at
     add_index :parts, :sku, unique: true
   end
 end

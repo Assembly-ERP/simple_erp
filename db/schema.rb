@@ -207,11 +207,11 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_20_101220) do
     t.decimal "weight", precision: 10, scale: 2, default: "0.0"
     t.decimal "length", precision: 10, scale: 2, default: "0.0"
     t.decimal "width", precision: 10, scale: 2, default: "0.0"
-    t.json "json_attributes"
     t.boolean "manual_price", default: false, null: false
     t.boolean "inventory", default: false, null: false
     t.datetime "voided_at"
     t.string "nmfc"
+    t.string "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_parts_on_name"
@@ -248,8 +248,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_20_101220) do
     t.decimal "price", precision: 10, scale: 2, default: "0.0"
     t.decimal "weight", precision: 10, scale: 2, default: "0.0"
     t.boolean "available", default: false, null: false
-    t.json "json_attributes"
     t.datetime "voided_at"
+    t.string "nmfc"
+    t.string "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_products_on_name"
