@@ -22,7 +22,7 @@ export default class extends Controller {
     path += `&search_by[]=id`;
 
     // order status
-    path += `&order_status=${this.activeStatusRadio.value}`;
+    path += `&order_status_id=${this.activeStatusRadio.value}`;
 
     fetch(path, {
       method: "GET",
