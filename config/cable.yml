@@ -1,7 +1,7 @@
 development:
   adapter: redis
   url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
-  channel_prefix: erpweb_dev
+  channel_prefix: <%= ENV.fetch("CABLE_PREFIX") { "erpweb_cable_dev" } %>
 
 test:
   adapter: test
@@ -9,4 +9,4 @@ test:
 production:
   adapter: redis
   url: <%= ENV.fetch("REDIS_URL") { "redis://localhost:6379/1" } %>
-  channel_prefix: erpweb_prod
+  channel_prefix: <%= ENV.fetch("CABLE_PREFIX") { "erpweb_cable_prod" } %>
