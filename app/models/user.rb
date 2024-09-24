@@ -2,10 +2,14 @@
 
 class User < ApplicationRecord
   # Define roles as constants or methods
-  ROLES = %w[regular manager admin customer_user_admin customer_user_regular].freeze
+  OPERATION_ROLES = %w[regular manager admin].freeze
+  CUSTOMER_ROLES = %w[customer_user_admin customer_user_regular].freeze
   ADVANCE_ROLES = %w[super_user].freeze
 
-  # Include default devise modules. Others available are:
+  ROLES = OPERATION_ROLES + CUSTOMER_ROLES
+  ALL_ROLES = OPERATION_ROLES + CUSTOMER_ROLES + ADVANCE_ROLES
+
+  # Devise: Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :invitable, :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :validatable, :invitable
@@ -32,7 +36,7 @@ class User < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :email, presence: true, uniqueness: { message: 'This email is already taken' }
-  validates :role, inclusion: { in: ROLES + ADVANCE_ROLES, message: 'Invalid role' }
+  validates :role, inclusion: { in: ALL_ROLES, message: 'Invalid role' }
   validates :customer, presence: true, if: -> { customer_user? }
 
   # Generators
@@ -49,11 +53,11 @@ class User < ApplicationRecord
   end
 
   def operational_user?
-    role == 'admin' || role == 'manager' || role == 'regular' || role == 'super_user'
+    OPERATION_ROLES.include?(role) || ADVANCE_ROLES.include?(role)
   end
 
   def customer_user?
-    role == 'customer_user_admin' || role == 'customer_user_regular'
+    CUSTOMER_ROLES.include?(role)
   end
 
   private

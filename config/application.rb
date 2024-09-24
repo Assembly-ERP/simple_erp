@@ -16,6 +16,7 @@ module Erpweb
     end
 
     config.active_job.queue_adapter = :sidekiq
+    config.active_job.queue_name_prefix = ENV.fetch('ACTIVE_JOB_PREFIX', 'erpweb_queue')
 
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")

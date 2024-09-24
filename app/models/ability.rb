@@ -45,7 +45,7 @@ class Ability
     can :manage, OrderPriceScheduler
 
     # Branding
-    can :manage, Branding if user.role == 'admin'
+    can :manage, Branding if user.role == 'admin' || User::ADVANCE_ROLES.include?(user.role)
   end
 
   def customer_portal(_user)

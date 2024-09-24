@@ -11,8 +11,8 @@ if ENV['USER_IMPORT_FILE'].present?
   table.each do |row|
     product = Part.build(
       name: row['sku'], nmfc: row['nmfc'], description: row['new description'],
-      width: row['width'], weight: row['weight']&.chomp('lbs').to_f || 0,
-      length: row['length'], sku: row['sku']
+      width: row['width'] || 0, weight: row['weight']&.chomp('lbs').to_f || 0,
+      length: row['length'] || 0, sku: row['sku']
     )
 
     product.save! if product.valid?
