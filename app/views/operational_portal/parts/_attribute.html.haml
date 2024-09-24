@@ -1,0 +1,5 @@
+- if attr_form.object.input_type == "text"
+  .field
+    = attr_form.label attr_form.object.label, for: "attr-#{attr_form.index}"
+    = attr_form.text_field :value, class: "input-primary", id: "attr-#{attr_form.index}"
+  = attr_form.hidden_field :label

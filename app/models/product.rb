@@ -77,17 +77,18 @@ end
 #
 # Table name: products
 #
-#  id              :bigint           not null, primary key
-#  available       :boolean          default(FALSE), not null
-#  description     :text
-#  json_attributes :json
-#  name            :string           not null
-#  price           :decimal(10, 2)   default(0.0)
-#  sku             :string
-#  voided_at       :datetime
-#  weight          :decimal(10, 2)   default(0.0)
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  id          :bigint           not null, primary key
+#  available   :boolean          default(FALSE), not null
+#  category    :string
+#  description :text
+#  name        :string           not null
+#  nmfc        :string
+#  price       :decimal(10, 2)   default(0.0)
+#  sku         :string
+#  voided_at   :datetime
+#  weight      :decimal(10, 2)   default(0.0)
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
 #
 # Indexes
 #

@@ -11,6 +11,8 @@ class Part < ApplicationRecord
   has_many :orders, through: :order_details
   has_many :poly_attributes, as: :attributable, dependent: :destroy
 
+  accepts_nested_attributes_for :poly_attributes, allow_destroy: true, reject_if: :all_blank
+
   # Attachments
   has_many_attached :files
   has_many_attached :images do |attachable|
@@ -78,22 +80,22 @@ end
 #
 # Table name: parts
 #
-#  id              :bigint           not null, primary key
-#  description     :text
-#  in_stock        :integer          default(0)
-#  inventory       :boolean          default(FALSE), not null
-#  json_attributes :json
-#  length          :decimal(10, 2)   default(0.0)
-#  manual_price    :boolean          default(FALSE), not null
-#  name            :string           not null
-#  nmfc            :string
-#  price           :decimal(10, 2)   default(0.0)
-#  sku             :string
-#  voided_at       :datetime
-#  weight          :decimal(10, 2)   default(0.0)
-#  width           :decimal(10, 2)   default(0.0)
-#  created_at      :datetime         not null
-#  updated_at      :datetime         not null
+#  id           :bigint           not null, primary key
+#  category     :string
+#  description  :text
+#  in_stock     :integer          default(0)
+#  inventory    :boolean          default(FALSE), not null
+#  length       :decimal(10, 2)   default(0.0)
+#  manual_price :boolean          default(FALSE), not null
+#  name         :string           not null
+#  nmfc         :string
+#  price        :decimal(10, 2)   default(0.0)
+#  sku          :string
+#  voided_at    :datetime
+#  weight       :decimal(10, 2)   default(0.0)
+#  width        :decimal(10, 2)   default(0.0)
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
 #
 # Indexes
 #

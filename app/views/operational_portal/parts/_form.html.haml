@@ -15,6 +15,13 @@
             .field
               = form.label :sku, class: "uppercase"
               = form.text_field :sku, class: "input-primary"
+            .flex.gap-4
+              .field
+                = form.label :nmfc, class: "uppercase"
+                = form.text_field :nmfc, class: "input-primary"
+              .field
+                = form.label :category
+                = form.text_field :category, class: "input-primary"
             .field
               = form.label :description
               = form.text_area :description, class: "input-primary", rows: 9
@@ -48,10 +55,10 @@
                 = form.label :weight, "Weight (lbs)"
                 = form.number_field :weight, value: number_with_precision(form.object.weight, precision: 2), placeholder: "0.0", step: :any, class: "input-primary", data: {"parts--form-target": "weight", action: "input->parts--form#calcByWeight"}
               .field
-                = form.label :length, "Length (cm)"
+                = form.label :length, "Length (in)"
                 = form.number_field :length, value: number_with_precision(form.object.length, precision: 2), placeholder: "0.0", step: :any, class: "input-primary"
               .field
-                = form.label :width, "Width (cm)"
+                = form.label :width, "Width (in)"
                 = form.number_field :width, value: number_with_precision(form.object.width, precision: 2), placeholder: "0.0", step: :any, class: "input-primary"
             = render "form_image_upload", form: form
     .accordion.group{data: {controller: "accordion", open: "false"}}
@@ -59,5 +66,8 @@
         Custom Attributes
         = icon("fa-solid", "chevron-down", data: {"accordion-target": "iconDown"})
       .accordion-content{data: {"accordion-target": "content"}, class: "hidden"}
+        .grid.grid-cols-2.gap-4
+          = form.fields_for :poly_attributes do |attr_form|
+            = render "attribute", attr_form:
   .block
     = form.submit btn_text, class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"
