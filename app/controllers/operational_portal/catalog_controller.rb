@@ -17,26 +17,19 @@ module OperationalPortal
 
     private
 
-    def query
-      query_instance = Product.from("(#{catalog(Product).to_sql} UNION #{catalog(Part).to_sql}) products")
-                              .order(created_at: :desc)
-
-      @pagy, @items = pagy(query_instance)
-    end
-
     def catalog(model)
-      instance = model.catalog.not_voided
+      query_instance = model.catalog.not_voided
 
       if params[:search].present? && params[:search_by].present?
-        if params[:search_by].include?('name')
-          instance = instance.where('name ILIKE :search', search: "%#{params[:search]}%")
-        end
-        if params[:search_by].include?('description')
-          instance = instance.where('description ILIKE :search', search: "%#{params[:search]}%")
-        end
+        search_query = ''
+        search_query += 'name ILIKE :search' if params[:search_by].include?('name')
+        search_query += "#{or_q(search_query)} description ILIKE :search" if params[:search_by].include?('description')
+        search_query += "#{or_q(search_query)} sku ILIKE :search" if params[:search_by].include?('sku')
+
+        query_instance = query_instance.where(search_query, search: "%#{params[:search]}%") if search_query.present?
       end
 
-      instance
+      query_instance
     end
   end
 end

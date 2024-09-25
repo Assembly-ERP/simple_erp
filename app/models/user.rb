@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  # Define roles as constants or methods
+  # Constants
   OPERATION_ROLES = %w[regular manager admin].freeze
   CUSTOMER_ROLES = %w[customer_user_admin customer_user_regular].freeze
-  ADVANCE_ROLES = %w[super_user].freeze
+  ADVANCE_ROLES = %w[super_user support].freeze
 
   ROLES = OPERATION_ROLES + CUSTOMER_ROLES
   ALL_ROLES = OPERATION_ROLES + CUSTOMER_ROLES + ADVANCE_ROLES
@@ -17,17 +17,12 @@ class User < ApplicationRecord
   # Relationship
   belongs_to :customer, optional: true
 
-  has_many :customer_imports, class_name: 'CustomerImport', foreign_key: 'created_by_id', dependent: :destroy,
-                              inverse_of: :user
   has_many :poly_attributes, as: :attributable, dependent: :destroy
-  has_many :orders, foreign_key: 'customer_id', primary_key: 'customer_id', inverse_of: :customer, dependent: :destroy
-  has_many :support_tickets, foreign_key: 'customer_id', primary_key: 'customer_id', inverse_of: :customer,
-                             dependent: :destroy
+  has_many :support_tickets, dependent: :destroy
 
   accepts_nested_attributes_for :customer
 
   # Scopes
-  scope :customer_users, -> { where(role: 'customer_user_admin').or(User.where(role: 'customer_user_regular')) }
   scope :with_customer, lambda {
     select('users.*, customers.name AS customer_name')
       .joins('LEFT JOIN customers ON customers.id = users.customer_id')
@@ -35,9 +30,9 @@ class User < ApplicationRecord
 
   validates :first_name, presence: true
   validates :last_name, presence: true
+  validates :customer, presence: true, if: :customer_user?
   validates :email, presence: true, uniqueness: { message: 'This email is already taken' }
   validates :role, inclusion: { in: ALL_ROLES, message: 'Invalid role' }
-  validates :customer, presence: true, if: -> { customer_user? }
 
   # Generators
   before_validation :fill_or_default_role
@@ -73,6 +68,7 @@ class User < ApplicationRecord
   end
 
   def temporary_password
+    puts 'here: --------------', skip_invitation
     return if password.present?
 
     self.password = Devise.friendly_token[0, 20]

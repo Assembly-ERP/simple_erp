@@ -101,9 +101,9 @@ Rails.application.routes.draw do
     end
   end
 
-  # Resources accessible to all users
-  resources :products, only: %i[index show]
-  resources :parts, only: %i[index show]
+  # # Resources accessible to all users
+  # resources :products, only: %i[index show]
+  # resources :parts, only: %i[index show]
 
   # # API
   # namespace :api do

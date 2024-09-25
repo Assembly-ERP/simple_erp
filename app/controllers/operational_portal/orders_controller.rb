@@ -11,9 +11,9 @@ module OperationalPortal
       if params[:search].present? && params[:search_by].present?
         search_query = ''
         search_query += 'customers.name ILIKE :search' if params[:search_by].include?('customer_name')
-        search_query += "#{or_q(search_query)}orders.formatted_id ILIKE :search" if params[:search_by].include?('id')
+        search_query += "#{or_q(search_query)} orders.formatted_id ILIKE :search" if params[:search_by].include?('id')
 
-        query_instance = query_instance.where(search_query, search: "%#{params[:search]}%")
+        query_instance = query_instance.where(search_query, search: "%#{params[:search]}%") if search_query.present?
       end
 
       if params[:order_status_id].present? && params[:order_status_id] != 'all'

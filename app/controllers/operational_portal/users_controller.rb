@@ -10,13 +10,13 @@ module OperationalPortal
       if params[:search].present? && params[:search_by].present?
         search_query = ''
         search_query += 'first_name ILIKE :search OR last_name ILIKE :search' if params[:search_by].include?('name')
-        search_query += "#{or_q(search_query)}email ILIKE :search" if params[:search_by].include?('name')
-        search_query += "#{or_q(search_query)}role ILIKE :search" if params[:search_by].include?('role')
+        search_query += "#{or_q(search_query)} email ILIKE :search" if params[:search_by].include?('email')
+        search_query += "#{or_q(search_query)} role ILIKE :search" if params[:search_by].include?('role')
         if params[:search_by].include?('customer_name')
-          search_query += "#{or_q(search_query)}customers.name ILIKE :search"
+          search_query += "#{or_q(search_query)} customers.name ILIKE :search"
         end
 
-        query_instance = query_instance.where(search_query, search: "%#{params[:search]}%")
+        query_instance = query_instance.where(search_query, search: "%#{params[:search]}%") if search_query.present?
       end
 
       query_instance = query_instance.accessible_by(current_ability)
