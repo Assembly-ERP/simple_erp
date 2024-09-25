@@ -9,7 +9,7 @@
       = @user.name
     %p
       %strong Role:
-      = @user.role
+      = @user.role.humanize
     %p
       %strong Phone:
       = @user.phone || "N/A"

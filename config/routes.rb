@@ -18,7 +18,7 @@ Rails.application.routes.draw do
   end
 
   authenticated :user, -> { _1.customer_user? } do
-    get '/', to: redirect('/customer')
+    get '/', to: redirect('/customer_portal')
   end
 
   # Auth
@@ -81,14 +81,10 @@ Rails.application.routes.draw do
     end
     resources :invitations, only: %i[new create]
     resource :profile, only: %i[show edit update]
-    resource :cart, only: [:show] do
-      post 'add_item', on: :collection
-    end
   end
 
   # Customer portal namespace
   namespace :customer_portal do
-    root to: 'customer_portal/dashboard#index'
     resources :orders
     resources :support_tickets do
       member do
