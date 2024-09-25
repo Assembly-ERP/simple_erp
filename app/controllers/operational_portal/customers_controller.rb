@@ -5,16 +5,16 @@ module OperationalPortal
     load_and_authorize_resource
 
     def index
-      query_instance = Customer.all
+      query_instance = Customer.not_voided
 
       if params[:search].present? && params[:search_by].present?
         search_query = ''
         search_query += 'name ILIKE :search' if params[:search_by].include?('name')
-        search_query += "#{or_q(search_query)}phone ILIKE :search" if params[:search_by].include?('phone')
-        search_query += "#{or_q(search_query)}city ILIKE :search" if params[:search_by].include?('city')
-        search_query += "#{or_q(search_query)}state ILIKE :search" if params[:search_by].include?('state')
+        search_query += "#{or_q(search_query)} phone ILIKE :search" if params[:search_by].include?('phone')
+        search_query += "#{or_q(search_query)} city ILIKE :search" if params[:search_by].include?('city')
+        search_query += "#{or_q(search_query)} state ILIKE :search" if params[:search_by].include?('state')
 
-        query_instance = query_instance.where(search_query, search: "%#{params[:search]}%")
+        query_instance = query_instance.where(search_query, search: "%#{params[:search]}%") if search_query.present?
       end
 
       query_instance = query_instance.accessible_by(current_ability)

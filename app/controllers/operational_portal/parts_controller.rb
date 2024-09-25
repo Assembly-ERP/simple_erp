@@ -4,9 +4,9 @@ module OperationalPortal
   class PartsController < OperationalPortal::NormalOperationController
     load_and_authorize_resource
 
-    def index
-      @parts = Part.accessible_by(current_ability)
-    end
+    # def index
+    #   @parts = Part.accessible_by(current_ability)
+    # end
 
     def show; end
 
@@ -25,14 +25,10 @@ module OperationalPortal
     end
 
     def update
-      respond_to do |format|
-        if @part.update(part_params)
-          format.html do
-            redirect_to operational_portal_catalog_index_path, notice: 'Part was successfully updated.'
-          end
-        else
-          format.html { render :edit }
-        end
+      if @part.update(part_params)
+        redirect_to operational_portal_catalog_index_path, notice: 'Part was successfully updated.'
+      else
+        render :edit, status: :unprocessable_entity
       end
     end
 
@@ -40,8 +36,10 @@ module OperationalPortal
       respond_to do |format|
         if @part.update(voided_at: Time.zone.now)
           format.html { redirect_to operational_portal_catalog_index_path, notice: 'Part was successfully voied.' }
+          format.turbo_stream
+        else
+          format.turbo_stream { render status: :unprocessable_entity }
         end
-        format.turbo_stream
       end
     end
 

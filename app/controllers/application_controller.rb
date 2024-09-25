@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   private
 
   def or_q(query)
-    query.present? ? ' OR ' : ' '
+    query.present? ? ' OR' : ''
   end
 
   def customer_document(customer)

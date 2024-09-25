@@ -10,6 +10,9 @@ class Customer < ApplicationRecord
   has_many :users, dependent: :destroy
   has_many :poly_attributes, as: :attributable, dependent: :destroy
 
+  # Scopes
+  scope :not_voided, -> { where(voided_at: nil) }
+
   # Validations
   validates :name, presence: true, uniqueness: true
   validates :discount, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }

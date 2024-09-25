@@ -5,9 +5,9 @@ module OperationalPortal
     load_and_authorize_resource except: :search_part_results
     authorize_resource class: false, only: :search_part_results
 
-    def index
-      @products = Product.accessible_by(current_ability)
-    end
+    # def index
+    #   @products = Product.accessible_by(current_ability)
+    # end
 
     def show; end
 
@@ -36,8 +36,10 @@ module OperationalPortal
       respond_to do |format|
         if @product.update(voided_at: Time.zone.now)
           format.html { redirect_to operational_portal_catalog_index_path, notice: 'Product was successfully voied.' }
+          format.turbo_stream
+        else
+          format.turbo_stream { render status: :unprocessable_entity }
         end
-        format.turbo_stream
       end
     end
 
