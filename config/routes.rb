@@ -29,7 +29,7 @@ Rails.application.routes.draw do
 
   # Dashboards
   get '/operational_portal', to: 'operational_portal/dashboard#index', as: :operational_root
-  get '/customer', to: 'customer_portal/dashboard#index', as: :customer_root
+  get '/customer_portal', to: 'customer_portal/dashboard#index', as: :customer_root
 
   # Operational portal namespace
   get '/operational_portal/manage', to: redirect('/operational_portal/users')

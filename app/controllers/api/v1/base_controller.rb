@@ -3,7 +3,8 @@
 module Api
   module V1
     class BaseController < ApplicationController
-      # attr_reader :current_api_user
+      attr_reader :current_api_user
+
       protect_from_forgery with: :null_session
 
       rescue_from CanCan::AccessDenied do |_exception|
@@ -15,7 +16,7 @@ module Api
       end
 
       def current_ability
-        @current_ability ||= Ability.new(current_api_user, 'api')
+        @current_ability ||= Ability.new(api_user, 'api')
       end
 
       private
@@ -38,7 +39,7 @@ module Api
         end
       end
 
-      def current_api_user
+      def api_user
         decoded_token = decoded_token(jwt_key: ENV.fetch('JWT_SECRET', nil))
         return nil if decoded_token.blank?
 
