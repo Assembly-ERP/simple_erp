@@ -668,6 +668,51 @@ class Product
     sig { void }
     def available_will_change!; end
 
+    sig { returns(T.nilable(::String)) }
+    def category; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def category=(value); end
+
+    sig { returns(T::Boolean) }
+    def category?; end
+
+    sig { returns(T.nilable(::String)) }
+    def category_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def category_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def category_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def category_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def category_change_to_be_saved; end
+
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def category_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def category_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def category_previous_change; end
+
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def category_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def category_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def category_was; end
+
+    sig { void }
+    def category_will_change!; end
+
     sig { returns(::ActiveSupport::TimeWithZone) }
     def created_at; end
 
@@ -848,51 +893,6 @@ class Product
     sig { void }
     def id_will_change!; end
 
-    sig { returns(T.untyped) }
-    def json_attributes; end
-
-    sig { params(value: T.untyped).returns(T.untyped) }
-    def json_attributes=(value); end
-
-    sig { returns(T::Boolean) }
-    def json_attributes?; end
-
-    sig { returns(T.untyped) }
-    def json_attributes_before_last_save; end
-
-    sig { returns(T.untyped) }
-    def json_attributes_before_type_cast; end
-
-    sig { returns(T::Boolean) }
-    def json_attributes_came_from_user?; end
-
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
-    def json_attributes_change; end
-
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
-    def json_attributes_change_to_be_saved; end
-
-    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
-    def json_attributes_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.untyped) }
-    def json_attributes_in_database; end
-
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
-    def json_attributes_previous_change; end
-
-    sig { params(from: T.untyped, to: T.untyped).returns(T::Boolean) }
-    def json_attributes_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.untyped) }
-    def json_attributes_previously_was; end
-
-    sig { returns(T.untyped) }
-    def json_attributes_was; end
-
-    sig { void }
-    def json_attributes_will_change!; end
-
     sig { returns(::String) }
     def name; end
 
@@ -937,6 +937,51 @@ class Product
 
     sig { void }
     def name_will_change!; end
+
+    sig { returns(T.nilable(::String)) }
+    def nmfc; end
+
+    sig { params(value: T.nilable(::String)).returns(T.nilable(::String)) }
+    def nmfc=(value); end
+
+    sig { returns(T::Boolean) }
+    def nmfc?; end
+
+    sig { returns(T.nilable(::String)) }
+    def nmfc_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def nmfc_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def nmfc_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def nmfc_change; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def nmfc_change_to_be_saved; end
+
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def nmfc_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def nmfc_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def nmfc_previous_change; end
+
+    sig { params(from: T.nilable(::String), to: T.nilable(::String)).returns(T::Boolean) }
+    def nmfc_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::String)) }
+    def nmfc_previously_was; end
+
+    sig { returns(T.nilable(::String)) }
+    def nmfc_was; end
+
+    sig { void }
+    def nmfc_will_change!; end
 
     sig { returns(T.nilable(::BigDecimal)) }
     def price; end
@@ -987,6 +1032,9 @@ class Product
     def restore_available!; end
 
     sig { void }
+    def restore_category!; end
+
+    sig { void }
     def restore_created_at!; end
 
     sig { void }
@@ -999,10 +1047,10 @@ class Product
     def restore_id_value!; end
 
     sig { void }
-    def restore_json_attributes!; end
+    def restore_name!; end
 
     sig { void }
-    def restore_name!; end
+    def restore_nmfc!; end
 
     sig { void }
     def restore_price!; end
@@ -1024,6 +1072,12 @@ class Product
 
     sig { returns(T::Boolean) }
     def saved_change_to_available?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_category; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_category?; end
 
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def saved_change_to_created_at; end
@@ -1049,17 +1103,17 @@ class Product
     sig { returns(T::Boolean) }
     def saved_change_to_id_value?; end
 
-    sig { returns(T.nilable([T.untyped, T.untyped])) }
-    def saved_change_to_json_attributes; end
-
-    sig { returns(T::Boolean) }
-    def saved_change_to_json_attributes?; end
-
     sig { returns(T.nilable([::String, ::String])) }
     def saved_change_to_name; end
 
     sig { returns(T::Boolean) }
     def saved_change_to_name?; end
+
+    sig { returns(T.nilable([T.nilable(::String), T.nilable(::String)])) }
+    def saved_change_to_nmfc; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_nmfc?; end
 
     sig { returns(T.nilable([T.nilable(::BigDecimal), T.nilable(::BigDecimal)])) }
     def saved_change_to_price; end
@@ -1285,6 +1339,9 @@ class Product
     def will_save_change_to_available?; end
 
     sig { returns(T::Boolean) }
+    def will_save_change_to_category?; end
+
+    sig { returns(T::Boolean) }
     def will_save_change_to_created_at?; end
 
     sig { returns(T::Boolean) }
@@ -1297,10 +1354,10 @@ class Product
     def will_save_change_to_id_value?; end
 
     sig { returns(T::Boolean) }
-    def will_save_change_to_json_attributes?; end
+    def will_save_change_to_name?; end
 
     sig { returns(T::Boolean) }
-    def will_save_change_to_name?; end
+    def will_save_change_to_nmfc?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_price?; end

@@ -16,9 +16,6 @@ module GeneratedPathHelpersModule
   def add_item_customer_portal_cart_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def add_item_operational_portal_cart_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def add_message_customer_portal_support_ticket_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -43,9 +40,6 @@ module GeneratedPathHelpersModule
   def customer_portal_profile_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def customer_portal_root_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def customer_portal_support_ticket_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -56,9 +50,6 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def customer_users_operational_portal_support_tickets_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def delete_file_operational_portal_part_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def destroy_user_session_path(*args); end
@@ -115,9 +106,6 @@ module GeneratedPathHelpersModule
   def new_customer_portal_support_ticket_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def new_operational_portal_customer_import_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def new_operational_portal_customer_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -161,9 +149,6 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def operational_portal_branding_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def operational_portal_cart_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def operational_portal_catalog_index_path(*args); end
@@ -229,12 +214,6 @@ module GeneratedPathHelpersModule
   def operational_root_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def part_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def parts_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def preview_message_file_operational_portal_support_ticket_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -242,12 +221,6 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def preview_view_components_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def product_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def products_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def rails_blob_path(*args); end
@@ -334,6 +307,15 @@ module GeneratedPathHelpersModule
   def root_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def search_operational_portal_catalog_index_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def search_operational_portal_customers_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def search_operational_portal_orders_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def search_part_results_operational_portal_products_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -356,9 +338,6 @@ module GeneratedPathHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def update_summary_operational_portal_order_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def upload_file_operational_portal_part_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def user_confirmation_path(*args); end

@@ -127,5 +127,6 @@ gem 'premailer-rails'
 # Background Job
 gem 'sidekiq', '~> 7.3'
 
-# For Json API
+# For JSON API
+gem 'jwt', '~> 2.9'
 gem 'rack-cors', '~> 2.0'
