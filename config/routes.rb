@@ -118,7 +118,7 @@ end
 #                                            sidekiq_web        /sidekiq                                                                                          Sidekiq::Web
 #                                                   root GET    /                                                                                                 home#index
 #                                                        GET    /                                                                                                 redirect(301, /operational_portal)
-#                                                        GET    /                                                                                                 redirect(301, /customer)
+#                                                        GET    /                                                                                                 redirect(301, /customer_portal)
 #                                       new_user_session GET    /users/sign_in(.:format)                                                                          devise/sessions#new
 #                                           user_session POST   /users/sign_in(.:format)                                                                          devise/sessions#create
 #                                   destroy_user_session DELETE /users/sign_out(.:format)                                                                         devise/sessions#destroy
@@ -144,7 +144,7 @@ end
 #                                                        PUT    /users/invitation(.:format)                                                                       users/invitations#update
 #                                                        POST   /users/invitation(.:format)                                                                       users/invitations#create
 #                                       operational_root GET    /operational_portal(.:format)                                                                     operational_portal/dashboard#index
-#                                          customer_root GET    /customer(.:format)                                                                               customer_portal/dashboard#index
+#                                          customer_root GET    /customer_portal(.:format)                                                                        customer_portal/dashboard#index
 #                              operational_portal_manage GET    /operational_portal/manage(.:format)                                                              redirect(301, /operational_portal/users)
 #                search_operational_portal_catalog_index GET    /operational_portal/catalog/search(.:format)                                                      operational_portal/catalog#search
 #                       operational_portal_catalog_index GET    /operational_portal/catalog(.:format)                                                             operational_portal/catalog#index
@@ -223,9 +223,6 @@ end
 #                             operational_portal_profile GET    /operational_portal/profile(.:format)                                                             operational_portal/profiles#show
 #                                                        PATCH  /operational_portal/profile(.:format)                                                             operational_portal/profiles#update
 #                                                        PUT    /operational_portal/profile(.:format)                                                             operational_portal/profiles#update
-#                       add_item_operational_portal_cart POST   /operational_portal/cart/add_item(.:format)                                                       operational_portal/carts#add_item
-#                                operational_portal_cart GET    /operational_portal/cart(.:format)                                                                operational_portal/carts#show
-#                                   customer_portal_root GET    /customer_portal(.:format)                                                                        customer_portal/customer_portal/dashboard#index
 #                                 customer_portal_orders GET    /customer_portal/orders(.:format)                                                                 customer_portal/orders#index
 #                                                        POST   /customer_portal/orders(.:format)                                                                 customer_portal/orders#create
 #                              new_customer_portal_order GET    /customer_portal/orders/new(.:format)                                                             customer_portal/orders#new

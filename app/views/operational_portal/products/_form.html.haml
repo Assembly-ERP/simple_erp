@@ -9,6 +9,13 @@
       .field
         = form.label :sku, class: "uppercase"
         = form.text_field :sku, class: "input-primary"
+      .flex.gap-4
+        .field
+          = form.label :nmfc, class: "uppercase"
+          = form.text_field :nmfc, class: "input-primary"
+        .field
+          = form.label :category
+          = form.text_field :category, class: "input-primary"
       .flex.gap-2.items-center.mt-2
         .font-medium.uppercase
           Weight:
@@ -26,7 +33,7 @@
     .block
       .field
         = form.label :description
-        = form.text_area :description, class: "input-primary", rows: 8
+        = form.text_area :description, class: "input-primary", rows: 11
   = render "search_parts", form:
   = render "form_parts", form:
   .mt-3

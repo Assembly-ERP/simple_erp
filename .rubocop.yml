@@ -46,6 +46,7 @@ Metrics/BlockLength:
     - "lib/tasks/*"
     - "config/**/**"
     - "spec/**/**"
+    - "db/seeds/*"
 
 Metrics/CyclomaticComplexity:
   Max: 10
