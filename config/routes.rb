@@ -253,10 +253,6 @@ end
 #                                                        PUT    /customer_portal/profile(.:format)                                                                customer_portal/profiles#update
 #                          add_item_customer_portal_cart POST   /customer_portal/cart/add_item(.:format)                                                          customer_portal/carts#add_item
 #                                   customer_portal_cart GET    /customer_portal/cart(.:format)                                                                   customer_portal/carts#show
-#                                               products GET    /products(.:format)                                                                               products#index
-#                                                product GET    /products/:id(.:format)                                                                           products#show
-#                                                  parts GET    /parts(.:format)                                                                                  parts#index
-#                                                   part GET    /parts/:id(.:format)                                                                              parts#show
 #                                     rails_health_check GET    /up(.:format)                                                                                     rails/health#show
 #                       turbo_recede_historical_location GET    /recede_historical_location(.:format)                                                             turbo/native/navigation#recede
 #                       turbo_resume_historical_location GET    /resume_historical_location(.:format)                                                             turbo/native/navigation#resume

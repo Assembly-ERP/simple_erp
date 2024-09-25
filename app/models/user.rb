@@ -4,10 +4,10 @@ class User < ApplicationRecord
   # Constants
   OPERATION_ROLES = %w[regular manager admin].freeze
   CUSTOMER_ROLES = %w[customer_user_admin customer_user_regular].freeze
-  ADVANCE_ROLES = %w[super_user support].freeze
+  OPERATION_ADVANCE_ROLES = %w[support_regular support_manager support_admin].freeze
 
   ROLES = OPERATION_ROLES + CUSTOMER_ROLES
-  ALL_ROLES = OPERATION_ROLES + CUSTOMER_ROLES + ADVANCE_ROLES
+  ALL_ROLES = OPERATION_ROLES + CUSTOMER_ROLES + OPERATION_ADVANCE_ROLES
 
   # Devise: Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -48,7 +48,7 @@ class User < ApplicationRecord
   end
 
   def operational_user?
-    OPERATION_ROLES.include?(role) || ADVANCE_ROLES.include?(role)
+    OPERATION_ROLES.include?(role) || OPERATION_ADVANCE_ROLES.include?(role)
   end
 
   def customer_user?
@@ -68,7 +68,6 @@ class User < ApplicationRecord
   end
 
   def temporary_password
-    Rails.logger.debug 'here: --------------', skip_invitation
     return if password.present?
 
     self.password = Devise.friendly_token[0, 20]
