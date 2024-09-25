@@ -1,10 +1,10 @@
 .py-8
   .accordion-container
-    .accordion.group{data: {controller: "accordion"}}
+    .accordion.group{data: {controller: "accordion", open: "false"}}
       .accordion-btn{type: "button", data: {action: "click->accordion#toggle"}}
         Price Calculation
         = icon("fa-solid", "chevron-down", data: {"accordion-target": "iconDown"})
-      .accordion-content{data: {"accordion-target": "content"}}
+      .accordion-content.hidden{data: {"accordion-target": "content"}}
         .w-full
           %table
             %tbody
@@ -19,7 +19,7 @@
           .flex.items-center.justify-center.w-full
             = icon("fa-solid", "spinner", class: "animate-spin text-4xl text-gray-400")
     - if can?(:manage, Branding.client) 
-      .accordion.group{data: {controller: "accordion", open: params[:accordion]&.include?("branding") ? "true" : "false"}}
+      .accordion.group{data: {controller: "accordion", open: "false"}}
         .accordion-btn{type: "button", data: {action: "click->accordion#toggle"}}
           Branding
           = icon("fa-solid", "chevron-down", data: {"accordion-target": "iconDown"})
