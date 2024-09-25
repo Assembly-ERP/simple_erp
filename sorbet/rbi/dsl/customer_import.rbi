@@ -386,6 +386,9 @@ class CustomerImport
   end
 
   module GeneratedAssociationMethods
+    sig { params(args: T.untyped, blk: T.untyped).returns(::User) }
+    def build_created_by(*args, &blk); end
+
     sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Attachment) }
     def build_log_attachment(*args, &blk); end
 
@@ -397,6 +400,12 @@ class CustomerImport
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Blob) }
     def build_sheet_blob(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::User) }
+    def create_created_by(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::User) }
+    def create_created_by!(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Attachment) }
     def create_log_attachment(*args, &blk); end
@@ -422,6 +431,18 @@ class CustomerImport
     sig { params(args: T.untyped, blk: T.untyped).returns(::ActiveStorage::Blob) }
     def create_sheet_blob!(*args, &blk); end
 
+    sig { returns(T.nilable(::User)) }
+    def created_by; end
+
+    sig { params(value: T.nilable(::User)).void }
+    def created_by=(value); end
+
+    sig { returns(T::Boolean) }
+    def created_by_changed?; end
+
+    sig { returns(T::Boolean) }
+    def created_by_previously_changed?; end
+
     sig { returns(T.nilable(::ActiveStorage::Attachment)) }
     def log_attachment; end
 
@@ -434,6 +455,9 @@ class CustomerImport
     sig { params(value: T.nilable(::ActiveStorage::Blob)).void }
     def log_blob=(value); end
 
+    sig { returns(T.nilable(::User)) }
+    def reload_created_by; end
+
     sig { returns(T.nilable(::ActiveStorage::Attachment)) }
     def reload_log_attachment; end
 
@@ -445,6 +469,9 @@ class CustomerImport
 
     sig { returns(T.nilable(::ActiveStorage::Blob)) }
     def reload_sheet_blob; end
+
+    sig { void }
+    def reset_created_by; end
 
     sig { void }
     def reset_log_attachment; end
@@ -712,6 +739,96 @@ class CustomerImport
     sig { void }
     def created_at_will_change!; end
 
+    sig { returns(T.nilable(::Integer)) }
+    def created_by_id; end
+
+    sig { params(value: T.nilable(::Integer)).returns(T.nilable(::Integer)) }
+    def created_by_id=(value); end
+
+    sig { returns(T::Boolean) }
+    def created_by_id?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def created_by_id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def created_by_id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def created_by_id_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def created_by_id_change; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def created_by_id_change_to_be_saved; end
+
+    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    def created_by_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def created_by_id_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def created_by_id_previous_change; end
+
+    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    def created_by_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def created_by_id_previously_was; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def created_by_id_was; end
+
+    sig { void }
+    def created_by_id_will_change!; end
+
+    sig { returns(::Integer) }
+    def current_row; end
+
+    sig { params(value: ::Integer).returns(::Integer) }
+    def current_row=(value); end
+
+    sig { returns(T::Boolean) }
+    def current_row?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def current_row_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def current_row_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def current_row_came_from_user?; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def current_row_change; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def current_row_change_to_be_saved; end
+
+    sig { params(from: ::Integer, to: ::Integer).returns(T::Boolean) }
+    def current_row_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def current_row_in_database; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def current_row_previous_change; end
+
+    sig { params(from: ::Integer, to: ::Integer).returns(T::Boolean) }
+    def current_row_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def current_row_previously_was; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def current_row_was; end
+
+    sig { void }
+    def current_row_will_change!; end
+
     sig { returns(::Integer) }
     def id; end
 
@@ -806,6 +923,12 @@ class CustomerImport
     def restore_created_at!; end
 
     sig { void }
+    def restore_created_by_id!; end
+
+    sig { void }
+    def restore_current_row!; end
+
+    sig { void }
     def restore_id!; end
 
     sig { void }
@@ -815,6 +938,9 @@ class CustomerImport
     def restore_status!; end
 
     sig { void }
+    def restore_total_rows!; end
+
+    sig { void }
     def restore_updated_at!; end
 
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
@@ -822,6 +948,18 @@ class CustomerImport
 
     sig { returns(T::Boolean) }
     def saved_change_to_created_at?; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def saved_change_to_created_by_id; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_created_by_id?; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def saved_change_to_current_row; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_current_row?; end
 
     sig { returns(T.nilable([::Integer, ::Integer])) }
     def saved_change_to_id; end
@@ -840,6 +978,12 @@ class CustomerImport
 
     sig { returns(T::Boolean) }
     def saved_change_to_status?; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def saved_change_to_total_rows; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_total_rows?; end
 
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def saved_change_to_updated_at; end
@@ -892,6 +1036,51 @@ class CustomerImport
     sig { void }
     def status_will_change!; end
 
+    sig { returns(::Integer) }
+    def total_rows; end
+
+    sig { params(value: ::Integer).returns(::Integer) }
+    def total_rows=(value); end
+
+    sig { returns(T::Boolean) }
+    def total_rows?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def total_rows_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def total_rows_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def total_rows_came_from_user?; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def total_rows_change; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def total_rows_change_to_be_saved; end
+
+    sig { params(from: ::Integer, to: ::Integer).returns(T::Boolean) }
+    def total_rows_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def total_rows_in_database; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def total_rows_previous_change; end
+
+    sig { params(from: ::Integer, to: ::Integer).returns(T::Boolean) }
+    def total_rows_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def total_rows_previously_was; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def total_rows_was; end
+
+    sig { void }
+    def total_rows_will_change!; end
+
     sig { returns(::ActiveSupport::TimeWithZone) }
     def updated_at; end
 
@@ -941,6 +1130,12 @@ class CustomerImport
     def will_save_change_to_created_at?; end
 
     sig { returns(T::Boolean) }
+    def will_save_change_to_created_by_id?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_current_row?; end
+
+    sig { returns(T::Boolean) }
     def will_save_change_to_id?; end
 
     sig { returns(T::Boolean) }
@@ -948,6 +1143,9 @@ class CustomerImport
 
     sig { returns(T::Boolean) }
     def will_save_change_to_status?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_total_rows?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_updated_at?; end
