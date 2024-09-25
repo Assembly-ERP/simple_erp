@@ -68,7 +68,7 @@ class User < ApplicationRecord
   end
 
   def temporary_password
-    puts 'here: --------------', skip_invitation
+    Rails.logger.debug 'here: --------------', skip_invitation
     return if password.present?
 
     self.password = Devise.friendly_token[0, 20]
