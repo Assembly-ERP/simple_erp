@@ -16,7 +16,7 @@ module Api
       end
 
       def current_ability
-        @current_ability ||= Ability.new(api_user, 'operational_portal')
+        @current_ability ||= Ability.new(api_user, 'api')
       end
 
       private

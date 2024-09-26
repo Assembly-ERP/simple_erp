@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["input"];
+  static targets = ["input", "filterByRadio"];
 
   search() {
     clearTimeout(this.timeout);
@@ -20,7 +20,7 @@ export default class extends Controller {
 
     path += `&search_by[]=name`;
     path += `&search_by[]=sku`;
-    // path += `&search_by[]=description`;
+    path += `&filter_by=${this.filterByValue}`;
 
     fetch(path, {
       method: "GET",
@@ -33,5 +33,9 @@ export default class extends Controller {
     })
       .then((res) => res.text())
       .then((html) => Turbo.renderStreamMessage(html));
+  }
+
+  get filterByValue() {
+    return this.filterByRadioTargets.filter((radio) => radio.checked)[0].value;
   }
 }
