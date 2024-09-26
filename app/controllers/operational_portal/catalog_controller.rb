@@ -5,8 +5,14 @@ module OperationalPortal
     authorize_resource class: false
 
     def index
-      query_instance = Product.from("(#{catalog(Product).to_sql} UNION #{catalog(Part).to_sql}) products")
-                              .order(created_at: :desc)
+      query_instance =
+        (if params[:filter_by].blank? || params[:filter_by] == 'all'
+           Product.from("(#{catalog(Product).to_sql} UNION #{catalog(Part).to_sql}) products")
+         else
+           params[:filter_by] == 'parts' ? catalog(Part) : catalog(Product)
+         end)
+
+      query_instance = query_instance.order(created_at: :desc)
 
       @pagy, @items = pagy(query_instance)
     end
