@@ -130,3 +130,7 @@ gem 'sidekiq', '~> 7.3'
 # For JSON API
 gem 'jwt', '~> 2.9'
 gem 'rack-cors', '~> 2.0'
+
+# PDF
+gem 'prawn', '~> 2.5'
+gem 'prawn-table', '~> 0.2.2'
