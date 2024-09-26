@@ -11,6 +11,7 @@ class Product < ApplicationRecord
   has_many :poly_attributes, as: :attributable, dependent: :destroy
 
   accepts_nested_attributes_for :parts_products, allow_destroy: true
+  accepts_nested_attributes_for :poly_attributes, allow_destroy: true, reject_if: :all_blank
 
   # Attachments
   has_many_attached :images do |attachable|
