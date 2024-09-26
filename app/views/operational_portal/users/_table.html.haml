@@ -18,7 +18,11 @@
             .table-cell{data: {action: "click->dialog#open"}}
               = user.customer_name
             .table-cell{data: {action: "click->dialog#open"}}
-              = user.role.humanize
+              .flex.gap-2
+                = user.role.humanize
+                - if user.advance?
+                  .success-tag
+                    advance
       - else
         .table-row
           .table-cell No Users found

@@ -4,8 +4,7 @@
 module Api
   module V1
     class ProductsController < BaseController
-      skip_before_action :verify_authenticity_token
-      before_action :set_product, only: %i[show update destroy]
+      load_and_authorize_resource
 
       # GET /api/v1/products
       def index
@@ -46,10 +45,6 @@ module Api
       end
 
       private
-
-      def set_product
-        @product = Product.find(params[:id])
-      end
 
       def product_params
         params.require(:product).permit(:name, :description, :price)

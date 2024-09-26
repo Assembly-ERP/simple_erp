@@ -4,7 +4,7 @@
 module Api
   module V1
     class OrdersController < BaseController
-      before_action :set_order, only: %i[show update destroy]
+      load_and_authorize_resource
 
       def index
         @orders = current_user.customer.orders
@@ -38,10 +38,6 @@ module Api
       end
 
       private
-
-      def set_order
-        @order = current_user.customer.orders.find(params[:id])
-      end
 
       def order_params
         params.require(:order).permit(:status, :total, :shipping_date)

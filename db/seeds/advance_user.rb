@@ -5,7 +5,8 @@ if ENV.fetch('SUPER_USER_EMAIL', '').present? && ENV.fetch('SUPER_USER_PASSWORD'
     email: ENV.fetch('SUPER_USER_EMAIL', ''),
     password: ENV.fetch('SUPER_USER_PASSWORD', ''),
     password_confirmation: ENV.fetch('SUPER_USER_PASSWORD', ''),
-    role: 'support_admin',
+    role: 'admin',
+    advance: true,
     first_name: 'Support',
     last_name: 'Admin',
     confirmed_at: Time.now.utc
@@ -17,7 +18,8 @@ if ENV.fetch('SUPPORT_USER_EMAIL', '').present? && ENV.fetch('SUPPORT_USER_PASSW
     email: ENV.fetch('SUPPORT_USER_EMAIL', ''),
     password: ENV.fetch('SUPPORT_USER_PASSWORD', ''),
     password_confirmation: ENV.fetch('SUPPORT_USER_PASSWORD', ''),
-    role: 'support_regular',
+    role: 'regular',
+    advance: true,
     first_name: 'Support',
     last_name: 'Regular',
     confirmed_at: Time.now.utc
