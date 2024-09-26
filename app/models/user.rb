@@ -4,10 +4,7 @@ class User < ApplicationRecord
   # Constants
   OPERATION_ROLES = %w[regular manager admin].freeze
   CUSTOMER_ROLES = %w[customer_user_admin customer_user_regular].freeze
-  OPERATION_ADVANCE_ROLES = %w[support_regular support_manager support_admin].freeze
-
   ROLES = OPERATION_ROLES + CUSTOMER_ROLES
-  ALL_ROLES = OPERATION_ROLES + CUSTOMER_ROLES + OPERATION_ADVANCE_ROLES
 
   # Devise: Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -32,7 +29,7 @@ class User < ApplicationRecord
   validates :last_name, presence: true
   validates :customer, presence: true, if: :customer_user?
   validates :email, presence: true, uniqueness: { message: 'This email is already taken' }
-  validates :role, inclusion: { in: ALL_ROLES, message: 'Invalid role' }
+  validates :role, inclusion: { in: ROLES, message: 'Invalid role' }
 
   # Generators
   before_validation :fill_or_default_role
@@ -48,7 +45,7 @@ class User < ApplicationRecord
   end
 
   def operational_user?
-    OPERATION_ROLES.include?(role) || OPERATION_ADVANCE_ROLES.include?(role)
+    OPERATION_ROLES.include?(role)
   end
 
   def customer_user?
@@ -80,6 +77,7 @@ end
 # Table name: users
 #
 #  id                     :bigint           not null, primary key
+#  advance                :boolean          default(FALSE), not null
 #  confirmation_sent_at   :datetime
 #  confirmation_token     :string
 #  confirmed_at           :datetime

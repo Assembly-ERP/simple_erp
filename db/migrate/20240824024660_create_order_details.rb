@@ -14,6 +14,6 @@ class CreateOrderDetails < ActiveRecord::Migration[7.1]
     end
 
     add_check_constraint :order_details, '(product_id IS NOT NULL) OR (part_id IS NOT NULL)',
-                         name: 'product_or_part_present_check'
+                         name: 'order_detail_product_or_part_present_check'
   end
 end

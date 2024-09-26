@@ -13,6 +13,7 @@ class ConsolidatedUsersMigration < ActiveRecord::Migration[7.1]
       t.string :first_name, null: false
       t.string :last_name, null: false
       t.string :phone
+      t.boolean :advance, null: false, default: false
 
       ## Devise recoverable
       t.string   :reset_password_token

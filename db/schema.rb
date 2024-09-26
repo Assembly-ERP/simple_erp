@@ -58,23 +58,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_20_101220) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "cart_items", force: :cascade do |t|
-    t.bigint "cart_id", null: false
-    t.bigint "product_id", null: false
-    t.bigint "part_id", null: false
-    t.integer "quantity"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["cart_id"], name: "index_cart_items_on_cart_id"
-    t.index ["part_id"], name: "index_cart_items_on_part_id"
-    t.index ["product_id"], name: "index_cart_items_on_product_id"
-  end
-
   create_table "carts", force: :cascade do |t|
-    t.bigint "user_id", null: false
+    t.bigint "customer_id", null: false
+    t.bigint "user_id"
+    t.bigint "product_id"
+    t.bigint "part_id"
+    t.integer "quantity", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["customer_id"], name: "index_carts_on_customer_id"
+    t.index ["part_id"], name: "index_carts_on_part_id"
+    t.index ["product_id"], name: "index_carts_on_product_id"
     t.index ["user_id"], name: "index_carts_on_user_id"
+    t.check_constraint "product_id IS NOT NULL OR part_id IS NOT NULL", name: "cart_product_or_part_present_check"
   end
 
   create_table "customer_imports", force: :cascade do |t|
@@ -132,7 +128,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_20_101220) do
     t.index ["order_id"], name: "index_order_details_on_order_id"
     t.index ["part_id"], name: "index_order_details_on_part_id"
     t.index ["product_id"], name: "index_order_details_on_product_id"
-    t.check_constraint "product_id IS NOT NULL OR part_id IS NOT NULL", name: "product_or_part_present_check"
+    t.check_constraint "product_id IS NOT NULL OR part_id IS NOT NULL", name: "order_detail_product_or_part_present_check"
   end
 
   create_table "order_id_formats", force: :cascade do |t|
@@ -306,6 +302,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_20_101220) do
     t.string "first_name", null: false
     t.string "last_name", null: false
     t.string "phone"
+    t.boolean "advance", default: false, null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -345,9 +342,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_20_101220) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "cart_items", "carts"
-  add_foreign_key "cart_items", "parts"
-  add_foreign_key "cart_items", "products"
+  add_foreign_key "carts", "customers"
+  add_foreign_key "carts", "parts"
+  add_foreign_key "carts", "products"
   add_foreign_key "carts", "users"
   add_foreign_key "customer_imports", "users", column: "created_by_id"
   add_foreign_key "invitations", "customers"

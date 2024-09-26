@@ -4,7 +4,7 @@
 module Api
   module V1
     class PartsController < BaseController
-      before_action :set_part, only: %i[show update destroy]
+      load_and_authorize_resource
 
       # GET /api/v1/parts
       def index
@@ -43,10 +43,6 @@ module Api
       end
 
       private
-
-      def set_part
-        @part = Part.find(params[:id])
-      end
 
       def part_params
         params.require(:part).permit(:name, :description, :price, :in_stock)
