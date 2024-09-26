@@ -1,40 +1,54 @@
 = form_with(model: @product, url:, html: {data: {is_new: @product.new_record?, controller: "products--form"}, class: "grid gap-3"}) do |form|
   - if @product.errors.any?
     = render ErrorCardComponent.new errors: @product.errors.full_messages, label: "Validations"
-  .grid.grid-cols-2.gap-5
-    .flex.flex-col.gap-3
-      .field
-        = form.label :name
-        = form.text_field :name, required: true, class: "input-primary"
-      .field
-        = form.label :sku, class: "uppercase"
-        = form.text_field :sku, class: "input-primary"
-      .flex.gap-4
-        .field
-          = form.label :nmfc, class: "uppercase"
-          = form.text_field :nmfc, class: "input-primary"
-        .field
-          = form.label :category
-          = form.text_field :category, class: "input-primary"
-      .flex.gap-2.items-center.mt-2
-        .font-medium.uppercase
-          Weight:
-        .font-bold
-          %span{data: {"products--form-target": "staticWeight"}}
-            = number_with_precision(form.object.weight, precision: 2)
-          lbs
-      .flex.gap-2.items-center
-        .font-medium.uppercase
-          Price:
-        .font-bold.flex
-          %span $
-          %span{data: {"products--form-target": "staticPrice"}}
-            = number_with_precision(form.object.price, precision: 2)
-    .block
-      .field
-        = form.label :description
-        = form.text_area :description, class: "input-primary", rows: 11
-  = render "search_parts", form:
-  = render "form_parts", form:
+  .accordion-container
+    .accordion.group{data: {controller: "accordion"}}
+      .accordion-btn{type: "button", data: {action: "click->accordion#toggle"}}
+        General Information
+        = icon("fa-solid", "chevron-down", data: {"accordion-target": "iconDown"})
+      .accordion-content{data: {"accordion-target": "content"}}
+        .grid.grid-cols-2.gap-5
+          .flex.flex-col.gap-3
+            .field
+              = form.label :name
+              = form.text_field :name, required: true, class: "input-primary"
+            .field
+              = form.label :sku, class: "uppercase"
+              = form.text_field :sku, class: "input-primary"
+            .flex.gap-4
+              .field
+                = form.label :nmfc, class: "uppercase"
+                = form.text_field :nmfc, class: "input-primary"
+              .field
+                = form.label :category
+                = form.text_field :category, class: "input-primary"
+            .flex.gap-2.items-center.mt-2
+              .font-medium.uppercase
+                Weight:
+              .font-bold
+                %span{data: {"products--form-target": "staticWeight"}}
+                  = number_with_precision(form.object.weight, precision: 2)
+                lbs
+            .flex.gap-2.items-center
+              .font-medium.uppercase
+                Price:
+              .font-bold.flex
+                %span $
+                %span{data: {"products--form-target": "staticPrice"}}
+                  = number_with_precision(form.object.price, precision: 2)
+          .block
+            .field
+              = form.label :description
+              = form.text_area :description, class: "input-primary", rows: 11
+        = render "search_parts", form:
+        = render "form_parts", form:
+    .accordion.group{data: {controller: "accordion", open: "false"}}
+      .accordion-btn{type: "button", data: {action: "click->accordion#toggle"}}
+        Custom Attributes
+        = icon("fa-solid", "chevron-down", data: {"accordion-target": "iconDown"})
+      .accordion-content{data: {"accordion-target": "content"}, class: "hidden"}
+        .grid.grid-cols-2.gap-4
+          = form.fields_for :poly_attributes do |attr_form|
+            = render "attribute", attr_form:
   .mt-3
     = form.submit @product.new_record? ? "Save Product" : "Update Product", class: 'btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]'
