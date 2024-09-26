@@ -9,7 +9,7 @@
           %h2.font-bold.text-2xl
             = number_to_currency(@part.price, precision: 2, unit: "$")
         .flex.justify-center
-          .h-72.w-80.relative
+          .h-72.w-80.z-0
             .swiper{data: {controller: "parts--carousel"}}
               .swiper-wrapper
                 - if @part.images.attached?
