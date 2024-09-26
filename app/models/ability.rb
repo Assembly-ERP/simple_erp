@@ -39,17 +39,22 @@ class Ability
     can :manage, CustomerImport
 
     # Manage Pages
-    can :manage, User, role: User::ROLES
+    can :manage, User, advance: false
+    can :manage, User if user.advance?
+
     can :manage, Customer, voided_at: nil
     can :manage, Setting
     can :manage, OrderPriceScheduler
 
     # Branding
-    can :manage, Branding if user.role == 'admin' || user.role == 'support_admin'
+    can :manage, Branding if user.role == 'admin'
   end
 
   def customer_portal(_user)
-    can :manage, :all
+    can :manage, :profile
+    can :manage, :catalog
+    can :manage, Cart
+    can :manage, SupportTicket
   end
 
   # Conditions
