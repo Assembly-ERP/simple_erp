@@ -324,22 +324,35 @@ class Cart
   end
 
   module GeneratedAssociationMethods
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Customer) }
+    def build_customer(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Part) }
+    def build_part(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Product) }
+    def build_product(*args, &blk); end
+
     sig { params(args: T.untyped, blk: T.untyped).returns(::User) }
     def build_user(*args, &blk); end
 
-    sig { returns(T::Array[T.untyped]) }
-    def cart_item_ids; end
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Customer) }
+    def create_customer(*args, &blk); end
 
-    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
-    def cart_item_ids=(ids); end
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Customer) }
+    def create_customer!(*args, &blk); end
 
-    # This method is created by ActiveRecord on the `Cart` class because it declared `has_many :cart_items`.
-    # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
-    sig { returns(::CartItem::PrivateCollectionProxy) }
-    def cart_items; end
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Part) }
+    def create_part(*args, &blk); end
 
-    sig { params(value: T::Enumerable[::CartItem]).void }
-    def cart_items=(value); end
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Part) }
+    def create_part!(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Product) }
+    def create_product(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(::Product) }
+    def create_product!(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::User) }
     def create_user(*args, &blk); end
@@ -347,8 +360,62 @@ class Cart
     sig { params(args: T.untyped, blk: T.untyped).returns(::User) }
     def create_user!(*args, &blk); end
 
+    sig { returns(T.nilable(::Customer)) }
+    def customer; end
+
+    sig { params(value: T.nilable(::Customer)).void }
+    def customer=(value); end
+
+    sig { returns(T::Boolean) }
+    def customer_changed?; end
+
+    sig { returns(T::Boolean) }
+    def customer_previously_changed?; end
+
+    sig { returns(T.nilable(::Part)) }
+    def part; end
+
+    sig { params(value: T.nilable(::Part)).void }
+    def part=(value); end
+
+    sig { returns(T::Boolean) }
+    def part_changed?; end
+
+    sig { returns(T::Boolean) }
+    def part_previously_changed?; end
+
+    sig { returns(T.nilable(::Product)) }
+    def product; end
+
+    sig { params(value: T.nilable(::Product)).void }
+    def product=(value); end
+
+    sig { returns(T::Boolean) }
+    def product_changed?; end
+
+    sig { returns(T::Boolean) }
+    def product_previously_changed?; end
+
+    sig { returns(T.nilable(::Customer)) }
+    def reload_customer; end
+
+    sig { returns(T.nilable(::Part)) }
+    def reload_part; end
+
+    sig { returns(T.nilable(::Product)) }
+    def reload_product; end
+
     sig { returns(T.nilable(::User)) }
     def reload_user; end
+
+    sig { void }
+    def reset_customer; end
+
+    sig { void }
+    def reset_part; end
+
+    sig { void }
+    def reset_product; end
 
     sig { void }
     def reset_user; end
@@ -602,6 +669,51 @@ class Cart
     def created_at_will_change!; end
 
     sig { returns(::Integer) }
+    def customer_id; end
+
+    sig { params(value: ::Integer).returns(::Integer) }
+    def customer_id=(value); end
+
+    sig { returns(T::Boolean) }
+    def customer_id?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def customer_id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def customer_id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def customer_id_came_from_user?; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def customer_id_change; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def customer_id_change_to_be_saved; end
+
+    sig { params(from: ::Integer, to: ::Integer).returns(T::Boolean) }
+    def customer_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def customer_id_in_database; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def customer_id_previous_change; end
+
+    sig { params(from: ::Integer, to: ::Integer).returns(T::Boolean) }
+    def customer_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def customer_id_previously_was; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def customer_id_was; end
+
+    sig { void }
+    def customer_id_will_change!; end
+
+    sig { returns(::Integer) }
     def id; end
 
     sig { params(value: ::Integer).returns(::Integer) }
@@ -691,14 +803,161 @@ class Cart
     sig { void }
     def id_will_change!; end
 
+    sig { returns(T.nilable(::Integer)) }
+    def part_id; end
+
+    sig { params(value: T.nilable(::Integer)).returns(T.nilable(::Integer)) }
+    def part_id=(value); end
+
+    sig { returns(T::Boolean) }
+    def part_id?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def part_id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def part_id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def part_id_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def part_id_change; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def part_id_change_to_be_saved; end
+
+    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    def part_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def part_id_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def part_id_previous_change; end
+
+    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    def part_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def part_id_previously_was; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def part_id_was; end
+
+    sig { void }
+    def part_id_will_change!; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def product_id; end
+
+    sig { params(value: T.nilable(::Integer)).returns(T.nilable(::Integer)) }
+    def product_id=(value); end
+
+    sig { returns(T::Boolean) }
+    def product_id?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def product_id_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def product_id_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def product_id_came_from_user?; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def product_id_change; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def product_id_change_to_be_saved; end
+
+    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    def product_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def product_id_in_database; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def product_id_previous_change; end
+
+    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    def product_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def product_id_previously_was; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def product_id_was; end
+
+    sig { void }
+    def product_id_will_change!; end
+
+    sig { returns(::Integer) }
+    def quantity; end
+
+    sig { params(value: ::Integer).returns(::Integer) }
+    def quantity=(value); end
+
+    sig { returns(T::Boolean) }
+    def quantity?; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def quantity_before_last_save; end
+
+    sig { returns(T.untyped) }
+    def quantity_before_type_cast; end
+
+    sig { returns(T::Boolean) }
+    def quantity_came_from_user?; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def quantity_change; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def quantity_change_to_be_saved; end
+
+    sig { params(from: ::Integer, to: ::Integer).returns(T::Boolean) }
+    def quantity_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def quantity_in_database; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def quantity_previous_change; end
+
+    sig { params(from: ::Integer, to: ::Integer).returns(T::Boolean) }
+    def quantity_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
+
+    sig { returns(T.nilable(::Integer)) }
+    def quantity_previously_was; end
+
+    sig { returns(T.nilable(::Integer)) }
+    def quantity_was; end
+
+    sig { void }
+    def quantity_will_change!; end
+
     sig { void }
     def restore_created_at!; end
+
+    sig { void }
+    def restore_customer_id!; end
 
     sig { void }
     def restore_id!; end
 
     sig { void }
     def restore_id_value!; end
+
+    sig { void }
+    def restore_part_id!; end
+
+    sig { void }
+    def restore_product_id!; end
+
+    sig { void }
+    def restore_quantity!; end
 
     sig { void }
     def restore_updated_at!; end
@@ -713,6 +972,12 @@ class Cart
     def saved_change_to_created_at?; end
 
     sig { returns(T.nilable([::Integer, ::Integer])) }
+    def saved_change_to_customer_id; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_customer_id?; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
     def saved_change_to_id; end
 
     sig { returns(T::Boolean) }
@@ -724,13 +989,31 @@ class Cart
     sig { returns(T::Boolean) }
     def saved_change_to_id_value?; end
 
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def saved_change_to_part_id; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_part_id?; end
+
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    def saved_change_to_product_id; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_product_id?; end
+
+    sig { returns(T.nilable([::Integer, ::Integer])) }
+    def saved_change_to_quantity; end
+
+    sig { returns(T::Boolean) }
+    def saved_change_to_quantity?; end
+
     sig { returns(T.nilable([::ActiveSupport::TimeWithZone, ::ActiveSupport::TimeWithZone])) }
     def saved_change_to_updated_at; end
 
     sig { returns(T::Boolean) }
     def saved_change_to_updated_at?; end
 
-    sig { returns(T.nilable([::Integer, ::Integer])) }
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
     def saved_change_to_user_id; end
 
     sig { returns(T::Boolean) }
@@ -781,10 +1064,10 @@ class Cart
     sig { void }
     def updated_at_will_change!; end
 
-    sig { returns(::Integer) }
+    sig { returns(T.nilable(::Integer)) }
     def user_id; end
 
-    sig { params(value: ::Integer).returns(::Integer) }
+    sig { params(value: T.nilable(::Integer)).returns(T.nilable(::Integer)) }
     def user_id=(value); end
 
     sig { returns(T::Boolean) }
@@ -799,22 +1082,22 @@ class Cart
     sig { returns(T::Boolean) }
     def user_id_came_from_user?; end
 
-    sig { returns(T.nilable([::Integer, ::Integer])) }
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
     def user_id_change; end
 
-    sig { returns(T.nilable([::Integer, ::Integer])) }
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
     def user_id_change_to_be_saved; end
 
-    sig { params(from: ::Integer, to: ::Integer).returns(T::Boolean) }
+    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
     def user_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Integer)) }
     def user_id_in_database; end
 
-    sig { returns(T.nilable([::Integer, ::Integer])) }
+    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
     def user_id_previous_change; end
 
-    sig { params(from: ::Integer, to: ::Integer).returns(T::Boolean) }
+    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
     def user_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Integer)) }
@@ -830,10 +1113,22 @@ class Cart
     def will_save_change_to_created_at?; end
 
     sig { returns(T::Boolean) }
+    def will_save_change_to_customer_id?; end
+
+    sig { returns(T::Boolean) }
     def will_save_change_to_id?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_id_value?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_part_id?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_product_id?; end
+
+    sig { returns(T::Boolean) }
+    def will_save_change_to_quantity?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_updated_at?; end
