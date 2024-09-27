@@ -128,7 +128,7 @@ module OperationalPortal
 
       query_instance = query_instance.order(created_at: :desc)
 
-      @pagy, @results = pagy(query_instance, items: 150)
+      @pagy, @results = pagy(query_instance, items: 40)
 
       respond_to do |format|
         format.turbo_stream

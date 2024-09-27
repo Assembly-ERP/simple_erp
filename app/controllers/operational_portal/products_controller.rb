@@ -44,16 +44,18 @@ module OperationalPortal
     end
 
     def search_part_results
-      @parts = Part.not_voided
-      @parts = @parts.order(id: params[:sort]) if params[:sort].present?
-      @parts = @parts.with_product(params[:product_id]) if params[:product_id].present?
+      query_instance = Part.not_voided
+      query_instance = query_instance.order(id: params[:sort]) if params[:sort].present?
+      query_instance = query_instance.with_product(params[:product_id]) if params[:product_id].present?
 
       if params[:search].present?
         case params[:filter_by]
         when 'name'
-          @parts = @parts.where('name ILIKE ?', "%#{params[:search]}%")
+          query_instance = query_instance.where('name ILIKE ?', "%#{params[:search]}%")
         end
       end
+
+      @pagy, @parts = pagy(query_instance, items: 40)
 
       respond_to do |format|
         format.turbo_stream
