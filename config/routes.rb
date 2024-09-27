@@ -48,6 +48,8 @@ Rails.application.routes.draw do
     resources :parts
     resources :orders do
       member do
+        get :make_ticket
+        get :qoute_or_invoice
         put :update_summary
         delete :cancel
       end
