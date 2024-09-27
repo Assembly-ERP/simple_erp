@@ -57,8 +57,9 @@
             .flex.gap-3.justify-end
               = form.submit "Update", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]", data: {action: "dialog#close"}
               %button.btn-md.bg-gray-500.text-white.flex.items-center.gap-2{autofocus: "", "data-action" => "dialog#close", type: "button"} Cancel
-        %button.text-gray-400.transition-colors{data: {action: "dialog#open"}, type: "button", class: "hover:text-[var(--primary)]"}
-          = icon("fa-solid", "pen-to-square")
+        - if can?(:update, @order)
+          %button.text-gray-400.transition-colors{data: {action: "dialog#open"}, type: "button", class: "hover:text-[var(--primary)]"}
+            = icon("fa-solid", "pen-to-square")
     .flex.gap-1.flex-col
       - osa = @order.order_shipping_address
       .flex.gap-1
