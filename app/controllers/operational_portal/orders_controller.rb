@@ -35,7 +35,7 @@ module OperationalPortal
 
       send_data(
         pdf.render,
-        filename: "make_order_#{@order.formatted_id}_#{Time.zone.now.to_i}.pdf",
+        filename: "order_make_ticket_#{@order.formatted_id}_#{Time.zone.now.to_i}.pdf",
         type: 'application/pdf',
         disposition: 'inline'
       )
@@ -48,7 +48,7 @@ module OperationalPortal
 
       send_data(
         pdf.render,
-        filename: "#{is_quote ? 'quote' : 'invoice'}_#{@order.formatted_id}_#{Time.zone.now.to_i}.pdf",
+        filename: "order_#{is_quote ? 'quote' : 'invoice'}_#{@order.formatted_id}_#{Time.zone.now.to_i}.pdf",
         type: 'application/pdf',
         disposition: 'inline'
       )
