@@ -13,24 +13,14 @@ class OrderPdf
     @document ||= Prawn::Document.new(page_size: 'A4')
   end
 
-  def company_details
-    if Branding.client.logo.attached?
-      image StringIO.open(Branding.client.logo.download), width: 120
-      move_down(15)
-    end
-
-    text Branding.client.name, size: 20, style: :bold
-    move_down(10)
-  end
-
   def make_ticket
     company_details
 
     text "Make Ticket (Order #{@order.formatted_id})", size: 15, style: :bold
-    order_date
-    move_down(10)
 
+    order_date
     shipping_details
+
     header = [['Part Name', 'SKU', 'QTY']]
 
     parts = @order.order_details.make_ticket.map do |item|
@@ -53,9 +43,8 @@ class OrderPdf
     text "#{is_quote ? 'Quote' : 'Invoice'} (Order #{@order.formatted_id})", size: 15, style: :bold
 
     order_date
-    move_down(10)
-
     shipping_details
+
     header = [['Name', 'SKU', 'Type', 'QTY', 'Price ($)', 'Total ($)']]
 
     items = @order.order_details.with_part_and_product.map do |item|
@@ -77,16 +66,26 @@ class OrderPdf
       column(4).width = 70
       column(5).width = 70
     end
-    move_down(20)
+    move_down 20
 
-    summary(is_quote)
+    summary is_quote
   end
 
   private
 
+  def company_details
+    if Branding.client.logo.attached?
+      image StringIO.open(Branding.client.logo.download), width: 120
+      move_down 15
+    end
+
+    text Branding.client.name, size: 18, style: :bold
+    move_down 10
+  end
+
   def shipping_details
     text @order.customer.name, size: 14
-    move_down(10)
+    move_down 15
 
     return if (shipping = @order.order_shipping_address).blank?
 
@@ -94,7 +93,7 @@ class OrderPdf
     text shipping.street if shipping.street
     text "#{shipping.state ? "#{shipping.state}," : ''} #{shipping.city} #{shipping.zip_code}"
     text shipping.phone
-    move_down(15)
+    move_down 15
   end
 
   def summary(is_quote)
@@ -126,14 +125,15 @@ class OrderPdf
 
   def order_date
     text @order.created_at.strftime('%m/%d/%Y')
+    move_down 10
   end
 
   def internal_note
     return if @order.internal_note.blank?
 
-    move_down(15)
+    move_down 15
     text 'Note:', style: :bold
-    move_down(2)
+    move_down 2
     text @order.internal_note
   end
 end
