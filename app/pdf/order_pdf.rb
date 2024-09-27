@@ -42,6 +42,8 @@ class OrderPdf
       column(1).width = 100
       column(2).width = 80
     end
+
+    internal_note
   end
 
   def quote_or_invoice
@@ -49,6 +51,7 @@ class OrderPdf
     is_quote = !@order.order_status.customer_locked
 
     text "#{is_quote ? 'Quote' : 'Invoice'} (Order #{@order.formatted_id})", size: 15, style: :bold
+
     order_date
     move_down(10)
 
@@ -123,5 +126,14 @@ class OrderPdf
 
   def order_date
     text @order.created_at.strftime('%m/%d/%Y')
+  end
+
+  def internal_note
+    return if @order.internal_note.blank?
+
+    move_down(15)
+    text 'Note:', style: :bold
+    move_down(2)
+    text @order.internal_note
   end
 end

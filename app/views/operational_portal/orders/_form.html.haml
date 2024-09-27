@@ -7,6 +7,14 @@
   .flex.w-full.gap-5.mt-2
     = render "form_order_items", form: form
     = render "form_order_summary", form: form
+  .accordion-container
+    .accordion.group{data: {controller: "accordion", open: "false"}}
+      .accordion-btn{type: "button", data: {action: "click->accordion#toggle"}}
+        Internal Note
+        = icon("fa-solid", "chevron-down", data: {"accordion-target": "iconDown"})
+      .accordion-content.hidden{data: {"accordion-target": "content"}}
+        .flex.gap-5.w-full
+          = form.text_area :internal_note, rows: 8, class: "input-primary"
   - if @order.new_record? || can?(:update, @order)
     .flex.gap-6.items-center
       = form.submit @order.new_record? ? "Save Order" : "Update Order", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]", "data-action": "unsaved-changes#reset"
