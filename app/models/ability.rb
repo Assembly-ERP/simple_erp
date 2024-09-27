@@ -27,7 +27,7 @@ class Ability
     can %i[update destroy edit], Part, voided_at: nil
 
     # Order
-    can %i[read new create search], Order
+    can %i[read new create search make_ticket qoute_or_invoice], Order
     can %i[update destroy edit cancel], Order, voided_at: nil, order_status: { allow_change: true }
     can :update_summary, Order
     can :search_results, :order

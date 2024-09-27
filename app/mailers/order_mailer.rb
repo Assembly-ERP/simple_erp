@@ -9,7 +9,7 @@ class OrderMailer < ApplicationMailer
     @is_quote = !@order.order_status.customer_locked
 
     @order.users.each do |user|
-      mail(to: user.email, subject: "#{@is_quote ? 'Quote' : 'Invoice'}: Order ##{@order.id}")
+      mail(to: user.email, subject: "#{@is_quote ? 'Quote' : 'Invoice'}: Order #{@order.id}")
     end
   end
 end

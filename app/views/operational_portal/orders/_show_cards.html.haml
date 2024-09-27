@@ -1,4 +1,4 @@
-= form_with(model: @order, url: operational_portal_order_path(modal: true, show: true), html: {data: {controller: "orders--show-form"}, class: "grid grid-cols-3 gap-5"}) do |form|
+= form_with(model: @order, url: operational_portal_order_path(modal: true, show: true), html: {data: {controller: "orders--show-form"}, class: "grid grid-cols-3 gap-5", id: "order-show-cards-#{@order.id}"}) do |form|
   .bg-white.rounded-lg.border.px-4.py-5.border-gray-300
     %h6.font-normal.text-gray-500.mb-2
       Order Details
@@ -57,8 +57,9 @@
             .flex.gap-3.justify-end
               = form.submit "Update", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]", data: {action: "dialog#close"}
               %button.btn-md.bg-gray-500.text-white.flex.items-center.gap-2{autofocus: "", "data-action" => "dialog#close", type: "button"} Cancel
-        %button.text-gray-400.transition-colors{data: {action: "dialog#open"}, type: "button", class: "hover:text-[var(--primary)]"}
-          = icon("fa-solid", "pen-to-square")
+        - if can?(:update, @order)
+          %button.text-gray-400.transition-colors{data: {action: "dialog#open"}, type: "button", class: "hover:text-[var(--primary)]"}
+            = icon("fa-solid", "pen-to-square")
     .flex.gap-1.flex-col
       - osa = @order.order_shipping_address
       .flex.gap-1
