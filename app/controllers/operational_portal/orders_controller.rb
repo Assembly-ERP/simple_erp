@@ -76,10 +76,10 @@ module OperationalPortal
       respond_to do |format|
         if @order.update(order_params)
           format.html { redirect_to operational_portal_orders_path, notice: 'Order updated successfully.' }
-          format.turbo_stream
+          format.turbo_stream if params[:show] == 'true'
         else
           format.html { render :edit, status: :unprocessable_entity }
-          format.turbo_stream { render status: :unprocessable_entity }
+          format.turbo_stream { render status: :unprocessable_entity } if params[:show] == 'true'
         end
       end
     end
