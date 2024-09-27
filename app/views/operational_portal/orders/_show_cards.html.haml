@@ -1,4 +1,4 @@
-= form_with(model: @order, url: operational_portal_order_path(modal: true, show: true), html: {data: {controller: "orders--show-form"}, class: "grid grid-cols-3 gap-5"}) do |form|
+= form_with(model: @order, url: operational_portal_order_path(modal: true, show: true), html: {data: {controller: "orders--show-form"}, class: "grid grid-cols-3 gap-5", id: "order-show-cards-#{@order.id}"}) do |form|
   .bg-white.rounded-lg.border.px-4.py-5.border-gray-300
     %h6.font-normal.text-gray-500.mb-2
       Order Details
