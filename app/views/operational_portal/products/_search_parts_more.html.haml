@@ -1,0 +1,3 @@
+- if @pagy.next
+  .flex.w-full.justify-center.mt-4{id: "product-page-#{@pagy.next}"}
+    = link_to "Show More", search_part_results_operational_portal_products_path(more: true, search: params[:search], search_by: params[:search_by], page: @pagy.next, product_id: params[:product_id]), data: {turbo_stream: true}, class: "btn-sm bg-[color:var(--primary)] text-[color:var(--primary-text)]"

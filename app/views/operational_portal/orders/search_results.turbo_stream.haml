@@ -1,5 +1,12 @@
-= turbo_stream.replace "search-results" do
-  - if @results.present?
-    = render "search_table"
-  - else
-    = render "no_search_results"
+- unless params[:more] == "true"
+  = turbo_stream.replace "search-results" do
+    - if @results.present?
+      = render "search_table"
+    - else
+      = render "no_search_results"
+- else
+  = turbo_stream.replace "order-page-#{params[:page]}" do
+    = render "search_more"
+  = turbo_stream.append "search-results-items" do
+    - @results.each do |result|
+      = render "search_item", result:

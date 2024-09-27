@@ -1,13 +1,15 @@
-%table#search-parts-results.w-full.text-left.text-base.text-gray-900.md:table-fixed
-  %thead.border-b.sticky.top-0{class: "bg-gray-50"}
-    %tr.uppercase.text-sm
-      %th Part Name
-      %th SKU
-      %th Weight
-      %th Inventory
-      %th Total Amount
-      %th.text-center Created Date
-      %td
-  %tbody.divide-y.divide-gray-200{data: {"products--form-target": "searchParts"}}
-    - @parts.each do |part|
-      = render "search_parts_item", part:
+#search-parts-results
+  %table.w-full.text-left.text-base.text-gray-900.md:table-fixed
+    %thead.border-b.sticky.top-0{class: "bg-gray-50"}
+      %tr.uppercase.text-sm
+        %th Part Name
+        %th SKU
+        %th Weight
+        %th Inventory
+        %th Total Amount
+        %th.text-center Created Date
+        %td
+    %tbody#search-parts-results-items.divide-y.divide-gray-200{data: {"products--form-target": "searchParts"}}
+      - @parts.each do |part|
+        = render "search_parts_item", part:
+  = render "search_parts_more"
