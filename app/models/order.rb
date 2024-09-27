@@ -129,6 +129,7 @@ end
 #
 #  id                   :bigint           not null, primary key
 #  discount_percentage  :decimal(5, 2)    default(0.0)
+#  internal_note        :text
 #  last_scheduled       :datetime
 #  price                :decimal(10, 2)   default(0.0)
 #  send_quote_assignees :boolean          default(TRUE), not null
