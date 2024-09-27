@@ -25,29 +25,10 @@ class ViewComponentsSystemTestController
     include ::ActionText::TagHelper
     include ::Importmap::ImportmapTagsHelper
     include ::ActionController::Base::HelperMethods
-    include ::Api::V1::PartsHelper
-    include ::Api::V1::SupportTicketsHelper
     include ::Pagy::UrlHelpers
     include ::Pagy::Frontend
     include ::ApplicationHelper
-    include ::CartsHelper
-    include ::CatalogHelper
-    include ::CustomerUsers::RegistrationsHelper
-    include ::CustomersHelper
-    include ::DashboardHelper
-    include ::HomeHelper
-    include ::InvitationsHelper
-    include ::OperationalPortal::Catalog::PartsHelper
-    include ::OperationalUsers::RegistrationsHelper
     include ::OrderShippingAddressesHelper
-    include ::OrdersHelper
-    include ::PartsHelper
-    include ::ProductsHelper
-    include ::SearchHelper
-    include ::SupportTicketsHelper
-    include ::UsersHelper
-    include ::Users::SessionsHelper
-    include ::WebhooksHelper
     include ::PreviewHelper
     include ::DeviseHelper
   end
