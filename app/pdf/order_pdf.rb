@@ -115,10 +115,10 @@ class OrderPdf
     table(summary_items, position: :right, cell_style: { padding: [2, 0], border_width: 0 }) do
       row(0).style font_style: :bold, size: 13
       row(0).style padding: [0, 0, 5, 0]
-      row(5).style padding: [10, 0, 2, 0]
+      row(5).style padding: [7, 0, 2, 0]
       row(6).style font_style: :bold
       column(0).width = 100
-      column(1).width = 70
+      column(1).width = 80
       column(1).style align: :right
     end
   end
