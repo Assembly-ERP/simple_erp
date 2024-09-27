@@ -13,16 +13,6 @@ class OrderPdf
     @document ||= Prawn::Document.new(page_size: 'A4')
   end
 
-  def company_details
-    if Branding.client.logo.attached?
-      image StringIO.open(Branding.client.logo.download), width: 120
-      move_down 15
-    end
-
-    text Branding.client.name, size: 20, style: :bold
-    move_down 10
-  end
-
   def make_ticket
     company_details
 
@@ -82,6 +72,16 @@ class OrderPdf
   end
 
   private
+
+  def company_details
+    if Branding.client.logo.attached?
+      image StringIO.open(Branding.client.logo.download), width: 120
+      move_down 15
+    end
+
+    text Branding.client.name, size: 18, style: :bold
+    move_down 10
+  end
 
   def shipping_details
     text @order.customer.name, size: 14
