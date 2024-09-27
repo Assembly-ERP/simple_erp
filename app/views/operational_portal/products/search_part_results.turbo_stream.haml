@@ -1,6 +1,13 @@
-= turbo_stream.replace "search-parts-results" do
-  - if @parts.present?
-    = render "search_parts_table"
-  - else
-    = render "no_search_results"
+- unless params[:more] == "true"
+  = turbo_stream.replace "search-parts-results" do
+    - if @parts.present?
+      = render "search_parts_table"
+    - else
+      = render "no_search_results"
+- else
+  = turbo_stream.replace "product-page-#{params[:page]}" do
+    = render "search_parts_more"
+  = turbo_stream.append "search-parts-results-items" do
+    - @parts.each do |part|
+      = render "search_parts_item", part:
 
