@@ -1,5 +1,6 @@
 .text-3xl.mr-6.font-bold{class: "text-[color:var(--primary)]"}
-  - if Branding.client.logo.attached?
-    = image_tag Branding.client.logo, class: "h-10 w-36 object-cover"
-  - else
-    = Branding.client.name
+  = link_to root_path do
+    - if Branding.client.logo.attached?
+      = image_tag Branding.client.logo, class: "h-10 w-36 object-cover"
+    - else
+      = Branding.client.name
