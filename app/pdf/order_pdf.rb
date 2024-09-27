@@ -31,7 +31,6 @@ class OrderPdf
     move_down(10)
 
     shipping_details
-
     header = [['Part Name', 'SKU', 'QTY']]
 
     parts = @order.order_details.make_ticket.map do |item|
@@ -54,7 +53,6 @@ class OrderPdf
     move_down(10)
 
     shipping_details
-
     header = [['Name', 'SKU', 'Type', 'QTY', 'Price ($)', 'Total ($)']]
 
     items = @order.order_details.with_part_and_product.map do |item|
@@ -85,7 +83,7 @@ class OrderPdf
 
   def shipping_details
     text @order.customer.name, size: 14
-    move_down(5)
+    move_down(10)
 
     return if (shipping = @order.order_shipping_address).blank?
 
