@@ -22,17 +22,4 @@ class ApplicationController < ActionController::Base
   def or_q(query)
     query.present? ? ' OR' : ''
   end
-
-  def customer_document(customer)
-    {
-      id: customer.id.to_s,
-      name: customer.name,
-      phone: customer.phone,
-      street: customer.street,
-      city: customer.city,
-      state: customer.state,
-      postal_code: customer.postal_code,
-      discount: customer.discount.to_f
-    }
-  end
 end
