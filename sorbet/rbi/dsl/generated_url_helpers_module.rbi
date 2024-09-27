@@ -22,6 +22,30 @@ module GeneratedUrlHelpersModule
   def add_message_operational_portal_support_ticket_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def api_v1_order_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def api_v1_orders_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def api_v1_part_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def api_v1_parts_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def api_v1_product_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def api_v1_products_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def api_v1_support_ticket_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def api_v1_support_tickets_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def cancel_operational_portal_order_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
@@ -53,6 +77,18 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def destroy_user_session_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def edit_api_v1_order_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def edit_api_v1_part_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def edit_api_v1_product_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def edit_api_v1_support_ticket_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def edit_customer_portal_order_url(*args); end
@@ -98,6 +134,21 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def form_user_selection_operational_portal_support_tickets_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def make_ticket_operational_portal_order_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def new_api_v1_order_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def new_api_v1_part_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def new_api_v1_product_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def new_api_v1_support_ticket_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def new_customer_portal_order_url(*args); end
@@ -221,6 +272,9 @@ module GeneratedUrlHelpersModule
 
   sig { params(args: T.untyped).returns(String) }
   def preview_view_components_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def qoute_or_invoice_operational_portal_order_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def rails_blob_representation_proxy_url(*args); end

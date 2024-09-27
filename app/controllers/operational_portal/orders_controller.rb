@@ -29,6 +29,31 @@ module OperationalPortal
       index
     end
 
+    def make_ticket
+      pdf = OrderPdf.new(@order)
+      pdf.make_ticket
+
+      send_data(
+        pdf.render,
+        filename: "make_order_#{@order.formatted_id}_#{Time.zone.now.to_i}.pdf",
+        type: 'application/pdf',
+        disposition: 'inline'
+      )
+    end
+
+    def qoute_or_invoice
+      pdf = OrderPdf.new(@order)
+      pdf.quote_or_invoice
+      is_quote = !@order.order_status.customer_locked
+
+      send_data(
+        pdf.render,
+        filename: "#{is_quote ? 'quote' : 'invoice'}_#{@order.formatted_id}_#{Time.zone.now.to_i}.pdf",
+        type: 'application/pdf',
+        disposition: 'inline'
+      )
+    end
+
     def show; end
 
     def new; end
@@ -96,9 +121,9 @@ module OperationalPortal
     def search_results
       query_instance =
         (if params[:search_by].blank? || params[:search_by] == 'all'
-           Product.from("(#{search_parts.to_sql} UNION #{search_products.to_sql}) products")
+           Product.from("(#{search_items(Part).to_sql} UNION #{search_items(Product).to_sql}) products")
          else
-           params[:search_by] == 'parts' ? search_parts : search_products
+           params[:search_by] == 'parts' ? search_items(Part) : search_items(Product)
          end)
 
       query_instance = query_instance.order(created_at: :desc)
@@ -125,34 +150,19 @@ module OperationalPortal
       params.require(:order).permit(:shipping_price, :discount_percentage, :tax)
     end
 
-    def search_parts
-      parts = Part.not_voided
-      parts = parts.search_results
-      parts = parts.search_results_with_order(params[:order_id]) if params[:order_id].present?
+    def search_items(model)
+      items = model.not_voided
+      items = items.search_results
+      items = items.search_results_with_order(params[:order_id]) if params[:order_id].present?
 
       if params[:filter_by].present? && params[:search].present?
         case params[:filter_by]
         when 'name'
-          parts = parts.where('name ILIKE ?', "%#{params[:search]}%")
+          items = items.where('name ILIKE ?', "%#{params[:search]}%")
         end
       end
 
-      parts
-    end
-
-    def search_products
-      products = Product.not_voided
-      products = products.search_results
-      products = products.search_results_with_order(params[:order_id]) if params[:order_id].present?
-
-      if params[:filter_by].present? && params[:search].present?
-        case params[:filter_by]
-        when 'name'
-          products = products.where('name ILIKE ?', "%#{params[:search]}%")
-        end
-      end
-
-      products
+      items
     end
   end
 end

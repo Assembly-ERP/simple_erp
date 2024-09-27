@@ -416,6 +416,9 @@ class Product
 
     sig { params(value: T::Enumerable[::PolyAttribute]).void }
     def poly_attributes=(value); end
+
+    sig { params(attributes: T.untyped).returns(T.untyped) }
+    def poly_attributes_attributes=(attributes); end
   end
 
   module GeneratedAssociationRelationMethods

@@ -6,7 +6,7 @@
         = @customer.name
       %p.grid
         %strong Address
-        = "#{@customer.street}, #{@customer.city}, #{@customer.state}, #{@customer.postal_code}"
+        = "#{@customer.street ? "#{@customer.street}," : ""} #{@customer.city ? "#{@customer.city}," : ""} #{@customer.state ? "#{@customer.state}," : ""} #{@customer.postal_code}"
       %p.grid
         %strong EIN
         = @customer.ein || "N/A"
