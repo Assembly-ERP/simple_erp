@@ -50,7 +50,7 @@ class OrderPdf
     items = @order.order_details.with_part_and_product.map do |item|
       [
         item.product_id ? item.product_name : item.part_name,
-        item.product_id ? item.product_sku : item.part_sku,
+        (item.product_id ? item.product_sku : item.part_sku) || 'N/A',
         item.product_id ? 'Product' : 'Part',
         item.quantity,
         number_with_precision(item.price, precision: 2),
