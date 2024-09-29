@@ -38,9 +38,8 @@ class OrderPdf
 
   def quote_or_invoice
     company_details
-    is_quote = !@order.order_status.customer_locked
 
-    text "#{is_quote ? 'Quote' : 'Invoice'} (Order #{@order.formatted_id})", size: 15, style: :bold
+    text "#{quote? ? 'Quote' : 'Invoice'} (Order #{@order.formatted_id})", size: 15, style: :bold
 
     order_date
     shipping_details
@@ -68,7 +67,7 @@ class OrderPdf
     end
     move_down 20
 
-    summary is_quote
+    order_summary
   end
 
   private
@@ -89,14 +88,16 @@ class OrderPdf
 
     return if (shipping = @order.order_shipping_address).blank?
 
-    text shipping.name if shipping.name
-    text shipping.street if shipping.street
-    text "#{shipping.state ? "#{shipping.state}," : ''} #{shipping.city} #{shipping.zip_code}"
-    text shipping.phone
+    text shipping.name if shipping.name.present?
+    text shipping.street if shipping.street.present?
+    if shipping.state.blank? && shipping.city.blank? && shipping.zip_code.blank?
+      text "#{shipping.state.present? ? "#{shipping.state}," : ''} #{shipping.city} #{shipping.zip_code}"
+    end
+    text shipping.phone if shipping.phone.present?
     move_down 15
   end
 
-  def summary(is_quote)
+  def order_summary
     discount_value = value_from_percentage(@order.price, @order.discount_percentage)
     subtotal = @order.price - discount_value + @order.tax.to_f
     summary_items = [
@@ -108,7 +109,7 @@ class OrderPdf
       ],
       ['Tax', number_to_currency(@order.tax, precision: 2)],
       ['Subtotal', number_to_currency(subtotal, precision: 2)],
-      ['Shipping', is_quote ? 'TBA' : number_to_currency(@order.shipping_price, precision: 2)],
+      ['Shipping', quote? ? 'TBA' : number_to_currency(@order.shipping_price, precision: 2)],
       ['Order Total', number_to_currency(@order.total_amount, precision: 2)]
     ]
 
@@ -135,5 +136,9 @@ class OrderPdf
     text 'Note:', style: :bold
     move_down 2
     text @order.internal_note
+  end
+
+  def quote?
+    !@order.order_status.customer_locked
   end
 end
