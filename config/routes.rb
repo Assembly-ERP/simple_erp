@@ -3,11 +3,9 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
-    username == ENV.fetch('SIDEKIQ_USER', 'sidekiq') && password == ENV.fetch('SIDEKIQ_PASSWORD', 'password')
+  authenticate :user, -> { _1.advance_admin_user? } do
+    mount Sidekiq::Web => '/sidekiq'
   end
-
-  mount Sidekiq::Web => '/sidekiq'
 
   unauthenticated :user do
     root 'home#index'
