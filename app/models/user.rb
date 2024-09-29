@@ -48,6 +48,10 @@ class User < ApplicationRecord
     OPERATION_ROLES.include?(role)
   end
 
+  def advance_admin_user?
+    role == 'admin' && advance
+  end
+
   def customer_user?
     CUSTOMER_ROLES.include?(role)
   end
