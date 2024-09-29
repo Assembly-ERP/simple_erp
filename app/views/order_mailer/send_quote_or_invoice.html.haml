@@ -11,7 +11,7 @@
         .logo= @order.customer.name
       .invoice-details
         .invoice-number 
-          = "#{@is_quote ? 'Quote' : 'Invoice'} ##{@order.formatted_id}"
+          = "#{@quote ? 'Quote' : 'Invoice'} #{@order.formatted_id}"
         .date
           = @order.created_at.strftime("%m/%d/%Y")
       - osa = @order.order_shipping_address
@@ -40,15 +40,9 @@
             - @order.order_details.with_part_and_product.each do |item|
               %tr
                 %td
-                  - if item.product_id.present?
-                    = item.product_name
-                  - else
-                    = item.part_name
+                  = item.product_id.present? ? item.product_name : item.part_name
                 %td
-                  - if item.product_id.present?
-                    Product
-                  - else
-                    Part
+                  = item.product_id.present? ? "Product" : "Part"
                 %td
                   = "x#{item.quantity}"
                 %td
@@ -80,10 +74,7 @@
           %span.summary-label 
             Shipping
           %span.summary-value
-            - if @is_quote
-              TBD
-            - else
-              = number_to_currency(@order.shipping_price, precision: 2)
+            = @quote ? "TBA" : number_to_currency(@order.shipping_price, precision: 2)
         .summary-row.total-row
           %span Order Total
           %span{style: "margin-left: 8px;"}
