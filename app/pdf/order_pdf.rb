@@ -70,6 +70,10 @@ class OrderPdf
     order_summary
   end
 
+  def quote?
+    !@order.order_status.customer_locked
+  end
+
   private
 
   def company_details
@@ -136,9 +140,5 @@ class OrderPdf
     text 'Note:', style: :bold
     move_down 2
     text @order.internal_note
-  end
-
-  def quote?
-    !@order.order_status.customer_locked
   end
 end

@@ -44,11 +44,10 @@ module OperationalPortal
     def qoute_or_invoice
       pdf = OrderPdf.new(@order)
       pdf.quote_or_invoice
-      is_quote = !@order.order_status.customer_locked
 
       send_data(
         pdf.render,
-        filename: "order_#{is_quote ? 'quote' : 'invoice'}_#{@order.formatted_id}_#{Time.zone.now.to_i}.pdf",
+        filename: "order_#{pdf.quote? ? 'quote' : 'invoice'}_#{@order.formatted_id}_#{Time.zone.now.to_i}.pdf",
         type: 'application/pdf',
         disposition: 'inline'
       )
