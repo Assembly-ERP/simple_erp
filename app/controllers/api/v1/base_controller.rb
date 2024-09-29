@@ -9,9 +9,9 @@ module Api
 
       rescue_from CanCan::AccessDenied do |_exception|
         if current_api_user.present?
-          render json: { error: 'forbidden' }, status: :forbidden
+          render json: 'forbidden', status: :forbidden
         else
-          render json: { error: 'unauthorized' }, status: :unauthorized
+          render json: 'unauthorized', status: :unauthorized
         end
       end
 
