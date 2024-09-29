@@ -81,6 +81,6 @@
           Address:
         %span.font-medium.text-gray-900
           - if @order.order_shipping_address.present?
-            = order_readable_shipping_address(shipping_address: @order.order_shipping_address)
+            = order_readable_shipping_address(@order)
           - else
             N/A
