@@ -86,14 +86,14 @@ class OrderPdf
     text @order.customer.name, size: 14
     move_down 15
 
-    return if (shipping = @order.order_shipping_address).blank? ||
-              (shipping.name.blank? && shipping.street.blank? && shipping.city.blank? &&
-              shipping.zip_code.blank? && shipping.phone.blank?)
+    return if (shipping = @order.order_shipping_address).blank?
 
-    text shipping.name if shipping.name
-    text shipping.street if shipping.street
-    text "#{shipping.state ? "#{shipping.state}," : ''} #{shipping.city} #{shipping.zip_code}"
-    text shipping.phone
+    text shipping.name if shipping.name.present?
+    text shipping.street if shipping.street.present?
+    if shipping.state.blank? && shipping.city.blank? && shipping.zip_code.blank?
+      text "#{shipping.state.present? ? "#{shipping.state}," : ''} #{shipping.city} #{shipping.zip_code}"
+    end
+    text shipping.phone if shipping.phone.present?
     move_down 15
   end
 
