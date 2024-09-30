@@ -48,7 +48,7 @@ class OrderPdf
     order_date
     shipping_details
 
-    header = [['Name', 'SKU', 'Type', 'QTY', 'Price ($)', 'Total ($)']]
+    header = [%w[Name SKU Type QTY Price Total]]
 
     items = @order.order_details.with_part_and_product.map do |item|
       [
@@ -56,8 +56,8 @@ class OrderPdf
         (item.product_id ? item.product_sku : item.part_sku) || 'N/A',
         item.product_id ? 'Product' : 'Part',
         item.quantity,
-        number_with_precision(item.price, precision: 2),
-        number_with_precision(item.subtotal, precision: 2)
+        number_to_currency(item.price, precision: 2),
+        number_to_currency(item.subtotal, precision: 2)
       ]
     end
 
