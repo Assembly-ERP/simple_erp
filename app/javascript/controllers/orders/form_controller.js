@@ -142,10 +142,7 @@ export default class extends Controller {
 
   shippingChange(event) {
     this.summaryShippingTarget.dataset.value = event.target.value;
-    event.target.value = this.toLocalePrice(
-      Number(event.target.value) || 0,
-      "",
-    );
+    event.target.value = (Number(event.target.value) || 0).toFixed(2);
     event.target.blur();
     this.calculateSummary();
   }
@@ -159,10 +156,7 @@ export default class extends Controller {
   }
 
   taxChange(event) {
-    event.target.value = this.toLocalePrice(
-      Number(event.target.value) || 0,
-      "",
-    );
+    event.target.value = (Number(event.target.value) || 0).toFixed(2);
     event.target.blur();
     this.calculateSummary();
   }
