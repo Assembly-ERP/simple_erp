@@ -199,7 +199,7 @@ export default class extends Controller {
       .replace(/{{sku}}/g, dataset.sku)
       .replace(/{{quantity}}/g, dataset.quantity)
       .replace(/{{type}}/g, dataset.type)
-      .replace(/{{item-price}}/g, itemPrice)
+      .replace(/{{item-price}}/g, itemPrice.toFixed(2))
       .replace(/{{price}}/g, this.toLocalePrice(totalPrice))
       .replace(/{{part-id}}/g, dataset.type === "part" ? dataset.pid : "")
       .replace(
