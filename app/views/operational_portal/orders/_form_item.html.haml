@@ -1,19 +1,19 @@
-%tr.added-item.nested-form-wrapper{class: "py-3.5", id: "item-form-#{type}_#{item_id}", data: {"new-record": f.object.new_record?.to_s, item_id: item_id, qty: quantity, price: item_price, original_price: item_price, override: f.object.override.to_s, controller: "orders--item"}}
-  %td.w-60.min-w-56
+.table-row.added-item.nested-form-wrapper{class: "py-3.5", id: "item-form-#{type}_#{item_id}", data: {"new-record": f.object.new_record?.to_s, item_id: item_id, qty: quantity, price: item_price, original_price: item_price, override: f.object.override.to_s, controller: "orders--item"}}
+  .table-cell
     = name
-  %td
+  .table-cell
     = sku || "N/A"
-  %td
+  .table-cell
     %div{class: "#{type}-type-tag"}
       = type
-  %td
+  .table-cell
     %span= "x#{quantity}"
-  %td
+  .table-cell
     %span $
     = f.number_field :price, value: item_price.kind_of?(String) ? item_price : number_with_precision(item_price, precision: 2), class: "rounded border border-gray-300 w-[80px] px-0 py-0 text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none", data: {"orders--item-target": "itemPrice", action: "input->orders--item#priceInput input->orders--form#calculateSummary change->orders--form#calculateSummary change->orders--item#priceChange"}, step: :any
-  %td.font-semibold{data: {"orders--item-target": "total"}}
-    = price.kind_of?(String) ? "$#{price}" : number_to_currency(quantity * price.to_f, unit: "$", precision: 2)
-  %td
+  .table-cell.font-semibold{data: {"orders--item-target": "total"}}
+    = price.kind_of?(String) ? "#{price}" : number_to_currency(quantity * price.to_f, unit: "$", precision: 2)
+  .table-cell
     .flex.justify-end.w-full
       %button.text-gray-400.hover:text-red-500{type: "button", data: {pid: item_id, type: type, action: "orders--form#remove"}}
         = icon("fa-solid", "trash-can", class: "pointer-events-none")
