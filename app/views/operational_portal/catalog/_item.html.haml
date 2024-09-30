@@ -1,4 +1,4 @@
-.relative{id: "#{item.type}_#{item.id}", data: {controller: "dialog", action: "click->dialog#backdropClose"}}
+.relative.w-full{id: "#{item.type}_#{item.id}", data: {controller: "dialog", action: "click->dialog#backdropClose"}}
   = render "item_modal", item: item
   .cursor-pointer.flex.w-full.flex.flex-col.md:flex-row.md:items-center.p-3.md:gap-6.hover:bg-gray-50.bg-white.border.border-gray-200.rounded-lg.shadow{data: {action: "click->dialog#open"}}
     - if item.type == "part"
@@ -12,18 +12,18 @@
         = image_tag item.images.first.variant(:thumb), class: "w-20 h-20 object-cover border rounded-sm"
       - else
         = image_tag "thumbnail.png", class: "w-20 h-20 rounded object-cover"
-    .flex.flex-col.md:justify-between.w-full{class: "md:w-[70%] lg:w-[50%]"}
-      .grid.grid-cols-2.lg:grid-cols-8.w-full.gap-4
-        .flex.flex-col.justify-between.h-full.col-span-4
+    .flex.flex-col.md:justify-between.w-full
+      .grid.grid-cols-2.lg:grid-cols-12.w-full.gap-4
+        .flex.flex-col.justify-between.h-full.lg:col-span-4
           %h3.text-base.font-medium.text-gray-700.mb-1
             = item.name
           .block{class: "#{item.type}-type-tag"}
             = item.type.humanize
-        .col-span-1
+        .lg:col-span-2
           %h6.font-normal.text-gray-500 Price
           %p.font-medium.text-gray-900
             = number_to_currency(item.price, unit: "$", precision: 2)
-        .col-span-1.lg:col-span-2.lg:text-center
+        .lg:col-span-2
           %h6.font-normal.text-gray-500 In stock
           %p.font-medium.text-gray-900
             - if item.type == "product"
@@ -40,7 +40,7 @@
                   %span.text-red-600{class: "text-[15px]"} Out of stock
               - else
                 %span.text-green-600{class: "text-[15px]"} Available
-        .col-span-1
+        .lg:col-span-2
           %h6.font-normal.text-gray-500 Weight
           %p.font-medium.text-gray-900
             = number_with_precision(item.weight, precision: 2)
