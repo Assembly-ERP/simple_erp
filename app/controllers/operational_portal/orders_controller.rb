@@ -33,24 +33,14 @@ module OperationalPortal
       pdf = OrderPdf.new(@order)
       pdf.make_ticket
 
-      send_data(
-        pdf.render,
-        filename: "order_make_ticket_#{@order.formatted_id}_#{Time.zone.now.to_i}.pdf",
-        type: 'application/pdf',
-        disposition: 'inline'
-      )
+      send_data(pdf.render, filename: pdf.make_ticket_filename, type: 'application/pdf', disposition: 'inline')
     end
 
     def qoute_or_invoice
       pdf = OrderPdf.new(@order)
       pdf.quote_or_invoice
 
-      send_data(
-        pdf.render,
-        filename: "order_#{pdf.quote? ? 'quote' : 'invoice'}_#{@order.formatted_id}_#{Time.zone.now.to_i}.pdf",
-        type: 'application/pdf',
-        disposition: 'inline'
-      )
+      send_data(pdf.render, filename: pdf.quote_or_invoice_filename, type: 'application/pdf', disposition: 'inline')
     end
 
     def show; end

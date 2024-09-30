@@ -36,6 +36,10 @@ class OrderPdf
     internal_note
   end
 
+  def make_ticket_filename
+    "order_make_ticket_#{@order.formatted_id}_#{Time.zone.now.to_i}.pdf"
+  end
+
   def quote_or_invoice
     company_details
 
@@ -68,6 +72,10 @@ class OrderPdf
     move_down 20
 
     order_summary
+  end
+
+  def quote_or_invoice_filename
+    "order_#{quote? ? 'quote' : 'invoice'}_#{@order.formatted_id}_#{Time.zone.now.to_i}.pdf"
   end
 
   def quote?
