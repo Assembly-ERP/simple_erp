@@ -188,20 +188,11 @@ export default class extends Controller {
   appendPart(dataset, replaceEl = null) {
     this.element.dataset.changed = "true";
 
-    const itemPrice = Number(dataset.price).toLocaleString("en-US", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
-    const totalPrice = (
-      Number(dataset.price) * Number(dataset.quantity)
-    ).toLocaleString("en-US", {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2,
-    });
+    const itemPrice = Number(dataset.price);
+    const totalPrice = itemPrice * Number(dataset.quantity);
 
-    let template = this.templateTarget.content
-      .querySelector("tbody")
-      .innerHTML.replace(/NEW_RECORD/g, new Date().getTime().toString())
+    let template = this.templateTarget.innerHTML
+      .replace(/NEW_RECORD/g, new Date().getTime().toString())
       .replace(/{{id}}/g, dataset.itemId || "")
       .replace(/{{item-id}}/g, dataset.pid)
       .replace(/{{name}}/g, dataset.name)
@@ -209,7 +200,7 @@ export default class extends Controller {
       .replace(/{{quantity}}/g, dataset.quantity)
       .replace(/{{type}}/g, dataset.type)
       .replace(/{{item-price}}/g, itemPrice)
-      .replace(/{{price}}/g, totalPrice)
+      .replace(/{{price}}/g, this.toLocalePrice(totalPrice))
       .replace(/{{part-id}}/g, dataset.type === "part" ? dataset.pid : "")
       .replace(
         /{{product-id}}/g,

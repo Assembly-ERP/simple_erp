@@ -1,15 +1,15 @@
 #search-results
-  %table.w-full.text-left.text-base.text-gray-900.md:table-fixed
-    %thead.border-b.sticky.top-0{class: "bg-gray-50"}
-      %tr.uppercase.text-sm
-        %th Name
-        %th SKU
-        %th Type
-        %th Weight
-        %th Price
-        %th.text-center Quantity
-        %th
-    %tbody#search-results-items.divide-y.divide-gray-200{data: {"orders--form-target": "searchItems"}}
+  .table
+    .table-header-group.border-b.sticky.top-0
+      .table-row
+        .table-cell Name
+        .table-cell SKU
+        .table-cell Type
+        .table-cell Weight
+        .table-cell Price
+        .table-cell.text-center Quantity
+        .table-cell
+    .table-row-group#search-results-items.divide-y.divide-gray-200{data: {"orders--form-target": "searchItems"}}
       - @results.each do |result|
         = render "search_item", result:
   = render "search_more"
