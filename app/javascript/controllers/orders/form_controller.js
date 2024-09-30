@@ -40,6 +40,8 @@ export default class extends Controller {
     this.userAssigneeSlim.setChoiceByValue("");
     this.userAssigneeTarget.value = "";
 
+    if (!e.target.value) return;
+
     const customerUserPath = this.userAssigneeTarget.dataset.url;
     const path = customerUserPath.replace(":id", e.target.value);
 
