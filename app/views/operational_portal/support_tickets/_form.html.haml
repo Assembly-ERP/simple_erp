@@ -1,21 +1,19 @@
-= form_with(model:, url:, html: {class: "grid gap-2", data: {controller: "support_tickets--form"}}) do |form|
+= form_with(model:, url:, html: {class: "grid gap-3", data: {controller: "support-tickets--form", customer_users_url: users_operational_portal_customer_url(id: ":id")}}) do |form|
   - if @support_ticket.errors.any?
     = render ErrorCardComponent.new errors: @support_ticket.errors.full_messages, label: "Validations"
   .field
     = form.label :title
     = form.text_field :title, class: "input-primary", required: true
+  .flex.gap-4
+    .field
+      = form.label :customer_id, "Customer"
+      = form.select :customer_id, Customer.all.pluck(:name, :id), {prompt: "--Select customer--"}, {data: {action: "change->support-tickets--form#customerChanged", "support-tickets--form-target": "customerSelect"}}
+    .field
+      = form.label :user_id, "Assign to Customer User"
+      = form.select :user_id, [], {}, {data: {"support-tickets--form-target": "userSelect"}, disabled: true}
   .field
     = form.label :issue_description
-    = form.text_area :issue_description, class: "input-primary", required: true
-  .field
-    = form.label :status
-    = form.select :status, SupportTicket::STATUSES.map { |s| [s.titleize, s] }, {}, {class: "input-primary"}
-  .field
-    = form.label :customer_id, "Customer"
-    = form.select :customer_id, Customer.all.pluck(:name, :id), {prompt: "--Select customer--"}, {data: {action: "change->support_tickets--form#customerChanged"}, class: "input-primary"}
-  .field
-    = form.label :user_id, "Assign to Customer User"
-    = render "user_select_input", form:, users: form.object.customer_id ? form.object.customer.users.map { |user| [user.name, user.id]} : User.all.map { |user| [user.name, user.id]}
+    = form.text_area :issue_description, class: "input-primary", required: true, rows: 5
   .field
     = form.label :files
     = form.file_field :files, multiple: true
