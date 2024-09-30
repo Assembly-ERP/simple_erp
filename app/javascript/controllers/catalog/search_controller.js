@@ -20,6 +20,7 @@ export default class extends Controller {
 
     path += `&search_by[]=name`;
     path += `&search_by[]=sku`;
+    path += `&search_by[]=description`;
     path += `&filter_by=${this.filterByValue}`;
 
     fetch(path, {
