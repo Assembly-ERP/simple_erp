@@ -69,7 +69,7 @@ export default class extends Controller {
     for (const user of users)
       data.push({
         value: user.id,
-        label: `${user.first_name} ${user.last_name}`,
+        label: user.name,
       });
     this.userAssigneeSlim.setValue(data);
   }

@@ -30,8 +30,6 @@ module OperationalPortal
 
     def users
       @users = @customer.users
-
-      render json: @users
     end
 
     def new; end
