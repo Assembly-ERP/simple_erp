@@ -99,6 +99,12 @@ Rails.application.routes.draw do
   # API
   namespace :api do
     namespace :v1 do
+      resources :users, only: [] do
+        collection do
+          post :sign_in
+          get :me
+        end
+      end
       resources :parts
       resources :products
       resources :orders

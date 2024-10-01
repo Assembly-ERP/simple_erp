@@ -84,6 +84,7 @@ gem 'dotenv-rails', '~> 3.1'
 
 # Authentication
 gem 'devise', '~> 4.9'
+gem 'devise_invitable'
 
 # Haml Support
 gem 'haml-rails', '~> 2.1'
@@ -114,9 +115,6 @@ gem 'aws-sdk-s3', require: false
 
 # Cron
 gem 'whenever', '~> 1.0'
-
-# Devise Invitation
-gem 'devise_invitable'
 
 # Sengrid
 gem 'sendgrid-ruby'
