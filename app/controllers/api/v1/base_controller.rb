@@ -14,7 +14,7 @@ module Api
       end
 
       def current_ability
-        @current_ability ||= Ability.new(current_user, 'api')
+        @current_ability ||= Ability.new(current_user, 'api_v1')
       end
 
       def current_user
@@ -45,7 +45,7 @@ module Api
         decoded_token = decoded_token(jwt_key: ENV.fetch('JWT_SECRET', nil))
         return nil if decoded_token.blank?
 
-        @current_api_user = User.find_by(id: decoded_token[0]['user_id'], advance: true)
+        User.find_by(id: decoded_token[0]['user_id'], advance: true)
       end
     end
   end
