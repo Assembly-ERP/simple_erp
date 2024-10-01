@@ -3,12 +3,10 @@
 module Api
   module V1
     class BaseController < ApplicationController
-      attr_reader :current_api_user
-
       protect_from_forgery with: :null_session
 
       rescue_from CanCan::AccessDenied do |_exception|
-        if current_api_user.present?
+        if current_user.present?
           render json: 'forbidden', status: :forbidden
         else
           render json: 'unauthorized', status: :unauthorized
@@ -16,7 +14,11 @@ module Api
       end
 
       def current_ability
-        @current_ability ||= Ability.new(api_user, 'api')
+        @current_ability ||= Ability.new(current_user, 'api')
+      end
+
+      def current_user
+        @current_user ||= api_user
       end
 
       private
