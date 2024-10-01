@@ -3,12 +3,17 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  authenticate :user, -> { _1.advance_admin_user? } do
-    mount Sidekiq::Web => '/sidekiq'
-  end
-
   unauthenticated :user do
     root 'home#index'
+  end
+
+  devise_for :users, controllers: {
+    registrations: 'users/registrations',
+    invitations: 'users/invitations'
+  }
+
+  authenticate :user, -> { _1.advance_admin_user? } do
+    mount Sidekiq::Web => '/sidekiq'
   end
 
   authenticated :user, -> { _1.operational_user? } do
@@ -19,17 +24,11 @@ Rails.application.routes.draw do
     get '/', to: redirect('/customer_portal')
   end
 
-  # Auth
-  devise_for :users, controllers: {
-    registrations: 'users/registrations',
-    invitations: 'users/invitations'
-  }
-
   # Dashboards
   get '/operational_portal', to: 'operational_portal/dashboard#index', as: :operational_root
   get '/customer_portal', to: 'customer_portal/dashboard#index', as: :customer_root
 
-  # Operational portal namespace
+  # Operational portal
   get '/operational_portal/manage', to: redirect('/operational_portal/users')
 
   namespace :operational_portal do
@@ -83,7 +82,7 @@ Rails.application.routes.draw do
     resource :profile, only: %i[show edit update]
   end
 
-  # Customer portal namespace
+  # Customer portal
   namespace :customer_portal do
     resources :orders
     resources :support_tickets do
@@ -96,10 +95,6 @@ Rails.application.routes.draw do
       post 'add_item', on: :collection
     end
   end
-
-  # # Resources accessible to all users
-  # resources :products, only: %i[index show]
-  # resources :parts, only: %i[index show]
 
   # API
   namespace :api do
