@@ -7,5 +7,6 @@
     = render NavbarLinkComponent.new path: operational_portal_manage_path, label: "Manage"
   - elsif current_user.customer_user?
     = render NavbarLinkComponent.new path: customer_root_path, label: "Dashboard"
+    = render NavbarLinkComponent.new path: customer_portal_catalog_index_path, label: "Catalog"
     = render NavbarLinkComponent.new path: customer_portal_orders_path, label: "Orders"
     = render NavbarLinkComponent.new path: customer_portal_support_tickets_path, label: "Support Tickets"

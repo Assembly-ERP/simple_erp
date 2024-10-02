@@ -50,11 +50,17 @@ class Ability
     can :manage, Branding if user.role == 'admin'
   end
 
-  def customer_portal(_user)
+  def customer_portal(user)
+    can :manage, :dashboard
     can :manage, :profile
     can :manage, :catalog
-    can :manage, Cart
-    can :manage, SupportTicket
+    can :manage, Cart, customer: user.customer
+    can :manage, Order, customer: user.customer
+    can :manage, SupportTicket, customer: user.customer
+
+    can :create, SupportTicketMessage
+    can :read, SupportTicketMessage, support_ticket: { customer: user.customer }
+    can %i[update destroy], SupportTicketMessage, user:
   end
 
   def api_v1(_user)

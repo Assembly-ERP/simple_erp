@@ -1,0 +1,9 @@
+!!!
+%html{style: theme}
+  %head
+    = render "layouts/head"
+  %body
+    = render FlashComponent.new
+    = render "layouts/customer_navbar"
+    %main.margin-max-screen
+      = yield
