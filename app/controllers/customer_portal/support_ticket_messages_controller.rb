@@ -10,19 +10,19 @@ module CustomerPortal
 
     def create
       @support_ticket_message =
-        current_user.support_ticket_messages.new(support_ticket_params)
+        current_user.support_ticket_messages.new(support_ticket_message_params)
 
       if @support_ticket_message.save
-        redirect_to customer_portal_support_ticket_path(support_ticket.support_ticket_message),
-                    notice: 'Support ticket was successfully created.'
+        redirect_to customer_portal_support_ticket_path(@support_ticket_message.support_ticket),
+                    notice: 'Support ticket message was successfully created.'
       else
         render :new, status: :unprocessable_entity
       end
     end
 
     def update
-      if @support_ticket_message.update(support_ticket_params)
-        redirect_to customer_portal_support_ticket_path(support_ticket_message.support_ticket),
+      if @support_ticket_message.update(support_ticket_message_params)
+        redirect_to customer_portal_support_ticket_path(@support_ticket_message.support_ticket),
                     notice: 'Support ticket message was successfully updated.'
       else
         render :edit, status: :unprocessable_entity
@@ -35,7 +35,7 @@ module CustomerPortal
 
     private
 
-    def support_ticket_params
+    def support_ticket_message_params
       params.require(:support_ticket_message).permit(:body, :support_ticket_id, files: [])
     end
   end
