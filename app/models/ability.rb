@@ -8,6 +8,7 @@ class Ability
 
     operational_portal(user) if operation?(portal, user)
     customer_portal(user) if customer?(portal, user)
+    api_v1(user) if api_operation?(portal, user)
   end
 
   private
@@ -49,11 +50,21 @@ class Ability
     can :manage, Branding if user.role == 'admin'
   end
 
-  def customer_portal(_user)
+  def customer_portal(user)
+    can :manage, :dashboard
     can :manage, :profile
     can :manage, :catalog
-    can :manage, Cart
-    can :manage, SupportTicket
+    can :manage, Cart, customer: user.customer
+    can :manage, Order, customer: user.customer
+    can :manage, SupportTicket, customer: user.customer
+
+    can :create, SupportTicketMessage
+    can :read, SupportTicketMessage, support_ticket: { customer: user.customer }
+    can %i[update destroy], SupportTicketMessage, user:
+  end
+
+  def api_v1(_user)
+    can :me, :auth
   end
 
   # Conditions
@@ -63,5 +74,9 @@ class Ability
 
   def customer?(portal, user)
     portal == 'customer_portal' && user.customer_user?
+  end
+
+  def api_operation?(portal, user)
+    portal == 'api_v1' && user.operational_user? && user.advance
   end
 end

@@ -84,6 +84,7 @@ Rails.application.routes.draw do
 
   # Customer portal
   namespace :customer_portal do
+    resources :catalog, only: [:index]
     resources :orders
     resources :support_tickets do
       member do
@@ -99,10 +100,11 @@ Rails.application.routes.draw do
   # API
   namespace :api do
     namespace :v1 do
-      resources :users, only: [] do
+      resources :auth, only: [] do
         collection do
-          post :sign_in
           get :me
+          put :refresh_token
+          post :sign_in
         end
       end
       resources :parts
