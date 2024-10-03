@@ -6,10 +6,13 @@ module OperationalPortal
 
     def index
       query_instance =
-        (if params[:filter_by].blank? || params[:filter_by] == 'all'
-           Product.from("(#{catalog(Product).to_sql} UNION #{catalog(Part).to_sql}) products")
+        (case params[:filter_by]
+         when 'products'
+           catalog(Product)
+         when 'parts'
+           catalog(Part)
          else
-           params[:filter_by] == 'parts' ? catalog(Part) : catalog(Product)
+           Product.from("(#{catalog(Product).to_sql} UNION #{catalog(Part).to_sql}) products")
          end)
 
       query_instance = query_instance.order(created_at: :desc)
