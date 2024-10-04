@@ -25,11 +25,16 @@ module CustomerPortal
 
     def create
       respond_to do |format|
-        if carts_params[:id].present? || carts_params[:quantity].to_i.positive?
+        if params[:id].present? && carts_params[:type].present? && carts_params[:quantity].to_i.positive?
           carts = signed_carts
-          item = "#{carts_params[:id]}:#{carts_params[:type]}"
+          item = "#{params[:id]}:#{carts_params[:type]}"
 
-          carts[item] = { type: carts_params[:type], quantity: carts_params[:quantity].to_i }
+          carts[item] =
+            (if carts[item].present?
+               { type: carts_params[:type], quantity: carts[item]['quantity'].to_i + carts_params[:quantity].to_i }
+             else
+               { type: carts_params[:type], quantity: carts_params[:quantity].to_i }
+             end)
           cookies.signed.permanent[:carts] = JSON.generate(carts)
 
           format.turbo_stream { render locals: { error: false } }
@@ -57,10 +62,6 @@ module CustomerPortal
       end
     end
 
-    def count
-      signed_carts.size
-    end
-
     private
 
     def signed_carts
@@ -77,7 +78,7 @@ module CustomerPortal
     end
 
     def carts_params
-      params.require(:cart).permit(:id, :type, :quantity)
+      params.require(:cart).permit(:type, :quantity)
     end
   end
 end

@@ -1,0 +1,6 @@
+= link_to customer_portal_cart_index_path, id: "cart-badge", class: "relative" do
+  - cart_count = JSON.parse(cookies.signed[:carts] || '{}').size
+  - if cart_count.positive?
+    .w-5.h-5.bg-red-600.absolute.text-white.text-xs.rounded-full.grid.place-items-center.-top-3.-right-3
+      = cart_count
+  = icon("fa-solid", "cart-shopping", class: "text-gray-500 text-xl")
