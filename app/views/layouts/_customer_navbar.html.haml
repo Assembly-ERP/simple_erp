@@ -5,9 +5,9 @@
       %button.hidden.bg-white.hover:bg-gray-100.px-5.border.border-gray-300.gap-3.flex.items-center.rounded-lg.text-gray-500{class: "py-2"}
         = icon("fa-solid", "magnifying-glass")
         %span Search Products, Parts, etc..
-    .flex.gap-3.items-center
-      .hidden.bg-white.rounded-lg.hover:bg-gray-100.py-2.px-3.cursor-pointer
-        = icon("fa-solid", "bell", class: "text-gray-500 text-xl")
+    .flex.gap-5.items-center
+      = link_to customer_portal_cart_index_path do
+        = icon("fa-solid", "cart-shopping", class: "text-gray-500 text-xl")
       .relative{data: {controller: "dropdown"}}
         %button{type: "button", data: {action: "dropdown#toggle click@window->dropdown#hide"}}
           = image_tag "profile.png", class: "w-9 h-9 rounded-full border border-gray-400"

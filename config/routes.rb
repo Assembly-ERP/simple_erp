@@ -21,12 +21,12 @@ Rails.application.routes.draw do
   end
 
   authenticated :user, -> { _1.customer_user? } do
-    get '/', to: redirect('/customer_portal')
+    get '/', to: redirect('/customer_portal/catalog')
   end
 
   # Dashboards
   get '/operational_portal', to: 'operational_portal/dashboard#index', as: :operational_root
-  get '/customer_portal', to: 'customer_portal/dashboard#index', as: :customer_root
+  # get '/customer_portal', to: 'customer_portal/dashboard#index', as: :customer_root
 
   # Operational portal
   get '/operational_portal/manage', to: redirect('/operational_portal/users')
@@ -92,7 +92,7 @@ Rails.application.routes.draw do
       end
     end
     resource :profile, only: %i[show edit update]
-    resource :cart, only: [:show] do
+    resources :cart, only: [:index] do
       post 'add_item', on: :collection
     end
   end
