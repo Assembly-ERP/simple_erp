@@ -6,6 +6,7 @@ module CustomerPortal
 
     def index
       @carts = []
+      @total = 0
 
       signed_carts.each do |key, hash|
         id = key.split(':').first
@@ -22,6 +23,7 @@ module CustomerPortal
           quantity: hash['quantity'],
           total_price: item.price * hash['quantity'].to_i
         }
+        @total += item.price * hash['quantity'].to_i
       end
     end
 
