@@ -21,7 +21,7 @@ export default class extends Controller {
     path += `&search_by[]=name`;
     path += `&search_by[]=sku`;
     // path += `&search_by[]=description`;
-    path += `&filter_by=${this.filterByValue}`;
+    // path += `&filter_by=${this.filterByValue}`;
 
     fetch(path, {
       method: "GET",
@@ -36,7 +36,7 @@ export default class extends Controller {
       .then((html) => Turbo.renderStreamMessage(html));
   }
 
-  get filterByValue() {
-    return this.filterByRadioTargets.filter((radio) => radio.checked)[0].value;
-  }
+  // get filterByValue() {
+  //   return this.filterByRadioTargets.filter((radio) => radio.checked)[0].value;
+  // }
 }

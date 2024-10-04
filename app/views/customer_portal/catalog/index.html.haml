@@ -1,38 +1,5 @@
-.py-5
+.pt-5.pb-7
   .mx-auto.px-4.2xl:px-0
-    .flex.gap-5
-      / LEft content
-      .rounded-lg.border.shadow.py-1.h-fit.sticky.bg-white{class: "top-[141px] w-[420px]"}
-        %ul
-          %li 
-            %button.px-5.py-2.w-full.hover:bg-gray-50.text-start.flex.justify-between.items-center
-              Rating
-              = icon("fa-solid", "angle-up", class: "text-gray-600")
-            %button.px-5.py-2.w-full.hover:bg-gray-50.text-start.flex.justify-between.items-center
-              Price
-              = icon("fa-solid", "angle-up", class: "text-gray-600")
-            %button.px-5.py-2.w-full.hover:bg-gray-50.text-start.flex.justify-between.items-center
-              Weight
-              = icon("fa-solid", "angle-up", class: "text-gray-600")
-      / Right content
-      .w-full
-        .grid.gap-4.sm:grid-cols-2
-          - @items.each do | item |
-            .rounded-lg.border.border-gray-200.bg-white.shadow-sm
-              .relative
-                .h-64.p-6
-                  %a{href: "#"}
-                    %img.h-auto.max-h-full.w-full{alt: "iphone image", src: "https://flowbite.s3.amazonaws.com/blocks/e-commerce/iphone-light.svg"}/
-                    %img.hidden.h-auto.max-h-full.w-full{alt: "iphone image", src: "https://flowbite.s3.amazonaws.com/blocks/e-commerce/iphone-dark.svg"}/
-                .absolute.right-0.top-0{class: "p-1.5"}
-                  %button.rounded.p-2.text-gray-500.hover:bg-gray-100.hover:text-gray-900{"data-tooltip-target" => "tooltip-add-to-favorites-14", type: "button"}
-                    = icon("fa-regular", "heart", class: "text-xl")
-              .space-y-6.p-6
-                .flex.items-center.justify-between.space-x-4
-                  %a.text-lg.font-semibold.leading-tight.text-gray-900.hover:underline{href: "#"}
-                    = item.name
-                  %p.text-2xl.font-extrabold.leading-tight.text-gray-900
-                    = number_to_currency(item.price, unit: "$", precision: 2)
-                %button.btn-md.w-full{class: "bg-[color:var(--primary)] text-[color:var(--primary-text)]", type: "button"}
-                  = icon("fa-solid", "cart-plus", class: "mr-2")
-                  Add to cart
+    .flex.gap-4{data: {controller: "cp--catalog--search", url: customer_portal_catalog_index_path}}
+      = render "left_side"
+      = render "right_side"

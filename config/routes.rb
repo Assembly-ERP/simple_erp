@@ -92,9 +92,7 @@ Rails.application.routes.draw do
       end
     end
     resource :profile, only: %i[show edit update]
-    resources :cart, only: [:index] do
-      post 'add_item', on: :collection
-    end
+    resources :cart, only: %i[index create delete]
   end
 
   # API
