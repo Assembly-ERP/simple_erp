@@ -48,12 +48,12 @@
               lbs
     = form_with(as: "cart", url: customer_portal_cart_index_path(id: item.id)) do |form|
       .flex.gap-5.items-center
-        #quantity-container{data: {controller: "cp--catalog--item"}}
+        #quantity-container{data: {controller: "cp--catalog--qty"}}
           #quantity
-            = button_tag class: "decrement transition-colors duration-200", type: "button", data: {action: "cp--catalog--item#decrement"} do
+            = button_tag class: "decrement transition-colors duration-200", type: "button", data: {action: "cp--catalog--qty#decrement"} do
               = icon("fa-solid", "minus")
-            = number_field_tag 'cart[quantity]', 1, min: 1, id: "catalog-item-qty-#{item.id}-#{item.type}", class: "number-input transition-colors duration-200", data: {"cp--catalog--item-target": "quantity", action: "input->cp--catalog--item#quantityInput change->cp--catalog--item#quantityChange"}
-            = button_tag class: "increment transition-colors duration-200", type: "button", data: {action: "cp--catalog--item#increment"} do
+            = number_field_tag 'cart[quantity]', 1, min: 1, id: "catalog-item-qty-#{item.id}-#{item.type}", class: "number-input transition-colors duration-200", data: {"cp--catalog--qty-target": "quantity", action: "input->cp--catalog--qty#quantityInput change->cp--catalog--qty#quantityChange"}
+            = button_tag class: "increment transition-colors duration-200", type: "button", data: {action: "cp--catalog--qty#increment"} do
               = icon("fa-solid", "plus")
         = form.hidden_field "cart[type]", value: item.type
         = form.submit "Add to Cart", class: "px-4 py-2 rounded-lg text-sm bg-[color:var(--primary)] text-[color:var(--primary-text)]"
