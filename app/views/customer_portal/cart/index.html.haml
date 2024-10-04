@@ -2,8 +2,15 @@
   %h1.font-bold.text-2xl.mb-4 My Cart
   .flex.gap-5.w-full
     .grid.gap-3.w-full.relative
-      - @carts.each do |cart|
-        = render "item", cart:
+      - if @carts.present?
+        - @carts.each do |cart|
+          = render "item", cart:
+      - else
+        .grid.w-full.h-40.place-items-center
+          .flex.flex-col.gap-1.items-center.text-gray-400
+            = icon("fa-solid", "box-open", class: "text-5xl")
+            %span
+              No results
     .border.rounded-lg.bg-white.h-fit.p-5.sticky.top-36{class: "min-w-[330px]"}
       %h1.font-bold.text-lg.mb-3 Order Summary
       .space-y-4.mt-4
