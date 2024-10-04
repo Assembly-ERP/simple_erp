@@ -42,8 +42,8 @@ class Order < ApplicationRecord
 
   # Generators
   before_save :format_id, if: :new_record?
-  before_save :calculate_total_amount_before, if: :calculate_total_amount_condition?
-  after_save :send_quote_or_invoice, if: :send_quote_or_invoice_condition?
+  before_save :calculate_total_amount_before
+  after_commit :send_quote_or_invoice, if: :send_quote_or_invoice_condition?
 
   def calculate_total_amount
     base_price, total_amount = price_calculation

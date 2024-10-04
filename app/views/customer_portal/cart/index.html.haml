@@ -18,7 +18,7 @@
           .flex.items-center.justify-between.gap-4
             .text-base.font-normal.text-gray-500 Base Price
             .text-base.font-medium.text-gray-900
-              = number_to_currency(0, unit: "$", precision: 2)
+              = number_to_currency(@total, unit: "$", precision: 2)
         .border-t.border-gray-200.pt-3.space-y-1
           .flex.items-center.justify-between.gap-4
             .flex{class: "gap-1.5"}
@@ -28,7 +28,7 @@
           .flex.items-center.justify-between.gap-4
             .text-base.font-bold.text-gray-900 Total
             .text-base.font-bold.text-gray-900
-              = number_to_currency(0, unit: "$", precision: 2)
+              = number_to_currency(@total, unit: "$", precision: 2)
       .grid.place-items-center.mt-5
         %button.btn-sm.w-full{class: "bg-[color:var(--primary)] text-[color:var(--primary-text)]"}
           Create Quote
