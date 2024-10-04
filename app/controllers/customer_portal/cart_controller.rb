@@ -57,6 +57,10 @@ module CustomerPortal
       end
     end
 
+    def count
+      signed_carts.size
+    end
+
     private
 
     def signed_carts
