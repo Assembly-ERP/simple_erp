@@ -1,0 +1,34 @@
+.py-5
+  %h1.font-bold.text-2xl.mb-4 My Cart
+  .flex.gap-5.w-full
+    .grid.gap-3.w-full.relative
+      - if @carts.present?
+        - @carts.each do |cart|
+          = render "item", cart:
+      - else
+        .grid.w-full.h-40.place-items-center
+          .flex.flex-col.gap-1.items-center.text-gray-400
+            = icon("fa-solid", "box-open", class: "text-5xl")
+            %span
+              No results
+    .border.rounded-lg.shadow-sm.bg-white.h-fit.p-5.sticky.top-36{class: "min-w-[330px]"}
+      %h1.font-bold.text-lg.mb-3 Order Summary
+      .space-y-4.mt-4
+        .space-y-2
+          .flex.items-center.justify-between.gap-4
+            .text-base.font-normal.text-gray-500 Base Price
+            .text-base.font-medium.text-gray-900
+              = number_to_currency(@total, unit: "$", precision: 2)
+        .border-t.border-gray-200.pt-3.space-y-1
+          .flex.items-center.justify-between.gap-4
+            .flex{class: "gap-1.5"}
+              .text-base.text-gray-500 Shipping
+            .text-base.font-medium.text-gray-900
+              TBA
+          .flex.items-center.justify-between.gap-4
+            .text-base.font-bold.text-gray-900 Total
+            .text-base.font-bold.text-gray-900
+              = number_to_currency(@total, unit: "$", precision: 2)
+      .grid.place-items-center.mt-5
+        %button.btn-sm.w-full{class: "bg-[color:var(--primary)] text-[color:var(--primary-text)]"}
+          Create Quote

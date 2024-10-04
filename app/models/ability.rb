@@ -51,10 +51,10 @@ class Ability
   end
 
   def customer_portal(user)
-    can :manage, :dashboard
+    # can :manage, :dashboard
     can :manage, :profile
     can :manage, :catalog
-    can :manage, Cart, customer: user.customer
+    can :manage, :cart
     can :manage, Order, customer: user.customer
     can :manage, SupportTicket, customer: user.customer
 
@@ -65,6 +65,7 @@ class Ability
 
   def api_v1(_user)
     can :me, :auth
+    can :manage, User
   end
 
   # Conditions
