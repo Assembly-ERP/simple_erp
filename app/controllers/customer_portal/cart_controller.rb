@@ -18,7 +18,9 @@ module CustomerPortal
           name: item.name,
           desription: item.description,
           type: hash['type'],
-          quantity: hash['quantity']
+          price: item.price,
+          quantity: hash['quantity'],
+          total_price: item.price * hash['quantity'].to_i
         }
       end
     end

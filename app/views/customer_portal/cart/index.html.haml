@@ -1,4 +1,27 @@
 .py-5
-  %h1.font-semibold.text-xl.mb-3 My Cart
-  - @carts.each do |cart|
-    = cart[:id]
+  %h1.font-bold.text-2xl.mb-4 My Cart
+  .flex.gap-5.w-full
+    .grid.gap-3.w-full.relative
+      - @carts.each do |cart|
+        = render "item", cart:
+    .border.rounded-lg.bg-white.h-fit.p-5.sticky.top-36{class: "min-w-[330px]"}
+      %h1.font-bold.text-lg.mb-3 Order Summary
+      .space-y-4.mt-4
+        .space-y-2
+          .flex.items-center.justify-between.gap-4
+            .text-base.font-normal.text-gray-500 Base Price
+            .text-base.font-medium.text-gray-900
+              = number_to_currency(0, unit: "$", precision: 2)
+        .border-t.border-gray-200.pt-3.space-y-1
+          .flex.items-center.justify-between.gap-4
+            .flex{class: "gap-1.5"}
+              .text-base.text-gray-500 Shipping
+            .text-base.font-medium.text-gray-900
+              TBA
+          .flex.items-center.justify-between.gap-4
+            .text-base.font-bold.text-gray-900 Total
+            .text-base.font-bold.text-gray-900
+              = number_to_currency(0, unit: "$", precision: 2)
+      .grid.place-items-center.mt-5
+        %button.btn-sm.w-full{class: "bg-[color:var(--primary)] text-[color:var(--primary-text)]"}
+          Create Quote
