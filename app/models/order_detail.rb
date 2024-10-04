@@ -15,12 +15,11 @@ class OrderDetail < ApplicationRecord
   }
   scope :make_ticket, lambda {
     select('parts.name AS part_name, parts.sku AS part_sku')
-      .select('SUM(order_details.quantity * ' \
-              '(CASE WHEN order_details.part_id IS NULL THEN parts_products.quantity ELSE 1 END) ' \
-              ') AS total_quantity')
+      .select('SUM(order_details.quantity * (CASE WHEN order_details.part_id IS NULL ' \
+              'THEN parts_products.quantity ELSE 1 END)) AS total_quantity')
       .joins('LEFT JOIN parts_products ON parts_products.product_id = order_details.product_id')
       .joins('INNER JOIN parts ON order_details.part_id = parts.id OR parts_products.part_id = parts.id')
-      .group('parts.id, parts.name, parts.sku')
+      .group('parts.id')
   }
 
   # Validations
