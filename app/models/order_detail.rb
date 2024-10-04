@@ -20,7 +20,7 @@ class OrderDetail < ApplicationRecord
               ') AS total_quantity')
       .joins('LEFT JOIN parts_products ON parts_products.product_id = order_details.product_id')
       .joins('INNER JOIN parts ON order_details.part_id = parts.id OR parts_products.part_id = parts.id')
-      .group('parts.id, parts.name, parts.sku')
+      .group('parts.id')
   }
 
   # Validations
