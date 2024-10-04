@@ -56,4 +56,6 @@
             = button_tag class: "increment transition-colors duration-200", type: "button", data: {action: "cp--catalog--qty#increment"} do
               = icon("fa-solid", "plus")
         = form.hidden_field "cart[type]", value: item.type
-        = form.submit "Add to Cart", class: "px-4 py-2 rounded-lg text-sm bg-[color:var(--primary)] text-[color:var(--primary-text)]"
+        %button{type: "submit", class: "px-4 py-2 rounded-lg text-sm bg-[color:var(--primary)] text-[color:var(--primary-text)]"}
+          = icon("fa-solid", "cart-plus", class: "mr-1.5")
+          Add to Cart
