@@ -66,6 +66,7 @@ class Ability
   def api_v1(_user)
     can :me, :auth
     can :manage, User
+    can :manage, Part
   end
 
   # Conditions

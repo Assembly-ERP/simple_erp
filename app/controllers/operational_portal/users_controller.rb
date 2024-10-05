@@ -5,7 +5,7 @@ module OperationalPortal
     load_and_authorize_resource
 
     def index
-      query_instance = User.with_customer
+      query_instance = User.with_customer.sort_desc
 
       if params[:search].present? && params[:search_by].present?
         search_query = ''

@@ -5,18 +5,15 @@ module Api
     class PartsController < BaseController
       load_and_authorize_resource
 
-      # GET /api/v1/parts
       def index
-        @parts = Part.all
+        @parts = Part.accessible_by(current_ability)
         render json: @parts
       end
 
-      # GET /api/v1/parts/:id
       def show
         render json: @part
       end
 
-      # POST /api/v1/parts
       def create
         @part = Part.new(part_params)
         if @part.save
@@ -26,7 +23,6 @@ module Api
         end
       end
 
-      # PATCH/PUT /api/v1/parts/:id
       def update
         if @part.update(part_params)
           render json: @part
@@ -35,7 +31,6 @@ module Api
         end
       end
 
-      # DELETE /api/v1/parts/:id
       def destroy
         @part.destroy
         render json: { message: 'Part deleted' }, status: :ok
