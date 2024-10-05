@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Users::InvitationsController < Devise::InvitationsController
+  before_action :operational_user?, only: %i[new create]
+
   def new
     self.resource = resource_class.new
     render :new
@@ -33,6 +35,10 @@ class Users::InvitationsController < Devise::InvitationsController
   end
 
   private
+
+  def operational_user?
+    redirect_to root_path, alert: 'You are not allowed to access page.' unless current_user.operational_user?
+  end
 
   # will invite customer user when customer portal is ready
   def invite_resource
