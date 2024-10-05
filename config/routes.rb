@@ -106,10 +106,10 @@ Rails.application.routes.draw do
         end
       end
       resources :users
-      resources :parts
-      resources :products
-      resources :orders
-      resources :support_tickets
+      # resources :parts
+      # resources :products
+      # resources :orders
+      # resources :support_tickets
     end
   end
 
