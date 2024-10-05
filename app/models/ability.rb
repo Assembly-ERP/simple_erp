@@ -14,8 +14,8 @@ class Ability
   private
 
   def operational_portal(user)
-    can :index, :dashboard
-    can %i[index search], :catalog
+    can :read, :dashboard
+    can %i[read search], :catalog
     can :manage, :profile
 
     # Product
@@ -28,25 +28,17 @@ class Ability
     can %i[update destroy edit], Part, voided_at: nil
 
     # Order
-    can %i[read new create search make_ticket qoute_or_invoice update_summary], Order
+    can %i[read search new create], Order
+    can %i[make_ticket qoute_or_invoice update_summary], Order
     can %i[update destroy edit cancel], Order, voided_at: nil, order_status: { allow_change: true }
     can :search_results, :order
 
-    # Support Ticket
     can :manage, SupportTicket
-
-    # Imports
     can :manage, CustomerImport
-
-    # Manage Pages
     can :manage, User, advance: false
-    can :manage, User if user.advance?
-
     can :manage, Customer, voided_at: nil
     can :manage, Setting
     can :manage, OrderPriceScheduler
-
-    # Branding
     can :manage, Branding if user.role == 'admin'
   end
 
