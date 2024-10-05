@@ -105,6 +105,7 @@ Rails.application.routes.draw do
           post :sign_in
         end
       end
+      resources :users
       resources :parts
       resources :products
       resources :orders
