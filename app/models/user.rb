@@ -21,6 +21,8 @@ class User < ApplicationRecord
   accepts_nested_attributes_for :customer
 
   # Scopes
+  scope :sort_asc, -> { order(id: :asc) }
+  scope :sort_desc, -> { order(id: :desc) }
   scope :with_customer, lambda {
     select('users.*, customers.name AS customer_name')
       .joins('LEFT JOIN customers ON customers.id = users.customer_id')
@@ -29,7 +31,6 @@ class User < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :customer, presence: true, if: :customer_user?
-  validates :email, presence: true, uniqueness: { message: 'This email is already taken' }
   validates :role, inclusion: { in: ROLES, message: 'Invalid role' }
 
   # Generators

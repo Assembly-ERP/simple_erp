@@ -105,6 +105,7 @@ Rails.application.routes.draw do
           post :sign_in
         end
       end
+      resources :users
       resources :parts
       resources :products
       resources :orders
@@ -119,10 +120,7 @@ end
 # == Route Map
 #
 #                                                 Prefix Verb   URI Pattern                                                                                       Controller#Action
-#                                            sidekiq_web        /sidekiq                                                                                          Sidekiq::Web
 #                                                   root GET    /                                                                                                 home#index
-#                                                        GET    /                                                                                                 redirect(301, /operational_portal)
-#                                                        GET    /                                                                                                 redirect(301, /customer_portal)
 #                                       new_user_session GET    /users/sign_in(.:format)                                                                          devise/sessions#new
 #                                           user_session POST   /users/sign_in(.:format)                                                                          devise/sessions#create
 #                                   destroy_user_session DELETE /users/sign_out(.:format)                                                                         devise/sessions#destroy
@@ -147,8 +145,10 @@ end
 #                                        user_invitation PATCH  /users/invitation(.:format)                                                                       users/invitations#update
 #                                                        PUT    /users/invitation(.:format)                                                                       users/invitations#update
 #                                                        POST   /users/invitation(.:format)                                                                       users/invitations#create
+#                                            sidekiq_web        /sidekiq                                                                                          Sidekiq::Web
+#                                                        GET    /                                                                                                 redirect(301, /operational_portal)
+#                                                        GET    /                                                                                                 redirect(301, /customer_portal/catalog)
 #                                       operational_root GET    /operational_portal(.:format)                                                                     operational_portal/dashboard#index
-#                                          customer_root GET    /customer_portal(.:format)                                                                        customer_portal/dashboard#index
 #                              operational_portal_manage GET    /operational_portal/manage(.:format)                                                              redirect(301, /operational_portal/users)
 #                search_operational_portal_catalog_index GET    /operational_portal/catalog/search(.:format)                                                      operational_portal/catalog#search
 #                       operational_portal_catalog_index GET    /operational_portal/catalog(.:format)                                                             operational_portal/catalog#index
@@ -229,6 +229,7 @@ end
 #                             operational_portal_profile GET    /operational_portal/profile(.:format)                                                             operational_portal/profiles#show
 #                                                        PATCH  /operational_portal/profile(.:format)                                                             operational_portal/profiles#update
 #                                                        PUT    /operational_portal/profile(.:format)                                                             operational_portal/profiles#update
+#                          customer_portal_catalog_index GET    /customer_portal/catalog(.:format)                                                                customer_portal/catalog#index
 #                                 customer_portal_orders GET    /customer_portal/orders(.:format)                                                                 customer_portal/orders#index
 #                                                        POST   /customer_portal/orders(.:format)                                                                 customer_portal/orders#create
 #                              new_customer_portal_order GET    /customer_portal/orders/new(.:format)                                                             customer_portal/orders#new
@@ -250,8 +251,11 @@ end
 #                                customer_portal_profile GET    /customer_portal/profile(.:format)                                                                customer_portal/profiles#show
 #                                                        PATCH  /customer_portal/profile(.:format)                                                                customer_portal/profiles#update
 #                                                        PUT    /customer_portal/profile(.:format)                                                                customer_portal/profiles#update
-#                          add_item_customer_portal_cart POST   /customer_portal/cart/add_item(.:format)                                                          customer_portal/carts#add_item
-#                                   customer_portal_cart GET    /customer_portal/cart(.:format)                                                                   customer_portal/carts#show
+#                             customer_portal_cart_index GET    /customer_portal/cart(.:format)                                                                   customer_portal/cart#index
+#                                                        POST   /customer_portal/cart(.:format)                                                                   customer_portal/cart#create
+#                                   me_api_v1_auth_index GET    /api/v1/auth/me(.:format)                                                                         api/v1/auth#me
+#                        refresh_token_api_v1_auth_index PUT    /api/v1/auth/refresh_token(.:format)                                                              api/v1/auth#refresh_token
+#                              sign_in_api_v1_auth_index POST   /api/v1/auth/sign_in(.:format)                                                                    api/v1/auth#sign_in
 #                                           api_v1_parts GET    /api/v1/parts(.:format)                                                                           api/v1/parts#index
 #                                                        POST   /api/v1/parts(.:format)                                                                           api/v1/parts#create
 #                                        new_api_v1_part GET    /api/v1/parts/new(.:format)                                                                       api/v1/parts#new
