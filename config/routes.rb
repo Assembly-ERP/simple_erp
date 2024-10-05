@@ -106,10 +106,10 @@ Rails.application.routes.draw do
         end
       end
       resources :users
-      resources :parts
-      resources :products
-      resources :orders
-      resources :support_tickets
+      # resources :parts
+      # resources :products
+      # resources :orders
+      # resources :support_tickets
     end
   end
 
@@ -256,38 +256,14 @@ end
 #                                   me_api_v1_auth_index GET    /api/v1/auth/me(.:format)                                                                         api/v1/auth#me
 #                        refresh_token_api_v1_auth_index PUT    /api/v1/auth/refresh_token(.:format)                                                              api/v1/auth#refresh_token
 #                              sign_in_api_v1_auth_index POST   /api/v1/auth/sign_in(.:format)                                                                    api/v1/auth#sign_in
-#                                           api_v1_parts GET    /api/v1/parts(.:format)                                                                           api/v1/parts#index
-#                                                        POST   /api/v1/parts(.:format)                                                                           api/v1/parts#create
-#                                        new_api_v1_part GET    /api/v1/parts/new(.:format)                                                                       api/v1/parts#new
-#                                       edit_api_v1_part GET    /api/v1/parts/:id/edit(.:format)                                                                  api/v1/parts#edit
-#                                            api_v1_part GET    /api/v1/parts/:id(.:format)                                                                       api/v1/parts#show
-#                                                        PATCH  /api/v1/parts/:id(.:format)                                                                       api/v1/parts#update
-#                                                        PUT    /api/v1/parts/:id(.:format)                                                                       api/v1/parts#update
-#                                                        DELETE /api/v1/parts/:id(.:format)                                                                       api/v1/parts#destroy
-#                                        api_v1_products GET    /api/v1/products(.:format)                                                                        api/v1/products#index
-#                                                        POST   /api/v1/products(.:format)                                                                        api/v1/products#create
-#                                     new_api_v1_product GET    /api/v1/products/new(.:format)                                                                    api/v1/products#new
-#                                    edit_api_v1_product GET    /api/v1/products/:id/edit(.:format)                                                               api/v1/products#edit
-#                                         api_v1_product GET    /api/v1/products/:id(.:format)                                                                    api/v1/products#show
-#                                                        PATCH  /api/v1/products/:id(.:format)                                                                    api/v1/products#update
-#                                                        PUT    /api/v1/products/:id(.:format)                                                                    api/v1/products#update
-#                                                        DELETE /api/v1/products/:id(.:format)                                                                    api/v1/products#destroy
-#                                          api_v1_orders GET    /api/v1/orders(.:format)                                                                          api/v1/orders#index
-#                                                        POST   /api/v1/orders(.:format)                                                                          api/v1/orders#create
-#                                       new_api_v1_order GET    /api/v1/orders/new(.:format)                                                                      api/v1/orders#new
-#                                      edit_api_v1_order GET    /api/v1/orders/:id/edit(.:format)                                                                 api/v1/orders#edit
-#                                           api_v1_order GET    /api/v1/orders/:id(.:format)                                                                      api/v1/orders#show
-#                                                        PATCH  /api/v1/orders/:id(.:format)                                                                      api/v1/orders#update
-#                                                        PUT    /api/v1/orders/:id(.:format)                                                                      api/v1/orders#update
-#                                                        DELETE /api/v1/orders/:id(.:format)                                                                      api/v1/orders#destroy
-#                                 api_v1_support_tickets GET    /api/v1/support_tickets(.:format)                                                                 api/v1/support_tickets#index
-#                                                        POST   /api/v1/support_tickets(.:format)                                                                 api/v1/support_tickets#create
-#                              new_api_v1_support_ticket GET    /api/v1/support_tickets/new(.:format)                                                             api/v1/support_tickets#new
-#                             edit_api_v1_support_ticket GET    /api/v1/support_tickets/:id/edit(.:format)                                                        api/v1/support_tickets#edit
-#                                  api_v1_support_ticket GET    /api/v1/support_tickets/:id(.:format)                                                             api/v1/support_tickets#show
-#                                                        PATCH  /api/v1/support_tickets/:id(.:format)                                                             api/v1/support_tickets#update
-#                                                        PUT    /api/v1/support_tickets/:id(.:format)                                                             api/v1/support_tickets#update
-#                                                        DELETE /api/v1/support_tickets/:id(.:format)                                                             api/v1/support_tickets#destroy
+#                                           api_v1_users GET    /api/v1/users(.:format)                                                                           api/v1/users#index
+#                                                        POST   /api/v1/users(.:format)                                                                           api/v1/users#create
+#                                        new_api_v1_user GET    /api/v1/users/new(.:format)                                                                       api/v1/users#new
+#                                       edit_api_v1_user GET    /api/v1/users/:id/edit(.:format)                                                                  api/v1/users#edit
+#                                            api_v1_user GET    /api/v1/users/:id(.:format)                                                                       api/v1/users#show
+#                                                        PATCH  /api/v1/users/:id(.:format)                                                                       api/v1/users#update
+#                                                        PUT    /api/v1/users/:id(.:format)                                                                       api/v1/users#update
+#                                                        DELETE /api/v1/users/:id(.:format)                                                                       api/v1/users#destroy
 #                                     rails_health_check GET    /up(.:format)                                                                                     rails/health#show
 #                       turbo_recede_historical_location GET    /recede_historical_location(.:format)                                                             turbo/native/navigation#recede
 #                       turbo_resume_historical_location GET    /resume_historical_location(.:format)                                                             turbo/native/navigation#resume
