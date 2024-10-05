@@ -53,7 +53,7 @@ class Order < ApplicationRecord
   end
 
   def price_calculation
-    base_price = order_details.map { |od| od.price.to_f * od.quantity.to_i }.sum
+    base_price = order_details.filter_map { |od| (od.price.to_f * od.quantity.to_i) unless od._destroy }.sum
     discount_amount = base_price.to_f * (discount_percentage.to_f / 100).to_f
     total_amount = base_price.to_f - discount_amount.to_f + shipping_price.to_f + tax.to_f
 

@@ -25,6 +25,7 @@ class OrderDetail < ApplicationRecord
   # Validations
   validates :quantity, numericality: { only_integer: true, greater_than: 0 }
   validates :price, numericality: { greater_than_or_equal_to: 0, only_float: true }
+  validates :order_id, uniqueness: { scope: %i[part_id product_id] }
   validate :product_or_part_present
 
   def subtotal
@@ -58,9 +59,10 @@ end
 #
 # Indexes
 #
-#  index_order_details_on_order_id    (order_id)
-#  index_order_details_on_part_id     (part_id)
-#  index_order_details_on_product_id  (product_id)
+#  index_order_details_on_order_id                             (order_id)
+#  index_order_details_on_order_id_and_part_id_and_product_id  (order_id,part_id,product_id) UNIQUE
+#  index_order_details_on_part_id                              (part_id)
+#  index_order_details_on_product_id                           (product_id)
 #
 # Foreign Keys
 #
