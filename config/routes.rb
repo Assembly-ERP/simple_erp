@@ -138,7 +138,6 @@ end
 #                                                        GET    /                                                                                                 redirect(301, /customer_portal/catalog)
 #                                       operational_root GET    /operational_portal(.:format)                                                                     operational_portal/dashboard#index
 #                              operational_portal_manage GET    /operational_portal/manage(.:format)                                                              redirect(301, /operational_portal/users)
-#                search_operational_portal_catalog_index GET    /operational_portal/catalog/search(.:format)                                                      operational_portal/catalog#search
 #                       operational_portal_catalog_index GET    /operational_portal/catalog(.:format)                                                             operational_portal/catalog#index
 #        search_part_results_operational_portal_products GET    /operational_portal/products/search_part_results(.:format)                                        operational_portal/products#search_part_results
 #                            operational_portal_products GET    /operational_portal/products(.:format)                                                            operational_portal/products#index
@@ -161,8 +160,7 @@ end
 #              qoute_or_invoice_operational_portal_order GET    /operational_portal/orders/:id/qoute_or_invoice(.:format)                                         operational_portal/orders#qoute_or_invoice
 #                update_summary_operational_portal_order PUT    /operational_portal/orders/:id/update_summary(.:format)                                           operational_portal/orders#update_summary
 #                        cancel_operational_portal_order DELETE /operational_portal/orders/:id/cancel(.:format)                                                   operational_portal/orders#cancel
-#                       search_operational_portal_orders GET    /operational_portal/orders/search(.:format)                                                       operational_portal/orders#search
-#               search_results_operational_portal_orders GET    /operational_portal/orders/search_results(.:format)                                               operational_portal/orders#search_results
+#               search_catalog_operational_portal_orders GET    /operational_portal/orders/search_catalog(.:format)                                               operational_portal/orders#search_catalog
 #                              operational_portal_orders GET    /operational_portal/orders(.:format)                                                              operational_portal/orders#index
 #                                                        POST   /operational_portal/orders(.:format)                                                              operational_portal/orders#create
 #                           new_operational_portal_order GET    /operational_portal/orders/new(.:format)                                                          operational_portal/orders#new
@@ -201,7 +199,6 @@ end
 #                       edit_operational_portal_branding GET    /operational_portal/branding/:id/edit(.:format)                                                   operational_portal/brandings#edit
 #                            operational_portal_branding PATCH  /operational_portal/branding/:id(.:format)                                                        operational_portal/brandings#update
 #                                                        PUT    /operational_portal/branding/:id(.:format)                                                        operational_portal/brandings#update
-#                    search_operational_portal_customers GET    /operational_portal/customers/search(.:format)                                                    operational_portal/customers#search
 #                      users_operational_portal_customer GET    /operational_portal/customers/:id/users(.:format)                                                 operational_portal/customers#users
 #                           operational_portal_customers GET    /operational_portal/customers(.:format)                                                           operational_portal/customers#index
 #                                                        POST   /operational_portal/customers(.:format)                                                           operational_portal/customers#create
@@ -226,7 +223,6 @@ end
 #                                                        PATCH  /customer_portal/orders/:id(.:format)                                                             customer_portal/orders#update
 #                                                        PUT    /customer_portal/orders/:id(.:format)                                                             customer_portal/orders#update
 #                                                        DELETE /customer_portal/orders/:id(.:format)                                                             customer_portal/orders#destroy
-#             add_message_customer_portal_support_ticket POST   /customer_portal/support_tickets/:id/add_message(.:format)                                        customer_portal/support_tickets#add_message
 #                        customer_portal_support_tickets GET    /customer_portal/support_tickets(.:format)                                                        customer_portal/support_tickets#index
 #                                                        POST   /customer_portal/support_tickets(.:format)                                                        customer_portal/support_tickets#create
 #                     new_customer_portal_support_ticket GET    /customer_portal/support_tickets/new(.:format)                                                    customer_portal/support_tickets#new
@@ -235,12 +231,12 @@ end
 #                                                        PATCH  /customer_portal/support_tickets/:id(.:format)                                                    customer_portal/support_tickets#update
 #                                                        PUT    /customer_portal/support_tickets/:id(.:format)                                                    customer_portal/support_tickets#update
 #                                                        DELETE /customer_portal/support_tickets/:id(.:format)                                                    customer_portal/support_tickets#destroy
+#                             customer_portal_cart_index GET    /customer_portal/cart(.:format)                                                                   customer_portal/cart#index
+#                                                        POST   /customer_portal/cart(.:format)                                                                   customer_portal/cart#create
 #                           edit_customer_portal_profile GET    /customer_portal/profile/edit(.:format)                                                           customer_portal/profiles#edit
 #                                customer_portal_profile GET    /customer_portal/profile(.:format)                                                                customer_portal/profiles#show
 #                                                        PATCH  /customer_portal/profile(.:format)                                                                customer_portal/profiles#update
 #                                                        PUT    /customer_portal/profile(.:format)                                                                customer_portal/profiles#update
-#                             customer_portal_cart_index GET    /customer_portal/cart(.:format)                                                                   customer_portal/cart#index
-#                                                        POST   /customer_portal/cart(.:format)                                                                   customer_portal/cart#create
 #                                   me_api_v1_auth_index GET    /api/v1/auth/me(.:format)                                                                         api/v1/auth#me
 #                        refresh_token_api_v1_auth_index PUT    /api/v1/auth/refresh_token(.:format)                                                              api/v1/auth#refresh_token
 #                              sign_in_api_v1_auth_index POST   /api/v1/auth/sign_in(.:format)                                                                    api/v1/auth#sign_in
