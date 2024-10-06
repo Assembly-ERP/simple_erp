@@ -32,11 +32,7 @@ Rails.application.routes.draw do
   get '/operational_portal/manage', to: redirect('/operational_portal/users')
 
   namespace :operational_portal do
-    resources :catalog, only: [:index] do
-      collection do
-        get :search
-      end
-    end
+    resources :catalog, only: :index
     resources :products do
       collection do
         get :search_part_results
@@ -51,8 +47,7 @@ Rails.application.routes.draw do
         delete :cancel
       end
       collection do
-        get :search
-        get :search_results
+        get :search_catalog
       end
     end
     resources :support_tickets do
@@ -71,9 +66,6 @@ Rails.application.routes.draw do
     resources :users
     resources :brandings, path: 'branding', only: %i[edit update]
     resources :customers do
-      collection do
-        get :search
-      end
       member do
         get :users
       end
@@ -84,15 +76,11 @@ Rails.application.routes.draw do
 
   # Customer portal
   namespace :customer_portal do
-    resources :catalog, only: [:index]
+    resources :catalog, only: :index
     resources :orders
-    resources :support_tickets do
-      member do
-        post 'add_message', to: 'support_tickets#add_message'
-      end
-    end
-    resource :profile, only: %i[show edit update]
+    resources :support_tickets
     resources :cart, only: %i[index create delete]
+    resource :profile, only: %i[show edit update]
   end
 
   # API

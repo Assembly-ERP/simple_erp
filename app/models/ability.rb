@@ -28,10 +28,10 @@ class Ability
     can %i[update destroy edit], Part, voided_at: nil
 
     # Order
-    can %i[read search new create], Order
+    can %i[read new create], Order
     can %i[make_ticket qoute_or_invoice update_summary], Order
     can %i[update destroy edit cancel], Order, voided_at: nil, order_status: { allow_change: true }
-    can :search_results, :order
+    can :search_catalog, :order
 
     can :manage, SupportTicket
     can :manage, CustomerImport

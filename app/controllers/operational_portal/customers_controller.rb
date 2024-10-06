@@ -17,13 +17,14 @@ module OperationalPortal
         query_instance = query_instance.where(search_query, search: "%#{params[:search]}%") if search_query.present?
       end
 
-      query_instance = query_instance.accessible_by(current_ability)
+      query_instance = query_instance.sort_desc.accessible_by(current_ability)
 
-      @pagy, @customers = pagy(query_instance, request_path: search_operational_portal_customers_path)
-    end
+      @pagy, @customers = pagy(query_instance)
 
-    def search
-      index
+      respond_to do |format|
+        format.html
+        format.turbo_stream if params[:page].present? || params[:search_by].present?
+      end
     end
 
     def show; end
