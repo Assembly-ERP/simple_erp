@@ -100,6 +100,6 @@ end
 # Indexes
 #
 #  index_parts_on_name       (name)
-#  index_parts_on_sku        (sku) UNIQUE WHERE ((sku IS NOT NULL) AND ((sku)::text <> ''::text))
+#  index_parts_on_sku        (sku) UNIQUE WHERE ((sku IS NOT NULL) AND ((sku)::text <> ''::text) AND (voided_at IS NULL))
 #  index_parts_on_voided_at  (voided_at)
 #

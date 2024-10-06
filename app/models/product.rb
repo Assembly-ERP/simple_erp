@@ -94,6 +94,6 @@ end
 # Indexes
 #
 #  index_products_on_name       (name)
-#  index_products_on_sku        (sku) UNIQUE WHERE ((sku IS NOT NULL) AND ((sku)::text <> ''::text))
+#  index_products_on_sku        (sku) UNIQUE WHERE ((sku IS NOT NULL) AND ((sku)::text <> ''::text) AND (voided_at IS NULL))
 #  index_products_on_voided_at  (voided_at)
 #
