@@ -1,10 +1,9 @@
 # frozen_string_literal: true
 
-if ENV['USER_IMPORT_FILE'].present?
+if ENV['PRODUCT_IMPORT_FILE'].present?
   require 'csv'
 
-  path = Rails.root.join("imports/#{ENV['USER_IMPORT_FILE']}")
-
+  path = Rails.root.join("imports/#{ENV.fetch('PRODUCT_IMPORT_FILE', nil)}")
   downcase_converter = ->(header) { header.downcase }
   table = CSV.parse(File.read(path), headers: true, header_converters: downcase_converter)
 
