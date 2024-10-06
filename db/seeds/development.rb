@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-if Rails.env.development? || ENV['FORCE_MIGRATE'] == 'true'
+if Rails.env.development?
   # Create User
   User.create(
     email: ENV.fetch('INIT_ADMIN_EMAIL', 'admin@example.com'),
