@@ -29,7 +29,8 @@ if ENV['USER_IMPORT_FILE'].present?
       part.poly_attributes.create(input_type: 'text', value: row['gcode'], label: 'GCODE') if row['gcode'].present?
       part.poly_attributes.create(input_type: 'text', value: row['height'], label: 'Height') if row['height'].present?
       if row['capacity'].present?
-        part.poly_attributes.create(input_type: 'text', value: row['capacity'], label: 'Capacity')
+        part.poly_attributes.create(input_type: 'text', value: row['capacity'],
+                                    label: 'Capacity')
       end
     else
       product = Product.build(
@@ -47,7 +48,8 @@ if ENV['USER_IMPORT_FILE'].present?
       product.poly_attributes.create(input_type: 'text', value: row['gauge'], label: 'Gauge') if row['gauge'].present?
       product.poly_attributes.create(input_type: 'text', value: row['gcode'], label: 'GCODE') if row['gcode'].present?
       if row['height'].present?
-        product.poly_attributes.create(input_type: 'text', value: row['height'], label: 'Height')
+        product.poly_attributes.create(input_type: 'text', value: row['height'],
+                                       label: 'Height')
       end
     end
   end
