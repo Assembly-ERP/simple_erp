@@ -71,6 +71,6 @@ class Ability
   end
 
   def api_operation?(portal, user)
-    portal == 'api_v1' && user.operational_user? && user.advance
+    portal == 'api_v1' && user.operational_user? && user.advance?
   end
 end
