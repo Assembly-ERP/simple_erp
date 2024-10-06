@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_05_063252) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_06_075106) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -213,7 +213,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_05_063252) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_parts_on_name"
-    t.index ["sku"], name: "index_parts_on_sku", unique: true
+    t.index ["sku"], name: "index_parts_on_sku", unique: true, where: "((sku IS NOT NULL) AND ((sku)::text <> ''::text))"
     t.index ["voided_at"], name: "index_parts_on_voided_at"
   end
 
@@ -252,7 +252,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_05_063252) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_products_on_name"
-    t.index ["sku"], name: "index_products_on_sku", unique: true
+    t.index ["sku"], name: "index_products_on_sku", unique: true, where: "((sku IS NOT NULL) AND ((sku)::text <> ''::text))"
     t.index ["voided_at"], name: "index_products_on_voided_at"
   end
 

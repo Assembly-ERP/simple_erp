@@ -44,7 +44,7 @@ class Part < ApplicationRecord
 
   # Validations
   validates :name, presence: true
-  validates :sku, uniqueness: true, allow_blank: true
+  validates :sku, uniqueness: { allow_blank: true }
   validates :price, numericality: { greater_than_or_equal_to: 0, only_float: true }
   validates :weight, numericality: { greater_than_or_equal_to: 0 }
   validates :images, content_type: ALLOWED_IMAGE_TYPES
@@ -100,6 +100,6 @@ end
 # Indexes
 #
 #  index_parts_on_name       (name)
-#  index_parts_on_sku        (sku) UNIQUE
+#  index_parts_on_sku        (sku) UNIQUE WHERE ((sku IS NOT NULL) AND ((sku)::text <> ''::text))
 #  index_parts_on_voided_at  (voided_at)
 #
