@@ -58,6 +58,10 @@ class User < ApplicationRecord
     CUSTOMER_ROLES.include?(role)
   end
 
+  def self.find_api_user(email:)
+    find_by(email:, role: OPERATION_ROLES, advance: true)
+  end
+
   private
 
   def fill_or_default_role

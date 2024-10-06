@@ -25,7 +25,7 @@ module Api
         decoded_token = decoded_token(jwt_key: ENV.fetch('JWT_ACCESS_KEY', nil))
         return nil if decoded_token.blank?
 
-        User.find_by(id: decoded_token.first['id'], role: User::OPERATION_ROLES, advance: true)
+        User.find_by(id: decoded_token.first['id'])
       end
     end
   end

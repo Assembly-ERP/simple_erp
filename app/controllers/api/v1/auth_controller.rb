@@ -6,7 +6,7 @@ module Api
       authorize_resource class: false, only: :me
 
       def sign_in
-        user = User.find_by(email: auth_params[:email])
+        user = User.find_api_user(email: auth_params[:email])
 
         if user.present? && user.valid_password?(auth_params[:password])
           render json: auth_tokens(user.id)
