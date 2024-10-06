@@ -18,10 +18,11 @@ module OperationalPortal
       query_instance = query_instance.order(created_at: :desc)
 
       @pagy, @items = pagy(query_instance)
-    end
 
-    def search
-      index
+      respond_to do |format|
+        format.html
+        format.turbo_stream if params[:page].present? || params[:filter_by].present? || params[:search_by].present?
+      end
     end
 
     private

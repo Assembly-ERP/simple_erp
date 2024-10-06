@@ -2,8 +2,8 @@
 
 module OperationalPortal
   class OrdersController < OperationalPortal::NormalOperationController
-    load_and_authorize_resource except: :search_results
-    authorize_resource class: false, only: :search_results
+    load_and_authorize_resource except: :search_catalog
+    authorize_resource class: false, only: :search_catalog
 
     def index
       query_instance = Order.with_customer.with_order_status.not_voided.sort_desc
@@ -22,11 +22,12 @@ module OperationalPortal
 
       query_instance = query_instance.accessible_by(current_ability)
 
-      @pagy, @orders = pagy(query_instance, request_path: search_operational_portal_orders_path)
-    end
+      @pagy, @orders = pagy(query_instance)
 
-    def search
-      index
+      respond_to do |format|
+        format.html
+        format.turbo_stream if params[:page].present? || params[:search_by].present?
+      end
     end
 
     def make_ticket
@@ -107,7 +108,7 @@ module OperationalPortal
       end
     end
 
-    def search_results
+    def search_catalog
       query_instance =
         (if params[:search_by].blank? || params[:search_by] == 'all'
            Product.from("(#{search_items(Part).to_sql} UNION #{search_items(Product).to_sql}) products")

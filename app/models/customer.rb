@@ -11,6 +11,8 @@ class Customer < ApplicationRecord
   has_many :poly_attributes, as: :attributable, dependent: :destroy
 
   # Scopes
+  scope :sort_asc, -> { order(id: :asc) }
+  scope :sort_desc, -> { order(id: :desc) }
   scope :not_voided, -> { where(voided_at: nil) }
 
   # Validations

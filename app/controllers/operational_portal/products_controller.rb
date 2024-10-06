@@ -56,10 +56,6 @@ module OperationalPortal
       end
 
       @pagy, @parts = pagy(query_instance, items: 40)
-
-      respond_to do |format|
-        format.turbo_stream
-      end
     end
 
     private
