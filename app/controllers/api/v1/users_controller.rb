@@ -12,7 +12,8 @@ module Api
       def show; end
 
       def create
-        @user = User.new(user_params)
+        @user = User.build(user_params)
+        @user.confirmed_at = Time.now.utc if params[:confirmed] == 'true'
 
         if @user.save
           @user
