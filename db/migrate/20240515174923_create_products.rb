@@ -18,6 +18,6 @@ class CreateProducts < ActiveRecord::Migration[7.1]
 
     add_index :products, :name
     add_index :products, :voided_at
-    add_index :products, :sku, unique: true, where: "sku IS NOT NULL AND sku != ''"
+    add_index :products, :sku, unique: true, where: "sku IS NOT NULL AND sku != '' AND voided_at IS NULL"
   end
 end

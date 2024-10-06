@@ -37,10 +37,14 @@ class Product < ApplicationRecord
 
   # Validations
   validates :name, presence: true
-  validates :sku, uniqueness: { allow_blank: true }
   validates :images, content_type: ALLOWED_IMAGE_TYPES
   validates :price, numericality: { greater_than_or_equal_to: 0, only_float: true }
   # validates :parts_products, presence: { message: 'add at least one part' }
+  validates :sku,
+            uniqueness: {
+              allow_blank: true,
+              conditions: -> { where("sku IS NOT NULL AND sku != '' AND voided_at IS NULL") }
+            }
 
   # Generators
   after_save :calculate_weight
