@@ -44,10 +44,14 @@ class Part < ApplicationRecord
 
   # Validations
   validates :name, presence: true
-  validates :sku, uniqueness: { allow_blank: true }
   validates :price, numericality: { greater_than_or_equal_to: 0, only_float: true }
   validates :weight, numericality: { greater_than_or_equal_to: 0 }
   validates :images, content_type: ALLOWED_IMAGE_TYPES
+  validates :sku,
+            uniqueness: {
+              allow_blank: true,
+              conditions: -> { where("sku IS NOT NULL AND sku != '' AND voided_at IS NULL") }
+            }
 
   # Generators
   before_validation :set_price_value, unless: :manual_price?
@@ -100,6 +104,6 @@ end
 # Indexes
 #
 #  index_parts_on_name       (name)
-#  index_parts_on_sku        (sku) UNIQUE WHERE ((sku IS NOT NULL) AND ((sku)::text <> ''::text))
+#  index_parts_on_sku        (sku) UNIQUE WHERE ((sku IS NOT NULL) AND ((sku)::text <> ''::text) AND (voided_at IS NULL))
 #  index_parts_on_voided_at  (voided_at)
 #

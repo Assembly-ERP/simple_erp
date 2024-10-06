@@ -22,6 +22,6 @@ class CreateParts < ActiveRecord::Migration[7.1]
 
     add_index :parts, :name
     add_index :parts, :voided_at
-    add_index :parts, :sku, unique: true
+    add_index :parts, :sku, unique: true, where: "sku IS NOT NULL AND sku != '' AND voided_at IS NULL"
   end
 end
