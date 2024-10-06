@@ -12,9 +12,7 @@ module OperationalPortal
         search_query += 'first_name ILIKE :search OR last_name ILIKE :search' if params[:search_by].include?('name')
         search_query += "#{or_q(search_query)} email ILIKE :search" if params[:search_by].include?('email')
         search_query += "#{or_q(search_query)} role ILIKE :search" if params[:search_by].include?('role')
-        if params[:search_by].include?('customer_name')
-          search_query += "#{or_q(search_query)} customers.name ILIKE :search"
-        end
+        search_query += "#{or_q(search_query)} customers.name ILIKE :search" if params[:search_by].include?('customer_name')
 
         query_instance = query_instance.where(search_query, search: "%#{params[:search]}%") if search_query.present?
       end

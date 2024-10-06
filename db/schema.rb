@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_06_075106) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_20_101220) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -174,6 +174,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_06_075106) do
   end
 
   create_table "orders", force: :cascade do |t|
+    t.string "formatted_id", null: false
     t.bigint "customer_id", null: false
     t.decimal "total_amount", precision: 10, scale: 2, default: "0.0"
     t.bigint "order_status_id", null: false
@@ -185,10 +186,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_06_075106) do
     t.datetime "last_scheduled", default: -> { "now()" }
     t.boolean "send_quote_assignees", default: true, null: false
     t.integer "holder_id"
-    t.string "formatted_id", null: false
+    t.text "internal_note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "internal_note"
     t.index ["customer_id"], name: "index_orders_on_customer_id"
     t.index ["formatted_id"], name: "index_orders_on_formatted_id", unique: true
     t.index ["last_scheduled"], name: "index_orders_on_last_scheduled"
@@ -213,7 +213,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_06_075106) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_parts_on_name"
-    t.index ["sku"], name: "index_parts_on_sku", unique: true, where: "((sku IS NOT NULL) AND ((sku)::text <> ''::text))"
+    t.index ["sku"], name: "index_parts_on_sku", unique: true, where: "((sku IS NOT NULL) AND ((sku)::text <> ''::text) AND (voided_at IS NULL))"
     t.index ["voided_at"], name: "index_parts_on_voided_at"
   end
 
@@ -252,7 +252,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_06_075106) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["name"], name: "index_products_on_name"
-    t.index ["sku"], name: "index_products_on_sku", unique: true, where: "((sku IS NOT NULL) AND ((sku)::text <> ''::text))"
+    t.index ["sku"], name: "index_products_on_sku", unique: true, where: "((sku IS NOT NULL) AND ((sku)::text <> ''::text) AND (voided_at IS NULL))"
     t.index ["voided_at"], name: "index_products_on_voided_at"
   end
 

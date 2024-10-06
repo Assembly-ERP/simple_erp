@@ -13,6 +13,8 @@ class CreateOrderDetails < ActiveRecord::Migration[7.1]
       t.timestamps
     end
 
+    add_index :order_details, %i[order_id part_id product_id], unique: true
+
     add_check_constraint :order_details, '(product_id IS NOT NULL) OR (part_id IS NOT NULL)',
                          name: 'order_detail_product_or_part_present_check'
   end
