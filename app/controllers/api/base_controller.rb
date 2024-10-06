@@ -33,7 +33,7 @@ class Api::BaseController < ApplicationController
 
     {
       access_token: encode_token({ id: }, jwt_key: jwt_access_key),
-      refresh_token: encode_token({ id: }, jwt_key: jwt_refresh_key, exp: 3.hours.from_now)
+      refresh_token: encode_token({ id: }, jwt_key: jwt_refresh_key, exp: 1.day.from_now)
     }
   end
 end
