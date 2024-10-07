@@ -18,7 +18,6 @@ export default class extends Controller {
     if (path.includes("?")) path += `&search=${searchValue}`;
     else path += `?search=${searchValue}`;
 
-    path += `&search_by[]=customer_name`;
     path += `&search_by[]=id`;
     path += `&order_status_id=${this.activeStatusRadio.value}`;
 
