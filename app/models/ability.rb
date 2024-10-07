@@ -44,8 +44,8 @@ class Ability
 
   def customer_portal(user)
     # can :manage, :dashboard
-    can :manage, :profile
     can :manage, :catalog
+    can :manage, :profile
     can :manage, :cart
     can :manage, Order, customer: user.customer
     can :manage, SupportTicket, customer: user.customer

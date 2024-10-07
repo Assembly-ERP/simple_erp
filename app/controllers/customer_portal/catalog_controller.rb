@@ -18,6 +18,11 @@ module CustomerPortal
       query_instance = query_instance.order(created_at: :desc)
 
       @pagy, @items = pagy(query_instance)
+
+      respond_to do |format|
+        format.html
+        format.turbo_stream if filter_stream_condition?
+      end
     end
 
     private
