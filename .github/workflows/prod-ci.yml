@@ -42,7 +42,6 @@ jobs:
           context: .
           file: ./Dockerfile.prod
           push: true
-          pull: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
