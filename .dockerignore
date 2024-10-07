@@ -19,6 +19,7 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+!/log/customer_imports/
 
 # Ignore pidfiles, but keep the directory.
 /tmp/pids/*
@@ -36,9 +37,7 @@
 !/app/assets/builds/.keep
 /public/assets
 
-
 .git
 node_modules
 tmp
-log
 .DS_Store

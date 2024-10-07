@@ -3,8 +3,12 @@ name: build + publish
 on:
   push:
     branches:
-      - develop
+      - 'test-build'
   workflow_dispatch:
+
+permissions:
+  contents: read
+  packages: write
 
 env:
   REGISTRY: ghcr.io
@@ -40,21 +44,17 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
+          file: ./Dockerfile.prod
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           build-args: |
             SECRET_KEY_BASE=${{ secrets.SECRET_KEY_BASE }}
-            DB_HOST=${{ secrets.DB_HOST }}
-            DB_PORT=${{ secrets.DB_PORT }}
-            POSTGRES_USER=${{ secrets.POSTGRES_USER }}
-            POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
-            POSTGRES_DB=${{ secrets.POSTGRES_DB }}
 
       - name: Deploy on CapRover
         uses: caprover/deploy-from-github@v1.1.2
         with:
           server: https://cap.dash.assemblyerp.com
           app: 'simple-erp'
-          token: '${{ secrets.APP_TOKEN }}'
-          image: '${{ steps.meta.outputs.tags }}:latest'
+          token: '${{ secrets.DEMO_APP_TOKEN }}'
+          image: '${{ steps.meta.outputs.tags }}'
