@@ -5,14 +5,14 @@
       - if item.type == "part"
         - item_part = item.becomes(Part)
         - if item_part.images.first.present?
-          = image_tag item_part.images.first.variant(:thumb), class: "w-20 h-20 object-cover border rounded-sm"
+          = image_tag item_part.images.first.variant(:thumb), class: "w-20 h-20 min-w-20 min-h-20 object-cover border rounded-sm"
         - else
-          = image_tag "thumbnail.png", class: "w-20 h-20 rounded object-cover"
+          = image_tag "thumbnail.png", class: "w-20 h-20 min-w-20 min-h-20 rounded object-cover"
       - else 
         - if item.images.first.present?
-          = image_tag item.images.first.variant(:thumb), class: "w-20 h-20 object-cover border rounded-sm"
+          = image_tag item.images.first.variant(:thumb), class: "w-20 h-20 min-w-20 min-h-20 object-cover border rounded-sm"
         - else
-          = image_tag "thumbnail.png", class: "w-20 h-20 rounded object-cover"
+          = image_tag "thumbnail.png", class: "w-20 h-20 min-w-20 min-h-20 rounded object-cover"
       .flex.flex-col.md:justify-between.w-full
         .grid.grid-cols-2.lg:grid-cols-11.w-full.gap-4
           .flex.flex-col.justify-between.h-full.lg:col-span-4
