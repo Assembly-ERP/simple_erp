@@ -4,7 +4,7 @@
       Log in
     - if alert.present? 
       = render ErrorCardComponent.new errors: [alert], label: ""
-    = form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "grid gap-3"}) do |f|
+    = form_for(resource, as: resource_name, url: session_path(resource_name), html: {data: {turbo: 'false'}, class: "grid gap-3"}) do |f|
       .field
         = f.label :email
         = f.email_field :email, autocomplete: "email", class: "input-primary", placeholder: "Enter your email", required: true
