@@ -11,7 +11,7 @@ permissions:
   packages: write
 
 env:
-  REGISTRY: ghcr.io
+  REGISTRY: registry.cap.dash.assemblyerp.com:996
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
