@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   end
 
   def filter_stream_condition?
-    params[:page].present? || params[:filter_by].present? || params[:search_by].present?
+    params[:page].present? || params[:filter_by].present? || params[:search_by].present? ||
+      params[:order_status_id].present?
   end
 end
