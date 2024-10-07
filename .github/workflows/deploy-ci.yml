@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - develop
+      - main
   workflow_dispatch:
 
 permissions:
@@ -54,4 +55,13 @@ jobs:
           server: https://cap.dash.assemblyerp.com
           app: 'simple-erp'
           token: '${{ secrets.DEMO_APP_TOKEN }}'
+          image: '${{ steps.meta.outputs.tags }}'
+
+      - name: Deploy Spruill
+        if: github.ref == 'refs/heads/main'
+        uses: caprover/deploy-from-github@v1.1.2
+        with:
+          server: https://cap.dash.assemblyerp.com
+          app: 'spruill'
+          token: '${{ secrets.SPRUILL_APP_TOKEN }}'
           image: '${{ steps.meta.outputs.tags }}'
