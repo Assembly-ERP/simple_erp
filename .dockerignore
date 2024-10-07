@@ -19,6 +19,7 @@
 /tmp/*
 !/log/.keep
 !/tmp/.keep
+!/log/customer_imports/
 
 # Ignore pidfiles, but keep the directory.
 /tmp/pids/*
