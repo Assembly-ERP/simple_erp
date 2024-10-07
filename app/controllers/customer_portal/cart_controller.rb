@@ -21,7 +21,8 @@ module CustomerPortal
           type: hash['type'],
           price: item.price,
           quantity: hash['quantity'],
-          total_price: item.price * hash['quantity'].to_i
+          total_price: item.price * hash['quantity'].to_i,
+          thumbnail: item.images&.first&.variant(:thumb)
         }
         @total += item.price * hash['quantity'].to_i
       end
