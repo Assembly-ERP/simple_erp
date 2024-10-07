@@ -47,7 +47,7 @@ jobs:
           build-args: |
             SECRET_KEY_BASE=${{ secrets.SECRET_KEY_BASE }}
 
-      - name: Deploy on CapRover
+      - name: Deploy Demo
         uses: caprover/deploy-from-github@v1.1.2
         with:
           server: https://cap.dash.assemblyerp.com
