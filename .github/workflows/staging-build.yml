@@ -57,4 +57,4 @@ jobs:
           server: https://cap.dash.assemblyerp.com
           app: 'simple-erp'
           token: '${{ secrets.DEMO_APP_TOKEN }}'
-          image: '${{ steps.meta.outputs.tags }}:latest'
+          image: '${{ steps.meta.outputs.tags }}'
