@@ -1,10 +1,9 @@
-name: build + publish
+name: Staging build + publish
 
 on:
   push:
     branches:
       - develop
-      - main
   workflow_dispatch:
 
 permissions:
@@ -48,9 +47,8 @@ jobs:
           build-args: |
             SECRET_KEY_BASE=${{ secrets.SECRET_KEY_BASE }}
 
-      - name: Deploy on CapRover
+      - name: Deploy Demo
         uses: caprover/deploy-from-github@v1.1.2
-        if: steps.extract_branch.outputs.branch == 'develop'
         with:
           server: https://cap.dash.assemblyerp.com
           app: 'simple-erp'
