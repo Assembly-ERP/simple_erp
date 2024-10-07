@@ -48,6 +48,7 @@ jobs:
             SECRET_KEY_BASE=${{ secrets.SECRET_KEY_BASE }}
 
       - name: Deploy Demo
+        if: contains(github.ref, "develop")
         uses: caprover/deploy-from-github@v1.1.2
         with:
           server: https://cap.dash.assemblyerp.com
