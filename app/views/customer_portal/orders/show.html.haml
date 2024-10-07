@@ -1,20 +1,20 @@
-/ app/views/customer_portal/orders/show.html.erb
-%h1 Order Details
-%p
-  %strong Order ID:
-  = @order.id
-%p
-  %strong Status:
-  = @order.status
-%p
-  %strong Order Date:
-  = @order.created_at.to_s(:long)
-%h2 Items
-%ul
-  - @order.order_items.each do |item|
-    %li
-      %strong Item:
-      = item.product ? item.product.name : item.part.name
-      %strong Quantity:
-      = item.quantity
-= link_to 'Back to Orders', customer_portal_orders_path
+= turbo_frame_tag "order_show" do
+  %h1 Order Details
+  %p
+    %strong Order ID:
+    = @order.id
+  %p
+    %strong Status:
+    = @order.order_status.name
+  %p
+    %strong Order Date:
+    = @order.created_at
+  %h2 Items
+  %ul
+    - @order.order_details.each do |item|
+      %li
+        %strong Item:
+        = item.product ? item.product.name : item.part.name
+        %strong Quantity:
+        = item.quantity
+  = link_to 'Back to Orders', customer_portal_orders_path

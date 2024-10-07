@@ -77,7 +77,11 @@ Rails.application.routes.draw do
   # Customer portal
   namespace :customer_portal do
     resources :catalog, only: :index
-    resources :orders
+    resources :orders do
+      member do
+        get :qoute_or_invoice
+      end
+    end
     resources :support_tickets
     resources :cart, only: %i[index create delete]
     resource :profile, only: %i[show edit update]

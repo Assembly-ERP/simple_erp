@@ -9,14 +9,15 @@
     .table-row-group
       - if @orders.present?
         - @orders.each do |order|
-          .table-row.cursor-pointer{id: dom_id(order)}
-            .table-cell
+          .table-row.cursor-pointer{id: dom_id(order), data: {controller: "dialog", action: "click->dialog#backdropClose"}}
+            = render "show_modal", order: order
+            .table-cell{data: {action: "click->dialog#open"}}
               = order.formatted_id
-            .table-cell
+            .table-cell{id: "list-order-status-#{order.id}", data: {action: "click->dialog#open"}}
               = order.status
-            .table-cell
+            .table-cell{data: {action: "click->dialog#open"}}
               = number_to_currency(order.total_amount, unit: "$", precision: 2)
-            .table-cell
+            .table-cell{data: {action: "click->dialog#open"}}
               = order.created_at
       - else
         .table-row
