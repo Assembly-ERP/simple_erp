@@ -1,9 +1,8 @@
-name: build + publish
+name: Production build + publish
 
 on:
   push:
     branches:
-      - develop
       - main
   workflow_dispatch:
 
@@ -50,9 +49,8 @@ jobs:
 
       - name: Deploy on CapRover
         uses: caprover/deploy-from-github@v1.1.2
-        if: steps.extract_branch.outputs.branch == 'develop'
         with:
           server: https://cap.dash.assemblyerp.com
-          app: 'simple-erp'
-          token: '${{ secrets.DEMO_APP_TOKEN }}'
+          app: 'spruill'
+          token: '${{ secrets.SPRUILL_APP_TOKEN }}'
           image: '${{ steps.meta.outputs.tags }}'
