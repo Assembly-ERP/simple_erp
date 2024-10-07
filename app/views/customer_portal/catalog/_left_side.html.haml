@@ -2,8 +2,8 @@
   .grid
     .px-5.pt-2.pb-1
       .relative
-        %input.text-sm.border.border-gray-300.rounded-lg.pl-10.pr-2.w-full{class: "py-2 focus:outline-[color:var(--primary)]", placeholder: "Search..", data: {"cp--catalog--search-target": "input", action: "input->cp--catalog--search#search"}}
-        = icon("fa-solid", "magnifying-glass", class: "text-sm absolute top-3.5 left-3.5 text-gray-400")
+        %input.text-sm.border.border-gray-300.rounded-lg.pl-9.pr-2.w-full{class: "py-2 focus:outline-[color:var(--primary)]", placeholder: "Search", data: {"cp--catalog--search-target": "input", action: "input->cp--catalog--search#search"}}
+        = icon("fa-solid", "magnifying-glass", class: "text-sm absolute top-3 left-3.5 text-gray-400")
     %button.px-5.py-2.w-full.hover:bg-gray-50.text-start.flex.justify-between.items-center
       Rating
       = icon("fa-solid", "angle-up", class: "text-gray-600")
