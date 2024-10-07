@@ -23,7 +23,7 @@ module OperationalPortal
 
       respond_to do |format|
         format.html
-        format.turbo_stream if params[:page].present? || params[:search_by].present?
+        format.turbo_stream if filter_stream_condition?
       end
     end
 
