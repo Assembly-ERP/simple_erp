@@ -76,9 +76,9 @@ module CustomerPortal
     def cart_item(id, type)
       case type
       when 'product'
-        Product.find_by(id:)
+        Product.find_by(id:, voided_at: nil)
       else
-        Part.find_by(id:)
+        Part.find_by(id:, voided_at: nil)
       end
     end
 

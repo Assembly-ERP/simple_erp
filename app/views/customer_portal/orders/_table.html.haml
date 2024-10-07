@@ -3,7 +3,6 @@
     .table-header-group
       .table-row
         .table-cell ID
-        .table-cell Customer Name
         .table-cell Status
         .table-cell Total Amount
         .table-cell Created Date
@@ -14,8 +13,6 @@
             = render "show_modal", order: order
             .table-cell{data: {action: "click->dialog#open"}}
               = order.formatted_id
-            .table-cell{data: {action: "click->dialog#open"}}
-              = order.customer_name
             .table-cell{id: "list-order-status-#{order.id}", data: {action: "click->dialog#open"}}
               = order.status
             .table-cell{data: {action: "click->dialog#open"}}
@@ -25,7 +22,6 @@
       - else
         .table-row
           .table-cell No orders found
-          .table-cell
           .table-cell
           .table-cell
           .table-cell

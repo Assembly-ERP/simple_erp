@@ -1,0 +1,31 @@
+.mx-4.py-3{data: {controller: "cp--orders--search", url: customer_portal_orders_path}}
+  .flex.justify-between.gap-5.items-center
+    %h1.font-semibold.text-lg Orders
+    %button.hidden.btn-sm.border.border-gray-300.h-fit.flex.gap-2.items-center.bg-white.hover:bg-foreground.focus:ring-4.focus:ring-gray-200
+      = icon("fa-solid", "upload", class: "text-sm text-gray-400")
+      Export
+  .flex.gap-5.justify-between.items-end.border-b.py-3
+    .flex.gap-4.items-center
+      .flex
+        .relative
+          %input.text-sm.border.border-gray-300.rounded-l-lg.pl-10.pr-4.w-80{class: "py-2.5 focus:outline-[color:var(--primary)]", placeholder: "Search by Order ID", data: {"cp--orders--search-target": "input", action: "input->cp--orders--search#search"}}
+          = icon("fa-solid", "magnifying-glass", class: "text-sm absolute top-3.5 left-3.5 text-gray-400")
+        %button.rounded-r-lg.px-5.text-white.-ml-1.z-10{class: "bg-[color:var(--primary)]", data: {action: "input->cp--orders--search#searchExec"}}
+          search
+      %button.hidden.btn-sm.border.border-gray-300.h-fit.flex.gap-2.items-center.bg-white.hover:bg-foreground.focus:ring-4.focus:ring-gray-200
+        = icon("fa-solid", "filter", class: "text-sm text-gray-400")
+        Filter
+        = icon("fa-solid", "chevron-down", class: "text-sm text-gray-400")
+      %button.hidden.btn-sm.border.border-gray-300.h-fit.flex.gap-2.items-center.bg-white.hover:bg-foreground.focus:ring-4.focus:ring-gray-200
+        = icon("fa-solid", "gear", class: "text-sm text-gray-400")
+        Configurations
+  .flex.gap-4.items-center.pt-3.text-sm.font-medium
+    %span Status:
+    .flex.gap-4.items-center
+      .flex.gap-1.items-center
+        = radio_button("order", "status", "all", {checked: true, class: "bg-foreground radio-primary", data: {"cp--orders--search-target": "statusRadio", action: "cp--orders--search#searchExec" }})
+        = label_tag "order_status_all", "All" 
+      - OrderStatus.all.each do |os|
+        .flex.gap-1.items-center
+          = radio_button("order", "status", os.id, {class: "radio-primary", data: {"cp--orders--search-target": "statusRadio", action: "cp--orders--search#searchExec"}})
+          = label_tag "order_status_#{os.id}", os.name 
