@@ -37,9 +37,7 @@
 !/app/assets/builds/.keep
 /public/assets
 
-
 .git
 node_modules
 tmp
-log
 .DS_Store
