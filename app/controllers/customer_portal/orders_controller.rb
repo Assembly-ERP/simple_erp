@@ -30,6 +30,13 @@ module CustomerPortal
 
     def show; end
 
+    def qoute_or_invoice
+      pdf = OrderPdf.new(@order)
+      pdf.quote_or_invoice
+
+      send_data(pdf.render, filename: pdf.quote_or_invoice_filename, type: 'application/pdf', disposition: 'inline')
+    end
+
     def new; end
 
     def edit; end

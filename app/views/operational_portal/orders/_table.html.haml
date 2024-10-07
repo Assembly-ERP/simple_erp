@@ -11,7 +11,7 @@
       - if @orders.present?
         - @orders.each do |order|
           .table-row.cursor-pointer{id: dom_id(order), data: {controller: "dialog", action: "click->dialog#backdropClose"}}
-            = render "order_modal", order: order
+            = render "show_modal", order: order
             .table-cell{data: {action: "click->dialog#open"}}
               = order.formatted_id
             .table-cell{data: {action: "click->dialog#open"}}
