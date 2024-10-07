@@ -39,4 +39,5 @@
 !/app/assets/builds/.keep
 
 .env
+.pdf
 node_modules
