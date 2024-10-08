@@ -8,7 +8,11 @@
   - case nested_form.object.input_type
   - when "text"
     = nested_form.text_field :value, class: "input-primary", placeholder: nested_form.object.label
-  - when nested_form.object.input_type == "number"
+  - when "number"
     = nested_form.number_field :value, class: "input-primary", placeholder: "0"
-  - when nested_form.object.input_type == "decimal"
+  - when "decimal"
     = nested_form.number_field :value, class: "input-primary", step: :any, placeholder: "0.00"
+  - when "color"
+    .h-16{data: {controller: "color-picker"}}
+      = form.hidden_field :value, data: {"color-picker-target": "input"}
+      .block{data: {"color-picker-target": "button"}}
