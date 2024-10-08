@@ -20,6 +20,8 @@ class Part < ApplicationRecord
   end
 
   # Scopes
+  scope :sort_newest, -> { order(created_at: :desc) }
+  scope :sort_oldest, -> { order(created_at: :asc) }
   scope :not_voided, -> { where(voided_at: nil) }
   scope :search_results, lambda {
     select("parts.id, parts.name, parts.price, parts.weight, parts.sku, 'part' AS type, parts.created_at")
