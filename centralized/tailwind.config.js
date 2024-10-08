@@ -4,7 +4,12 @@ export default {
   theme: {
     extend: {
       colors: {
-        foreground: "#fffbf0",
+        foreground: "#F7FAFD",
+        primary: "#214290",
+        secondary: "#589245",
+      },
+      maxWidth: {
+        margin: "1350px",
       },
     },
   },
