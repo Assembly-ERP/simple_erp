@@ -53,14 +53,14 @@ module CustomerPortal
       carts = signed_carts
 
       respond_to do |format|
-        if params[:id].blank? || params[:type].blank?
+        if params[:id].present? && params[:type].present?
 
           item = "#{params[:id]}:#{params[:type]}"
           carts.delete(item)
 
           cookies.signed.permanent[:carts] = JSON.generate(carts)
 
-          format.turbo_stream { render locals: { error: false } }
+          format.turbo_stream { render locals: { error: false, id: params[:id], type: params[:type] } }
         else
           format.turbo_stream { render locals: { error: true }, status: :unprocessable_entity }
         end
