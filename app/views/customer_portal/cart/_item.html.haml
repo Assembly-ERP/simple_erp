@@ -19,6 +19,6 @@
       .text-base.font-medium.text-gray-900
         = cart[:name]
       .flex.items-center.gap-4
-        %button.inline-flex.items-center.text-sm.font-medium.text-red-600.px-3.py-1.rounded-lg.-ml-3{type: "button", class: "hover:bg-red-50"}
+        = button_to customer_portal_cart_path(id: cart[:id], type: cart[:type]), method: :delete, class: "inline-flex items-center text-sm font-medium text-red-600 px-3 py-1 rounded-lg -ml-3 hover:bg-red-50", form: {data: {turbo_confirm: 'Are you sure to remove this cart?'}} do
           = icon("fa-solid", "trash-can", class: "mr-2")
           Remove

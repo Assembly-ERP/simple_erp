@@ -83,7 +83,7 @@ Rails.application.routes.draw do
       end
     end
     resources :support_tickets
-    resources :cart, only: %i[index create delete]
+    resources :cart, only: %i[index create destroy]
     resource :profile, only: %i[show edit update]
   end
 
