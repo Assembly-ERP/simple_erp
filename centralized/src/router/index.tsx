@@ -1,6 +1,6 @@
-import { Route, Routes } from "react-router-dom";
 import { MainLayout } from "@/components/templates";
 import Home from "@/pages/Home";
+import { Route, Routes } from "react-router-dom";
 
 function Router() {
   return (
@@ -10,6 +10,6 @@ function Router() {
       </Route>
     </Routes>
   );
-};
+}
 
 export default Router;
