@@ -1,6 +1,6 @@
 import { cn } from "@/utils";
 import { cva, VariantProps } from "class-variance-authority"
-import { ButtonHTMLAttributes, FC, ReactNode } from "react"
+import { ButtonHTMLAttributes, forwardRef, ReactNode } from "react"
 
 export const buttonVariants = cva("rounded-lg text-base text-white", {
   variants: {
@@ -24,12 +24,14 @@ interface Props extends ButtonHTMLAttributes<HTMLButtonElement>,
   children: ReactNode
 }
 
-const Button: FC<Props> = ({ className, variant, size, children, ...props }) => {
-  return (
-    <button className={cn(buttonVariants({ variant, size, className }))} {...props}>
-      {children}
-    </button>
-  )
-}
+const Button = forwardRef<HTMLButtonElement, Props>(
+  ({ className, variant, size, children, ...props }, ref) => {
+    return (
+      <button ref={ref} className={cn(buttonVariants({ variant, size, className }))} {...props}>
+        {children}
+      </button>
+    )
+  }
+)
 
 export default Button
