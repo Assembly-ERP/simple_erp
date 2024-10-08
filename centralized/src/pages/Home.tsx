@@ -1,11 +1,11 @@
-import { Button } from "@/components/atoms"
+import { Button } from "@/components/atoms";
 
-function Home() {
+const Home = () => {
   return (
     <div className="py-8">
       <Button>Primary Button</Button>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;
