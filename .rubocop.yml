@@ -89,7 +89,7 @@ Rails/I18nLocaleTexts:
 
 Rails/SkipsModelValidations:
   Exclude:
-    - "app/models/order.rb"
+    - "app/models/concerns/order_cronable.rb"
     - "app/models/product.rb"
     - "app/models/order_detail.rb"
     - "app/jobs/*"
