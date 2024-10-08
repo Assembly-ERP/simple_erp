@@ -37,7 +37,7 @@ module OperationalPortal
       send_data(pdf.render, filename: pdf.make_ticket_filename, type: 'application/pdf', disposition: 'inline')
     end
 
-    def qoute_or_invoice
+    def quote_or_invoice
       pdf = OrderPdf.new(@order)
       pdf.quote_or_invoice
 
