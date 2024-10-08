@@ -1,7 +1,9 @@
+import { Button } from "@/components/atoms"
+
 function Home() {
   return (
-    <div>
-      home
+    <div className="py-8">
+      <Button>Primary Button</Button>
     </div>
   )
 }
