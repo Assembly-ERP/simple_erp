@@ -1,4 +1,4 @@
-name: Staging build + publish
+name: Build + publish
 
 on:
   push:

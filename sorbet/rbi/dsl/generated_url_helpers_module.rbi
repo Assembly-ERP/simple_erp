@@ -31,6 +31,9 @@ module GeneratedUrlHelpersModule
   def customer_portal_cart_index_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def customer_portal_cart_url(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def customer_portal_catalog_index_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }

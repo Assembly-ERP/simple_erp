@@ -31,6 +31,9 @@ module GeneratedPathHelpersModule
   def customer_portal_cart_index_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def customer_portal_cart_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def customer_portal_catalog_index_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
