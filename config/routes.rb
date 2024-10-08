@@ -161,7 +161,7 @@ end
 #                                                        PUT    /operational_portal/parts/:id(.:format)                                                           operational_portal/parts#update
 #                                                        DELETE /operational_portal/parts/:id(.:format)                                                           operational_portal/parts#destroy
 #                   make_ticket_operational_portal_order GET    /operational_portal/orders/:id/make_ticket(.:format)                                              operational_portal/orders#make_ticket
-#              qoute_or_invoice_operational_portal_order GET    /operational_portal/orders/:id/qoute_or_invoice(.:format)                                         operational_portal/orders#qoute_or_invoice
+#              quote_or_invoice_operational_portal_order GET    /operational_portal/orders/:id/quote_or_invoice(.:format)                                         operational_portal/orders#quote_or_invoice
 #                update_summary_operational_portal_order PUT    /operational_portal/orders/:id/update_summary(.:format)                                           operational_portal/orders#update_summary
 #                        cancel_operational_portal_order DELETE /operational_portal/orders/:id/cancel(.:format)                                                   operational_portal/orders#cancel
 #               search_catalog_operational_portal_orders GET    /operational_portal/orders/search_catalog(.:format)                                               operational_portal/orders#search_catalog
@@ -219,6 +219,7 @@ end
 #                                                        PATCH  /operational_portal/profile(.:format)                                                             operational_portal/profiles#update
 #                                                        PUT    /operational_portal/profile(.:format)                                                             operational_portal/profiles#update
 #                          customer_portal_catalog_index GET    /customer_portal/catalog(.:format)                                                                customer_portal/catalog#index
+#                 quote_or_invoice_customer_portal_order GET    /customer_portal/orders/:id/quote_or_invoice(.:format)                                            customer_portal/orders#quote_or_invoice
 #                                 customer_portal_orders GET    /customer_portal/orders(.:format)                                                                 customer_portal/orders#index
 #                                                        POST   /customer_portal/orders(.:format)                                                                 customer_portal/orders#create
 #                              new_customer_portal_order GET    /customer_portal/orders/new(.:format)                                                             customer_portal/orders#new
@@ -237,6 +238,7 @@ end
 #                                                        DELETE /customer_portal/support_tickets/:id(.:format)                                                    customer_portal/support_tickets#destroy
 #                             customer_portal_cart_index GET    /customer_portal/cart(.:format)                                                                   customer_portal/cart#index
 #                                                        POST   /customer_portal/cart(.:format)                                                                   customer_portal/cart#create
+#                                   customer_portal_cart DELETE /customer_portal/cart/:id(.:format)                                                               customer_portal/cart#destroy
 #                           edit_customer_portal_profile GET    /customer_portal/profile/edit(.:format)                                                           customer_portal/profiles#edit
 #                                customer_portal_profile GET    /customer_portal/profile(.:format)                                                                customer_portal/profiles#show
 #                                                        PATCH  /customer_portal/profile(.:format)                                                                customer_portal/profiles#update
