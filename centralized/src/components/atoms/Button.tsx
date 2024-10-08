@@ -2,22 +2,25 @@ import { cn } from "@/utils";
 import { cva, VariantProps } from "class-variance-authority"
 import { ButtonHTMLAttributes, forwardRef, ReactNode } from "react"
 
-export const buttonVariants = cva("rounded-lg text-base text-white", {
-  variants: {
-    variant: {
-      primary: "bg-primary",
-      secondary: "bg-secondary"
+export const buttonVariants = cva(
+  "rounded-lg text-base text-white",
+  {
+    variants: {
+      variant: {
+        primary: "bg-primary",
+        secondary: "bg-secondary"
+      },
+      size: {
+        sm: "px-3 py-1.5",
+        md: "px-5 py-2.5",
+      },
     },
-    size: {
-      sm: "px-3 py-1.5",
-      md: "px-5 py-2.5",
+    defaultVariants: {
+      variant: "primary",
+      size: "md",
     },
-  },
-  defaultVariants: {
-    variant: "primary",
-    size: "md",
-  },
-});
+  }
+);
 
 interface Props extends ButtonHTMLAttributes<HTMLButtonElement>,
   VariantProps<typeof buttonVariants> {
