@@ -19,6 +19,8 @@ class Product < ApplicationRecord
   end
 
   # Scopes
+  scope :sort_newest, -> { order(created_at: :desc) }
+  scope :sort_oldest, -> { order(created_at: :asc) }
   scope :not_voided, -> { where(voided_at: nil) }
   scope :search_results, lambda {
     select("products.id, products.name, products.price, products.weight, products.sku, 'product' AS type," \
