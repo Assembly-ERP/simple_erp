@@ -29,7 +29,7 @@ class Ability
 
     # Order
     can %i[read new create], Order
-    can %i[make_ticket qoute_or_invoice update_summary], Order
+    can %i[make_ticket quote_or_invoice update_summary], Order
     can %i[update destroy edit cancel], Order, voided_at: nil, order_status: { allow_change: true }
     can :search_catalog, :order
 

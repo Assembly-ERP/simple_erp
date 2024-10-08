@@ -42,7 +42,7 @@ Rails.application.routes.draw do
     resources :orders do
       member do
         get :make_ticket
-        get :qoute_or_invoice
+        get :quote_or_invoice
         put :update_summary
         delete :cancel
       end
@@ -79,7 +79,7 @@ Rails.application.routes.draw do
     resources :catalog, only: :index
     resources :orders do
       member do
-        get :qoute_or_invoice
+        get :quote_or_invoice
       end
     end
     resources :support_tickets

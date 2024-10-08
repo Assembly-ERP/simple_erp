@@ -30,7 +30,7 @@ module CustomerPortal
 
     def show; end
 
-    def qoute_or_invoice
+    def quote_or_invoice
       pdf = OrderPdf.new(@order)
       pdf.quote_or_invoice
 
@@ -40,6 +40,8 @@ module CustomerPortal
     def new; end
 
     def edit; end
+
+    def create_qoute; end
 
     def create
       @order = current_user.orders.new(order_params)
