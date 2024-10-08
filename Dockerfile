@@ -1,9 +1,5 @@
-#  Ruby- erpweb -  ./Dockerfile
-# Use the official Ruby image
 FROM ruby:3.3.0
 
-# Install dependencies including default-mysql-client and curl for installing Node.js
-# RUN apt-get update -qq && apt-get install -y curl gnupg2 build-essential postgresql-client default-mysql-client default-libmysqlclient-dev libvips poppler-utils
 RUN apt-get update -qq && apt-get install -y \
   build-essential \
   libpq-dev \
@@ -13,48 +9,58 @@ RUN apt-get update -qq && apt-get install -y \
   poppler-utils \
   postgresql-client \
   iputils-ping \
-  nano  
+  nano  \
+  cron
 
-# Install Node.js and npm from NodeSource
-# RUN curl -fsSL https://deb.nodesource.com/setup_22.x | bash - && apt-get install -y nodejs
-
-# Install Yarn 
-# RUN npm install --global yarn
+RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
+    apt-get install -y nodejs && \
+    corepack enable && corepack prepare yarn@stable --activate
 
 # Set working directory
 WORKDIR /app
 
-# Copy Gemfile and Gemfile.lock
-COPY Gemfile /app/Gemfile
-COPY Gemfile.lock /app/Gemfile.lock
+# Rails ENV
+ENV RAILS_ENV production
+ENV RAILS_SERVE_STATIC_FILES true
+ENV RAILS_LOG_TO_STDOUT true
+ENV BUNDLER_WITHOUT 'development test'
 
-# Install the specified version of Bundler
+# Copy the rest of the application code
+COPY Gemfile Gemfile.lock   ./
+COPY .ruby-version          .ruby-version
+COPY config.ru              config.ru
+COPY Rakefile               Rakefile
+COPY bin                    bin/
+COPY config                 config/
+COPY db                     db/
+COPY lib                    lib/
+COPY app                    app/
+COPY public                 public/
+COPY vendor                 vendor/
+COPY sorbet                 sorbet/
+COPY imports                imports/
+COPY log                    log/
+COPY Procfile.prod          Procfile.prod
+
+# Install Bundler
 RUN gem install bundler -v 2.5.10
 
 # Install gems
 RUN bundle install
 
-# This is only for initial container build for volume
-# RUN bundle exec rails importmap:install
-# RUN bundle exec rails stimulus:install
+# Precompile Assets
+RUN SECRET_KEY_BASE=`bin/rails secret` bin/rake assets:precompile --trace
 
-# Ensure Active Storage is set up
-# RUN bundle exec rails active_storage:install
+# Install Foreman
+RUN gem install foreman
 
-# Precompile assets
-RUN bundle exec rails assets:precompile
-
-
-# Copy the rest of the application code
-COPY . /app
+COPY entrypoint.sh /usr/bin/
+RUN chmod +x /usr/bin/entrypoint.sh
 
 # Expose port 3000
 EXPOSE 3000
 
-# Add entrypoint script
-COPY entrypoint.sh /usr/bin/
-RUN chmod +x /usr/bin/entrypoint.sh
-
 # Start the Rails server
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]
-CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
+# CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
+CMD ["foreman", "start", "-f", "Procfile.prod"]
