@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
 class Order < ApplicationRecord
+  include OrderMailable
+  include OrderCronable
+  include OrderFormattable
+
   # Relationships
   belongs_to :customer
   belongs_to :order_status
@@ -41,16 +45,7 @@ class Order < ApplicationRecord
   }
 
   # Generators
-  before_save :format_id, if: :new_record?
-  before_save :calculate_total_amount_before
-  after_commit :send_quote_or_invoice, if: :send_quote_or_invoice_condition?
-
-  def calculate_total_amount
-    base_price, total_amount = price_calculation
-
-    update_column(:price, base_price)
-    update_column(:total_amount, total_amount)
-  end
+  before_save :calculate_total_amount
 
   def price_calculation
     base_price = order_details.filter_map { |od| (od.price.to_f * od.quantity.to_i) unless od._destroy }.sum
@@ -60,66 +55,13 @@ class Order < ApplicationRecord
     [base_price, total_amount]
   end
 
-  def self.recalculate_price
-    active_scheduler = OrderPriceScheduler.find_by(active: true)
-    return if active_scheduler.blank?
-
-    case active_scheduler.code
-    when 'PER_MONTH'
-      Order.per_month_scheduler
-    end
-  end
-
-  def self.per_month_scheduler
-    orders = Order.joins(:order_status)
-                  .where(voided_at: nil, order_status: { customer_locked: false })
-                  .where('orders.last_scheduled <=?', 1.month.ago)
-
-    orders.each do |order|
-      order.order_details.map(&:calculate_price)
-      order.calculate_total_amount
-      order.update_column(:last_scheduled, Time.zone.now)
-    end
-  end
-
-  def self.latest_yearly_holder
-    where('extract(year from created_at) = ?',
-          Time.zone.now.year).maximum(:holder_id)
-  end
-
   private
 
-  def format_id
-    case OrderIdFormat.active_format&.format
-    when 'yearly'
-      self.holder_id = (Order.latest_yearly_holder || 0) + 1
-      self.formatted_id = "#{Time.zone.now.strftime('%y')}-#{format('%04d', holder_id)}"
-    else
-      self.holder_id = id
-      self.formatted_id = id
-    end
-  end
-
-  def calculate_total_amount_before
+  def calculate_total_amount
     base_price, total_amount = price_calculation
 
     self.price = base_price
     self.total_amount = total_amount
-  end
-
-  def calculate_total_amount_condition?
-    new_record? || !order_status.customer_locked
-  end
-
-  def send_quote_or_invoice_condition?
-    send_quote_assignees && (total_amount_previously_changed? || order_status_previously_changed?)
-  end
-
-  def send_quote_or_invoice
-    return if users.count.zero?
-    return unless order_status.allow_change
-
-    OrderMailer.send_quote_or_invoice(self).deliver_later
   end
 end
 
