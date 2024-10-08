@@ -49,6 +49,6 @@
       .accordion-content{data: {"accordion-target": "content"}, class: "hidden"}
         .grid.grid-cols-2.gap-4
           = form.fields_for :poly_attributes do |attr_form|
-            = render "attribute", attr_form:
+            = render PolyAttributeComponent.new nested_form: attr_form
   .mt-3
     = form.submit @product.new_record? ? "Save Product" : "Update Product", class: 'btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]'

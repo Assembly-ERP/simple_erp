@@ -31,8 +31,8 @@ class Devise::InvitationsController
     include ::ApplicationController::HelperMethods
     include ::DeviseController::HelperMethods
 
-    sig { params(resource: T.untyped).returns(T.untyped) }
-    def after_sign_in_path_for(resource); end
+    sig { params(resource_or_scope: T.untyped).returns(T.untyped) }
+    def after_sign_in_path_for(resource_or_scope); end
   end
 
   class HelperProxy < ::ActionView::Base
