@@ -13,37 +13,13 @@ module GeneratedPathHelpersModule
   def accept_user_invitation_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def add_item_customer_portal_cart_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def add_message_customer_portal_support_ticket_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def add_message_operational_portal_support_ticket_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def api_v1_order_path(*args); end
+  def api_v1_user_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def api_v1_orders_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def api_v1_part_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def api_v1_parts_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def api_v1_product_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def api_v1_products_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def api_v1_support_ticket_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def api_v1_support_tickets_path(*args); end
+  def api_v1_users_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def cancel_operational_portal_order_path(*args); end
@@ -52,7 +28,10 @@ module GeneratedPathHelpersModule
   def cancel_user_registration_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def customer_portal_cart_path(*args); end
+  def customer_portal_cart_index_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def customer_portal_catalog_index_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def customer_portal_order_path(*args); end
@@ -70,25 +49,13 @@ module GeneratedPathHelpersModule
   def customer_portal_support_tickets_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def customer_root_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def customer_users_operational_portal_support_tickets_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def destroy_user_session_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def edit_api_v1_order_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def edit_api_v1_part_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def edit_api_v1_product_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def edit_api_v1_support_ticket_path(*args); end
+  def edit_api_v1_user_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def edit_customer_portal_order_path(*args); end
@@ -139,16 +106,10 @@ module GeneratedPathHelpersModule
   def make_ticket_operational_portal_order_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def new_api_v1_order_path(*args); end
+  def me_api_v1_auth_index_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def new_api_v1_part_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def new_api_v1_product_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def new_api_v1_support_ticket_path(*args); end
+  def new_api_v1_user_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def new_customer_portal_order_path(*args); end
@@ -274,7 +235,10 @@ module GeneratedPathHelpersModule
   def preview_view_components_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def qoute_or_invoice_operational_portal_order_path(*args); end
+  def quote_or_invoice_customer_portal_order_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
+  def quote_or_invoice_operational_portal_order_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def rails_blob_path(*args); end
@@ -355,28 +319,25 @@ module GeneratedPathHelpersModule
   def rails_storage_redirect_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
+  def refresh_token_api_v1_auth_index_path(*args); end
+
+  sig { params(args: T.untyped).returns(String) }
   def remove_user_invitation_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def root_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def search_operational_portal_catalog_index_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def search_operational_portal_customers_path(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
-  def search_operational_portal_orders_path(*args); end
+  def search_catalog_operational_portal_orders_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def search_part_results_operational_portal_products_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def search_results_operational_portal_orders_path(*args); end
+  def sidekiq_web_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def sidekiq_web_path(*args); end
+  def sign_in_api_v1_auth_index_path(*args); end
 
   sig { params(args: T.untyped).returns(String) }
   def turbo_recede_historical_location_path(*args); end

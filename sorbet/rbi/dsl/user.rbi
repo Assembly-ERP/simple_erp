@@ -398,6 +398,20 @@ class User
     sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
     def support_ticket_ids=(ids); end
 
+    sig { returns(T::Array[T.untyped]) }
+    def support_ticket_message_ids; end
+
+    sig { params(ids: T::Array[T.untyped]).returns(T::Array[T.untyped]) }
+    def support_ticket_message_ids=(ids); end
+
+    # This method is created by ActiveRecord on the `User` class because it declared `has_many :support_ticket_messages`.
+    # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
+    sig { returns(::SupportTicketMessage::PrivateCollectionProxy) }
+    def support_ticket_messages; end
+
+    sig { params(value: T::Enumerable[::SupportTicketMessage]).void }
+    def support_ticket_messages=(value); end
+
     # This method is created by ActiveRecord on the `User` class because it declared `has_many :support_tickets`.
     # 🔗 [Rails guide for `has_many` association](https://guides.rubyonrails.org/association_basics.html#the-has-many-association)
     sig { returns(::SupportTicket::PrivateCollectionProxy) }
@@ -567,6 +581,12 @@ class User
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def select(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def sort_asc(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def sort_desc(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def strict_loading(*args, &blk); end
@@ -2348,6 +2368,12 @@ class User
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def select(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def sort_asc(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def sort_desc(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def strict_loading(*args, &blk); end
