@@ -1,0 +1,6 @@
+= turbo_stream.prepend "notification-container" do
+  = render NotificationComponent.new notif_type: "success", message: "Cart was successfully removed."
+= turbo_stream.remove "cart-item-#{@cart.id}"
+
+= turbo_stream.replace "cart-badge" do
+  = render "layouts/cart_badge"

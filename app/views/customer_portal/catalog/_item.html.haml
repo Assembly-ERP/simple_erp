@@ -46,16 +46,19 @@
             %p.font-medium.text-gray-900
               = number_with_precision(item.weight, precision: 2)
               lbs
-    = form_with(as: "cart", url: customer_portal_cart_index_path(id: item.id)) do |form|
+    = form_with(model: Cart.new, url: customer_portal_carts_path) do |form|
       .flex.flex-col.gap-3.items-center
         #quantity-container{data: {controller: "cp--catalog--qty"}}
           #quantity.small
             = button_tag class: "decrement transition-colors duration-200", type: "button", data: {action: "cp--catalog--qty#decrement"} do
               = icon("fa-solid", "minus")
-            = number_field_tag 'cart[quantity]', 1, min: 1, id: "catalog-item-qty-#{item.id}-#{item.type}", class: "number-input transition-colors duration-200", data: {"cp--catalog--qty-target": "quantity", action: "input->cp--catalog--qty#quantityInput change->cp--catalog--qty#quantityChange"}
+            = form.number_field :quantity, value: 1, min: 1, id: "catalog-item-qty-#{item.id}-#{item.type}", class: "number-input transition-colors duration-200", data: {"cp--catalog--qty-target": "quantity", action: "input->cp--catalog--qty#quantityInput change->cp--catalog--qty#quantityChange"}
             = button_tag class: "increment transition-colors duration-200", type: "button", data: {action: "cp--catalog--qty#increment"} do
               = icon("fa-solid", "plus")
-        = form.hidden_field "cart[type]", value: item.type
+        - if item.type == "product"
+          = form.hidden_field :product_id, value: item.id
+        - else
+          = form.hidden_field :part_id, value: item.id
         %button{type: "submit", class: "text-nowrap px-3 py-2 rounded-lg text-sm bg-[color:var(--primary)] text-[color:var(--primary-text)]"}
           = icon("fa-solid", "cart-plus", class: "mr-1.5")
           Add to Cart
