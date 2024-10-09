@@ -7,6 +7,8 @@ class Cart < ApplicationRecord
   belongs_to :product, optional: true
 
   # Scopes
+  scope :sort_asc, -> { order(id: :asc) }
+  scope :sort_desc, -> { order(id: :desc) }
   scope :with_part_and_product, lambda {
     select('carts.*, products.name AS product_name, parts.name AS part_name, ' \
            'parts.sku AS part_sku, products.sku AS product_sku, ' \

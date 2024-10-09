@@ -4,7 +4,3 @@
 - else
   = turbo_stream.prepend "notification-container" do
     = render NotificationComponent.new notif_type: "success", message: "Successfully added to cart"
-
-= turbo_stream.replace "cart-badge" do
-  = render "layouts/cart_badge"
-
