@@ -22,6 +22,7 @@ class Cart < ApplicationRecord
   validates :product, presence: true, unless: :part
   validates :quantity, numericality: { greater_than_or_equal_to: 1 }
   validates :user_id, uniqueness: { scope: %i[part_id product_id] }
+  validates :quantity, numericality: { only_integer: true, greater_than: 0 }
 end
 
 # == Schema Information
@@ -34,7 +35,7 @@ end
 #  updated_at :datetime         not null
 #  part_id    :bigint
 #  product_id :bigint
-#  user_id    :bigint
+#  user_id    :bigint           not null
 #
 # Indexes
 #
