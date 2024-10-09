@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_20_101220) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_09_143044) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -59,16 +59,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_20_101220) do
   end
 
   create_table "carts", force: :cascade do |t|
-    t.bigint "customer_id", null: false
     t.bigint "user_id"
     t.bigint "product_id"
     t.bigint "part_id"
     t.integer "quantity", default: 1, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["customer_id"], name: "index_carts_on_customer_id"
     t.index ["part_id"], name: "index_carts_on_part_id"
     t.index ["product_id"], name: "index_carts_on_product_id"
+    t.index ["user_id", "part_id", "product_id"], name: "index_carts_on_user_id_and_part_id_and_product_id", unique: true
     t.index ["user_id"], name: "index_carts_on_user_id"
     t.check_constraint "product_id IS NOT NULL OR part_id IS NOT NULL", name: "cart_product_or_part_present_check"
   end
@@ -344,7 +343,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_20_101220) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "carts", "customers"
   add_foreign_key "carts", "parts"
   add_foreign_key "carts", "products"
   add_foreign_key "carts", "users"

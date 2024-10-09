@@ -17,6 +17,7 @@ class User < ApplicationRecord
   has_many :poly_attributes, as: :attributable, dependent: :destroy
   has_many :support_tickets, dependent: :destroy
   has_many :support_ticket_messages, dependent: :destroy
+  has_many :carts, dependent: :destroy
 
   accepts_nested_attributes_for :customer
 

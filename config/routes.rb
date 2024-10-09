@@ -83,7 +83,7 @@ Rails.application.routes.draw do
       end
     end
     resources :support_tickets
-    resources :cart, only: %i[index create destroy]
+    resources :carts, path: "cart", only: %i[index create destroy]
     resource :profile, only: %i[show edit update]
   end
 
@@ -236,9 +236,9 @@ end
 #                                                        PATCH  /customer_portal/support_tickets/:id(.:format)                                                    customer_portal/support_tickets#update
 #                                                        PUT    /customer_portal/support_tickets/:id(.:format)                                                    customer_portal/support_tickets#update
 #                                                        DELETE /customer_portal/support_tickets/:id(.:format)                                                    customer_portal/support_tickets#destroy
-#                             customer_portal_cart_index GET    /customer_portal/cart(.:format)                                                                   customer_portal/cart#index
-#                                                        POST   /customer_portal/cart(.:format)                                                                   customer_portal/cart#create
-#                                   customer_portal_cart DELETE /customer_portal/cart/:id(.:format)                                                               customer_portal/cart#destroy
+#                                  customer_portal_carts GET    /customer_portal/cart(.:format)                                                                   customer_portal/carts#index
+#                                                        POST   /customer_portal/cart(.:format)                                                                   customer_portal/carts#create
+#                                   customer_portal_cart DELETE /customer_portal/cart/:id(.:format)                                                               customer_portal/carts#destroy
 #                           edit_customer_portal_profile GET    /customer_portal/profile/edit(.:format)                                                           customer_portal/profiles#edit
 #                                customer_portal_profile GET    /customer_portal/profile(.:format)                                                                customer_portal/profiles#show
 #                                                        PATCH  /customer_portal/profile(.:format)                                                                customer_portal/profiles#update

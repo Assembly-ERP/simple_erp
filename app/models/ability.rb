@@ -49,6 +49,7 @@ class Ability
     can :manage, :cart
     can :manage, Order, customer: user.customer
     can :manage, SupportTicket, customer: user.customer
+    can(:manage, Cart, user:)
 
     can :create, SupportTicketMessage
     can :read, SupportTicketMessage, support_ticket: { customer: user.customer }

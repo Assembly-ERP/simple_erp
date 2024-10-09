@@ -1,9 +1,10 @@
-= turbo_stream.replace "cart-badge" do
-  = render "layouts/cart_badge"
-
-- if error
+- if @cart.errors.any?
   = turbo_stream.prepend "notification-container" do
     = render NotificationComponent.new notif_type: "error", message: "Something went wrong"
 - else
   = turbo_stream.prepend "notification-container" do
     = render NotificationComponent.new notif_type: "success", message: "Successfully added to cart"
+
+= turbo_stream.replace "cart-badge" do
+  = render "layouts/cart_badge"
+

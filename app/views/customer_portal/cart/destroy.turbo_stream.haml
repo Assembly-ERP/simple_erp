@@ -1,7 +1,0 @@
-- if error
-  = turbo_stream.prepend "notification-container" do
-    = render NotificationComponent.new notif_type: "error", message: "Something went wrong."
-- else
-  = turbo_stream.prepend "notification-container" do
-    = render NotificationComponent.new notif_type: "success", message: "Cart was successfully removed."
-  = turbo_stream.remove "cart-item-#{id}-#{type}"
