@@ -35,7 +35,7 @@ end
 #  updated_at :datetime         not null
 #  part_id    :bigint
 #  product_id :bigint
-#  user_id    :bigint
+#  user_id    :bigint           not null
 #
 # Indexes
 #
