@@ -11,6 +11,11 @@ export default class extends Controller {
     this.quantityTarget.stepDown();
   }
 
+  quantityReset(event) {
+    if (!event.detail.success) return;
+    this.quantityTarget.value = this.quantityTarget.min;
+  }
+
   quantityInput(event) {
     if (Number(event.target.value) < 0)
       event.target.value = Math.abs(event.target.value);
