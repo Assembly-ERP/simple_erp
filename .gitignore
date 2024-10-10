@@ -41,3 +41,4 @@
 .env
 .pdf
 node_modules
+minified-stimulus
