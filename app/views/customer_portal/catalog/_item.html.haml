@@ -1,4 +1,4 @@
-.relative.w-full{id: "#{item.type}_#{item.id}"}
+.relative.w-full{id: "#{item.type}_#{item.id}", data: {controller: "cp--catalog--item"}}
   -# = render "item_modal", item: item
   .cursor-pointer.p-4.flex.gap-5.hover:bg-gray-50.bg-white.border.border-gray-200.rounded-lg.shadow{data: {action: "click->dialog#open"}}
     .flex.w-full.flex.flex-col.md:flex-row.md:items-center.gap-4
@@ -40,14 +40,14 @@
             %p.font-medium.text-gray-900
               = number_with_precision(item.weight, precision: 2)
               lbs
-    = form_with(model: Cart.new, url: customer_portal_carts_path) do |form|
+    = form_with(model: Cart.new, url: customer_portal_carts_path, html: {data: {action: "turbo:submit-end->cp--catalog--item#quantityReset"}}) do |form|
       .flex.flex-col.gap-3.items-center
-        #quantity-container{data: {controller: "cp--catalog--qty"}}
+        #quantity-container
           #quantity.small
-            = button_tag class: "decrement transition-colors duration-200", type: "button", data: {action: "cp--catalog--qty#decrement"} do
+            = button_tag class: "decrement transition-colors duration-200", type: "button", data: {action: "cp--catalog--item#decrement"} do
               = icon("fa-solid", "minus")
-            = form.number_field :quantity, value: 1, min: 1, id: "catalog-item-qty-#{item.id}-#{item.type}", class: "number-input transition-colors duration-200", data: {"cp--catalog--qty-target": "quantity", action: "input->cp--catalog--qty#quantityInput change->cp--catalog--qty#quantityChange"}
-            = button_tag class: "increment transition-colors duration-200", type: "button", data: {action: "cp--catalog--qty#increment"} do
+            = form.number_field :quantity, value: 1, min: 1, id: "catalog-item-qty-#{item.id}-#{item.type}", class: "number-input transition-colors duration-200", data: {"cp--catalog--item-target": "quantity", action: "input->cp--catalog--item#quantityInput change->cp--catalog--item#quantityChange"}
+            = button_tag class: "increment transition-colors duration-200", type: "button", data: {action: "cp--catalog--item#increment"} do
               = icon("fa-solid", "plus")
         - if item.type == "product"
           = form.hidden_field :product_id, value: item.id
