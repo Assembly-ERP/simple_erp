@@ -198,23 +198,23 @@
 
 /* Tags */
 .product-type-tag {
-  @apply rounded-lg text-sm border border-purple-600 text-purple-600 w-fit px-2 bg-purple-50;
+  @apply rounded-lg text-sm border border-purple-600 text-purple-600 w-fit h-fit px-2 bg-purple-50;
 }
 
 .part-type-tag {
-  @apply rounded-lg text-sm border border-orange-600 text-orange-600 w-fit px-2 bg-orange-50;
+  @apply rounded-lg text-sm border border-orange-600 text-orange-600 w-fit h-fit px-2 bg-orange-50;
 }
 
 .pending-tag {
-  @apply rounded-lg text-sm border border-yellow-600 text-yellow-600 w-fit px-2 bg-yellow-50;
+  @apply rounded-lg text-sm border border-yellow-600 text-yellow-600 w-fit h-fit px-2 bg-yellow-50;
 }
 
 .success-tag {
-  @apply rounded-lg text-sm border border-green-600 text-green-600 w-fit px-2 bg-green-50;
+  @apply rounded-lg text-sm border border-green-600 text-green-600 w-fit h-fit px-2 bg-green-50;
 }
 
 .failed-tag {
-  @apply rounded-lg text-sm border border-red-600 text-red-600 w-fit px-2 bg-red-50;
+  @apply rounded-lg text-sm border border-red-600 text-red-600 w-fit h-fit px-2 bg-red-50;
 }
 
 /* Pagy Nav */
