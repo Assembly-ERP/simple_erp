@@ -3,9 +3,7 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  unauthenticated :user do
-    root 'home#index'
-  end
+  root 'catalog#index'
 
   devise_for :users, controllers: {
     registrations: 'users/registrations',
