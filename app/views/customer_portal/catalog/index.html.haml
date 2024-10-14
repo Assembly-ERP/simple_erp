@@ -1,5 +1,5 @@
 .pt-5.pb-7
   .mx-auto.px-4.2xl:px-0
-    .flex.gap-4{data: {controller: "cp--catalog--search", url: customer_portal_catalog_index_path}}
-      = render "left_side"
-      = render "right_side"
+    .flex.gap-4{data: {controller: "cp--catalog--search", url: user_signed_in? ? customer_portal_catalog_index_path : root_path}}
+      = render "customer_portal/catalog/left_side"
+      = render "customer_portal/catalog/right_side"

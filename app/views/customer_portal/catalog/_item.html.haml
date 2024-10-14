@@ -14,10 +14,11 @@
               = item.name
             .block{class: "#{item.type}-type-tag"}
               = item.type.humanize
-          .lg:col-span-2
-            %h6.font-normal.text-gray-500 Price
-            %p.font-medium.text-gray-900
-              = number_to_currency(item.price, unit: "$", precision: 2)
+          - if user_signed_in?
+            .lg:col-span-2
+              %h6.font-normal.text-gray-500 Price
+              %p.font-medium.text-gray-900
+                = number_to_currency(item.price, unit: "$", precision: 2)
           .lg:col-span-2
             %h6.font-normal.text-gray-500 In stock
             %p.font-medium.text-gray-900

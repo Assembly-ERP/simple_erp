@@ -65,7 +65,6 @@ class Ability
   end
 
   def public_facing
-    can :read, :catalog
     can :show, Part, voided_at: nil
     can :show, Product, voided_at: nil
   end
