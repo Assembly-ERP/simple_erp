@@ -1,9 +1,10 @@
-.rounded-lg.border.shadow.py-2.h-fit.sticky.bg-white{class: "top-[141px] min-w-[330px]"}
+.rounded-lg.border.shadow.py-2.h-fit.sticky.bg-white{class: "top-[141px] min-w-[330px] max-w-[330px]"}
   .grid
     .px-5.pt-2.pb-1
       .relative
         %input.text-sm.border.border-gray-300.rounded-lg.pl-9.pr-2.w-full{class: "py-2 focus:outline-[color:var(--primary)]", placeholder: "Search", data: {"cp--catalog--search-target": "input", action: "input->cp--catalog--search#search"}}
         = icon("fa-solid", "magnifying-glass", class: "text-sm absolute top-3 left-3.5 text-gray-400")
+    = render "customer_portal/catalog/type_filter"
     = render "customer_portal/catalog/category_filter"
     = render "customer_portal/catalog/price_filter"
     = render "customer_portal/catalog/weight_filter"
