@@ -29,6 +29,16 @@ export default class extends Controller {
     path += `&search_by[]=sku`;
     path += `&filter_by=${this.filterByValue}`;
 
+    if (this.maxPriceTarget.value) {
+      path += `&min_price=${this.minPriceTarget.value || 0}`;
+      path += `&max_price=${this.maxPriceTarget.value}`;
+    }
+
+    if (this.maxWeightTarget.value) {
+      path += `&min_weight=${this.minWeightTarget.value || 0}`;
+      path += `&max_weight=${this.maxWeightTarget.value}`;
+    }
+
     fetch(path, {
       method: "GET",
       headers: {

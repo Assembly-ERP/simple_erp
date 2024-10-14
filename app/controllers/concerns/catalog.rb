@@ -39,6 +39,14 @@ module Catalog
         query_instance = query_instance.where(search_query, search: "%#{params[:search]}%") if search_query.present?
       end
 
+      if current_user.present? && params[:min_price].present? && params[:max_price].present?
+        query_instance = query_instance.where(price: params[:min_price]..params[:max_price])
+      end
+
+      if params[:min_weight].present? && params[:max_weight].present?
+        query_instance = query_instance.where(weight: params[:min_weight]..params[:max_weight])
+      end
+
       query_instance
     end
   end
