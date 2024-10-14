@@ -88,6 +88,8 @@ Rails.application.routes.draw do
         get :quote_or_invoice
       end
     end
+    resources :parts, only: :show
+    resources :products, only: :show
     resources :support_tickets
     resources :carts, path: "cart"
     resource :profile, only: %i[show edit update]
