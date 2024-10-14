@@ -5,4 +5,4 @@
   .px-5.py-1.hidden{data: {"accordion-target": "content"}}
     = turbo_frame_tag "category-filter", src: user_signed_in? ? category_filter_customer_portal_catalog_index_path : category_filter_path, loading: :lazy do
       .flex.items-center.justify-center.w-full.py-1{class: "h-full"}
-        = icon("fa-solid", "spinner", class: "animate-spin text-4xl text-gray-400")
+        = icon("fa-solid", "spinner", class: "animate-spin text-2xl text-gray-400")
