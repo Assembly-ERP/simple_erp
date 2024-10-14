@@ -5,6 +5,7 @@ require 'sidekiq/web'
 Rails.application.routes.draw do
   unauthenticated do
     root 'catalog#index'
+    get "/catalog/category_filter", to: "catalog#category_filter", as: :category_filter
     get '/about_us', to: 'about#index', as: :about_us
   end
 
@@ -82,7 +83,11 @@ Rails.application.routes.draw do
 
   # Customer portal
   namespace :customer_portal do
-    resources :catalog, only: :index
+    resources :catalog, only: %i[index] do
+      collection do
+        get :category_filter
+      end
+    end
     resources :orders do
       member do
         get :quote_or_invoice

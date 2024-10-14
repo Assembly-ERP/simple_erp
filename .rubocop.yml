@@ -16,6 +16,8 @@ Style/Documentation:
 
 Metrics/AbcSize:
   Max: 50
+  Exclude:
+    - "app/controllers/concerns/**/**"
 
 Metrics/ClassLength:
   Max: 150
@@ -69,6 +71,7 @@ Metrics/PerceivedComplexity:
   Max: 12
   Exclude:
     - "bin/bundle"
+    - "app/controllers/concerns/**/**"
 
 Layout/EmptyLinesAroundBlockBody:
   Exclude:
