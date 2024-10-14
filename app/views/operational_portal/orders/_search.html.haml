@@ -21,10 +21,10 @@
               %label{for: "search_item_products"} All
             .flex.items-center.gap-2
               = radio_button("search", "item", "products", {data: {"orders--form-target": "searchByRadio", action: "orders--form#searchBy"}})
-              %label{for: "search_item_products"} Product
+              %label{for: "search_item_products"} Products
             .flex.items-center.gap-2
               = radio_button("search", "item", "parts", {data: {"orders--form-target": "searchByRadio", action: "orders--form#searchBy"}})
-              %label{for: "search_item_parts"} Part
+              %label{for: "search_item_parts"} Parts
   .h-72.overflow-y-auto.w-full.relative.overscroll-contain
     = turbo_frame_tag "search-results", src: search_path, loading: :lazy do
       = render "loading_template"
