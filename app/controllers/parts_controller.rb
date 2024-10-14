@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
-class PartsController < ApplicationController
+class PartsController < BaseController
+  load_and_authorize_resource
+
   def show; end
 end

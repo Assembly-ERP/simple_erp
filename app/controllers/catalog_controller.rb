@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
-class CatalogController < ApplicationController
+class CatalogController < BaseController
+  authorize_resource class: false
+
   def index
     query_instance =
       (case params[:filter_by]

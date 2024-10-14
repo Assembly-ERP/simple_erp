@@ -22,6 +22,9 @@ Rails.application.routes.draw do
     get '/', to: redirect('/customer_portal/catalog')
   end
 
+  resources :products, only: :show
+  resources :parts, only: :show
+
   # Dashboards
   get '/operational_portal', to: 'operational_portal/dashboard#index', as: :operational_root
   # get '/customer_portal', to: 'customer_portal/dashboard#index', as: :customer_root

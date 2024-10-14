@@ -4,6 +4,8 @@ class Ability
   include CanCan::Ability
 
   def initialize(user, portal)
+    public_facing if public?(portal)
+
     return if user.blank?
 
     operational_portal(user) if operation?(portal, user)
@@ -62,6 +64,12 @@ class Ability
     can :manage, Part
   end
 
+  def public_facing
+    can :read, :catalog
+    can :show, Part, voided_at: nil
+    can :show, Product, voided_at: nil
+  end
+
   # Conditions
   def operation?(portal, user)
     portal == 'operational_portal' && user.operational_user?
@@ -73,5 +81,9 @@ class Ability
 
   def api_operation?(portal, user)
     portal == 'api_v1' && user.operational_user? && user.advance?
+  end
+
+  def public?(portal)
+    portal == 'public'
   end
 end

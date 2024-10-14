@@ -1,5 +1,5 @@
 .relative.w-full{id: "#{item.type}_#{item.id}", data: {controller: "dialog", action: "click->dialog#backdropClose"}}
-  -# = render "item_modal", item: item
+  = render "item_modal", item: item
   .cursor-pointer.flex.w-full.flex.flex-col.md:flex-row.md:items-center.p-3.md:gap-6.hover:bg-gray-50.bg-white.border.border-gray-200.rounded-lg.shadow{data: {action: "click->dialog#open"}}
     - item_p = item.type == "part" ? item.becomes(Part) : item
     - if item_p.images&.first.present?
