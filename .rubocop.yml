@@ -54,6 +54,7 @@ Metrics/CyclomaticComplexity:
   Max: 10
   Exclude:
     - "bin/*"
+    - "app/controllers/concerns/**/**"
 
 Style/SpecialGlobalVars:
   Exclude:

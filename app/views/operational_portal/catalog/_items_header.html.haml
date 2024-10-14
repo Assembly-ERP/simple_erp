@@ -16,13 +16,13 @@
           .flex.flex-col
             %label.text-sm.text-gray-500 Filter by
             .flex.items-center.gap-2
-              = radio_button("filter", "item", "all", {checked: true, data: {"catalog--search-target": "filterByRadio", action: "catalog--search#searchExec"}})
+              = radio_button("filter", "item", "all", {class: "radio-primary", checked: true, data: {"catalog--search-target": "filterByRadio", action: "catalog--search#searchExec"}})
               %label{for: "filter_item_products"} All
             .flex.items-center.gap-2
-              = radio_button("filter", "item", "products", {data: {"catalog--search-target": "filterByRadio", action: "catalog--search#searchExec"}})
+              = radio_button("filter", "item", "products", {class: "radio-primary", data: {"catalog--search-target": "filterByRadio", action: "catalog--search#searchExec"}})
               %label{for: "filter_item_products"} Products
             .flex.items-center.gap-2
-              = radio_button("filter", "item", "parts", {data: {"catalog--search-target": "filterByRadio", action: "catalog--search#searchExec"}})
+              = radio_button("filter", "item", "parts", {class: "radio-primary", data: {"catalog--search-target": "filterByRadio", action: "catalog--search#searchExec"}})
               %label{for: "filter_item_parts"} Parts
   .flex.items-center.gap-3
     = link_to new_operational_portal_product_path, class: "flex gap-3 items-center btn-sm bg-[color:var(--primary)] text-[color:var(--primary-text)]" do
