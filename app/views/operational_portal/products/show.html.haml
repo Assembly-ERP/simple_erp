@@ -30,6 +30,9 @@
             %h2.font-semibold SKU
             %span= @product.sku.present? ? @product.sku : "N/A"
           .flex.flex-col.gap-1
+            %h2.font-semibold Category
+            %span= @product.category || "N/A"
+          .flex.flex-col.gap-1
             %h2.font-semibold Weight (lbs)
             %span= number_with_precision(@product.weight, precision: 2)
           - @product.poly_attributes.each do |pa|

@@ -1,14 +1,8 @@
-.block{data: {controller: "accordion", open: "true"}}
+.block{data: {controller: "accordion", open: "false"}}
   %button.px-5.py-2.w-full.hover:bg-gray-50.text-start.flex.justify-between.items-center{data: {action: "click->accordion#toggle"}}
     Category
     = icon("fa-solid", "angle-down", class: "text-gray-600", "data-accordion-target": "iconDown")
-  .px-5.py-1{data: {"accordion-target": "content"}}
-    .flex.items-center.gap-2
-      = radio_button("filter", "item", "all", {class: "radio-primary", checked: true, data: {"cp--catalog--search-target": "filterByRadio", action: "cp--catalog--search#searchExec"}})
-      %label{for: "filter_item_products"} All
-    .flex.items-center.gap-2
-      = radio_button("filter", "item", "products", {class: "radio-primary", data: {"cp--catalog--search-target": "filterByRadio", action: "cp--catalog--search#searchExec"}})
-      %label{for: "filter_item_products"} Products
-    .flex.items-center.gap-2
-      = radio_button("filter", "item", "parts", {class: "radio-primary", data: {"cp--catalog--search-target": "filterByRadio", action: "cp--catalog--search#searchExec"}})
-      %label{for: "filter_item_parts"} Parts
+  .px-5.py-1.hidden{data: {"accordion-target": "content"}}
+    = turbo_frame_tag "category-filter", src: user_signed_in? ? category_filter_customer_portal_catalog_index_path : category_filter_path, loading: :lazy do
+      .flex.items-center.justify-center.w-full.py-1{class: "h-full"}
+        = icon("fa-solid", "spinner", class: "animate-spin text-4xl text-gray-400")

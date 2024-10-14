@@ -8,6 +8,7 @@ export default class extends Controller {
     "maxPrice",
     "minWeight",
     "maxWeight",
+    "categoryList",
   ];
 
   search() {
@@ -39,6 +40,12 @@ export default class extends Controller {
       path += `&max_weight=${this.maxWeightTarget.value}`;
     }
 
+    if (this.checkedCategory.length > 0) {
+      for (const category of this.checkedCategory) {
+        path += `&category[]=${category}`;
+      }
+    }
+
     fetch(path, {
       method: "GET",
       headers: {
@@ -54,5 +61,11 @@ export default class extends Controller {
 
   get filterByValue() {
     return this.filterByRadioTargets.filter((radio) => radio.checked)[0].value;
+  }
+
+  get checkedCategory() {
+    return Array.from(this.element.querySelectorAll(`[id*='category-item-']`))
+      .filter((item) => item.checked)
+      .map((item) => item.value);
   }
 }

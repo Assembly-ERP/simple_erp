@@ -22,13 +22,16 @@ class Product < ApplicationRecord
   scope :sort_newest, -> { order(created_at: :desc) }
   scope :sort_oldest, -> { order(created_at: :asc) }
   scope :not_voided, -> { where(voided_at: nil) }
+  scope :category_filter, lambda {
+    select('products.category , count(products.category) as category_count').where.not(category: nil).group(:category)
+  }
   scope :search_results, lambda {
     select("products.id, products.name, products.price, products.weight, products.sku, 'product' AS type," \
            'products.created_at')
   }
   scope :catalog, lambda {
     select('products.id, products.name, products.description, products.price, products.weight, products.sku, ' \
-           "'product' AS type, 0 AS in_stock, products.created_at, products.available, " \
+           "'product' AS type, 0 AS in_stock, products.created_at, products.available, products.category, " \
            'FALSE as inventory')
   }
   scope :search_results_with_order, lambda { |order_id|
