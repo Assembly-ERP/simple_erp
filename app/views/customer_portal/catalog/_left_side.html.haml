@@ -7,9 +7,10 @@
     %button.px-5.py-2.w-full.hover:bg-gray-50.text-start.flex.justify-between.items-center
       Category
       = icon("fa-solid", "angle-up", class: "text-gray-600")
-    %button.px-5.py-2.w-full.hover:bg-gray-50.text-start.flex.justify-between.items-center
-      Price
-      = icon("fa-solid", "angle-up", class: "text-gray-600")
+    - if user_signed_in?
+      %button.px-5.py-2.w-full.hover:bg-gray-50.text-start.flex.justify-between.items-center
+        Price
+        = icon("fa-solid", "angle-up", class: "text-gray-600")
     %button.px-5.py-2.w-full.hover:bg-gray-50.text-start.flex.justify-between.items-center
       Weight
       = icon("fa-solid", "angle-up", class: "text-gray-600")
