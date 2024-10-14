@@ -3,9 +3,8 @@
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  unauthenticated :user do
-    root 'home#index'
-  end
+  root 'catalog#index'
+  get '/about_us', to: 'about#index', as: :about_us
 
   devise_for :users, controllers: {
     registrations: 'users/registrations',
@@ -23,6 +22,9 @@ Rails.application.routes.draw do
   authenticated :user, -> { _1.customer_user? } do
     get '/', to: redirect('/customer_portal/catalog')
   end
+
+  resources :products, only: :show
+  resources :parts, only: :show
 
   # Dashboards
   get '/operational_portal', to: 'operational_portal/dashboard#index', as: :operational_root

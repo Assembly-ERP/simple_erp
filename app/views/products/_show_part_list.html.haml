@@ -1,0 +1,30 @@
+.table
+  .table-header-group
+    .table-row
+      .table-cell Part Name
+      .table-cell SKU
+      .table-cell Weight
+      .table-cell QTY
+  .table-row-group
+    - @product.parts_products.each do |pp|
+      .table-row.cursor-pointer{data: {controller: "dialog", action: "click->dialog#backdropClose"}}
+        = render "show_part_modal", part: pp.part
+        .table-cell{data: {action: "click->dialog#open"}}
+          .flex.gap-2.items-center.h-full
+            - if pp.part.images.first.present?
+              = image_tag pp.part.images.first.variant(:thumb), class: "w-12 h-12 object-cover border rounded-sm"
+            - else
+              = image_tag "thumbnail.png", class: "w-12 h-12 rounded"
+            = pp.part.name
+        .table-cell{data: {action: "click->dialog#open"}}
+          .flex.gap-2.items-center.h-full
+            .h-12.-mr-2
+            = pp.part.sku.present? ? pp.part.sku : "N/A"
+        .table-cell{data: {action: "click->dialog#open"}}
+          .flex.gap-2.items-center.h-full
+            .h-12.-mr-2
+            = "#{number_with_precision(pp.part.weight, precision: 2)} lbs"
+        .table-cell{data: {action: "click->dialog#open"}}
+          .flex.gap-2.items-center.h-12
+            .h-12.-mr-2
+            = "x#{pp.quantity}"

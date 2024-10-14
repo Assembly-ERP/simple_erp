@@ -3,9 +3,7 @@
 module ApplicationHelper
   include Pagy::Frontend
 
-  def theme
-    branding = Branding.client
-
+  def theme(branding)
     "--primary: #{branding.primary_color}; --primary-text: #{branding.primary_text_color}; " \
       "--secondary: #{branding.secondary_color}; --secondary-text: #{branding.secondary_text_color};"
   end
