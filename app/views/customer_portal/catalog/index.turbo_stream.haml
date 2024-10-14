@@ -1,7 +1,7 @@
 - if params[:more] == "true"
   = turbo_stream.remove "catalog-page-#{params[:page]}"
   = turbo_stream.append "catalog-list" do
-    = render "items"
+    = render "customer_portal/catalog/items"
 - else
   = turbo_stream.replace "catalog-list" do
-    = render "right_side"
+    = render "customer_portal/catalog/right_side"
