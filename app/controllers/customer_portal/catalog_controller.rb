@@ -2,10 +2,8 @@
 
 module CustomerPortal
   class CatalogController < BaseController
-    authorize_resource class: false
+    include Catalog
 
-    def index
-      catalog_record
-    end
+    authorize_resource class: false
   end
 end

@@ -48,6 +48,7 @@ Metrics/BlockLength:
     - "config/**/**"
     - "spec/**/**"
     - "db/seeds/*"
+    - "app/controllers/concerns/**/**"
 
 Metrics/CyclomaticComplexity:
   Max: 10

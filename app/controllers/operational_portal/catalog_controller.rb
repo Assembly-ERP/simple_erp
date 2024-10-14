@@ -2,10 +2,8 @@
 
 module OperationalPortal
   class CatalogController < OperationalPortal::NormalOperationController
-    authorize_resource class: false
+    include Catalog
 
-    def index
-      catalog_record
-    end
+    authorize_resource class: false
   end
 end
