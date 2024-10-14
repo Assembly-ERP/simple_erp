@@ -1,0 +1,14 @@
+.block{data: {controller: "accordion", open: "true"}}
+  %button.px-5.py-2.w-full.hover:bg-gray-50.text-start.flex.justify-between.items-center{data: {action: "click->accordion#toggle"}}
+    Category
+    = icon("fa-solid", "angle-down", class: "text-gray-600", "data-accordion-target": "iconDown")
+  .px-5{data: {"accordion-target": "content"}}
+    .flex.items-center.gap-2
+      = radio_button("filter", "item", "all", {checked: true, data: {"cp--catalog--search-target": "filterByRadio", action: "cp--catalog--search#searchExec"}})
+      %label{for: "filter_item_products"} All
+    .flex.items-center.gap-2
+      = radio_button("filter", "item", "products", {data: {"cp--catalog--search-target": "filterByRadio", action: "cp--catalog--search#searchExec"}})
+      %label{for: "filter_item_products"} Products
+    .flex.items-center.gap-2
+      = radio_button("filter", "item", "parts", {data: {"cp--catalog--search-target": "filterByRadio", action: "cp--catalog--search#searchExec"}})
+      %label{for: "filter_item_parts"} Parts
