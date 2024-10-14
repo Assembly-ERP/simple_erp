@@ -346,3 +346,4 @@ body:has(dialog[data-dialog-target='dialog'][open]) {
   background: var(--primary) !important;
 }
 
+@import 'actiontext.css';
