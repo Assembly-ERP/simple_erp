@@ -1,0 +1,47 @@
+= turbo_frame_tag "part_show" do
+  .py-4.flex.flex-col.gap-4
+    - if params[:modal].blank?
+      %h2.font-semibold.text-xl Part Details
+    .grid.grid-cols-4
+      .grid.col-span-3.gap-6
+        .grid.gap-2
+          %h2.font-bold.text-3xl= @part.name
+          %h2.font-bold.text-2xl
+            = number_to_currency(@part.price, precision: 2, unit: "$")
+        .flex.justify-center
+          .h-72.w-80.z-0
+            .swiper{data: {controller: "parts--carousel"}}
+              .swiper-wrapper
+                - if @part.images.attached?
+                  - @part.images.each do |image|
+                    .swiper-slide 
+                      = image_tag image.variant(:thumb), class: "w-80 h-72 object-cover rounded-md"
+                - else
+                  = image_tag "thumbnail.png", class: "w-80 h-72"
+              .swiper-pagination
+              .swiper-button-prev
+              .swiper-button-next
+        .grid.gap-2.mt-3
+          %h2.font-semibold Description
+          %p= @part.description
+      .flex.flex-col.gap-5.mt-4.h-96.overflow-y-auto
+        .flex.flex-col.gap-1
+          %h2.font-semibold SKU
+          %span= @part.sku.present? ? @part.sku : "N/A"
+        .flex.flex-col.gap-1
+          %h2.font-semibold Weight (lbs)
+          %span= number_with_precision(@part.weight, precision: 2)
+        .flex.flex-col.gap-1
+          %h2.font-semibold Length (in)
+          %span= number_with_precision(@part.length, precision: 2)
+        .flex.flex-col.gap-1
+          %h2.font-semibold Width (in)
+          %span= number_with_precision(@part.width, precision: 2)
+        - @part.poly_attributes.each do |pa|
+          .flex.flex-col.gap-1
+            %h2.font-semibold= pa.label
+            %span= pa.value
+    .flex.gap-3{class: params[:modal] == "true" ? "sticky bottom-0 w-full bg-white py-4 border-t mt-2" : ""}
+      %button.btn-md.bg-gray-500.text-white.flex.items-center.gap-2{data: {action: "dialog#close"}}
+        = icon("fa-solid", "xmark", class: "text-lg")
+        Close
