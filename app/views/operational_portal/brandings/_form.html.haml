@@ -49,8 +49,5 @@
           = form.label :secondary_text_color
           = form.hidden_field :secondary_text_color, data: {"color-picker-target": "input"}
           .block{data: {"color-picker-target": "button"}}
-    .field
-      = form.label :about_us, class: "text-lg"
-      = form.rich_text_area :about_us
     .block
       = form.submit "Save Branding", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"
