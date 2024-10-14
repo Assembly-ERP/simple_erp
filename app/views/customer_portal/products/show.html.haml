@@ -1,0 +1,47 @@
+= turbo_frame_tag "product_show" do
+  .py-4.flex.flex-col.gap-4
+    - if params[:modal].blank?
+      %h2.font-semibold.text-xl Part Details
+    .grid.gap-4
+      .grid.grid-cols-4
+        .grid.col-span-3.gap-6
+          .grid.gap-2
+            %h2.font-bold.text-3xl= @product.name
+            %h2.font-bold.text-2xl
+              = number_to_currency(@product.price, precision: 2, unit: "$")
+          .flex.justify-center
+            .h-72.w-80.z-0
+              .swiper{data: {controller: "products--carousel"}}
+                .swiper-wrapper
+                  - if  @product.images.attached?
+                    - @product.images.each do |image|
+                      .swiper-slide 
+                        = image_tag image, class: "w-80 h-72 object-cover rounded-md"
+                  - else
+                    = image_tag "thumbnail.png", class: "w-80 h-72"
+                .swiper-pagination
+                .swiper-button-prev
+                .swiper-button-next
+          .grid.gap-2.mt-3
+            %h2.font-semibold Description
+            %p= @product.description
+        .flex.flex-col.gap-5.mt-4.h-96.overflow-y-auto
+          .flex.flex-col.gap-1
+            %h2.font-semibold SKU
+            %span= @product.sku.present? ? @product.sku : "N/A"
+          .flex.flex-col.gap-1
+            %h2.font-semibold Weight (lbs)
+            %span= number_with_precision(@product.weight, precision: 2)
+          - @product.poly_attributes.each do |pa|
+            .flex.flex-col.gap-1
+              %h2.font-semibold= pa.label
+              %span= pa.value
+      = render "customer_portal/products/show_part_list"
+    .flex.gap-3{class: params[:modal] == "true" ? "sticky bottom-0 w-full bg-white py-4 border-t mt-2" : ""}
+      - if !user_signed_in?
+        = link_to 'Login', new_user_session_path, target: :_top, class: "btn-md text-[color:var(--primary-text)] bg-[color:var(--primary)]"
+        = link_to 'Sign Up', new_user_registration_path, target: :_top, class: "btn-md border border-gray-400 bg-white hover:bg-foreground"
+      - if params[:modal] == "true"
+        %button.btn-md.bg-gray-500.text-white.flex.items-center.gap-2{data: {action: "dialog#close"}}
+          = icon("fa-solid", "xmark", class: "text-lg")
+          Close
