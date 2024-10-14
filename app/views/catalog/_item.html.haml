@@ -1,4 +1,4 @@
-.relative.w-full{id: "#{item.type}_#{item.id}", data: {controller: "dialog", action: "click->dialog#backdropClose"}}
+.relative.w-full{id: "#{item.type}_#{item.id}", data: {controller: "dialog propagation", action: "click->dialog#backdropClose"}}
   = render "item_modal", item: item
   .cursor-pointer.flex.w-full.flex.flex-col.md:flex-row.md:items-center.p-3.md:gap-6.hover:bg-gray-50.bg-white.border.border-gray-200.rounded-lg.shadow{data: {action: "click->dialog#open"}}
     - item_p = item.type == "part" ? item.becomes(Part) : item
@@ -14,26 +14,11 @@
           .block{class: "#{item.type}-type-tag"}
             = item.type.humanize
         .lg:col-span-2
-          %h6.font-normal.text-gray-500 Price
-          %p.font-medium.text-gray-900
-            = number_to_currency(item.price, unit: "$", precision: 2)
+          %h6.font-normal.text-gray-500.mb-1 Price
+          = link_to 'Login', new_user_session_path, data: {action: "click->propagation#ignore"}, class: "btn-xs text-[color:var(--primary-text)] bg-[color:var(--primary)]"
         .lg:col-span-2
-          %h6.font-normal.text-gray-500 In stock
-          %p.font-medium.text-gray-900
-            - if item.type == "product"
-              - if item.available
-                %span.text-green-600{class: "text-[15px]"} Available
-              - else
-                %span.text-red-600{class: "text-[15px]"} Not available
-            - else
-              - if item.inventory
-                - if item.in_stock.positive?
-                  = item.in_stock
-                  stock
-                - else
-                  %span.text-red-600{class: "text-[15px]"} Out of stock
-              - else
-                %span.text-green-600{class: "text-[15px]"} Available
+          %h6.font-normal.text-gray-500.mb-1 In stock
+          = link_to 'Login', new_user_session_path, data: {action: "click->propagation#ignore"}, class: "btn-xs text-[color:var(--primary-text)] bg-[color:var(--primary)]"
         .lg:col-span-2
           %h6.font-normal.text-gray-500 Weight
           %p.font-medium.text-gray-900

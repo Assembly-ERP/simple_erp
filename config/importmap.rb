@@ -20,3 +20,5 @@ pin "swiper" # @11.1.12
 pin "cropperjs" # @1.6.2
 pin "@stimulus-components/color-picker", to: "@stimulus-components--color-picker.js" # @2.0.0
 pin "@simonwep/pickr", to: "@simonwep--pickr.js" # @1.9.0
+pin "trix" # @2.1.6
+pin "@rails/actiontext", to: "@rails--actiontext.js" # @7.2.100

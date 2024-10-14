@@ -4,6 +4,7 @@ require 'sidekiq/web'
 
 Rails.application.routes.draw do
   root 'catalog#index'
+  get '/about_us', to: 'about#index', as: :about_us
 
   devise_for :users, controllers: {
     registrations: 'users/registrations',

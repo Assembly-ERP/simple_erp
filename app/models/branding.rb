@@ -2,6 +2,7 @@
 
 class Branding < ApplicationRecord
   has_one_attached :logo
+  has_rich_text :about_us
 
   def self.client
     Branding.first

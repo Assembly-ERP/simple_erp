@@ -66,6 +66,10 @@
     @apply py-2 px-4 cursor-pointer rounded-lg text-[15px];
   }
   
+  .btn-xs {
+    @apply py-1.5 px-4 cursor-pointer rounded-lg text-[15px];
+  }
+
   /* Inputs */
   .input-primary {
     @apply w-full rounded py-3 px-4 ring-1 ring-zinc-300 focus:ring-2 focus:ring-[color:var(--primary)] border-0 focus:border-0 disabled:ring-zinc-200 read-only:focus:ring-1 read-only:focus:ring-zinc-400 disabled:bg-gray-50 disabled:text-gray-400 disabled:cursor-not-allowed; 
@@ -341,3 +345,4 @@ body:has(dialog[data-dialog-target='dialog'][open]) {
 .turbo-progress-bar {
   background: var(--primary) !important;
 }
+
