@@ -43,7 +43,7 @@
     .flex.gap-3{class: params[:modal] == "true" ? "sticky bottom-0 w-full bg-white py-4 border-t mt-2" : ""}
       - if !user_signed_in?
         = link_to 'Login', new_user_session_path, target: :_top, class: "btn-md text-[color:var(--primary-text)] bg-[color:var(--primary)]"
-        = link_to 'Sign Up', new_user_registration_path, target: :_top, class: "btn-md border border-gray-400 bg-white hover:bg-foreground"
+        -# = link_to 'Sign Up', new_user_registration_path, target: :_top, class: "btn-md border border-gray-400 bg-white hover:bg-foreground"
       - if params[:modal] == "true"
         %button.btn-md.bg-gray-500.text-white.flex.items-center.gap-2{data: {action: "dialog#close"}}
           = icon("fa-solid", "xmark", class: "text-lg")
