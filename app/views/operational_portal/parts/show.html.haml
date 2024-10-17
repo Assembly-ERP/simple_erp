@@ -30,7 +30,7 @@
           %span= @part.sku.present? ? @part.sku : "N/A"
         .flex.flex-col.gap-1
           %h2.font-semibold Category
-          %span= @part.category || "N/A"
+          %span= @part.category.present? ? @part.category : "N/A"
         .flex.flex-col.gap-1
           %h2.font-semibold Weight (lbs)
           %span= number_with_precision(@part.weight, precision: 2)
@@ -43,7 +43,7 @@
         - @part.poly_attributes.each do |pa|
           .flex.flex-col.gap-1
             %h2.font-semibold= pa.label
-            %span= pa.value
+            %span= pa.value.present? ? pa.value : "N/A"
     .flex.gap-3{class: params[:modal] == "true" ? "sticky bottom-0 w-full bg-white py-4 border-t mt-2" : ""}
       - if can?(:edit, @part)
         = link_to 'Edit Part', edit_operational_portal_part_path(@part), class: 'w-fit btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]', target: :_top

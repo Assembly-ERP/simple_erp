@@ -5,8 +5,8 @@ class CreatePolyAttributes < ActiveRecord::Migration[7.1]
     create_table :poly_attributes do |t|
       t.references :attributable, polymorphic: true, null: false
       t.string :input_type, null: false, default: 'text'
-      t.string :value, null: false
       t.string :label, null: false
+      t.string :value
 
       t.timestamps
     end

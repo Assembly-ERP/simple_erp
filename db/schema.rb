@@ -231,8 +231,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_20_101220) do
     t.string "attributable_type", null: false
     t.bigint "attributable_id", null: false
     t.string "input_type", default: "text", null: false
-    t.string "value", null: false
     t.string "label", null: false
+    t.string "value"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["attributable_type", "attributable_id"], name: "index_poly_attributes_on_attributable"

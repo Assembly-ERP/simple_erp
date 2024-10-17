@@ -8,7 +8,7 @@ class PolyAttribute < ApplicationRecord
   belongs_to :attributable, polymorphic: true
 
   # Validations
-  validates :label, :input_type, :value, presence: true
+  validates :label, :input_type, presence: true
   validates :input_type, inclusion: { in: INPUT_TYPES }
 end
 
@@ -20,7 +20,7 @@ end
 #  attributable_type :string           not null
 #  input_type        :string           default("text"), not null
 #  label             :string           not null
-#  value             :string           not null
+#  value             :string
 #  created_at        :datetime         not null
 #  updated_at        :datetime         not null
 #  attributable_id   :bigint           not null
