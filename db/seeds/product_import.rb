@@ -3,53 +3,47 @@
 if ENV['PRODUCT_IMPORT_FILE'].present?
   require 'csv'
 
+  PRODUCT_DB_COL = %w[
+    name
+    sku
+    description
+    nmfc
+    category
+    width
+    weight
+    length
+  ].freeze
+
   path = Rails.root.join("imports/#{ENV.fetch('PRODUCT_IMPORT_FILE', nil)}")
+
   downcase_converter = ->(header) { header.downcase }
   table = CSV.parse(File.read(path), headers: true, header_converters: downcase_converter)
 
   table.each do |row|
-    if row['type'] == 'part'
-      part = Part.build(
-        name: row['sku'],
-        sku: row['sku'],
-        description: row['new description'],
-        nmfc: row['nmfc'],
-        category: row['category'],
-        width: row['width']&.chomp('"').to_f || 0,
-        weight: row['weight']&.chomp('lbs').to_f || 0,
-        length: row['length']&.chomp('"').to_f || 0
-      )
+    part = Part.build
+    poly_attr_val = []
 
-      next unless part.valid?
+    row.to_h.each_key do |k|
+      next if k.blank?
 
-      part.save!
-      part.poly_attributes.create(input_type: 'text', value: row['gauge'], label: 'Gauge') if row['gauge'].present?
-      part.poly_attributes.create(input_type: 'text', value: row['depth'], label: 'Depth') if row['depth'].present?
-      part.poly_attributes.create(input_type: 'text', value: row['gcode'], label: 'GCODE') if row['gcode'].present?
-      part.poly_attributes.create(input_type: 'text', value: row['height'], label: 'Height') if row['height'].present?
-      if row['capacity'].present?
-        part.poly_attributes.create(input_type: 'text', value: row['capacity'],
-                                    label: 'Capacity')
+      value = row[k].to_s
+
+      if PRODUCT_DB_COL.include?(k)
+        value = value.chomp('lbs') if value.include?('lbs')
+        value = value.chomp('"') if value.last == '"'
+
+        part[k] = value
+      else
+        poly_attr_val << { input_type: 'text', value:, label: k.humanize }
       end
-    else
-      product = Product.build(
-        name: row['sku'],
-        sku: row['sku'],
-        description: row['new description'],
-        nmfc: row['nmfc'],
-        category: row['category'],
-        weight: row['weight']&.chomp('lbs').to_f || 0
-      )
+    end
 
-      next unless product.valid?
+    next unless part.valid?
 
-      product.save!
-      product.poly_attributes.create(input_type: 'text', value: row['gauge'], label: 'Gauge') if row['gauge'].present?
-      product.poly_attributes.create(input_type: 'text', value: row['gcode'], label: 'GCODE') if row['gcode'].present?
-      if row['height'].present?
-        product.poly_attributes.create(input_type: 'text', value: row['height'],
-                                       label: 'Height')
-      end
+    part.save!
+
+    poly_attr_val.each do |value|
+      part.poly_attributes.create(value)
     end
   end
 end
