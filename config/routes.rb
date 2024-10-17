@@ -9,8 +9,8 @@ Rails.application.routes.draw do
     get '/about_us', to: 'about#index', as: :about_us
   end
 
-  devise_for :users, controllers: {
-    registrations: 'users/registrations',
+  devise_for :users, skip: [:registrations], controllers: {
+    # registrations: 'users/registrations',
     invitations: 'users/invitations'
   }
 
