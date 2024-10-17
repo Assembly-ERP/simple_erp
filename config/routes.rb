@@ -125,7 +125,9 @@ end
 # == Route Map
 #
 #                                                 Prefix Verb   URI Pattern                                                                                       Controller#Action
-#                                                   root GET    /                                                                                                 home#index
+#                                                   root GET    /                                                                                                 catalog#index
+#                                        category_filter GET    /catalog/category_filter(.:format)                                                                catalog#category_filter
+#                                               about_us GET    /about_us(.:format)                                                                               about#index
 #                                       new_user_session GET    /users/sign_in(.:format)                                                                          devise/sessions#new
 #                                           user_session POST   /users/sign_in(.:format)                                                                          devise/sessions#create
 #                                   destroy_user_session DELETE /users/sign_out(.:format)                                                                         devise/sessions#destroy
@@ -152,7 +154,11 @@ end
 #                                                        POST   /users/invitation(.:format)                                                                       users/invitations#create
 #                                            sidekiq_web        /sidekiq                                                                                          Sidekiq::Web
 #                                                        GET    /                                                                                                 redirect(301, /operational_portal)
+#                                                        GET    /about_us(.:format)                                                                               redirect(301, /operational_portal)
 #                                                        GET    /                                                                                                 redirect(301, /customer_portal/catalog)
+#                                                        GET    /about_us(.:format)                                                                               redirect(301, /customer_portal/catalog)
+#                                                product GET    /products/:id(.:format)                                                                           products#show
+#                                                   part GET    /parts/:id(.:format)                                                                              parts#show
 #                                       operational_root GET    /operational_portal(.:format)                                                                     operational_portal/dashboard#index
 #                              operational_portal_manage GET    /operational_portal/manage(.:format)                                                              redirect(301, /operational_portal/users)
 #                       operational_portal_catalog_index GET    /operational_portal/catalog(.:format)                                                             operational_portal/catalog#index
@@ -231,6 +237,7 @@ end
 #                             operational_portal_profile GET    /operational_portal/profile(.:format)                                                             operational_portal/profiles#show
 #                                                        PATCH  /operational_portal/profile(.:format)                                                             operational_portal/profiles#update
 #                                                        PUT    /operational_portal/profile(.:format)                                                             operational_portal/profiles#update
+#          category_filter_customer_portal_catalog_index GET    /customer_portal/catalog/category_filter(.:format)                                                customer_portal/catalog#category_filter
 #                          customer_portal_catalog_index GET    /customer_portal/catalog(.:format)                                                                customer_portal/catalog#index
 #                 quote_or_invoice_customer_portal_order GET    /customer_portal/orders/:id/quote_or_invoice(.:format)                                            customer_portal/orders#quote_or_invoice
 #                                 customer_portal_orders GET    /customer_portal/orders(.:format)                                                                 customer_portal/orders#index
@@ -241,6 +248,8 @@ end
 #                                                        PATCH  /customer_portal/orders/:id(.:format)                                                             customer_portal/orders#update
 #                                                        PUT    /customer_portal/orders/:id(.:format)                                                             customer_portal/orders#update
 #                                                        DELETE /customer_portal/orders/:id(.:format)                                                             customer_portal/orders#destroy
+#                                   customer_portal_part GET    /customer_portal/parts/:id(.:format)                                                              customer_portal/parts#show
+#                                customer_portal_product GET    /customer_portal/products/:id(.:format)                                                           customer_portal/products#show
 #                        customer_portal_support_tickets GET    /customer_portal/support_tickets(.:format)                                                        customer_portal/support_tickets#index
 #                                                        POST   /customer_portal/support_tickets(.:format)                                                        customer_portal/support_tickets#create
 #                     new_customer_portal_support_ticket GET    /customer_portal/support_tickets/new(.:format)                                                    customer_portal/support_tickets#new
@@ -251,7 +260,12 @@ end
 #                                                        DELETE /customer_portal/support_tickets/:id(.:format)                                                    customer_portal/support_tickets#destroy
 #                                  customer_portal_carts GET    /customer_portal/cart(.:format)                                                                   customer_portal/carts#index
 #                                                        POST   /customer_portal/cart(.:format)                                                                   customer_portal/carts#create
-#                                   customer_portal_cart DELETE /customer_portal/cart/:id(.:format)                                                               customer_portal/carts#destroy
+#                               new_customer_portal_cart GET    /customer_portal/cart/new(.:format)                                                               customer_portal/carts#new
+#                              edit_customer_portal_cart GET    /customer_portal/cart/:id/edit(.:format)                                                          customer_portal/carts#edit
+#                                   customer_portal_cart GET    /customer_portal/cart/:id(.:format)                                                               customer_portal/carts#show
+#                                                        PATCH  /customer_portal/cart/:id(.:format)                                                               customer_portal/carts#update
+#                                                        PUT    /customer_portal/cart/:id(.:format)                                                               customer_portal/carts#update
+#                                                        DELETE /customer_portal/cart/:id(.:format)                                                               customer_portal/carts#destroy
 #                           edit_customer_portal_profile GET    /customer_portal/profile/edit(.:format)                                                           customer_portal/profiles#edit
 #                                customer_portal_profile GET    /customer_portal/profile(.:format)                                                                customer_portal/profiles#show
 #                                                        PATCH  /customer_portal/profile(.:format)                                                                customer_portal/profiles#update

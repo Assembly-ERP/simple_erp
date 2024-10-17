@@ -57,6 +57,7 @@ class Part < ApplicationRecord
             }
 
   # Generators
+  before_validation :defaults
   before_validation :set_price_value, unless: :manual_price?
   after_save :recalculate_products, if: :recalculate_products_condition?
 
@@ -80,6 +81,12 @@ class Part < ApplicationRecord
 
   def set_price_value
     self.price = calculate_price
+  end
+
+  def defaults
+    self.name = sku if sku.present?
+    self.length ||= 0.0
+    self.width ||= 0.0
   end
 end
 
