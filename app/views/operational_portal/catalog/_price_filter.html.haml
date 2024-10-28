@@ -1,0 +1,10 @@
+.block{data: {controller: "accordion", open: "false"}}
+  %button.px-5.py-2.w-full.hover:bg-gray-50.text-start.flex.justify-between.items-center{data: {action: "click->accordion#toggle"}}
+    Price
+    = icon("fa-solid", "angle-down", class: "text-gray-600", "data-accordion-target": "iconDown")
+  .px-5.py-1.hidden{data: {"accordion-target": "content"}}
+    .flex.gap-3.items-center
+      %input.border.border-gray-300.rounded-lg{class: "py-1.5 px-4 w-28 ring-1 ring-gray-300 focus:ring-[color:var(--primary)] focus:ring-2 focus:ring-[color:var(--primary)] focus:outline-none border-none", placeholder: "Min", type: :number, data: {"catalog--search-target": "minPrice", action: "change->catalog--search#searchExec"}}
+      %div
+        = "-"
+      %input.border.border-gray-300.rounded-lg{class: "py-1.5 px-4 w-28 ring-1 ring-gray-300 focus:ring-[color:var(--primary)] focus:ring-2 focus:ring-[color:var(--primary)] focus:outline-none border-none", placeholder: "Max", type: :number, data: {"catalog--search-target": "maxPrice", action: "change->catalog--search#searchExec"}}
