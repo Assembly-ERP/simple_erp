@@ -42,7 +42,7 @@ module CustomerPortal
 
     def cart_existence
       if cart_params[:product_id].present? && cart_params[:part_id].blank?
-        return Cart.find_by(user_id: current_user.id, product_id: cart_params[:product_id])
+        return current_user.carts.find_by(product_id: cart_params[:product_id])
       end
 
       return nil unless cart_params[:product_id].blank? && cart_params[:part_id].present?
