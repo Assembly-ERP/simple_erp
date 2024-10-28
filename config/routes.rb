@@ -140,13 +140,6 @@ end
 #                                          user_password PATCH  /users/password(.:format)                                                                         devise/passwords#update
 #                                                        PUT    /users/password(.:format)                                                                         devise/passwords#update
 #                                                        POST   /users/password(.:format)                                                                         devise/passwords#create
-#                               cancel_user_registration GET    /users/cancel(.:format)                                                                           users/registrations#cancel
-#                                  new_user_registration GET    /users/sign_up(.:format)                                                                          users/registrations#new
-#                                 edit_user_registration GET    /users/edit(.:format)                                                                             users/registrations#edit
-#                                      user_registration PATCH  /users(.:format)                                                                                  users/registrations#update
-#                                                        PUT    /users(.:format)                                                                                  users/registrations#update
-#                                                        DELETE /users(.:format)                                                                                  users/registrations#destroy
-#                                                        POST   /users(.:format)                                                                                  users/registrations#create
 #                                  new_user_confirmation GET    /users/confirmation/new(.:format)                                                                 devise/confirmations#new
 #                                      user_confirmation GET    /users/confirmation(.:format)                                                                     devise/confirmations#show
 #                                                        POST   /users/confirmation(.:format)                                                                     devise/confirmations#create
@@ -165,6 +158,7 @@ end
 #                                                   part GET    /parts/:id(.:format)                                                                              parts#show
 #                                       operational_root GET    /operational_portal(.:format)                                                                     operational_portal/dashboard#index
 #                              operational_portal_manage GET    /operational_portal/manage(.:format)                                                              redirect(301, /operational_portal/users)
+#       category_filter_operational_portal_catalog_index GET    /operational_portal/catalog/category_filter(.:format)                                             operational_portal/catalog#category_filter
 #                       operational_portal_catalog_index GET    /operational_portal/catalog(.:format)                                                             operational_portal/catalog#index
 #        search_part_results_operational_portal_products GET    /operational_portal/products/search_part_results(.:format)                                        operational_portal/products#search_part_results
 #                            operational_portal_products GET    /operational_portal/products(.:format)                                                            operational_portal/products#index
