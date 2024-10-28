@@ -23,9 +23,10 @@ class Part < ApplicationRecord
   scope :sort_newest, -> { order(created_at: :desc) }
   scope :sort_oldest, -> { order(created_at: :asc) }
   scope :not_voided, -> { where(voided_at: nil) }
-  scope :category_filter, -> { select('count(category) as category_count').group(:category) }
+  scope :category_filter, -> { select('parts.category, count(category) as category_count').group(:category) }
   scope :search_results, lambda {
-    select('parts.category , count(parts.category) as category_count').where.not(category: nil).group(:category)
+    select("parts.id, parts.name, parts.price, parts.weight, parts.sku, 'part' AS type," \
+           'parts.created_at')
   }
   scope :catalog, lambda {
     select('parts.id, parts.name, parts.description, parts.price, parts.weight, parts.sku, ' \
