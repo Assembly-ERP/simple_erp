@@ -1,6 +1,13 @@
 .rounded-lg.border.shadow.py-2.h-fit.sticky.bg-white{class: "top-[141px] min-w-[330px] max-w-[330px]"}
   .grid
-    .px-5.pt-2.pb-1
+    .flex.items-center.gap-3.px-5.pt-2.pb-3.border-b
+      = link_to new_operational_portal_product_path, class: "flex gap-3 items-center btn-sm bg-[color:var(--primary)] text-[color:var(--primary-text)]" do
+        = icon("fa-solid", "plus", class: "text-sm")
+        New Product
+      = link_to new_operational_portal_part_path, class: "flex gap-3 items-center btn-sm bg-[color:var(--primary)] text-[color:var(--primary-text)]" do
+        = icon("fa-solid", "plus", class: "text-sm")
+        New Part
+    .px-5.pt-3.pb-1
       .relative
         %input.text-sm.border.border-gray-300.rounded-lg.pl-9.pr-2.w-full{class: "py-2 focus:outline-[color:var(--primary)]", placeholder: "Search", data: {"catalog--search-target": "input", action: "input->catalog--search#search"}}
         = icon("fa-solid", "magnifying-glass", class: "text-sm absolute top-3 left-3.5 text-gray-400")
