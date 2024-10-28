@@ -17,7 +17,7 @@ class Ability
 
   def operational_portal(user)
     can :read, :dashboard
-    can %i[read search], :catalog
+    can %i[read search category_filter], :catalog
     can :manage, :profile
 
     # Product

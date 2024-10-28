@@ -1,0 +1,7 @@
+= turbo_frame_tag "category-filter" do
+  .grid.gap-1
+    - @category_filter.each do |cf|
+      - detail = cf.category ? cf.category : "Unlisted"
+      %label.flex.gap-1.items-center.cursor-pointer
+        = check_box_tag(detail, cf.category, id: "category-item-#{cf.category}", class: "checkbox-primary", data: {"action": "catalog--search#searchExec"})
+        = detail + " (#{cf.category_count})"

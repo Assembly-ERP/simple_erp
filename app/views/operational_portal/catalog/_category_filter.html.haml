@@ -1,0 +1,8 @@
+.block{data: {controller: "accordion", open: "false"}}
+  %button.px-5.py-2.w-full.hover:bg-gray-50.text-start.flex.justify-between.items-center{data: {action: "click->accordion#toggle"}}
+    Category
+    = icon("fa-solid", "angle-down", class: "text-gray-600", "data-accordion-target": "iconDown")
+  .px-5.py-1.hidden{data: {"accordion-target": "content"}}
+    = turbo_frame_tag "category-filter", src: category_filter_operational_portal_catalog_index_path, loading: :lazy do
+      .flex.items-center.justify-center.w-full.py-1{class: "h-full"}
+        = icon("fa-solid", "spinner", class: "animate-spin text-2xl text-gray-400")
