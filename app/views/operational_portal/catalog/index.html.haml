@@ -1,4 +1,4 @@
 .py-5.flex.flex-col.gap-5
-  .rounded-md.p-4.bg-white.border.shadow.flex.flex-col.gap-4
-    = render "items_header"
-    = render "item_list"
+  .flex.gap-4{data: {controller: "catalog--search", url: operational_portal_catalog_index_path}}
+    = render "left_side"
+    = render "right_side"
