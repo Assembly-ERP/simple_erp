@@ -5,10 +5,6 @@ module OperationalPortal
     load_and_authorize_resource except: :search_part_results
     authorize_resource class: false, only: :search_part_results
 
-    # def index
-    #   @products = Product.accessible_by(current_ability)
-    # end
-
     def show; end
 
     def new; end
