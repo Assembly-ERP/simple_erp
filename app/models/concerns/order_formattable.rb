@@ -13,7 +13,7 @@ module OrderFormattable
     private
 
     def format_identity
-      case OrderIdFormat.active_format&.format
+      case OrderIdFormat.active_format.format
       when 'yearly'
         self.holder_id = Order.latest_yearly_holder + 1
         self.formatted_id = "#{Time.zone.now.strftime('%y')}-#{format('%04d', holder_id)}"
