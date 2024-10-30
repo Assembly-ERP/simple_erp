@@ -1,4 +1,4 @@
-= form_with(model: @branding, url: operational_portal_branding_path, html: {id: "branding-form"}) do |form|
+= form_with(model: @branding, url: operational_portal_branding_path, html: {id: "branding-form", data: {controller: "brandings--form"}}) do |form|
   .grid.gap-4
     - if @branding.errors.any?
       = render ErrorCardComponent.new errors: @branding.errors.full_messages, label: "Validations"
@@ -14,7 +14,7 @@
         = form.text_field :phone, class: "input-primary", placeholder: "Phone"
       .field
         = form.label :logo
-        = form.file_field :logo, class: "input-primary"
+        = render "upload_logo", form:
     .grid.gap-2
       %h1.font-semibold Address
       .grid.grid-cols-4.gap-4
