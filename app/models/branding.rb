@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 class Branding < ApplicationRecord
+  ALLOWED_LOGO_TYPES = %w[image/png image/jpg image/jpeg].freeze
+
   has_one_attached :logo
+
+  validates :logo, content_type: ALLOWED_LOGO_TYPES
 
   def self.client
     Branding.first

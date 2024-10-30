@@ -1,0 +1,10 @@
+= form.file_field :logo, id: "dropzone-file", class: "hidden", data: {action: "input->brandings--form#logoHandler"}, accept: Branding::ALLOWED_LOGO_TYPES.join(", ")
+
+%label{for: "dropzone-file", class: "bg-white cursor-pointer rounded-md flex gap-1 items-center border-2 border-dashed border-gray-400 p-2 hover:border-primary transition-colors duration-200 text-gray-500 hover:text-primary"}
+  = image_tag form.object.logo.attached? ? form.object.logo : "thumbnail.png",
+  size: 320, id: "thumbnail", data: {"brandings--form-target": "image"},
+  class: "rounded max-h-20 border max-w-52 min-h-20 min-w-52 object-cover object-center"
+  .flex.justify-center.items-center.w-full.flex-col
+    %p.font-medium Select Image
+    %p.text-sm.uppercase
+      = Branding::ALLOWED_LOGO_TYPES.join(", ").gsub("image/", "")
