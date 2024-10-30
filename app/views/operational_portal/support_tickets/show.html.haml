@@ -16,7 +16,7 @@
         = @support_ticket.status
   .grid.bg-white.rounded.px-5.pt-5.pb-7.shadow.w-full
     %h2.font-semibold.text-lg.text-center.mb-3 Messages
-    .w-full{class: "mx-auto w-[800px]"}
+    .w-full{class: "mx-auto max-w-[800px]"}
       .grid.gap-5
         - if @support_ticket_messages.any?
           - @support_ticket_messages.each do |support_ticket_message|
