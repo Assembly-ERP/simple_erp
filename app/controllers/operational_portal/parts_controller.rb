@@ -4,10 +4,6 @@ module OperationalPortal
   class PartsController < OperationalPortal::NormalOperationController
     load_and_authorize_resource
 
-    # def index
-    #   @parts = Part.accessible_by(current_ability)
-    # end
-
     def show; end
 
     def new; end
