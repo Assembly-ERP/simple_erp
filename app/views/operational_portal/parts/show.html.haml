@@ -23,7 +23,7 @@
               .swiper-button-next
         .grid.gap-2.mt-3
           %h2.font-semibold Description
-          %p= @part.description
+          %p= @part.description.html_safe
       .flex.flex-col.gap-5.mt-4.h-96.overflow-y-auto
         .flex.flex-col.gap-1
           %h2.font-semibold SKU

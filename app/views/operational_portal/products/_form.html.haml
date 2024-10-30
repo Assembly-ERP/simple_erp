@@ -39,7 +39,8 @@
           .block
             .field
               = form.label :description
-              = form.text_area :description, class: "input-primary", rows: 11
+              .trix-wrapper.no-attachment
+                = form.rich_text_area :description
         = render "search_parts", form:
         = render "form_parts", form:
     .accordion.group{data: {controller: "accordion", open: "false"}}

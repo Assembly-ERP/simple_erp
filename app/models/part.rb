@@ -51,11 +51,9 @@ class Part < ApplicationRecord
   validates :price, numericality: { greater_than_or_equal_to: 0, only_float: true }
   validates :weight, numericality: { greater_than_or_equal_to: 0 }
   validates :images, content_type: ALLOWED_IMAGE_TYPES
-  validates :sku,
-            uniqueness: {
-              allow_blank: true,
-              conditions: -> { where("sku IS NOT NULL AND sku != '' AND voided_at IS NULL") }
-            }
+  validates :sku, uniqueness: { allow_blank: true, conditions: lambda {
+    where("sku IS NOT NULL AND sku != '' AND voided_at IS NULL")
+  } }
 
   # Generators
   before_validation :defaults
