@@ -415,7 +415,3 @@ trix-toolbar .trix-button-group:not(:first-child) {
   margin-left: unset !important;
 }
 
-trix-toolbar .trix-button.trix-active {
-  @apply !bg-transparent;
-}
-
