@@ -9,7 +9,7 @@ module OperationalPortal
     end
 
     def show
-      @support_ticket_messages = @support_ticket.support_ticket_messages.with_user
+      @support_ticket_messages = @support_ticket.support_ticket_messages
     end
 
     def new; end

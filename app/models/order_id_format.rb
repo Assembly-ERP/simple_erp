@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class OrderIdFormat < ApplicationRecord
-  def self.yearly_format; end
-
   def self.active_format
     find_by(active: true)
   end

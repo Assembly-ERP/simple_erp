@@ -2,20 +2,21 @@
   - if @support_ticket.errors.any?
     = render ErrorCardComponent.new errors: @support_ticket.errors.full_messages, label: "Validations"
   .field
-    = form.label :title
-    = form.text_field :title, class: "input-primary", required: true
+    = form.label :title, "Ticket Title"
+    = form.text_field :title, class: "input-primary", required: true, placeholder: "Ticket Title"
   .flex.gap-4
     .field
       = form.label :customer_id, "Customer"
-      = form.select :customer_id, Customer.all.pluck(:name, :id), {prompt: "--Select customer--"}, {data: {action: "change->support-tickets--form#customerChanged", "support-tickets--form-target": "customerSelect"}}
+      = form.select :customer_id, Customer.all.pluck(:name, :id), {prompt: "--Select customer--"}, {data: {action: "change->support-tickets--form#customerChanged", "support-tickets--form-target": "customerSelect"}, class: "h-12 border-none"}
     .field
       = form.label :user_id, "Assign to Customer User"
-      = form.select :user_id, [], {}, {data: {"support-tickets--form-target": "userSelect"}, disabled: true}
+      = form.select :user_id, [], {}, {data: {"support-tickets--form-target": "userSelect"}, disabled: true, class: "h-12 border-none"}
   .field
     = form.label :issue_description
-    = form.text_area :issue_description, class: "input-primary", required: true, rows: 5
+    .trix-wrapper.no-attachment
+      = form.rich_text_area :issue_description, required: true, placeholder: "Write a message here.."
   .field
-    = form.label :files
+    = form.label :files, "File upload"
     = form.file_field :files, multiple: true
   .mt-2
     = form.submit submit_text, class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"
