@@ -415,15 +415,3 @@ trix-toolbar .trix-button-group:not(:first-child) {
   margin-left: unset !important;
 }
 
-trix-toolbar .trix-button--icon::before {
-  @apply !opacity-50;
-}
-
-trix-toolbar .trix-button--icon.trix-active::before {
-  @apply !opacity-100;
-}
-
-trix-toolbar .trix-button.trix-active {
-  @apply !bg-transparent;
-}
-
