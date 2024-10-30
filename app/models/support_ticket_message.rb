@@ -10,11 +10,6 @@ class SupportTicketMessage < ApplicationRecord
 
   # Scopes
   default_scope { order(id: :asc) }
-  scope :with_user,
-        lambda {
-          select('support_ticket_messages.*, users.name AS sender_name')
-            .joins(:user)
-        }
 
   validates :body, presence: true
 end
