@@ -1,0 +1,8 @@
+= form.file_field :files, id: "dropzone-file", data: {action: "input->support-tickets--messages#fileHandler"}, multiple: true, class: "hidden peer"
+%label{for: "dropzone-file", data: {"support-tickets--messages-target": "dropArea"}, class: "w-[600px] flex flex-col items-center justify-center h-60 transition-colors duration-200 border-2 text-gray-500 peer-disabled:text-gray-500 border-gray-300 peer-disabled:border-gray-300 peer-disabled:cursor-not-allowed hover:text-[color:var(--primary)] hover:border-[color:var(--primary)] border-dashed rounded-md cursor-pointer bg-white"}
+  = icon("fa-solid", "upload", class: "text-4xl mb-3")
+  %p.mb-1
+    %span.font-semibold Click to upload
+    or drag and drop
+  %p.text-sm.uppercase.font-semibold{class: "text-[color:var(--primary)]", data: {"support-tickets--messages-target": "fileSelected"}}
+    Browse Files

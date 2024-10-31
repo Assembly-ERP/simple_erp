@@ -1,50 +1,29 @@
-/ app/views/customer_portal/support_tickets/show.html.erb
-%h1 Support Ticket Details
-%p
-  %strong Ticket ID:
-  = @support_ticket.id
-%p
-  %strong Title:
-  = @support_ticket.title
-%p
-  %strong Status:
-  = @support_ticket.status
-%p
-  %strong Created At:
-  = @support_ticket.created_at.strftime("%B %d, %Y %H:%M")
-%h2 Messages
-%ul
-  - if @support_ticket.support_ticket_messages.any?
-    - @support_ticket.support_ticket_messages.each do |support_ticket_message|
-      %li{:style => "margin-bottom: 1em;"}
-        %strong Message Added:
-        = support_ticket_message.created_at.strftime("%B %d, %Y %H:%M")
-        %div
-          %strong Message:
-          = support_ticket_message.body
-        - if support_ticket_message.file.attached?
-          %div
-            %strong File:
-            = support_ticket_message.file.filename.to_s
-            %div
-              = link_to "Preview", "#", class: "preview-button", data: { url: rails_blob_path(support_ticket_message.file), content_type: support_ticket_message.file.content_type }
-              = link_to "Download", rails_blob_path(support_ticket_message.file, disposition: "attachment")
-  - else
-    %li No messages found.
-%hr{:style => "margin: 2em 0;"}/
-- if current_user.role == 'customer_user_admin' || (current_user.role == 'customer_user_regular' && @support_ticket.user == current_user)
-  %h3 Add a New Message
-  = form_with model: [@support_ticket, SupportTicketMessage.new], url: add_message_customer_portal_support_ticket_path(@support_ticket), local: true, html: { multipart: true } do |form|
-    .field
-      = form.label :body, "Message"
-      = form.text_area :body
-    .field
-      = form.label :file, "File"
-      = form.file_field :file
-    .actions
-      = form.submit "Add Message"
-= link_to 'Back to Tickets', customer_portal_support_tickets_path
-#preview-modal.preview-modal
-  .preview-modal-content
-    %span.close-button ×
-    #preview-content Here is Text
+.py-5.flex.flex-col.gap-5.relative{data: {controller: "support-tickets--messages"}}
+  .grid.bg-white.rounded.shadow.p-4.py-5.gap-2.h-fit.place-items-center
+    %h1.text-lg.font-semibold.text-center.mb-3 Support Ticket Details
+    %ul.grid.grid-cols-2.gap-2
+      %li
+        %strong Ticket ID:
+        = @support_ticket.id
+      %li
+        %strong Created At:
+        = @support_ticket.created_at.strftime("%B %d, %Y %H:%M")
+      %li
+        %strong Title:
+        = @support_ticket.title
+      %li
+        %strong Status:
+        = @support_ticket.status
+  .grid.bg-white.rounded.px-5.pt-5.pb-7.shadow.w-full
+    %h2.font-semibold.text-lg.text-center.mb-3 Messages
+    = turbo_frame_tag "support_ticket_messages", src: messages_customer_portal_support_ticket_path(@support_ticket), loading: :lazy do
+      = render "message_loading"
+  .bg-white.rounded.p-5.shadow.border.border-gray-100
+    = form_with model: [@support_ticket, SupportTicketMessage.new], url: add_message_customer_portal_support_ticket_path(@support_ticket), html: {class: "grid gap-2", data: {action: "turbo:submit-end->support-tickets--messages#submitEnd"}} do |form|
+      .hidden{id: dom_id(@support_ticket, "notification-container")}
+      .flex.gap-5
+        .trix-wrapper.no-attachment.w-full
+          = form.rich_text_area :body, placeholder: "Write a message here.."
+        = render "message_files", form:
+      .mt-2
+        = form.submit "Add Message", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"

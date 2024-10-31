@@ -51,13 +51,11 @@ class Ability
     can :manage, :profile
     can :manage, :cart
     can :manage, Order, customer: user.customer
-    can :manage, SupportTicket, customer: user.customer
+    can :manage, SupportTicket, customer: user.customer if user.role == 'customer_user_admin'
+    can :manage, SupportTicket, user:
     can(:manage, Cart, user:)
     can :show, Part
     can :show, Product
-
-    can :create, SupportTicketMessage
-    can :read, SupportTicketMessage, support_ticket: { customer: user.customer }
     can %i[update destroy], SupportTicketMessage, user:
   end
 

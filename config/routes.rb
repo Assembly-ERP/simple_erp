@@ -95,7 +95,12 @@ Rails.application.routes.draw do
     end
     resources :parts, only: :show
     resources :products, only: :show
-    resources :support_tickets
+    resources :support_tickets do
+      member do
+        get :messages
+        post :add_message
+      end
+    end
     resources :carts, path: "cart"
     resource :profile, only: %i[show edit update]
   end
