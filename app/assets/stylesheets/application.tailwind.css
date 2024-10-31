@@ -20,6 +20,19 @@
   select option:not([value]) {
     @apply text-zinc-500;
   }
+
+  ul {
+    @apply !list-disc;
+  }
+
+  ol {
+    @apply !list-decimal;
+  }
+
+  ul li,
+  ol li {
+    @apply !ml-8;
+  }
 }
 
 @layer components {
@@ -393,7 +406,7 @@ body:has(dialog[data-dialog-target="dialog"][open]) {
 }
 
 trix-toolbar {
-  @apply bg-gray-50 rounded-t-lg pt-2;
+  @apply !bg-gray-50 !rounded-t-lg !pt-2;
 }
 
 trix-toolbar .trix-button-group {
@@ -407,11 +420,10 @@ trix-toolbar .trix-button-group button {
 
 trix-toolbar .trix-button-row {
   flex-wrap: wrap !important;
-  display: flex;
-  gap: 10px;
+  display: flex !important;
+  gap: 10px !important;
 }
 
 trix-toolbar .trix-button-group:not(:first-child) {
   margin-left: unset !important;
 }
-

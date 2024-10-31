@@ -1,19 +1,19 @@
 .py-5.flex.flex-col.gap-5.relative{data: {controller: "support-tickets--messages"}}
   .grid.bg-white.rounded.shadow.p-4.py-5.gap-2.h-fit.place-items-center
     %h1.text-lg.font-semibold.text-center.mb-3 Support Ticket Details
-    %ul.grid.grid-cols-2.gap-2
-      %li
+    .grid.grid-cols-2.gap-2
+      .block
         %strong Ticket ID:
         = @support_ticket.id
-      %li
+      .block
         %strong Created At:
         = @support_ticket.created_at.strftime("%B %d, %Y %H:%M")
-      %li
+      .block
         %strong Title:
         = @support_ticket.title
-      %li
+      .block
         %strong Status:
-        = @support_ticket.status
+        = @support_ticket.status.humanize
   .grid.bg-white.rounded.px-5.pt-5.pb-7.shadow.w-full
     %h2.font-semibold.text-lg.text-center.mb-3 Messages
     = turbo_frame_tag "support_ticket_messages", src: messages_customer_portal_support_ticket_path(@support_ticket), loading: :lazy do

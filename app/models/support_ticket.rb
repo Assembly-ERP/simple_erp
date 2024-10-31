@@ -2,7 +2,7 @@
 
 class SupportTicket < ApplicationRecord
   # Constants
-  STATUSES = %w[pending open resolved].freeze
+  STATUSES = %w[open waiting_for_support waiting_for_customer closed resolved].freeze
 
   # Attachments
   has_many_attached :files
