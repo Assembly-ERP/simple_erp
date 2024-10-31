@@ -48,9 +48,9 @@ module OperationalPortal
 
       respond_to do |format|
         if @new_message.save
-          format.turbo_stream { render locals: { errors: nil } }
+          format.turbo_stream
         else
-          format.turbo_stream { render status: :unprocessable_entity, locals: { errors: @new_message.errors.full_messages } }
+          format.turbo_stream { render status: :unprocessable_entity }
         end
       end
     end
