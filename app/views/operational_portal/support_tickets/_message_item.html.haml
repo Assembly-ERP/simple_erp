@@ -7,3 +7,7 @@
     = support_ticket_message.created_at.strftime("%B %d, %Y %H:%M")
   .px-3.py-2.bg-gray-100.rounded-b-lg.rounded-r-lg.ml-8
     = support_ticket_message.body.html_safe
+  - if support_ticket_message.files.attached?
+    %button{type: :button, class: "text-[color:var(--primary)] text-start ml-8 flex items-center gap-1.5 hover:underline"}
+      = icon("fa-solid", "folder")
+      Preview files
