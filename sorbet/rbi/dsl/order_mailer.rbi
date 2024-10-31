@@ -7,9 +7,6 @@
 
 class OrderMailer
   class << self
-    sig { returns(::ActionMailer::MessageDelivery) }
-    def quote?; end
-
     sig { params(order: T.untyped).returns(::ActionMailer::MessageDelivery) }
     def send_quote_or_invoice(order); end
   end
