@@ -1,18 +1,22 @@
 # frozen_string_literal: true
 
 class SupportTicketMessage < ApplicationRecord
+  include SupportTicketMessageStatusable
+
   # Attachments
   has_many_attached :files
 
   # Relationships
-  belongs_to :support_ticket
+  belongs_to :support_ticket, touch: true
   belongs_to :user
 
   # Scopes
   default_scope { order(id: :asc) }
 
+  # validations
   validates :body, presence: true
 
+  # Generators
   after_commit :add_stream_messages, on: :create
 
   def add_stream_messages

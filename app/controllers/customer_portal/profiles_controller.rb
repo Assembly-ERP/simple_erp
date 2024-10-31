@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module CustomerPortal
-  class ProfilesController < BaseController
+  class ProfilesController < CustomerPortal::BaseController
     authorize_resource class: false
 
     def show
