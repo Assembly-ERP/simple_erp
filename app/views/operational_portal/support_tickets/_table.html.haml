@@ -12,7 +12,7 @@
         %tr
           %td= link_to ticket.title, operational_portal_support_ticket_path(ticket)
           %td= ticket.customer_name
-          %td= ticket.status
+          %td= ticket.status.humanize
           %td= ticket.created_at
           %td.flex.gap-1
             = link_to 'View', operational_portal_support_ticket_path(ticket)

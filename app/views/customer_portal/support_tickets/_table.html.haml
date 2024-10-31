@@ -10,7 +10,7 @@
       - @support_tickets.each do |ticket|
         %tr
           %td= link_to ticket.title, customer_portal_support_ticket_path(ticket)
-          %td= ticket.status
+          %td= ticket.status.humanize
           %td= ticket.created_at
           %td.flex.gap-1
             = link_to 'View', operational_portal_support_ticket_path(ticket)

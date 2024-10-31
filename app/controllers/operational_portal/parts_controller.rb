@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module OperationalPortal
-  class PartsController < OperationalPortal::NormalOperationController
+  class PartsController < OperationalPortal::BaseController
     load_and_authorize_resource
 
     def show; end
