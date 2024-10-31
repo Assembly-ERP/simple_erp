@@ -324,9 +324,6 @@ class Cart
   end
 
   module GeneratedAssociationMethods
-    sig { params(args: T.untyped, blk: T.untyped).returns(::Customer) }
-    def build_customer(*args, &blk); end
-
     sig { params(args: T.untyped, blk: T.untyped).returns(::Part) }
     def build_part(*args, &blk); end
 
@@ -335,12 +332,6 @@ class Cart
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::User) }
     def build_user(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(::Customer) }
-    def create_customer(*args, &blk); end
-
-    sig { params(args: T.untyped, blk: T.untyped).returns(::Customer) }
-    def create_customer!(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::Part) }
     def create_part(*args, &blk); end
@@ -359,18 +350,6 @@ class Cart
 
     sig { params(args: T.untyped, blk: T.untyped).returns(::User) }
     def create_user!(*args, &blk); end
-
-    sig { returns(T.nilable(::Customer)) }
-    def customer; end
-
-    sig { params(value: T.nilable(::Customer)).void }
-    def customer=(value); end
-
-    sig { returns(T::Boolean) }
-    def customer_changed?; end
-
-    sig { returns(T::Boolean) }
-    def customer_previously_changed?; end
 
     sig { returns(T.nilable(::Part)) }
     def part; end
@@ -396,9 +375,6 @@ class Cart
     sig { returns(T::Boolean) }
     def product_previously_changed?; end
 
-    sig { returns(T.nilable(::Customer)) }
-    def reload_customer; end
-
     sig { returns(T.nilable(::Part)) }
     def reload_part; end
 
@@ -407,9 +383,6 @@ class Cart
 
     sig { returns(T.nilable(::User)) }
     def reload_user; end
-
-    sig { void }
-    def reset_customer; end
 
     sig { void }
     def reset_part; end
@@ -583,6 +556,12 @@ class Cart
     def select(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def sort_asc(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def sort_desc(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def strict_loading(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
@@ -617,6 +596,9 @@ class Cart
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def with(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
+    def with_part_and_product(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateAssociationRelation) }
     def without(*args, &blk); end
@@ -667,51 +649,6 @@ class Cart
 
     sig { void }
     def created_at_will_change!; end
-
-    sig { returns(::Integer) }
-    def customer_id; end
-
-    sig { params(value: ::Integer).returns(::Integer) }
-    def customer_id=(value); end
-
-    sig { returns(T::Boolean) }
-    def customer_id?; end
-
-    sig { returns(T.nilable(::Integer)) }
-    def customer_id_before_last_save; end
-
-    sig { returns(T.untyped) }
-    def customer_id_before_type_cast; end
-
-    sig { returns(T::Boolean) }
-    def customer_id_came_from_user?; end
-
-    sig { returns(T.nilable([::Integer, ::Integer])) }
-    def customer_id_change; end
-
-    sig { returns(T.nilable([::Integer, ::Integer])) }
-    def customer_id_change_to_be_saved; end
-
-    sig { params(from: ::Integer, to: ::Integer).returns(T::Boolean) }
-    def customer_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(::Integer)) }
-    def customer_id_in_database; end
-
-    sig { returns(T.nilable([::Integer, ::Integer])) }
-    def customer_id_previous_change; end
-
-    sig { params(from: ::Integer, to: ::Integer).returns(T::Boolean) }
-    def customer_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
-
-    sig { returns(T.nilable(::Integer)) }
-    def customer_id_previously_was; end
-
-    sig { returns(T.nilable(::Integer)) }
-    def customer_id_was; end
-
-    sig { void }
-    def customer_id_will_change!; end
 
     sig { returns(::Integer) }
     def id; end
@@ -942,9 +879,6 @@ class Cart
     def restore_created_at!; end
 
     sig { void }
-    def restore_customer_id!; end
-
-    sig { void }
     def restore_id!; end
 
     sig { void }
@@ -970,12 +904,6 @@ class Cart
 
     sig { returns(T::Boolean) }
     def saved_change_to_created_at?; end
-
-    sig { returns(T.nilable([::Integer, ::Integer])) }
-    def saved_change_to_customer_id; end
-
-    sig { returns(T::Boolean) }
-    def saved_change_to_customer_id?; end
 
     sig { returns(T.nilable([::Integer, ::Integer])) }
     def saved_change_to_id; end
@@ -1013,7 +941,7 @@ class Cart
     sig { returns(T::Boolean) }
     def saved_change_to_updated_at?; end
 
-    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    sig { returns(T.nilable([::Integer, ::Integer])) }
     def saved_change_to_user_id; end
 
     sig { returns(T::Boolean) }
@@ -1064,10 +992,10 @@ class Cart
     sig { void }
     def updated_at_will_change!; end
 
-    sig { returns(T.nilable(::Integer)) }
+    sig { returns(::Integer) }
     def user_id; end
 
-    sig { params(value: T.nilable(::Integer)).returns(T.nilable(::Integer)) }
+    sig { params(value: ::Integer).returns(::Integer) }
     def user_id=(value); end
 
     sig { returns(T::Boolean) }
@@ -1082,22 +1010,22 @@ class Cart
     sig { returns(T::Boolean) }
     def user_id_came_from_user?; end
 
-    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    sig { returns(T.nilable([::Integer, ::Integer])) }
     def user_id_change; end
 
-    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    sig { returns(T.nilable([::Integer, ::Integer])) }
     def user_id_change_to_be_saved; end
 
-    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    sig { params(from: ::Integer, to: ::Integer).returns(T::Boolean) }
     def user_id_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Integer)) }
     def user_id_in_database; end
 
-    sig { returns(T.nilable([T.nilable(::Integer), T.nilable(::Integer)])) }
+    sig { returns(T.nilable([::Integer, ::Integer])) }
     def user_id_previous_change; end
 
-    sig { params(from: T.nilable(::Integer), to: T.nilable(::Integer)).returns(T::Boolean) }
+    sig { params(from: ::Integer, to: ::Integer).returns(T::Boolean) }
     def user_id_previously_changed?(from: T.unsafe(nil), to: T.unsafe(nil)); end
 
     sig { returns(T.nilable(::Integer)) }
@@ -1111,9 +1039,6 @@ class Cart
 
     sig { returns(T::Boolean) }
     def will_save_change_to_created_at?; end
-
-    sig { returns(T::Boolean) }
-    def will_save_change_to_customer_id?; end
 
     sig { returns(T::Boolean) }
     def will_save_change_to_id?; end
@@ -1253,6 +1178,12 @@ class Cart
     def select(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def sort_asc(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def sort_desc(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def strict_loading(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
@@ -1269,6 +1200,9 @@ class Cart
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def with(*args, &blk); end
+
+    sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
+    def with_part_and_product(*args, &blk); end
 
     sig { params(args: T.untyped, blk: T.untyped).returns(PrivateRelation) }
     def without(*args, &blk); end
