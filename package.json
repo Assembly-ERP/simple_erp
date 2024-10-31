@@ -2,8 +2,8 @@
   "scripts": {
     "format:js": "npx prettier --write ./app/javascript",
     "minify:stimulus": "uglifyjs-folder ./app/javascript -eo ./minified-stimulus",
-    "js:build:quill": "esbuild js/quill.js --bundle --minify --outfile=vendor/javascript/quill.js",
-    "css:build:quill": "esbuild js/quill.snow.css --bundle --outfile=app/assets/stylesheets/quill.css",
+    "js:build:quill": "esbuild js/quill/quill.js --bundle --minify --outfile=vendor/javascript/quill.js",
+    "css:build:quill": "esbuild js/quill/quill.snow.css --bundle --outfile=app/assets/stylesheets/quill.css",
     "build:all": "yarn js:build:quill && yarn minify:stimulus && yarn css:build:quill"
   },
   "devDependencies": {
