@@ -8,6 +8,7 @@ export default class extends Controller {
       );
 
       trixElContent.innerHTML = "";
+      window.scrollTo({ top: document.body.scrollHeight });
     }
   }
 }

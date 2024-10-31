@@ -1,4 +1,4 @@
-.py-5.flex.flex-col.gap-5.relative{data: {controller: "support-ticket-messages--messages"}}
+.py-5.flex.flex-col.gap-5.relative{data: {controller: "support-tickets--messages"}}
   .grid.bg-white.rounded.shadow.p-4.py-5.gap-2.h-fit.place-items-center
     %h1.text-lg.font-semibold.text-center.mb-3 Support Ticket Details
     %ul.grid.grid-cols-2.gap-2
@@ -19,7 +19,7 @@
     = turbo_frame_tag "support_ticket_messages", src: messages_operational_portal_support_ticket_path(@support_ticket), loading: :lazy do
       = render "message_loading"
   .bg-white.rounded.p-5.shadow.border.border-gray-100
-    = form_with model: [@support_ticket, SupportTicketMessage.new], url: add_message_operational_portal_support_ticket_path(@support_ticket), html: { class: "grid gap-2", data: {action: "turbo:submit-end->support-ticket-messages--messages#submitEnd"} } do |form|
+    = form_with model: [@support_ticket, SupportTicketMessage.new], url: add_message_operational_portal_support_ticket_path(@support_ticket), html: { class: "grid gap-2", data: {action: "turbo:submit-end->support-tickets--messages#submitEnd"} } do |form|
       .hidden{id: dom_id(@support_ticket, "notification-container")}
       .flex.gap-5
         .trix-wrapper.no-attachment.w-full
