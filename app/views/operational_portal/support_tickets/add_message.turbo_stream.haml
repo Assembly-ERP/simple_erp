@@ -1,4 +1,4 @@
-- unless errors.present?
+- unless @new_message.errors.any?
   = turbo_stream.remove dom_id(@new_message)
   = turbo_stream.append dom_id(@support_ticket) do
     = render "message_item", support_ticket_message: @new_message
