@@ -48,15 +48,19 @@
     @apply font-medium;
   }
 
-  .field:has(input[required]) label:after {
+  .field:has(label + input[required]) label:after {
     @apply content-['*'] text-red-600;
   }
 
-  .field:has(textarea[required]) label:after {
+  .field:has(trix-editor[required]) label:after {
     @apply content-['*'] text-red-600;
   }
 
-  .field:has(select[required]) label:after {
+  .field:has(label + textarea[required]) label:after {
+    @apply content-['*'] text-red-600;
+  }
+
+  .field:has(label + select[required]) label:after {
     @apply content-['*'] text-red-600;
   }
 
