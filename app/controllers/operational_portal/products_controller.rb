@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module OperationalPortal
-  class ProductsController < OperationalPortal::NormalOperationController
+  class ProductsController < OperationalPortal::BaseController
     load_and_authorize_resource except: :search_part_results
     authorize_resource class: false, only: :search_part_results
 

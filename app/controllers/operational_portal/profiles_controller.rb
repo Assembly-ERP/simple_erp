@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module OperationalPortal
-  class ProfilesController < OperationalPortal::NormalOperationController
+  class ProfilesController < OperationalPortal::BaseController
     authorize_resource class: false
 
     def show

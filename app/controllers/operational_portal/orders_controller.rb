@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module OperationalPortal
-  class OrdersController < OperationalPortal::NormalOperationController
+  class OrdersController < OperationalPortal::BaseController
     load_and_authorize_resource except: :search_catalog
     authorize_resource class: false, only: :search_catalog
 

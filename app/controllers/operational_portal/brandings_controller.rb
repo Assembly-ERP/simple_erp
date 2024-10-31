@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module OperationalPortal
-  class BrandingsController < OperationalPortal::AdminOperationController
+  class BrandingsController < OperationalPortal::ManageBaseController
     load_and_authorize_resource
 
     def edit; end
