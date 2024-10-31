@@ -20,6 +20,19 @@
   select option:not([value]) {
     @apply text-zinc-500;
   }
+
+  ul {
+    @apply !list-disc;
+  }
+
+  ol {
+    @apply !list-decimal;
+  }
+
+  ul li,
+  ol li {
+    @apply !ml-8;
+  }
 }
 
 @layer components {
@@ -414,4 +427,3 @@ trix-toolbar .trix-button-row {
 trix-toolbar .trix-button-group:not(:first-child) {
   margin-left: unset !important;
 }
-
