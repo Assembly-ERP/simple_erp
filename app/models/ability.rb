@@ -36,6 +36,7 @@ class Ability
     can :search_catalog, :order
 
     can :manage, SupportTicket
+    can :manage, SupportTicketMessage
     can :manage, CustomerImport
     can :manage, User, advance: false
     can :manage, Customer, voided_at: nil

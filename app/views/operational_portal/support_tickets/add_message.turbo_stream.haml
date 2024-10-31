@@ -1,0 +1,8 @@
+- unless errors.present?
+  = turbo_stream.remove dom_id(@new_message)
+  = turbo_stream.append dom_id(@support_ticket) do
+    = render "message_item", support_ticket_message: @new_message
+
+= turbo_stream.remove dom_id(@support_ticket, "empty_list")
+= turbo_stream.replace dom_id(@support_ticket, "notification-container") do
+  = render "message_error", errors: @new_message.errors.full_messages

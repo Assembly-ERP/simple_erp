@@ -12,6 +12,16 @@ class SupportTicketMessage < ApplicationRecord
   default_scope { order(id: :asc) }
 
   validates :body, presence: true
+
+  after_commit :add_stream_messages, on: :create
+
+  def add_stream_messages
+    Turbo::StreamsChannel.broadcast_render_to(
+      "support_ticket_#{support_ticket.id}",
+      template: 'operational_portal/support_tickets/add_message_stream',
+      locals: { support_ticket_message: self, support_ticket: }
+    )
+  end
 end
 
 # == Schema Information
