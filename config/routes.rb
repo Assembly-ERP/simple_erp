@@ -63,12 +63,8 @@ Rails.application.routes.draw do
     end
     resources :support_tickets do
       member do
-        post 'add_message', to: 'support_tickets#add_message'
-        get 'preview_message_file/:message_id', to: 'support_tickets#preview_message_file', as: 'preview_message_file'
-      end
-      collection do
-        get :customer_users
-        get :form_user_selection
+        get :messages
+        post :add_message
       end
     end
     resources :customer_imports, only: %i[index create]

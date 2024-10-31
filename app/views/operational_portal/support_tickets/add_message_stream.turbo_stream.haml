@@ -1,0 +1,4 @@
+= turbo_stream.remove dom_id(support_ticket_message)
+= turbo_stream.append dom_id(support_ticket) do
+  = render "operational_portal/support_tickets/message_item", support_ticket_message: support_ticket_message
+= turbo_stream.remove dom_id(support_ticket_message, "empty_list")
