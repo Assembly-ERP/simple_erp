@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module CustomerPortal
-  class DashboardController < BaseController
+  class DashboardController < CustomerPortal::BaseController
     authorize_resource class: false
 
     def index

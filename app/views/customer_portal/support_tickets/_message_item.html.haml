@@ -1,0 +1,13 @@
+.flex.flex-col.gap-2{id: dom_id(support_ticket_message)}
+  .flex.gap-5.items-center
+    .flex.items-center.gap-2
+      = image_tag "profile.png", class: "w-7 h-7 rounded-full border border-gray-400"
+      .font-medium
+        = support_ticket_message.user.name
+    = support_ticket_message.created_at.strftime("%B %d, %Y %H:%M")
+  .px-3.py-2.bg-gray-100.rounded-b-lg.rounded-r-lg.ml-8
+    = support_ticket_message.body.html_safe
+  - if support_ticket_message.files.attached?
+    %button{type: :button, class: "text-[color:var(--primary)] text-start ml-8 flex items-center gap-1.5 hover:underline"}
+      = icon("fa-solid", "folder")
+      Preview files
