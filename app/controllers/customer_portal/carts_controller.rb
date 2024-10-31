@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module CustomerPortal
-  class CartsController < BaseController
+  class CartsController < CustomerPortal::BaseController
     load_and_authorize_resource
 
     def index
