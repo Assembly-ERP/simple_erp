@@ -21,17 +21,15 @@ class Ability
     can :manage, :profile
 
     # Product
-    can %i[read new create], Product
-    can %i[update destroy edit], Product, voided_at: nil
+    can :manage, Product, voided_at: nil
     can :search_part_results, :product
 
     # Part
-    can %i[read new create], Part
-    can %i[update destroy edit], Part, voided_at: nil
+    can :manage, Part, voided_at: nil
 
     # Order
-    can %i[read new create], Order
-    can %i[make_ticket quote_or_invoice update_summary], Order
+    can %i[new create], Order
+    can %i[read make_ticket quote_or_invoice update_summary], Order, voided_at: nil
     can %i[update destroy edit cancel], Order, voided_at: nil, order_status: { allow_change: true }
     can :search_catalog, :order
 
