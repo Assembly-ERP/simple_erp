@@ -1,0 +1,5 @@
+- if errors.present?
+  .mb-2{id: dom_id(@support_ticket, "notification-container")}
+    = render ErrorCardComponent.new errors:, label: ""
+- else
+  .hidden{id: dom_id(@support_ticket, "notification-container")}

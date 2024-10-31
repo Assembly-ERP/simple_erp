@@ -1,4 +1,4 @@
-.py-5.flex.flex-col.gap-5.relative
+.py-5.flex.flex-col.gap-5.relative{data: {controller: "support-tickets--messages"}}
   .grid.bg-white.rounded.shadow.p-4.py-5.gap-2.h-fit.place-items-center
     %h1.text-lg.font-semibold.text-center.mb-3 Support Ticket Details
     %ul.grid.grid-cols-2.gap-2
@@ -16,39 +16,14 @@
         = @support_ticket.status
   .grid.bg-white.rounded.px-5.pt-5.pb-7.shadow.w-full
     %h2.font-semibold.text-lg.text-center.mb-3 Messages
-    .w-full{class: "mx-auto max-w-[800px]"}
-      .grid.gap-5
-        - if @support_ticket_messages.any?
-          - @support_ticket_messages.each do |support_ticket_message|
-            .flex.flex-col.gap-2
-              .flex.gap-5.items-center
-                .flex.items-center.gap-2
-                  = image_tag "profile.png", class: "w-7 h-7 rounded-full border border-gray-400"
-                  .font-medium
-                    = support_ticket_message.user.name
-                = support_ticket_message.created_at.strftime("%B %d, %Y %H:%M")
-              .px-3.py-2.bg-gray-100.rounded-b-lg.rounded-r-lg.ml-8
-                = support_ticket_message.body.html_safe
-              - support_ticket_message.files.each do |file|
-                %div
-                  %li{:style => "margin-top: 10px"}
-                    %strong File:
-                    = file.filename.to_s
-                    %div
-                      - if file.content_type.start_with?('image')
-                        .image-preview
-                          = image_tag url_for(file.variant(resize_to_limit: [100, 100])), style: "width: 20vw; cursor: pointer;"
-                      - else
-                        %li{:style => "margin-bottom: 5px; display: flex; flex-direction: column; align-items: left;"}
-                          = link_to "Preview", url_for(file), target: "_blank"
-                      = link_to "Download", rails_blob_path(file, disposition: "attachment")
-        - else
-          .text-center No messages found.
+    = turbo_frame_tag "support_ticket_messages", src: messages_operational_portal_support_ticket_path(@support_ticket), loading: :lazy do
+      = render "message_loading"
   .bg-white.rounded.p-5.shadow.border.border-gray-100
-    = form_with model: [@support_ticket, SupportTicketMessage.new], url: add_message_operational_portal_support_ticket_path(@support_ticket), local: true, html: { class: "grid gap-2", multipart: true } do |form|
+    = form_with model: [@support_ticket, SupportTicketMessage.new], url: add_message_operational_portal_support_ticket_path(@support_ticket), html: { class: "grid gap-2", data: {action: "turbo:submit-end->support-tickets--messages#submitEnd"} } do |form|
+      .hidden{id: dom_id(@support_ticket, "notification-container")}
       .flex.gap-5
         .trix-wrapper.no-attachment.w-full
-          = form.rich_text_area :body, required: true, placeholder: "Write a message here.."
+          = form.rich_text_area :body, placeholder: "Write a message here.."
         = form.file_field :files, multiple: true
       .mt-2
         = form.submit "Add Message", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"

@@ -1,0 +1,8 @@
+= turbo_frame_tag "support_ticket_messages" do
+  = turbo_stream_from dom_id(@support_ticket)
+  .grid.gap-5.w-full{id: dom_id(@support_ticket), class: "mx-auto max-w-[700px]"}
+    - if @support_ticket_messages.any?
+      - @support_ticket_messages.each do |support_ticket_message|
+        = render "message_item", support_ticket_message:
+    - else
+      .text-center{id: dom_id(@support_ticket, "empty_list")} No messages found.
