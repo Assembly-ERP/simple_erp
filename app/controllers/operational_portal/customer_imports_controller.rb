@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module OperationalPortal
-  class CustomerImportsController < OperationalPortal::AdminOperationController
+  class CustomerImportsController < OperationalPortal::ManageBaseController
     load_and_authorize_resource
 
     def index

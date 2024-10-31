@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class OperationalPortal::BaseController < ApplicationController
+  layout 'operation'
+
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
       if current_user.present?
