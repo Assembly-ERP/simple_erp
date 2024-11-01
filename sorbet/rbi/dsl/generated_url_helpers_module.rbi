@@ -358,9 +358,6 @@ module GeneratedUrlHelpersModule
   def search_part_results_operational_portal_products_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
-  def sidekiq_web_url(*args); end
-
-  sig { params(args: T.untyped).returns(String) }
   def sign_in_api_v1_auth_index_url(*args); end
 
   sig { params(args: T.untyped).returns(String) }
