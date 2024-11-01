@@ -41,7 +41,7 @@
   }
 
   .field {
-    @apply grid gap-1 w-full;
+    @apply space-y-1 w-full block;
   }
 
   .field label {
@@ -431,3 +431,16 @@ trix-toolbar .trix-button-row {
 trix-toolbar .trix-button-group:not(:first-child) {
   margin-left: unset !important;
 }
+
+/* Quill */
+/* .ql-toolbar.ql-snow { */
+/*   @apply !border-gray-300 !bg-gray-50 !rounded-t-lg; */
+/* } */
+/**/
+/* .ql-container.ql-snow { */
+/*   @apply !border-gray-300 !bg-white !rounded-b-lg; */
+/* } */
+/**/
+/* .ql-editor { */
+/*   @apply min-h-[159px]; */
+/* } */
