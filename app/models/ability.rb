@@ -33,12 +33,15 @@ class Ability
     can %i[update destroy edit cancel], Order, voided_at: nil, order_status: { allow_change: true }
     can :search_catalog, :order
 
+    # Support ticket
     can :manage, SupportTicket
-    can :manage, SupportTicketMessage
-    can :manage, CustomerImport
+
+    # Manage
     can :manage, User, advance: false
     can :manage, Customer, voided_at: nil
+
     can :manage, Setting
+    can :manage, CustomerImport
     can :manage, OrderPriceScheduler
     can :manage, Branding if user.role == 'admin'
   end
@@ -48,13 +51,15 @@ class Ability
     can :manage, :catalog
     can :manage, :profile
     can :manage, :cart
-    can :manage, Order, customer: user.customer
-    can :manage, SupportTicket, customer: user.customer if user.role == 'customer_user_admin'
-    can :manage, SupportTicket, customer: user.customer, user:
-    can(:manage, Cart, user:)
+
     can :show, Part
     can :show, Product
-    can %i[update destroy], SupportTicketMessage, user:
+
+    can(:manage, Cart, user:)
+    can(:manage, Order, customer: user.customer)
+
+    can :manage, SupportTicket, customer: user.customer if user.role == 'customer_user_admin'
+    can :manage, SupportTicket, customer: user.customer, user:
   end
 
   def api_v1(_user)
