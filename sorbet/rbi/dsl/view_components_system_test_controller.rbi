@@ -28,7 +28,6 @@ class ViewComponentsSystemTestController
     include ::Pagy::UrlHelpers
     include ::Pagy::Frontend
     include ::ApplicationHelper
-    include ::FormBuilderHelper
     include ::OrderShippingAddressesHelper
     include ::PreviewHelper
     include ::DeviseHelper
