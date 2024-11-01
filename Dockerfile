@@ -62,5 +62,4 @@ EXPOSE 3000
 
 # Start the Rails server
 ENTRYPOINT ["/usr/bin/entrypoint.sh"]
-# CMD ["bundle", "exec", "rails", "server", "-b", "0.0.0.0"]
 CMD ["foreman", "start", "-f", "Procfile.prod"]

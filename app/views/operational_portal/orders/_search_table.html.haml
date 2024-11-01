@@ -7,7 +7,9 @@
         .table-cell Type
         .table-cell Weight
         .table-cell Price
-        .table-cell.text-center Quantity
+        .table-cell
+          .text-center
+            Quantity
         .table-cell
     .table-row-group#search-results-items.divide-y.divide-gray-200{data: {"orders--form-target": "searchItems"}}
       - @results.each do |result|

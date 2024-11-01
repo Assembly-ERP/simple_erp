@@ -11,17 +11,19 @@
     lbs
   .table-cell.font-semibold
     = number_to_currency(result.price, unit: "$", precision: 2)
-  .table-cell.flex.justify-end
-    #quantity-container
-      #quantity.small
-        = button_tag class: "decrement transition-colors duration-200", type: "button", data: {action: "orders--search-item#decrement"} do
-          = icon("fa-solid", "minus")
-        = number_field_tag 'quantity', params[:order_id].present? && result.quantity ? result.quantity : 1, min: 1, id: dom_id(result, "search-item-qty"), class: "number-input transition-colors duration-200", data: {"orders--search-item-target": "quantity", action: "input->orders--search-item#quantityInput change->orders--search-item#quantityChange"}
-        = button_tag class: "increment transition-colors duration-200", type: "button", data: {action: "orders--search-item#increment"} do
-          = icon("fa-solid", "plus")
-  .table-cell.pr-6
-    %button.ml-auto.block.text-white.rounded.px-4.text-sm{id: dom_id(result, "search-item-btn"), type: "button", class: "py-1.5 #{(params[:order_id].present? && result.item_id.present?) ? "bg-[color:var(--secondary)]" : "bg-[color:var(--primary)]"} disabled:bg-gray-400", data: {action: "orders--form#addToItem", quantity: params[:order_id].present? && result.quantity ? result.quantity : 1, item_id: params[:order_id].present? && result.item_id.present? ? result.item_id : "", weight: result.weight, name: result.name, sku: result.sku || "N/A", type: result.type, pid: result.id, price: result.price, "orders--search-item-target": "add"}}
-      - if params[:order_id].present? && result.item_id
-        Update
-      - else
-        Add
+  .table-cell
+    .flex.justify-center
+      #quantity-container
+        #quantity.small
+          = button_tag class: "decrement transition-colors duration-200", type: "button", data: {action: "orders--search-item#decrement"} do
+            = icon("fa-solid", "minus")
+          = number_field_tag 'quantity', params[:order_id].present? && result.quantity ? result.quantity : 1, min: 1, id: dom_id(result, "search-item-qty"), class: "number-input transition-colors duration-200", data: {"orders--search-item-target": "quantity", action: "input->orders--search-item#quantityInput change->orders--search-item#quantityChange"}
+          = button_tag class: "increment transition-colors duration-200", type: "button", data: {action: "orders--search-item#increment"} do
+            = icon("fa-solid", "plus")
+  .table-cell
+    .flex.justify-end.pr-2
+      %button.block.text-white.rounded.px-4.text-sm{id: dom_id(result, "search-item-btn"), type: "button", class: "py-1.5 #{(params[:order_id].present? && result.item_id.present?) ? "bg-[color:var(--secondary)]" : "bg-[color:var(--primary)]"} disabled:bg-gray-400", data: {action: "orders--form#addToItem", quantity: params[:order_id].present? && result.quantity ? result.quantity : 1, item_id: params[:order_id].present? && result.item_id.present? ? result.item_id : "", weight: result.weight, name: result.name, sku: result.sku || "N/A", type: result.type, pid: result.id, price: result.price, "orders--search-item-target": "add"}}
+        - if params[:order_id].present? && result.item_id
+          Update
+        - else
+          Add
