@@ -1,14 +1,7 @@
 # frozen_string_literal: true
 
-authenticated :user, -> { _1.operational_user? } do
-  get '/', to: redirect('/operational_portal')
-  get '/about_us', to: redirect('/operational_portal')
-end
-
 # Dashboards
 get '/operational_portal', to: 'operational_portal/dashboard#index', as: :operational_root
-# get '/customer_portal', to: 'customer_portal/dashboard#index', as: :customer_root
-
 get '/operational_portal/manage', to: redirect('/operational_portal/users')
 
 namespace :operational_portal do
