@@ -22,20 +22,21 @@
               .field
                 = form.label :category
                 = form.text_field :category, class: "input-primary"
-            .flex.gap-2.items-center.mt-2
-              .font-medium.uppercase
-                Weight:
-              .font-bold
-                %span{data: {"products--form-target": "staticWeight"}}
-                  = number_with_precision(form.object.weight, precision: 2)
-                lbs
-            .flex.gap-2.items-center
-              .font-medium.uppercase
-                Price:
-              .font-bold.flex
-                %span $
-                %span{data: {"products--form-target": "staticPrice"}}
-                  = number_with_precision(form.object.price, precision: 2)
+            .grid.gap-2.py-2
+              .flex.gap-2.items-center
+                .font-medium.uppercase
+                  Weight:
+                .font-bold
+                  %span{data: {"products--form-target": "staticWeight"}}
+                    = number_with_precision(form.object.weight, precision: 2)
+                  lbs
+              .flex.gap-2.items-center
+                .font-medium.uppercase
+                  Price:
+                .font-bold.flex
+                  %span $
+                  %span{data: {"products--form-target": "staticPrice"}}
+                    = number_with_precision(form.object.price, precision: 2)
           .block
             .field
               = form.label :description

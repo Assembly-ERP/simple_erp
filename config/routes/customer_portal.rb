@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 
-authenticated :user, -> { _1.customer_user? } do
-  get '/', to: redirect('/customer_portal/catalog')
-  get '/about_us', to: redirect('/customer_portal/catalog')
-end
+## Dashboards
+# get '/customer_portal', to: 'customer_portal/dashboard#index', as: :customer_root
 
 namespace :customer_portal do
   resources :catalog, only: %i[index] do
