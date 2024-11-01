@@ -1,127 +1,13 @@
-# typed: ignore
+# frozen_string_literal: true
 
 require 'sidekiq/web'
 
 Rails.application.routes.draw do
-  unauthenticated do
-    root 'catalog#index'
-    get "/catalog/category_filter", to: "catalog#category_filter", as: :category_filter
-    get '/about_us', to: 'about#index', as: :about_us
-  end
-
-  devise_for :users, skip: [:registrations], controllers: {
-    # registrations: 'users/registrations',
-    invitations: 'users/invitations'
-  }
-
-  authenticate :user, -> { _1.advance_admin_user? } do
-    mount Sidekiq::Web => '/sidekiq'
-  end
-
-  authenticated :user, -> { _1.operational_user? } do
-    get '/', to: redirect('/operational_portal')
-    get '/about_us', to: redirect('/operational_portal')
-  end
-
-  authenticated :user, -> { _1.customer_user? } do
-    get '/', to: redirect('/customer_portal/catalog')
-    get '/about_us', to: redirect('/customer_portal/catalog')
-  end
-
-  resources :products, only: :show
-  resources :parts, only: :show
-
-  # Dashboards
-  get '/operational_portal', to: 'operational_portal/dashboard#index', as: :operational_root
-  # get '/customer_portal', to: 'customer_portal/dashboard#index', as: :customer_root
-
-  # Operational portal
-  get '/operational_portal/manage', to: redirect('/operational_portal/users')
-
-  namespace :operational_portal do
-    resources :catalog, only: :index do
-      collection do
-        get :category_filter
-      end
-    end
-    resources :products do
-      collection do
-        get :search_part_results
-      end
-    end
-    resources :parts
-    resources :orders do
-      member do
-        get :make_ticket
-        get :quote_or_invoice
-        put :update_summary
-        delete :cancel
-      end
-      collection do
-        get :search_catalog
-      end
-    end
-    resources :support_tickets do
-      member do
-        get :messages
-        post :add_message
-      end
-    end
-    resources :customer_imports, only: %i[index create]
-    resources :settings, only: %i[index edit update]
-    resources :order_price_schedulers, only: %i[index]
-    resources :users
-    resources :brandings, path: 'branding', only: %i[edit update]
-    resources :customers do
-      member do
-        get :users
-      end
-    end
-    resources :invitations, only: %i[new create]
-    resource :profile, only: %i[show edit update]
-  end
-
-  # Customer portal
-  namespace :customer_portal do
-    resources :catalog, only: %i[index] do
-      collection do
-        get :category_filter
-      end
-    end
-    resources :orders do
-      member do
-        get :quote_or_invoice
-      end
-    end
-    resources :parts, only: :show
-    resources :products, only: :show
-    resources :support_tickets do
-      member do
-        get :messages
-        post :add_message
-      end
-    end
-    resources :carts, path: "cart"
-    resource :profile, only: %i[show edit update]
-  end
-
-  # API
-  namespace :api do
-    namespace :v1 do
-      resources :auth, only: [] do
-        collection do
-          get :me
-          put :refresh_token
-          post :sign_in
-        end
-      end
-      resources :users
-      # resources :parts
-      # resources :products
-      # resources :orders
-      # resources :support_tickets
-    end
-  end
+  draw :public
+  draw :devise
+  draw :operational_portal
+  draw :customer_portal
+  draw :api
 
   # Health check route for application monitoring
   get 'up' => 'rails/health#show', as: :rails_health_check

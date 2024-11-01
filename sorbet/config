@@ -4,3 +4,4 @@
 --ignore=vendor/
 --ignore=spec/
 --ignore=app/controllers/users/
+--ignore=config/routes/sidekiq.rb
