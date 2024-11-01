@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Users::RegistrationsController < Users::RegistrationsController
+class Users::RegistrationsController < Devise::RegistrationsController
   before_action :configure_permitted_parameters
 
   # GET /users/sign_up
