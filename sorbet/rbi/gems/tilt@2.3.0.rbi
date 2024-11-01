@@ -650,6 +650,20 @@ class Tilt::PlainTemplate < ::Tilt::StaticTemplate
   def _prepare_output; end
 end
 
+# Prawn template implementation. See: http://prawnpdf.org
+#
+# source://tilt//lib/tilt/prawn.rb#7
+class Tilt::PrawnTemplate < ::Tilt::Template
+  # source://tilt//lib/tilt/prawn.rb#16
+  def evaluate(scope, locals, &block); end
+
+  # source://tilt//lib/tilt/prawn.rb#24
+  def precompiled_template(locals); end
+
+  # source://tilt//lib/tilt/prawn.rb#10
+  def prepare; end
+end
+
 # RDoc template. See: https://github.com/ruby/rdoc
 #
 # It's suggested that your program run the following at load time when

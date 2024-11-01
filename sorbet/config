@@ -3,3 +3,4 @@
 --ignore=tmp/
 --ignore=vendor/
 --ignore=spec/
+--ignore=app/controllers/users/

@@ -1275,8 +1275,8 @@ class ActionController::API < ::ActionController::Metal
   include ::ActionController::Instrumentation
   include ::ActionController::ParamsWrapper
   include ::ActionController::RespondWith
-  include ::CanCan::ControllerAdditions
   include ::DeviseInvitable::Controllers::Helpers
+  include ::CanCan::ControllerAdditions
   include ::Turbo::RequestIdTracking
   include ::Devise::Controllers::SignInOut
   include ::Devise::Controllers::StoreLocation
@@ -1772,8 +1772,8 @@ class ActionController::Base < ::ActionController::Metal
   include ::Turbo::Frames::FrameRequest
   include ::Turbo::Streams::TurboStreamsTagBuilder
   include ::ActionController::RespondWith
-  include ::CanCan::ControllerAdditions
   include ::DeviseInvitable::Controllers::Helpers
+  include ::CanCan::ControllerAdditions
   include ::Turbo::RequestIdTracking
   include ::Devise::Controllers::SignInOut
   include ::Devise::Controllers::StoreLocation
