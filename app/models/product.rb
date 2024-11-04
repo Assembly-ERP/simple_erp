@@ -23,7 +23,8 @@ class Product < ApplicationRecord
   scope :sort_oldest, -> { order(created_at: :asc) }
   scope :not_voided, -> { where(voided_at: nil) }
   scope :category_filter, lambda {
-    select('products.category, count(products.category) as category_count').where.not(category: nil).group(:category)
+    select('products.category, count(products.category) as category_count')
+      .group(:category).order(category: :asc)
   }
   scope :search_results, lambda {
     select("products.id, products.name, products.price, products.weight, products.sku, 'product' AS type," \
