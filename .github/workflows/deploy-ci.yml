@@ -50,16 +50,16 @@ jobs:
         if: github.ref == 'refs/heads/develop'
         uses: caprover/deploy-from-github@v1.1.2
         with:
-          server: https://cap.dash.assemblyerp.com
-          app: 'simple-erp'
-          token: '${{ secrets.DEMO_APP_TOKEN }}'
-          image: '${{ steps.meta.outputs.tags }}'
+          server: ${{ secrets.DEMO_CAPROVER_SERVER }}
+          app: erp-demo
+          token: ${{ secrets.DEMO_APP_TOKEN }}
+          image: ${{ steps.meta.outputs.tags }}
 
       - name: Deploy Spruill
         if: github.ref == 'refs/heads/main'
         uses: caprover/deploy-from-github@v1.1.2
         with:
-          server: https://cap.dash.assemblyerp.com
-          app: 'spruill'
-          token: '${{ secrets.SPRUILL_APP_TOKEN }}'
-          image: '${{ steps.meta.outputs.tags }}'
+          server: ${{ secrets.PROD_CAPROVER_SERVER }}
+          app: erp-spruill
+          token: ${{ secrets.SPRUILL_APP_TOKEN }}
+          image: ${{ steps.meta.outputs.tags }}
