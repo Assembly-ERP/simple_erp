@@ -19,6 +19,8 @@ RUN curl -fsSL https://deb.nodesource.com/setup_lts.x | bash - && \
 # Set working directory
 WORKDIR /app
 
+ARG SECRET_KEY_BASE
+
 # Rails ENV
 ENV RAILS_ENV production
 ENV RAILS_SERVE_STATIC_FILES true
@@ -49,7 +51,7 @@ RUN gem install bundler -v 2.5.10
 RUN bundle install
 
 # Precompile Assets
-RUN SECRET_KEY_BASE=`bin/rails secret` bin/rake assets:precompile --trace
+RUN SECRET_KEY_BASE=${SECRET_KEY_BASE} bin/rake assets:precompile --trace
 
 # Install Foreman
 RUN gem install foreman
