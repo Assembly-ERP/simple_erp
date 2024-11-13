@@ -59,7 +59,6 @@ class Part < ApplicationRecord
   } }
 
   # Generators
-  before_validation :defaults, on: :create
   before_validation :set_price_value, unless: :manual_price?
   after_save :recalculate_products, if: :recalculate_products_condition?
 
