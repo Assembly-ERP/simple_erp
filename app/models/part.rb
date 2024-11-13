@@ -51,15 +51,15 @@ class Part < ApplicationRecord
 
   # Validations
   validates :name, presence: true
-  validates :price, numericality: { greater_than_or_equal_to: 0, only_float: true }
-  validates :weight, numericality: { greater_than_or_equal_to: 0 }
+  validates :price, numericality: { greater_than_or_equal_to: 0, only_float: true, message: 'must be equal or greater than zero' }
+  validates :weight, numericality: { greater_than_or_equal_to: 0, message: 'must be equal or greater than zero' }
   validates :images, content_type: ALLOWED_IMAGE_TYPES
   validates :sku, uniqueness: { allow_blank: true, conditions: lambda {
     where("sku IS NOT NULL AND sku != '' AND voided_at IS NULL")
   } }
 
   # Generators
-  before_validation :defaults
+  before_validation :defaults, on: :create
   before_validation :set_price_value, unless: :manual_price?
   after_save :recalculate_products, if: :recalculate_products_condition?
 
@@ -83,12 +83,6 @@ class Part < ApplicationRecord
 
   def set_price_value
     self.price = calculate_price
-  end
-
-  def defaults
-    self.name = sku if sku.present?
-    self.length ||= 0.0
-    self.width ||= 0.0
   end
 end
 
