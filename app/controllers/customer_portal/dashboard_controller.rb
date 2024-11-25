@@ -5,8 +5,8 @@ module CustomerPortal
     authorize_resource class: false
 
     def index
-      @orders = current_user.customer.orders if current_user.customer
-      @support_tickets = current_user.customer.support_tickets if current_user.customer
+      @orders = current_user.customer.orders
+      @support_tickets = current_user.customer.support_tickets
     end
   end
 end
