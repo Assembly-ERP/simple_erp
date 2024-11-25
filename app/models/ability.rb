@@ -10,7 +10,7 @@ class Ability
 
     operational_portal(user) if operation?(portal, user)
     customer_portal(user) if customer?(portal, user)
-    api_v1(user) if api_operation?(portal, user)
+    api_v1_portal(user) if api_v1?(portal, user)
   end
 
   private
@@ -62,7 +62,7 @@ class Ability
     can :manage, SupportTicket, customer: user.customer, user:
   end
 
-  def api_v1(_user)
+  def api_v1_portal(_user)
     can :me, :auth
     can :manage, User
     can :manage, Part
@@ -82,7 +82,7 @@ class Ability
     portal == 'customer_portal' && user.customer_user?
   end
 
-  def api_operation?(portal, user)
+  def api_v1?(portal, user)
     portal == 'api_v1' && user.operational_user? && user.advance?
   end
 
