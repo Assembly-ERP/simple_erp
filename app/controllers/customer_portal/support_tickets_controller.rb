@@ -19,10 +19,10 @@ module CustomerPortal
       @support_ticket.customer = current_user.customer
 
       if @support_ticket.save
-        redirect_to customer_portal_support_ticket_path(@support_ticket),
+        redirect_to customer_portal_support_tickets_path,
                     notice: 'Support ticket was successfully created.'
       else
-        render :new
+        render :new, status: :unprocessable_entity
       end
     end
 
@@ -31,7 +31,7 @@ module CustomerPortal
         redirect_to customer_portal_support_ticket_path(@support_ticket),
                     notice: 'Support ticket was successfully updated.'
       else
-        render :edit
+        render :edit, status: :unprocessable_entity
       end
     end
 

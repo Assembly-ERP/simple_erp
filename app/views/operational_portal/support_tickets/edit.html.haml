@@ -1,5 +1,4 @@
-.mx-auto.w-full{class: "max-w-[700px]"}
-  .py-6
-    %h1.text-2xl.font-semibold.mb-4 Edit Support Ticket
-    = render "form", model: @support_ticket, url: operational_portal_support_ticket_path, submit_text: "Update Ticket"
-    = link_to 'Back', operational_portal_support_tickets_path, class: "btn btn-secondary"
+.py-6
+  %h1.text-2xl.font-semibold.mb-4 Edit Support Ticket
+  = render "form", model: @support_ticket, url: operational_portal_support_ticket_path, submit_text: "Update Ticket"
+  = link_to 'Back', operational_portal_support_tickets_path, class: "btn btn-secondary"
