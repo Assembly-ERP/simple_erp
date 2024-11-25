@@ -1,0 +1,15 @@
+= form_with(model:, url:, html: {class: "grid gap-3"}) do |form|
+  - if @support_ticket.errors.any?
+    = render ErrorCardComponent.new errors: @support_ticket.errors.full_messages, label: "Validations"
+  .field
+    = form.label :title, "Ticket Title"
+    = form.text_field :title, class: "input-primary", required: true, placeholder: "Ticket Title"
+  .field
+    = form.label :issue_description
+    .trix-wrapper.no-attachment
+      = form.rich_text_area :issue_description, required: true, placeholder: "Write a message here.."
+  .field
+    = form.label :files, "File upload"
+    = form.file_field :files, multiple: true
+  .mt-2
+    = form.submit submit_text, class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"

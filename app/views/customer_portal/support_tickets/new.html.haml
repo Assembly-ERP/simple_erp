@@ -1,25 +1,3 @@
-/ app/views/customer_portal/support_tickets/new.html.erb
-.container
-  %h1 New Support Ticket
-  = form_with(model: @support_ticket, local: true, url: customer_portal_support_tickets_path) do |form|
-    - if @support_ticket.errors.any?
-      #error_explanation
-        %h2
-          = pluralize(@support_ticket.errors.count, "error")
-          prohibited this support ticket from being saved:
-        %ul
-          - @support_ticket.errors.full_messages.each do |message|
-            %li= message
-    .field
-      = form.label :title
-      = form.text_field :title
-    .field
-      = form.label :issue_description
-      = form.text_area :issue_description
-    .field
-      = form.label :status
-      = form.select :status, SupportTicket.statuses.keys.map { |status| [status.titleize, status] }
-    = succeed "\">" do
-      %div
-    = form.submit Create Ticket, class: btn
-    = link_to 'Back', customer_portal_support_tickets_path, class: btn btn-secondary
+.py-6
+  %h1.text-xl.font-semibold.mb-4 New Support Ticket
+  = render "form", model: @support_ticket, url: customer_portal_support_tickets_path, submit_text: "New Ticket"
