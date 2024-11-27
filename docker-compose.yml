@@ -1,4 +1,4 @@
-name: simple_erp
+name: Assembly Erp
 
 services:
   postgres:
