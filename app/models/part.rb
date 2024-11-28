@@ -51,12 +51,23 @@ class Part < ApplicationRecord
 
   # Validations
   validates :name, presence: true
-  validates :price, numericality: { greater_than_or_equal_to: 0, only_float: true, message: 'must be equal or greater than zero' }
-  validates :weight, numericality: { greater_than_or_equal_to: 0, message: 'must be equal or greater than zero' }
   validates :images, content_type: ALLOWED_IMAGE_TYPES
-  validates :sku, uniqueness: { allow_blank: true, conditions: lambda {
-    where("sku IS NOT NULL AND sku != '' AND voided_at IS NULL")
-  } }
+  validates :price, numericality: {
+    greater_than_or_equal_to: 0,
+    only_float: true,
+    message: 'must be equal or greater than zero'
+  }
+  validates :weight, numericality: {
+    greater_than_or_equal_to: 0,
+    only_float: true,
+    message: 'must be equal or greater than zero'
+  }
+  validates :sku, uniqueness: {
+    allow_blank: true,
+    conditions: lambda {
+      where("sku IS NOT NULL AND sku != '' AND voided_at IS NULL")
+    }
+  }
 
   # Generators
   before_validation :set_price_value, unless: :manual_price?
