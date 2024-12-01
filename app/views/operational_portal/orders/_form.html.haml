@@ -1,4 +1,4 @@
-= form_with(model: @order, url: path, html: {class: "grid gap-5", data: {controller: "orders--form unsaved-changes", action: ' beforeunload@window->unsaved-changes#leavingPage turbo:before-visit@document->unsaved-changes#leavingPage', changed: @order.errors.any? ? "true" : "false"}}) do |form|
+= form_with(model: @order, url: path, html: {class: "grid gap-5", data: {controller: "orders--form unsaved-changes", action: ' beforeunload@window->unsaved-changes#leavingPage turbo:before-visit@document->unsaved-changes#leavingPage', changed: @order.errors.any? ? "1" : "0"}}) do |form|
   - if @order.errors.any?
     = render ErrorCardComponent.new errors: @order.errors.full_messages, label: "Validations"
   = render "form_head_inputs", form: form

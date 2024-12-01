@@ -10,7 +10,7 @@ export default class extends Controller {
   };
 
   formIsChanged() {
-    this.element.dataset.changed = "true";
+    this.element.dataset.changed = "1";
   }
 
   leavingPage(event) {
@@ -28,10 +28,10 @@ export default class extends Controller {
   }
 
   reset() {
-    this.element.dataset.changed = "false";
+    this.element.dataset.changed = "0";
   }
 
   get isFormChanged() {
-    return this.element.dataset.changed === "true";
+    return this.element.dataset.changed === "1";
   }
 }
