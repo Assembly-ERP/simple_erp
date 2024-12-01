@@ -18,6 +18,6 @@ class OperationalPortal::BaseController < ApplicationController
   end
 
   def current_ability
-    @current_ability ||= Ability.new(current_user, 'operational_portal')
+    @current_ability ||= Ability.new(current_user, Portal::OPERATION)
   end
 end

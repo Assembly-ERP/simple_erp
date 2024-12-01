@@ -2,6 +2,6 @@
 
 class BaseController < ApplicationController
   def current_ability
-    @current_ability ||= Ability.new(nil, 'public')
+    @current_ability ||= Ability.new(nil, Portal::PUBLIC)
   end
 end
