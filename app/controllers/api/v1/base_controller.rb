@@ -12,7 +12,7 @@ module Api
       end
 
       def current_ability
-        @current_ability ||= Ability.new(current_user, 'api_v1')
+        @current_ability ||= Ability.new(current_user, Portal::API_V1)
       end
 
       def current_user

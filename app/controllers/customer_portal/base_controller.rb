@@ -18,6 +18,6 @@ class CustomerPortal::BaseController < ApplicationController
   end
 
   def current_ability
-    @current_ability ||= Ability.new(current_user, 'customer_portal')
+    @current_ability ||= Ability.new(current_user, Portal::CUSTOMER)
   end
 end
