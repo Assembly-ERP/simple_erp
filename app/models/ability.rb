@@ -75,18 +75,18 @@ class Ability
 
   # Conditions
   def operation?(portal, user)
-    portal == 'operational_portal' && user.operational_user?
+    portal == Portal::OPERATION && user.operational_user?
   end
 
   def customer?(portal, user)
-    portal == 'customer_portal' && user.customer_user?
+    portal == Portal::CUSTOMER && user.customer_user?
   end
 
   def api_v1?(portal, user)
-    portal == 'api_v1' && user.operational_user? && user.advance?
+    portal == Portal::API_V1 && user.operational_user? && user.advance?
   end
 
   def public?(portal)
-    portal == 'public'
+    portal == Portal::PUBLIC
   end
 end
