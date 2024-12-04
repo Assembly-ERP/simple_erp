@@ -1,14 +1,10 @@
 {
   "scripts": {
-    "format": "npx prettier --write ./app/javascript",
-    "js:build:quill": "esbuild js/quill/quill.js --bundle --minify --outfile=vendor/javascript/quill.js",
-    "css:build:quill": "esbuild js/quill/quill.snow.css --bundle --outfile=app/assets/stylesheets/quill.css",
-    "build:all": "yarn js:build:quill && yarn css:build:quill"
+    "format": "npx prettier --write ./app/javascript"
   },
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "esbuild": "^0.24.0",
-    "prettier": "^3.2.5",
-    "quill": "^2.0.2"
+    "prettier": "^3.2.5"
   }
 }

@@ -21,4 +21,3 @@ pin "@stimulus-components/color-picker", to: "@stimulus-components--color-picker
 pin "@simonwep/pickr", to: "@simonwep--pickr.js" # @1.9.0
 pin "trix" # @2.1.6
 pin "@rails/actiontext", to: "@rails--actiontext.js" # @7.2.100
-# pin "quill" # @2.0.2

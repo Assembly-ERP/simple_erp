@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Order < ApplicationRecord
+  include OrderCalculable
   include OrderMailable
   include OrderCronable
   include OrderFormattable
@@ -24,16 +25,8 @@ class Order < ApplicationRecord
   scope :sort_asc, -> { order(id: :asc) }
   scope :sort_desc, -> { order(id: :desc) }
   scope :not_voided, -> { where(voided_at: nil) }
-  scope :with_order_status,
-        lambda {
-          select('orders.*, order_statuses.name AS status')
-            .joins(:order_status)
-        }
-  scope :with_customer,
-        lambda {
-          select('orders.*, customers.name as customer_name')
-            .joins(:customer)
-        }
+  scope :with_order_status, -> { select('orders.*, order_statuses.name AS status').joins(:order_status) }
+  scope :with_customer, -> { select('orders.*, customers.name as customer_name').joins(:customer) }
 
   # Validations
   validates :total_amount, numericality: { greater_than_or_equal_to: 0, only_float: true }
@@ -43,26 +36,6 @@ class Order < ApplicationRecord
   validates :discount_percentage, numericality: {
     greater_than_or_equal_to: 0, less_than_or_equal_to: 100, only_float: true
   }
-
-  # Generators
-  before_save :calculate_total_amount
-
-  def price_calculation
-    base_price = order_details.filter_map { |od| (od.price.to_f * od.quantity.to_i) unless od._destroy }.sum
-    discount_amount = base_price.to_f * (discount_percentage.to_f / 100).to_f
-    total_amount = base_price.to_f - discount_amount.to_f + shipping_price.to_f + tax.to_f
-
-    [base_price, total_amount]
-  end
-
-  private
-
-  def calculate_total_amount
-    base_price, total_amount = price_calculation
-
-    self.price = base_price
-    self.total_amount = total_amount
-  end
 end
 
 # == Schema Information
