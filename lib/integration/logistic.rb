@@ -9,6 +9,14 @@ module Integration
       )
     end
 
-    def ship_order; end
+    def ship_order
+      @conn.post('/ship') do |req|
+        req.params['order_details'] = 'some info here'
+        # extend params if needed
+        req.body = { query: 'product 1' }.to_json
+      end
+    rescue Faraday::Error => e
+      logger.debug "ship_order status: #{e.response[:status]}"
+    end
   end
 end
