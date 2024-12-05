@@ -13,7 +13,7 @@ module Integration
       response = @conn.post('/ship') do |req|
         req.params['order_details'] = 'some info here'
         # extend params if needed
-        req.body = { query: 'product 1' }.to_json
+        # req.body = { query: 'product 1' }.to_json
       end
 
       logger.debug "ship_order response status: #{response.status}"
