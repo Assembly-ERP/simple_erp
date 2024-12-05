@@ -145,6 +145,12 @@ GEM
     drb (2.2.1)
     erubi (1.13.0)
     erubis (2.7.0)
+    faraday (2.12.1)
+      faraday-net_http (>= 2.0, < 3.5)
+      json
+      logger
+    faraday-net_http (3.4.0)
+      net-http (>= 0.5.0)
     ffi (1.17.0-aarch64-linux-gnu)
     ffi (1.17.0-arm-linux-gnu)
     ffi (1.17.0-arm64-darwin)
@@ -208,6 +214,8 @@ GEM
     minitest (5.24.1)
     msgpack (1.7.2)
     mutex_m (0.2.0)
+    net-http (0.6.0)
+      uri
     net-imap (0.4.14)
       date
       net-protocol
@@ -421,6 +429,7 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
+    uri (1.0.2)
     view_component (2.83.0)
       activesupport (>= 5.2.0, < 8.0)
       concurrent-ruby (~> 1.0)
@@ -466,6 +475,7 @@ DEPENDENCIES
   devise (~> 4.9)
   devise_invitable
   dotenv-rails (~> 3.1)
+  faraday (~> 2.12)
   font-awesome-sass (~> 6.4.0)
   haml-rails (~> 2.1)
   html2haml (~> 2.3)

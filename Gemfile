@@ -132,3 +132,6 @@ gem 'rack-cors', '~> 2.0'
 # PDF
 gem 'prawn', '~> 2.5'
 gem 'prawn-table', '~> 0.2.2'
+
+# Integration
+gem 'faraday', '~> 2.12'
