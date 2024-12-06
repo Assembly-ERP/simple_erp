@@ -2,7 +2,7 @@
 
 module OperationalPortal
   class BillingsController < OperationalPortal::ManageBaseController
-    authorize_resource class: false
+    load_and_authorize_resource
 
     before_action :set_billing
 
