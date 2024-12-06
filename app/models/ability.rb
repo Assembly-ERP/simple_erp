@@ -41,6 +41,7 @@ class Ability
     can :manage, Customer, voided_at: nil
 
     can :manage, Setting
+    can :manage, Billing
     can :manage, CustomerImport
     can :manage, OrderPriceScheduler
     can :manage, Branding if user.role == 'admin'

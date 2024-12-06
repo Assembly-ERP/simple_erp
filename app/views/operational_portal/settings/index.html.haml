@@ -27,3 +27,19 @@
           = turbo_frame_tag "branding", src: edit_operational_portal_branding_path(Branding.client), loading: :lazy do
             .flex.items-center.justify-center.w-full.h-96
               = icon("fa-solid", "spinner", class: "animate-spin text-4xl text-gray-400")
+    .accordion.group{data: {controller: "accordion", open: "false"}}
+      .accordion-btn{type: "button", data: {action: "click->accordion#toggle"}}
+        Billing
+        = icon("fa-solid", "chevron-down", data: {"accordion-target": "iconDown"})
+      .accordion-content.hidden{data: {"accordion-target": "content"}}
+        = turbo_frame_tag "billing_edit", src: edit_operational_portal_billing_path, loading: :lazy do
+          .flex.items-center.justify-center.w-full
+            = icon("fa-solid", "spinner", class: "animate-spin text-4xl text-gray-400")
+    .accordion.group{data: {controller: "accordion", open: "false"}}
+      .accordion-btn{type: "button", data: {action: "click->accordion#toggle"}}
+        Logistic
+        = icon("fa-solid", "chevron-down", data: {"accordion-target": "iconDown"})
+      .accordion-content.hidden{data: {"accordion-target": "content"}}
+        -# = turbo_frame_tag "order_price_schedulers", src: operational_portal_order_price_schedulers_path, loading: :lazy do
+        -#   .flex.items-center.justify-center.w-full
+        -#     = icon("fa-solid", "spinner", class: "animate-spin text-4xl text-gray-400")
