@@ -45,4 +45,5 @@ namespace :operational_portal do
   end
   resources :invitations, only: %i[new create]
   resource :profile, only: %i[show edit update]
+  resource :billing, only: %i[edit update]
 end
