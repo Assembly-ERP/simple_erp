@@ -34,15 +34,15 @@ module OperationalPortal
       if @user.save
         redirect_to operational_portal_users_path, notice: 'User was successfully created.'
       else
-        render :new
+        render :new, status: :unprocessable_entity
       end
     end
 
     def update
       if @user.update(user_params)
-        redirect_to operational_portal_users_path, notice: 'User was successfully updated.'
+        redirect_to edit_operational_portal_user_path(@user), notice: 'User was successfully updated.'
       else
-        render :edit
+        render :edit, status: :unprocessable_entity
       end
     end
 
