@@ -27,8 +27,5 @@
         .field
           = form.label :postal_code
           = form.text_field :postal_code, class: "input-primary", placeholder: "Postal code"
-    .field
-      = form.label :discount, "Discount %"
-      = form.number_field :discount, value: format('%.2f', @customer.discount.to_f), step: '0.01', class: "input-primary"
   .mt-5
     = form.submit "Save Customer", class: "btn-md bg-[color:var(--primary)] text-[color:var(--primary-text)]"
