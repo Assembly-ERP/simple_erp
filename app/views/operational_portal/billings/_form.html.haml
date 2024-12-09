@@ -1,0 +1,6 @@
+= form_with(model: @billing, url: operational_portal_billing_path) do |form|
+  .flex.gap-2.items-center.w-fit
+    = form.check_box :cash_payment, class: "checkbox-primary"
+    = form.label :cash_payment
+  .actions.mt-4
+    = form.submit "Save Billing", class: 'btn-sm bg-[color:var(--primary)] text-[color:var(--primary-text)]'

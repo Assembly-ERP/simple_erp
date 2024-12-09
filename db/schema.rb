@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_10_31_151526) do
+ActiveRecord::Schema[7.1].define(version: 2024_12_06_041020) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,6 +50,12 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_31_151526) do
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
+  end
+
+  create_table "billings", force: :cascade do |t|
+    t.boolean "cash_payment", default: true, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "brandings", force: :cascade do |t|
@@ -235,6 +241,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_10_31_151526) do
     t.index ["part_id", "product_id"], name: "index_parts_products_on_part_id_and_product_id", unique: true
     t.index ["part_id"], name: "index_parts_products_on_part_id"
     t.index ["product_id"], name: "index_parts_products_on_product_id"
+  end
+
+  create_table "payment_options", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "code", null: false
+    t.boolean "active", default: false, null: false
+    t.string "api_url"
+    t.string "api_token"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_payment_options_on_code", unique: true
   end
 
   create_table "poly_attributes", force: :cascade do |t|
