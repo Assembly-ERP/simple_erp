@@ -1,3 +1,4 @@
 .w-full.py-5.h-full
   %h1.text-2xl.font-medium.mb-4 Edit User
-  = render "form", path: operational_portal_user_path(modal: params[:modal])
+  = form_with(model: @user, url: operational_portal_user_path, html: {data: {controller: "users--form", turbo: "false"}}) do |form|
+    = render "form_inputs", resource: @user, form:
