@@ -4,16 +4,14 @@ module CustomerPortal
   class ProfilesController < CustomerPortal::BaseController
     authorize_resource class: false
 
-    def show
-      @user = current_user
-    end
+    before_action :set_user
 
-    def edit
-      @user = current_user
-    end
+    def show; end
+
+    def edit; end
 
     def update
-      if current_user.update(user_update_params)
+      if @user.update(user_params)
         redirect_to customer_portal_profile_path, notice: 'Profile was successfully updated.'
       else
         render :edit
@@ -22,8 +20,12 @@ module CustomerPortal
 
     private
 
-    def user_update_params
-      params.require(:user).permit(:email, :name, :phone, :password, :password_confirmation).compact_blank!
+    def set_user
+      @user = current_user
+    end
+
+    def user_params
+      params.require(:user).permit(:email, :first_name, :last_name, :phone, :password, :password_confirmation)
     end
   end
 end

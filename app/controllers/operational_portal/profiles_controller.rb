@@ -4,16 +4,14 @@ module OperationalPortal
   class ProfilesController < OperationalPortal::BaseController
     authorize_resource class: false
 
-    def show
-      @user = current_user
-    end
+    before_action :set_user
 
-    def edit
-      @user = current_user
-    end
+    def show; end
+
+    def edit; end
 
     def update
-      if current_user.update(user_update_params)
+      if @user.update(user_params)
         redirect_to operational_portal_profile_path, notice: 'Profile was successfully updated.'
       else
         render :edit
@@ -22,7 +20,11 @@ module OperationalPortal
 
     private
 
-    def user_update_params
+    def set_user
+      @user = current_user
+    end
+
+    def user_params
       params.require(:user)
             .permit(:email, :first_name, :last_name, :phone, :password, :password_confirmation)
     end
