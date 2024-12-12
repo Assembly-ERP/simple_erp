@@ -1,18 +1,16 @@
 # frozen_string_literal: true
 
-if ENV['PRODUCT_IMPORT_FILE'].present?
-  require 'csv'
+require 'csv'
 
-  path = Rails.root.join('imports/updated_spruill_products.csv')
+path = Rails.root.join('imports/updated_spruill_products.csv')
 
-  downcase_converter = ->(header) { header.downcase }
-  table = CSV.parse(File.read(path), headers: true, header_converters: downcase_converter)
+downcase_converter = ->(header) { header.downcase }
+table = CSV.parse(File.read(path), headers: true, header_converters: downcase_converter)
 
-  table.each do |row|
-    part = Part.find_by(sku: row['sku'])
+table.each do |row|
+  part = Part.find_by(sku: row['sku'])
 
-    next if part.blank?
+  next if part.blank?
 
-    part.update(description: row['new description'])
-  end
+  part.update(description: row['new description'])
 end
