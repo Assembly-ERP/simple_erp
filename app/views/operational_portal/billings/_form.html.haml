@@ -1,8 +1,8 @@
 = form_with(model: @billing, url: operational_portal_billing_path) do |form|
   .grid.gap-2
     .flex.gap-2.items-center.w-fit
-      = form.check_box :cash_payment, class: "checkbox-primary"
-      = form.label :cash_payment
+      = form.check_box :manual_payment, class: "checkbox-primary"
+      = form.label :manual_payment
     .flex.gap-2.items-center.w-fit
       = form.check_box :pay_later, class: "checkbox-primary"
       = form.label :pay_later
