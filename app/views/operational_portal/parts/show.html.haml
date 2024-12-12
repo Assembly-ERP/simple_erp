@@ -29,6 +29,9 @@
           %h2.font-semibold SKU
           %span= @part.sku.present? ? @part.sku : "N/A"
         .flex.flex-col.gap-1
+          %h2.font-semibold NMFC
+          %span= @part.nmfc.present? ? @part.nmfc : "N/A"
+        .flex.flex-col.gap-1
           %h2.font-semibold Category
           %span= @part.category.present? ? @part.category : "N/A"
         .flex.flex-col.gap-1
