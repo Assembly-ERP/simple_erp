@@ -119,6 +119,9 @@ end
 #                       operational_portal_profile GET    /operational_portal/profile(.:format)                                                             operational_portal/profiles#show
 #                                                  PATCH  /operational_portal/profile(.:format)                                                             operational_portal/profiles#update
 #                                                  PUT    /operational_portal/profile(.:format)                                                             operational_portal/profiles#update
+#                  edit_operational_portal_billing GET    /operational_portal/billing/edit(.:format)                                                        operational_portal/billings#edit
+#                       operational_portal_billing PATCH  /operational_portal/billing(.:format)                                                             operational_portal/billings#update
+#                                                  PUT    /operational_portal/billing(.:format)                                                             operational_portal/billings#update
 #    category_filter_customer_portal_catalog_index GET    /customer_portal/catalog/category_filter(.:format)                                                customer_portal/catalog#category_filter
 #                    customer_portal_catalog_index GET    /customer_portal/catalog(.:format)                                                                customer_portal/catalog#index
 #           quote_or_invoice_customer_portal_order GET    /customer_portal/orders/:id/quote_or_invoice(.:format)                                            customer_portal/orders#quote_or_invoice
