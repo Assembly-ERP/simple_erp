@@ -11,8 +11,8 @@ end
 # Table name: billings
 #
 #  id                 :bigint           not null, primary key
-#  cash_payment       :boolean          default(TRUE), not null
 #  enable_integration :boolean          default(FALSE), not null
+#  manual_price       :boolean          default(TRUE), not null
 #  pay_later          :boolean          default(TRUE), not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
