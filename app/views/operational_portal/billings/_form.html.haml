@@ -1,6 +1,14 @@
 = form_with(model: @billing, url: operational_portal_billing_path) do |form|
-  .flex.gap-2.items-center.w-fit
-    = form.check_box :cash_payment, class: "checkbox-primary"
-    = form.label :cash_payment
+  .grid.gap-2
+    .flex.gap-2.items-center.w-fit
+      = form.check_box :cash_payment, class: "checkbox-primary"
+      = form.label :cash_payment
+    .flex.gap-2.items-center.w-fit
+      = form.check_box :pay_later, class: "checkbox-primary"
+      = form.label :pay_later
+    %hr
+    .flex.gap-2.items-center.w-fit
+      = form.check_box :enable_integration, class: "checkbox-primary"
+      = form.label :enable_integration, "Payment integration"
   .actions.mt-4
     = form.submit "Save Billing", class: 'btn-sm bg-[color:var(--primary)] text-[color:var(--primary-text)]'
