@@ -37,7 +37,6 @@ namespace :operational_portal do
   resources :settings, only: %i[index edit update]
   resources :order_price_schedulers, only: %i[index]
   resources :users
-  resources :brandings, path: 'branding', only: %i[edit update]
   resources :customers do
     member do
       get :users
@@ -46,4 +45,5 @@ namespace :operational_portal do
   resources :invitations, only: %i[new create]
   resource :profile, only: %i[show edit update]
   resource :billing, only: %i[edit update]
+  resource :branding, only: %i[edit update]
 end
