@@ -25,7 +25,7 @@ module OperationalPortal
     end
 
     def billing_params
-      params.require(:billing).permit(:cash_payment)
+      params.require(:billing).permit(:cash_payment, :manual_payment, :enable_integration)
     end
   end
 end
