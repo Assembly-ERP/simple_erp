@@ -4,6 +4,8 @@ module OperationalPortal
   class BrandingsController < OperationalPortal::ManageBaseController
     load_and_authorize_resource
 
+    before_action :set_branding
+
     def edit; end
 
     def update
@@ -19,6 +21,10 @@ module OperationalPortal
     end
 
     private
+
+    def set_branding
+      @branding = Branding.client
+    end
 
     def branding_params
       params.require(:branding).permit(
