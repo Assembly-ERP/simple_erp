@@ -32,7 +32,7 @@ class User < ApplicationRecord
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :customer, presence: true, if: :customer_user?
-  validates :role, inclusion: { in: ROLES, message: 'Invalid role' }
+  validates :role, inclusion: { in: ROLES, message: 'invalid' }
 
   # Generators
   before_validation :fill_or_default_role
@@ -51,12 +51,12 @@ class User < ApplicationRecord
     OPERATION_ROLES.include?(role)
   end
 
-  def advance_admin_user?
-    role == 'admin' && advance
-  end
-
   def customer_user?
     CUSTOMER_ROLES.include?(role)
+  end
+
+  def advance_admin_user?
+    role == 'admin' && advance
   end
 
   def self.find_api_user(email:)
@@ -76,7 +76,7 @@ class User < ApplicationRecord
   end
 
   def temporary_password
-    return if password.present?
+    return if password.present? || password_confirmation.present?
 
     self.password = Devise.friendly_token[0, 20]
     self.password_confirmation = password
